@@ -2,34 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood-Yield | Coming Soon</title>
-    <link rel="stylesheet" href="../styles.css"> <style>
+    <link rel="stylesheet" href="../styles.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
         body {
-            background-image: url('background.png');
-            background-size: cover;
-            background-position: center;
+            /* Force the game background to override the main studio navy blue */
+            background-image: url('background.png') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+            background-color: #050505 !important;
+            
             height: 100vh;
+            margin: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            font-family: 'Rajdhani', sans-serif;
+            color: #fff;
         }
+
         .coming-soon-box {
-            background: rgba(0,0,0,0.7);
-            padding: 50px;
+            background: rgba(10, 10, 12, 0.85); /* Darker glass for better text pop */
+            padding: 60px 80px;
             border: 2px solid #8e44ad; /* Living Wood Purple */
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9), 0 0 20px rgba(142, 68, 173, 0.3);
+            border-radius: 4px;
         }
-        h1 { font-family: 'Cinzel', serif; font-size: 4rem; color: #d4af37; margin: 0; }
+
+        h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: 6rem; /* The "HUGE" title */
+            font-weight: 900;
+            background: linear-gradient(to bottom, #d4af37, #8e44ad); /* Gold to Purple */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0; 
+            letter-spacing: 10px;
+        }
+
+        .status-tag {
+            font-size: 2.5rem;
+            letter-spacing: 15px;
+            color: #C0C0C0; /* Brushed Silver */
+            margin: 20px 0;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .tech-stack {
+            font-size: 1.1rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        .highlight-ue5 { color: #ffffff; font-weight: bold; }
+        .highlight-handy { color: #00e5ff; font-weight: bold; text-shadow: 0 0 8px #00e5ff; }
+
+        .back-link {
+            margin-top: 40px;
+            display: inline-block;
+            color: #00e5ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .back-link:hover { text-shadow: 0 0 10px #00e5ff; transform: translateX(-5px); }
     </style>
 </head>
 <body>
+
     <div class="coming-soon-box">
         <h1>BLOOD-YIELD</h1>
-        <p style="letter-spacing: 5px; color: #aaa;">COMING SOON</p>
-        <br>
-        <a href="../index.html" style="color:#00e5ff; text-decoration:none;">← Return to Studio</a>
+        <div class="status-tag">COMING SOON</div>
+        
+        <div class="tech-stack">
+            Forged in <span class="highlight-ue5">Unreal Engine 5</span> <br>
+            Powered by <span class="highlight-handy">Handy Ultimate</span>
+        </div>
+
+        <a href="../index.html" class="back-link">← RETURN TO STUDIO HUB</a>
     </div>
+
 </body>
 </html>
