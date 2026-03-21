@@ -1,38 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Harrison Interactive Architects</title>
     <link rel="stylesheet" href="styles.css">
-    <title>About | Harrison Interactive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <nav>
-        <div class="logo-text">HARRISON INTERACTIVE</div>
+        <img src="handyicon.png" class="nav-logo" alt="HI Logo">
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="handy.html">Handy</a>
-            <a href="blood-yield.html">Blood-Yield</a>
-            <a href="about.html">About</a>
-            <a href="faq.html">Contact/FAQ</a>
+            <a href="index.html">HOME</a>
+            <a href="handy.html">HANDY</a>
+            <a href="Blood-Yield/">BLOOD-YIELD</a>
+            <a href="about.html" class="active">ABOUT</a>
+            <a href="faq.html">FAQ</a>
         </div>
     </nav>
 
+    <header class="hero">
+        <div class="hero-tag">STUDIO PROFILE // EST. 2026</div>
+        <h1>THE ARCHITECTS OF <br><span style="color:var(--accent-blue)">INNOVATION</span></h1>
+        <p>Harrison Interactive is a high-performance development studio dedicated to bridging the gap between raw logic and immersive imagination.</p>
+    </header>
+
     <main class="container">
-        <h1 style="color:var(--text-cyan)">The Philosophy of the Plumbing</h1>
         
-        <div class="placeholder-box">STUDIO HEADSHOT / WORKSPACE IMAGE</div>
+        <section class="grid">
+            <div class="card glass-card">
+                <h2 style="color:var(--accent-blue); margin-top:0;">THE PLUMBING</h2>
+                <p>At Harrison Interactive, we believe the most immersive experiences are built on a foundation of <strong>impeccable data flow</strong>. Whether we are forging the dark fantasy realms of <em>Blood-Yield</em> or architecting tools like <em>Handy Ultimate</em>, we prioritize the "plumbing"—the intricate logic that ensures a project is as performant as it is beautiful.</p>
+                <blockquote style="border-left: 3px solid var(--accent-blue); padding-left: 20px; margin: 20px 0; font-style: italic; color: #fff;">
+                    "We don't just build games; we build the systems that make games possible."
+                </blockquote>
+            </div>
 
-        <section>
-            <p>Harrison Interactive was founded on the principle that the most immersive experiences are built on a foundation of impeccable data flow. Whether we are forging the dark fantasy realms of <strong>Blood-Yield</strong> or architecting professional-grade tools like <strong>Handy Ultimate</strong>, we prioritize the "plumbing"—the intricate logic that ensures a project is as performant as it is beautiful.</p>
-
-            <blockquote style="border-left: 4px solid var(--target-blue); padding-left: 1.5rem; margin: 2rem 0; font-style: italic;">
-                "We don't just build games; we build the systems that make games possible."
-            </blockquote>
-
-            <h2 style="color:var(--text-cyan)">Our Process</h2>
-            <div class="card">
-                <p>By blending the rapid iteration of <strong>UMG Blueprints</strong> with the industrial power of <strong>Python automation</strong>, we create a hybrid development environment that scales. Our mission is to provide the Fab Marketplace and the gaming community with products that are technically transparent and artistically uncompromising.</p>
+            <div class="card glass-card">
+                <h2 style="color:var(--accent-blue); margin-top:0;">THE INNOVATION LOOP</h2>
+                <p><strong>Handy Ultimate</strong> is the forge; <strong>Blood-Yield</strong> is the blade. Our vision is a self-sustaining cycle of development: we build Handy to automate the complexities of Unreal Engine 5, and we use those very tools to manifest the visceral world of <em>Blood-Yield</em>.</p>
+                <p style="font-size: 0.9rem; color: #8892b0;">Every modular action in the Handy suite has been battle-tested in a live production environment, ensuring that the "plumbing" we provide the community is capable of supporting world-class RPG architecture.</p>
             </div>
         </section>
+
+        <section style="margin-top: 40px;" class="card glass-card">
+            <h2 style="color:var(--accent-blue); text-align:center;">OUR VISION</h2>
+            <p style="text-align:center; max-width: 800px; margin: 0 auto;">
+                To redefine the relationship between <strong>Game Developer</strong> and <strong>Toolmaker</strong>. We envision a future where high-level Python automation and AI-driven networking allow small teams to execute with the industrial power of a AAA studio.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 40px; margin-top: 30px;">
+                <div style="text-align:center;"><span class="dot white"></span><br><small>EXEC</small></div>
+                <div style="text-align:center;"><span class="dot pink"></span><br><small>STRING</small></div>
+                <div style="text-align:center;"><span class="dot cyan-glow"></span><br><small>NETWORK</small></div>
+            </div>
+        </section>
+
     </main>
+
+    <footer>
+        OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE <br>
+        EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION.
+    </footer>
+
 </body>
 </html>
