@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Harrison Interactive Architects</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="handy-window">
 
     <nav>
         <img src="handyicon.png" class="nav-logo" alt="HI Logo">
@@ -20,53 +20,60 @@
         </div>
     </nav>
 
-    <main class="container handy-window" style="margin-top: 40px; border-radius: 8px;">
+    <main class="container" style="position:relative; z-index: 10;">
         
-        <header style="padding: 20px; border-bottom: 1px solid var(--border-glow); margin-bottom: 40px;">
-            <div style="font-family:'Orbitron'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px;">HARRISON_INTERACTIVE // SYS_PROFILE</div>
-            <h1 style="margin: 10px 0 0 0; font-size: 3rem;">STUDIO <span style="color:var(--accent-blue)">ARCHITECTS</span></h1>
+        <header style="padding: 40px; border-bottom: 1px solid var(--border-glow); margin-bottom: 60px; text-align: center;">
+            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 15px;">
+                [ SCANNING IDENTITY... ] // [ STATUS: CYBER ELITE ]
+            </div>
+            <h1 style="font-size: 4rem; margin: 0;">HARRISON <span style="color:var(--accent-blue)">INTERACTIVE</span></h1>
+            <p style="letter-spacing: 4px; color: #475569; font-size: 0.9rem; margin-top: 10px;">
+                UNRIVALED INNOVATION // EST. 2026 // UNREAL ENGINE AI
+            </p>
         </header>
 
-        <section class="grid" style="position:relative; z-index: 10;">
+        <section class="grid">
             
             <div class="ue-panel">
-                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">MODULE_01 // PHILOSOPHY</div>
-                <h2 style="color:var(--accent-blue); margin-top:0;">THE PLUMBING</h2>
-                <p>We prioritize the "plumbing"—the intricate logic that ensures a project is as performant as it is beautiful. Every experience is built on a foundation of <strong>impeccable data flow</strong>.</p>
+                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">DIRECTIVE_01 // THE PLUMBING</div>
+                <h2 style="color:var(--accent-blue);">SYSTEM ARCHITECTURE</h2>
+                <p>We don't just build games; we architect the **Logic Manifolds** that make them possible. Our philosophy is rooted in "The Plumbing"—the belief that flawless data flow and technical transparency are the only ways to achieve true immersion.</p>
                 <div style="margin-top:20px; border-top: 1px solid #1e293b; padding-top: 15px;">
-                    <span class="dot white"></span> <small style="letter-spacing: 2px;">LOGIC_STABLE</small>
+                    <span class="dot white"></span> <small>DATA_INTEGRITY_STABLE</small>
                 </div>
             </div>
 
             <div class="ue-panel">
-                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">MODULE_02 // SYMBIOSIS</div>
-                <h2 style="color:var(--accent-blue); margin-top:0;">THE INNOVATION LOOP</h2>
-                <p><strong>Handy Ultimate</strong> is the forge; <strong>Blood-Yield</strong> is the blade. We stress-test our genre-agnostic automation tools in the trenches of live production.</p>
+                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">DIRECTIVE_02 // GENRE AGNOSTIC</div>
+                <h2 style="color:var(--accent-blue);">INDUSTRIAL SCALING</h2>
+                <p>Harrison Interactive builds tools that scale. While we test our tech in the dark fantasy trenches of <em>Blood-Yield</em>, our systems are engineered for **any genre**. From shooters to simulators, we provide the industrial power of a AAA studio to teams of any size.</p>
                 <div style="margin-top:20px; border-top: 1px solid #1e293b; padding-top: 15px;">
-                    <span class="dot pink"></span> <small style="letter-spacing: 2px;">GENRE_AGNOSTIC_ACTIVE</small>
+                    <span class="dot pink"></span> <small>GENRE_VERSATILITY_ACTIVE</small>
                 </div>
             </div>
 
         </section>
 
-        <section class="ue-panel" style="margin-top: 40px; text-align: center; background: rgba(0, 210, 255, 0.02); z-index: 10; position:relative;">
-            <h2 style="letter-spacing: 10px;">OUR VISION</h2>
-            <p style="max-width: 800px; margin: 20px auto; color: #fff; line-height: 1.8;">
-                To empower developers across <strong>any genre</strong> with the industrial power of AAA automation. We bridge the gap between human imagination and machine execution.
-            </p>
-            <div style="display: flex; justify-content: center; gap: 40px; margin-top: 20px;">
-                <div style="text-align:center;"><span class="dot white"></span><br><small>EXEC</small></div>
-                <div style="text-align:center;"><span class="dot pink"></span><br><small>STRING</small></div>
-                <div style="text-align:center;"><span class="dot cyan-glow"></span><br><small>NETWORK</small></div>
+        <section class="ue-panel" style="margin-top: 60px; background: rgba(0, 210, 255, 0.02); border: 1px solid var(--border-glow);">
+            <div style="display: flex; gap: 40px; align-items: center;">
+                <div style="flex: 1;">
+                    <h2 style="letter-spacing: 5px;">STUDIO VISION</h2>
+                    <p style="color: #fff; line-height: 1.8;">
+                        Harrison Interactive was founded as a technical hub for the modern developer. We specialize in the **Hybrid Logic Architecture**—merging the visual accessibility of UMG Blueprints with the raw automation power of Python. Our mission is to ensure that no imagination is ever limited by the complexity of its own plumbing.
+                    </p>
+                    <div style="display: flex; gap: 30px; margin-top: 20px;">
+                        <span style="font-size: 0.7rem; color: var(--accent-blue); font-family: 'Fira Code';">#UE5_AUTOMATION</span>
+                        <span style="font-size: 0.7rem; color: var(--accent-blue); font-family: 'Fira Code';">#AI_OMNI_LINK</span>
+                        <span style="font-size: 0.7rem; color: var(--accent-blue); font-family: 'Fira Code';">#INDUSTRIAL_LOGIC</span>
+                    </div>
+                </div>
+                <div style="width: 200px; height: 200px; border: 1px solid var(--border-glow); display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5);">
+                    <img src="handyicon.png" style="width: 80%; opacity: 0.5; filter: grayscale(100%) brightness(200%);">
+                </div>
             </div>
         </section>
 
-    </main>
-
-    <footer style="margin-top: 40px;">
-        OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE <br>
-        EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION.
-    </footer>
-
-</body>
-</html>
+        <section style="margin-top: 80px; text-align: center; border-top: 1px solid #1e293b; padding-top: 40px;">
+            <div style="display: inline-block; padding: 20px; border: 1px solid var(--accent-blue); background: rgba(0, 210, 255, 0.05);">
+                <div style="font-size: 0.6rem; letter-spacing: 2px;">OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE</div>
+                <div style="font-family:'Orbitron'; font-size: 1.2rem; color: white; margin-top: 10px;">H
