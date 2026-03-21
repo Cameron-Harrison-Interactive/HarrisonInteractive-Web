@@ -3,268 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood-Yield | In Development</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* === CORE VARIABLES === */
-        :root {
-            --iron-base: #2a2e35;
-            --iron-highlight: #8892a0;
-            --iron-glow: rgba(138, 43, 226, 0.6);
-            
-            --wood-base: #3e2723;
-            --wood-highlight: #d4af37;
-            --wood-glow: rgba(50, 205, 50, 0.4);
-            
-            --glass-bg: rgba(10, 10, 12, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #050505;
-            /* Using your generated image as the cinematic backdrop */
-            background-image: url('Gemini_Generated_Image_gopzaugopzaugopz.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            overflow: hidden; /* Locks the page for a pure splash screen feel */
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Dark overlay to ensure text pops against the detailed art */
-        .overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
-            z-index: 1;
-        }
-
-        /* === PARTICLE CANVAS === */
-        #particle-canvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* === CONTENT WRAPPER === */
-        .content {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        /* === VERTICAL LOGO === */
-        .logo-stack {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 0.85;
-            margin-bottom: 50px;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
-        }
-
-        /* Cold Iron */
-        .blood-text {
-            font-family: 'Impact', sans-serif;
-            font-size: 8rem;
-            text-transform: uppercase;
-            background: linear-gradient(to bottom, #d1d8e0, var(--iron-highlight), #4b6584);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 6px;
-            position: relative;
-        }
-        
-        .blood-text::after {
-            content: 'BLOOD';
-            position: absolute;
-            left: 0; top: 0;
-            z-index: -1;
-            background: none;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px var(--iron-glow), 0px 5px 5px rgba(0,0,0,1);
-        }
-
-        /* Living Wood */
-        .yield-text {
-            font-family: 'Cinzel', serif;
-            font-size: 7.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(to bottom, #f1c40f, var(--wood-highlight), #8e44ad);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: living-breath 4s ease-in-out infinite;
-            position: relative;
-        }
-
-        .yield-text::after {
-            content: 'YIELD';
-            position: absolute;
-            left: 0; top: 0;
-            z-index: -1;
-            background: none;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px var(--wood-glow), 0px 5px 5px rgba(0,0,0,1);
-        }
-
-        /* === DEVELOPMENT NOTICE === */
-        .dev-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid var(--glass-border);
-            border-radius: 4px;
-            padding: 30px 50px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.02);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Subtle glowing line at the top of the panel */
-        .dev-panel::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--wood-highlight), var(--iron-highlight), transparent);
-        }
-
-        .status-header {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            letter-spacing: 4px;
-            color: #fff;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,1);
-        }
-
-        .tool-subtext {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: #aaa;
-            text-transform: uppercase;
-        }
-        
-        .highlight-tool {
-            color: #00e5ff;
-            font-weight: 700;
-        }
-
-        /* === KEYFRAMES === */
-        @keyframes living-breath {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.02); filter: brightness(1.2); }
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 900px) {
-            .blood-text { font-size: 5rem; }
-            .yield-text { font-size: 4.5rem; }
-            .dev-panel { padding: 20px; width: 90%; }
-            .status-header { font-size: 1.4rem; }
-            .tool-subtext { font-size: 1rem; }
-        }
-    </style>
+    <title>Harrison Interactive | Integrating the Digital Pulse</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div class="overlay"></div>
-    <canvas id="particle-canvas"></canvas>
-
-    <div class="content">
-        <div class="logo-stack">
-            <div class="blood-text">BLOOD</div>
-            <div class="yield-text">YIELD</div>
-        </div>
-
-        <div class="dev-panel">
-            <div class="status-header">CURRENTLY IN DEVELOPMENT</div>
-            <div class="tool-subtext">
-                Built with <span class="highlight-tool">Handy</span> for Unreal Engine 5<br>
-                (Also a Work-in-Progress)
+    <nav>
+        <div class="nav-container">
+            <img src="handyicon.png" class="nav-logo" alt="HI Logo">
+            <div class="nav-links">
+                <a href="index.html" class="active">HOME</a>
+                <a href="handy.html">HANDY</a>
+                <a href="blood-yield.html">BLOOD-YIELD</a>
+                <a href="about.html">ABOUT</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">CONTACT</a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <script>
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    <header class="hero">
+        <div class="hero-content">
+            <h1>INTEGRATING THE <br>DIGITAL PULSE</h1>
+            <p>Advanced Interactive Solutions for a Connected Future.</p>
+            <a href="#projects" class="btn-glow">Explore Our Projects</a>
+        </div>
+    </header>
 
-        let particlesArray = [];
+    <main class="container" id="projects">
+        <div class="grid">
+            <div class="card card-handy">
+                <div class="card-img">
+                    <img src="handyicon.png" alt="Handy">
+                </div>
+                <div class="card-header">HANDY</div>
+                <div class="card-body">HANDY: The Apex of Haptic Control & Precision</div>
+            </div>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                
-                // Ambient gold and blue sparks floating across the dark fantasy background
-                this.color = Math.random() > 0.5 ? 'rgba(212, 175, 55, 0.4)' : 'rgba(0, 229, 255, 0.3)';
-            }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+            <div class="card card-blood">
+                <div class="card-img">
+                    <a href="Blood-Yield/index.html"><img src="Blood-Yield/background.png" alt="Blood-Yield"></a>
+                </div>
+                <div class="card-header">BLOOD-YIELD</div>
+                <div class="card-body">BLOOD-YIELD: High-Performance Biotech-Digital Solutions</div>
+            </div>
+        </div>
 
-        function initParticles() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.width * canvas.height) / 7000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
+        <div class="info-section">
+            <div class="about-brief">
+                <h2>ABOUT US</h2>
+                <p>Born from the fusion of advanced haptics and digital network infrastructure, Harrison Interactive defines the next generation of human-machine interaction.</p>
+                <a href="about.html" class="btn-small">Learn More</a>
+            </div>
+            <div class="faq-brief">
+                <h2>FAQ</h2>
+                <div class="faq-item">
+                    <strong>What is common high-tech integration?</strong>
+                    <p>Answers, fusion high-tech integration conceives to connect interaction...</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        initParticles();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        });
-    </script>
+    <footer>
+        <div class="footer-content">
+            <img src="handyicon.png" class="footer-logo">
+            <div class="contact-info">
+                <p>Email: dev@harrisoninteractive.dev</p>
+                <p>Location: Studio Hub</p>
+            </div>
+            <p class="copyright">© 2026 Harrison Interactive, INC.</p>
+        </div>
+    </footer>
 </body>
 </html>
