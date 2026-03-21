@@ -5,58 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harrison Interactive | Digital Pulse Hub</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="handy-window">
 
     <nav>
         <img src="handyicon.png" class="nav-logo" alt="HI Logo">
         <div class="nav-links">
-            <a href="index.html">HOME</a>
-            <a href="handy.html">HANDY</a> <a href="Blood-Yield/">BLOOD-YIELD</a>
+            <a href="index.html" class="active">HOME</a>
+            <a href="handy.html">HANDY</a>
+            <a href="Blood-Yield/">BLOOD-YIELD</a>
             <a href="about.html">ABOUT</a>
             <a href="faq.html">FAQ</a>
         </div>
     </nav>
 
-    <header class="hero">
-        <h1>INTEGRATING THE <br><span style="color:var(--accent-blue)">DIGITAL PULSE</span></h1>
-        <p>Advanced Interactive Solutions for a Connected Future. We specialize in high-performance Unreal Engine tools and atmospheric experiences.</p>
-        <a href="#projects" class="btn-main">EXPLORE OUR PROJECTS</a>
-    </header>
+    <main class="container" style="position:relative; z-index: 10;">
+        
+        <header class="hero" style="border-bottom: 1px solid var(--border-glow); padding-bottom: 60px; margin-bottom: 60px;">
+            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 15px;">
+                [ SYSTEM_INIT: SUCCESS ] // [ BROADCAST_NODE: PRIMARY ]
+            </div>
+            <h1>INTEGRATING THE <br><span style="color:var(--accent-blue)">DIGITAL PULSE</span></h1>
+            <p style="font-size: 1.2rem; color: #8892b0; max-width: 700px; margin-top: 20px; line-height: 1.6;">
+                Advanced Interactive Solutions for a Connected Future. We architect professional-grade Unreal Engine tools and atmospheric experiences across all genres.
+            </p>
+            <a href="#projects" class="btn-main" style="margin-top: 30px;">> ACCESS_PROJECT_DATA</a>
+        </header>
 
-    <main class="container" id="projects">
-        <div class="grid">
+        <section class="grid" id="projects">
             
-            <div class="card">
-                <div class="card-img">
-                    <img src="handyicon.png" style="object-fit: contain; padding: 40px;" alt="Handy Tool">
+            <div class="card ue-panel">
+                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">ASSET_TYPE // EDITOR_UTILITY</div>
+                <div class="card-img" style="height: 200px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3);">
+                    <img src="handyicon.png" style="width: 50%; filter: drop-shadow(0 0 15px var(--accent-blue));" alt="Handy Tool">
                 </div>
                 <div class="card-content">
-                    <h3>HANDY ULTIMATE</h3>
-                    <p>The apex of Unreal Engine Editor automation. Built with a hybrid Python-UMG architecture for professional-grade performance.</p>
-                    <a href="handy.html" style="color:white; font-size: 0.8rem; text-decoration: none; border-bottom: 1px solid var(--accent-blue);">VIEW DOCUMENTATION →</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-img">
-                    <img src="Blood-Yield/background.png" alt="Blood-Yield Game">
-                </div>
-                <div class="card-content">
-                    <h3>BLOOD-YIELD</h3>
-                    <p>A visceral dark fantasy RPG forged in the fires of Unreal Engine 5. Experience a world where every decision yields a consequence.</p>
-                    <a href="Blood-Yield/" style="color:white; font-size: 0.8rem; text-decoration: none; border-bottom: 1px solid var(--accent-blue);">ENTER THE WORLD →</a>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <footer>
-        EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION <br>
-        © Harrison Interactive, INC.
-    </footer>
-
-</body>
-</html>
+                    <h3 style="color:var(--accent-blue);">HANDY ULTIMATE</h3>
+                    <p style="font-size: 0.85rem;">The apex of Unreal Engine 5 automation. A hybrid Python-UMG bridge built for industrial-scale project management.</p>
+                    <div style="margin: 15px 0; display: flex; gap: 15px;">
+                        <span class="dot white"></span> <span class="dot pink"></span> <span class="dot cyan-glow"></span>
+                    </div>
+                    <a href="handy.html" style="color:white; font-size: 0.75rem; text-decoration: none; border-bottom: 1px solid var(--
