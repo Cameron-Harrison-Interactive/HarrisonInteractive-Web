@@ -1,8 +1,8 @@
 /* --- HARRISON INTERACTIVE: CYBER-TECH CORE --- */
 :root {
-    --bg-deep: #0A192F;      /* Primary Deep Navy */
-    --accent-blue: #00D2FF;  /* Electric Blue */
-    --metal-silver: #C0C0C0; /* Brushed Silver */
+    --bg-deep: #0A192F;
+    --accent-blue: #00D2FF;
+    --metal-silver: #C0C0C0;
     --border-glow: rgba(0, 210, 255, 0.3);
     --glass: rgba(15, 23, 42, 0.85);
 }
@@ -13,9 +13,9 @@ body {
     background-color: var(--bg-deep);
     background-image: 
         radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
-        url('https://www.transparenttextures.com/patterns/circuit-board.png'); /* Subtle circuit texture */
+        url('https://www.transparenttextures.com/patterns/circuit-board.png');
     color: var(--metal-silver);
-    font-family: 'Inter', 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
     line-height: 1.6;
     overflow-x: hidden;
@@ -47,15 +47,9 @@ nav {
     font-weight: bold;
     transition: 0.3s;
 }
-.nav-links a:hover { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+.nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
-/* --- HERO SECTION --- */
-.hero {
-    padding: 100px 10%;
-    text-align: left;
-    border-bottom: 1px solid var(--border-glow);
-}
-
+.hero { padding: 100px 10%; text-align: left; border-bottom: 1px solid var(--border-glow); }
 .hero h1 { font-size: 4rem; line-height: 1.1; margin: 0; }
 .hero p { font-size: 1.2rem; color: #8892b0; max-width: 600px; margin-top: 20px; }
 
@@ -72,7 +66,6 @@ nav {
 }
 .btn-main:hover { background: var(--accent-blue); box-shadow: 0 0 30px var(--accent-blue); }
 
-/* --- PROJECT CARDS --- */
 .container { padding: 80px 10%; }
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 
@@ -87,76 +80,23 @@ nav {
 
 .card-img { height: 250px; background: #112240; overflow: hidden; position: relative; }
 .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-.card:hover .card-img img { transform: scale(1.1); }
 
 .card-content { padding: 30px; }
 .card-content h3 { color: var(--accent-blue); margin-top: 0; }
 .card-content p { font-size: 0.9rem; color: #8892b0; }
 
-/* --- FOOTER --- */
-footer {
-    text-align: center;
-    padding: 60px;
-    border-top: 1px solid var(--border-glow);
-    font-size: 0.8rem;
-    color: #475569;
-}
+footer { text-align: center; padding: 60px; border-top: 1px solid var(--border-glow); font-size: 0.8rem; color: #475569; }
+
 /* --- HANDY PAGE SPECIFICS --- */
-.handy-hero {
-    text-align: center;
-    padding: 80px 10%;
-    background: radial-gradient(circle at center, rgba(0, 210, 255, 0.1) 0%, transparent 70%);
-}
-
-.hero-tag {
-    display: inline-block;
-    padding: 5px 15px;
-    border: 1px solid var(--accent-blue);
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
-    color: var(--accent-blue);
-}
-
-.glass-card {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
+.handy-hero { text-align: center; padding: 80px 10%; background: radial-gradient(circle at center, rgba(0, 210, 255, 0.1) 0%, transparent 70%); }
+.hero-tag { display: inline-block; padding: 5px 15px; border: 1px solid var(--accent-blue); font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 15px; color: var(--accent-blue); }
+.glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
 .spec-list { list-style: none; padding: 0; }
 .spec-list li { margin-bottom: 12px; font-size: 0.9rem; display: flex; align-items: center; }
-
-/* Blueprint Node Colors */
 .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 15px; display: inline-block; }
-.dot.white { background: #ffffff; box-shadow: 0 0 5px #fff; } /* Exec */
-.dot.pink { background: #f472b6; box-shadow: 0 0 5px #f472b6; } /* String */
-
-/* Terminal Box */
-.terminal-box {
-    background: #000;
-    border: 1px solid #334155;
-    padding: 20px;
-    border-radius: 4px;
-    margin: 20px 0;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.8rem;
-    color: #4ade80; /* Matrix Green */
-}
-
-.actions-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 50px;
-}
-
-.action-item {
-    padding: 20px;
-    border-left: 2px solid var(--accent-blue);
-    background: rgba(255,255,255,0.02);
-}
-/* --- TIER COMPARISON STYLING --- */
+.dot.white { background: #ffffff; box-shadow: 0 0 5px #fff; }
+.dot.pink { background: #f472b6; box-shadow: 0 0 5px #f472b6; }
+.terminal-box { background: #000; border: 1px solid #334155; padding: 20px; border-radius: 4px; margin: 20px 0; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: #4ade80; }
 .tier-section { margin-top: 80px; padding: 40px 0; border-top: 1px solid var(--border-glow); }
 .table-container { overflow-x: auto; background: rgba(10, 25, 47, 0.5); border-radius: 4px; border: 1px solid #233554; }
 table { width: 100%; border-collapse: collapse; text-align: left; }
