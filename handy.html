@@ -3,52 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Handy Ultimate | Unreal Engine Automation</title>
+    <title>Handy Ultimate | Technical Specifications</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body class="handy-page">
+<body class="handy-window">
 
     <nav>
         <img src="handyicon.png" class="nav-logo" alt="HI Logo">
         <div class="nav-links">
             <a href="index.html">HOME</a>
-            <a href="Blood-Yield/">BLOOD-YIELD</a>
             <a href="handy.html" class="active">HANDY</a>
-            <a href="faq.html">FAQ</a>
+            <a href="Blood-Yield/">BLOOD-YIELD</a>
+            <a href="about.html">ABOUT</a> <a href="faq.html">FAQ</a>
         </div>
     </nav>
 
-    <header class="handy-hero">
-        <div class="hero-tag">ULTIMATE EDITION</div>
-        <h1>HANDY <span style="color:var(--accent-blue)">ULTIMATE</span></h1>
-        <p>The Omni-Link for Unreal Engine 5. A modular, marketplace-ready automation suite blending UMG intuition with Python industrial power.</p>
-    </header>
-
-    <main class="container">
+    <main class="container" style="position:relative; z-index: 10;">
         
-        <div class="grid">
-            <div class="card glass-card">
-                <h3 style="color:var(--accent-blue)">Visual UI (Blueprints)</h3>
+        <header style="padding: 40px; border-bottom: 1px solid var(--border-glow); margin-bottom: 40px; text-align: center;">
+            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 10px;">
+                [ ASSET_TYPE: EDITOR_UTILITY ] // [ VERSION: ULTIMATE_1.0 ]
+            </div>
+            <h1 style="font-size: 3.5rem; margin: 0;">HANDY <span style="color:var(--accent-blue)">ULTIMATE</span></h1>
+            <p style="letter-spacing: 3px; color: #475569; font-size: 0.9rem; margin-top: 10px;">
+                HYBRID PYTHON-UMG AUTOMATION // GENRE AGNOSTIC
+            </p>
+        </header>
+
+        <section class="grid">
+            
+            <div class="ue-panel">
+                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">MODULE_01 // VISUAL_UI</div>
+                <h3 style="color:var(--accent-blue);">BLUEPRINT INTERFACE</h3>
                 <ul class="spec-list">
-                    <li><span class="dot white"></span> <strong>EUW_HI_HandyMain</strong> — The AI Terminal Interface</li>
-                    <li><span class="dot white"></span> <strong>EUW_HI_HandyShelf</strong> — Dockable Toolbar Logic</li>
-                    <li><span class="dot white"></span> <strong>EUW_HI_HandySettings</strong> — API & Network Config</li>
+                    <li><span class="dot white"></span> <strong>EUW_HI_HandyMain</strong> — Terminal Hub</li>
+                    <li><span class="dot white"></span> <strong>EUW_HI_HandyShelf</strong> — Toolbar Dock</li>
+                    <li><span class="dot white"></span> <strong>EUW_HI_HandySettings</strong> — Config Port</li>
                 </ul>
             </div>
 
-            <div class="card glass-card">
-                <h3 style="color:var(--accent-blue)">Logic Brains (Python)</h3>
+            <div class="ue-panel">
+                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">MODULE_02 // LOGIC_BRAIN</div>
+                <h3 style="color:var(--accent-blue);">PYTHON CORE</h3>
                 <ul class="spec-list">
-                    <li><span class="dot pink"></span> <strong>handy_router.py</strong> — The Omni-Link Request Handler</li>
-                    <li><span class="dot pink"></span> <strong>handy_core_utils.py</strong> — Global Logging & Save States</li>
-                    <li><span class="dot pink"></span> <strong>handy_omni_network.py</strong> — Gemini ↔ OpenAI Bridge</li>
+                    <li><span class="dot pink"></span> <strong>handy_router.py</strong> — Signal Routing</li>
+                    <li><span class="dot pink"></span> <strong>handy_core_utils.py</strong> — Global Logic</li>
+                    <li><span class="dot cyan-glow"></span> <strong>handy_omni_network.py</strong> — AI Link</li>
                 </ul>
             </div>
-        </div>
 
-        <section class="plumbing-section">
-            <h2>THE PLUMBING</h2>
+        </section>
+
+        <section class="ue-panel" style="margin-top: 40px; background: rgba(0, 0, 0, 0.4);">
+            <h2 style="font-family:'Orbitron'; letter-spacing: 5px;">THE PLUMBING</h2>
             <div class="terminal-box">
                 <pre><code>
 // Exec Signal (White) -> UI Interaction
@@ -60,11 +68,13 @@
 [LOG]: SUCCESS. Optimization manifold active.
                 </code></pre>
             </div>
-            <p>Handy uses a <strong>Hybrid Logic Architecture</strong>. When you fire an <strong>Exec (White)</strong> signal in the UMG UI, the <strong>handy_router.py</strong> validates the request before passing the heavy lifting to the Python backend. This ensures the Unreal Editor remains responsive even during massive asset batches.</p>
+            <p style="font-size: 0.9rem; color: #8892b0; margin-top: 15px;">
+                Handy utilizes a **Hybrid Logic Architecture**. When you trigger an <strong>Exec (White)</strong> signal in the UMG UI, the <strong>handy_router.py</strong> validates the request before passing the task to the Python backend.
+            </p>
         </section>
 
-        <section class="tier-section">
-            <h2 style="text-align:center; margin-bottom: 2rem;">INTERFACE TIER COMPARISON</h2>
+        <section class="tier-section ue-panel" style="margin-top: 40px;">
+            <h2 style="text-align:center; margin-bottom: 2rem; letter-spacing: 5px;">INTERFACE TIER COMPARISON</h2>
             <div class="table-container">
                 <table>
                     <thead>
@@ -79,20 +89,18 @@
                         <tr><td>UMG HandyShelf (Toolbar)</td><td><span class="dot white"></span></td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
                         <tr><td>HandyMain AI Terminal</td><td>—</td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
                         <tr><td>Graph Cleaner Action</td><td><span class="dot white"></span></td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
-                        <tr><td>Atmospherics & Waygate</td><td>—</td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
-                        <tr><td>Python Core Logic Bridge</td><td>—</td><td><span class="dot pink"></span></td><td class="highlight-column"><span class="dot pink"></span></td></tr>
+                        <tr><td>Python Logic Bridge</td><td>—</td><td><span class="dot pink"></span></td><td class="highlight-column"><span class="dot pink"></span></td></tr>
                         <tr><td>Omni-Network (AI Bridge)</td><td>—</td><td>—</td><td class="highlight-column"><span class="dot cyan-glow"></span></td></tr>
-                        <tr><td>Validator Diagnostics</td><td>—</td><td>—</td><td class="highlight-column"><span class="dot cyan-glow"></span></td></tr>
                     </tbody>
                 </table>
             </div>
-            <p style="text-align:center; margin-top:20px; font-size:0.75rem; color:#475569;">// Ultimate includes full source code for <code>handy_omni_network.py</code></p>
         </section>
 
     </main>
 
-    <footer>
+    <footer style="margin-top: 60px; text-align: center; padding-bottom: 40px;">
         "EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION."
     </footer>
+
 </body>
 </html>
