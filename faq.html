@@ -1,69 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support | Harrison Interactive Signal Terminal</title>
     <link rel="stylesheet" href="styles.css">
-    <title>FAQ & Contact | Harrison Interactive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="handy-window">
+
     <nav>
-        <div class="logo-text">HARRISON INTERACTIVE</div>
+        <img src="handyicon.png" class="nav-logo" alt="HI Logo">
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
+            <a href="index.html">HOME</a>
+            <a href="handy.html">HANDY</a>
+            <a href="Blood-Yield/">BLOOD-YIELD</a>
+            <a href="about.html">ABOUT</a>
+            <a href="faq.html" class="active">FAQ</a>
         </div>
     </nav>
 
-    <main class="container">
-        <h1 style="color:var(--text-cyan)">Support & Inquiries</h1>
+    <main class="container" style="position:relative; z-index: 10;">
+        
+        <header style="padding: 40px; border-bottom: 1px solid var(--border-glow); margin-bottom: 60px; text-align: center;">
+            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 15px;">
+                [ INTERFACE_O4 ] // [ STATUS: LISTENING ]
+            </div>
+            <h1 style="font-size: 3.5rem; margin: 0;">SIGNAL <span style="color:var(--accent-blue)">TERMINAL</span></h1>
+            <p style="letter-spacing: 2px; color: #475569; font-size: 0.9rem; margin-top: 10px;">
+                FREQUENTLY ASKED QUESTIONS // DIRECT DATA UPLOAD
+            </p>
+        </header>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
-            <section>
-                <h2>Frequently Asked Questions</h2>
-                <div class="card" style="margin-bottom:1rem">
-                    <h4 style="color:var(--text-cyan)">What is the "Blood-Yield" release schedule?</h4>
-                    <p>We are currently entering the final polish phase for our Kickstarter demo. Follow our socials for the official date announcement.</p>
+        <section class="grid">
+            
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <h2 style="font-family:'Orbitron'; font-size: 1.2rem; color: var(--accent-blue);">KNOWLEDGE_BASE</h2>
+                
+                <div class="ue-panel">
+                    <h4 style="color:white; margin-bottom: 10px;">What is the "Blood-Yield" release schedule?</h4>
+                    <p style="font-size: 0.85rem; color: #8892b0;">We are currently entering the final polish phase for our **Kickstarter 2026** demo. Follow our official hub for the signal drop.</p>
                 </div>
-                <div class="card" style="margin-bottom:1rem">
-                    <h4 style="color:var(--text-cyan)">Is Handy Ultimate compatible with UE 5.4?</h4>
-                    <p>Yes. We ensure all our Fab Marketplace tools are tested against the latest Unreal Engine stable releases.</p>
-                </div>
-                <div class="card">
-                    <h4 style="color:var(--text-cyan)">Do you offer custom tool development?</h4>
-                    <p>We are occasionally open to bespoke Python/UMG tool development for other studios. Use the form to reach out.</p>
-                </div>
-            </section>
 
-            <section>
-                <h2>Contact the Studio</h2>
-                <form>
-                    <div class="form-group">
-                        <label style="color:var(--text-cyan)">Name</label>
-                        <input type="text" placeholder="Cameron Harrison">
-                    </div>
-                    <div class="form-group">
-                        <label style="color:var(--text-cyan)">Email</label>
-                        <input type="email" placeholder="dev@harrisoninteractive.com">
-                    </div>
-                    <div class="form-group">
-                        <label style="color:var(--text-cyan)">Subject</label>
-                        <select style="width:100%; padding:1rem; background:#1e293b; color:white; border:1px solid var(--border-metal);">
-                            <option>Blood-Yield Kickstarter</option>
-                            <option>Handy Ultimate Support</option>
-                            <option>General Inquiry</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label style="color:var(--text-cyan)">Message</label>
-                        <textarea rows="5"></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Execute Signal (Send)</button>
-                </form>
-            </section>
-        </div>
+                <div class="ue-panel">
+                    <h4 style="color:white; margin-bottom: 10px;">Is Handy Ultimate compatible with UE 5.4+?</h4>
+                    <p style="font-size: 0.85rem; color: #8892b0;">Yes. We ensure all our Fab Marketplace tools are validated against the latest Unreal Engine stable releases to ensure zero-crash automation.</p>
+                </div>
+
+                <div class="ue-panel">
+                    <h4 style="color:white; margin-bottom: 10px;">Do you offer bespoke tool development?</h4>
+                    <p style="font-size: 0.85rem; color: #8892b0;">Harrison Interactive is occasionally open to custom Python/UMG bridge development for external studios. Use the terminal to initiate a request.</p>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <h2 style="font-family:'Orbitron'; font-size: 1.2rem; color: var(--accent-blue);">EXECUTE_SIGNAL</h2>
+                
+                <div class="terminal-box" style="color: white; border: 1px solid var(--accent-blue); box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);">
+                    <form action="#" style="display: flex; flex-direction: column; gap: 15px;">
+                        <div>
+                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">input_user_name = </label>
+                            <input type="text" placeholder="'Cameron Harrison'" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 5px 0;">
+                        </div>
+                        <div>
+                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">input_user_email = </label>
+                            <input type="email" placeholder="'dev@harrisoninteractive.dev'" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 5px 0;">
+                        </div>
+                        <div>
+                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">signal_subject = </label>
+                            <select style="background: #000; border: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 5px;">
+                                <option>BLOOD_YIELD_KICKSTARTER</option>
+                                <option>HANDY_ULTIMATE_SUPPORT</option>
+                                <option>GENERAL_INQUIRY</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">exec_message_content:</label>
+                            <textarea rows="4" style="background: rgba(0,0,0,0.5); border: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 10px; margin-top: 5px;"></textarea>
+                        </div>
+                        <button type="submit" class="btn-main" style="width: 100%; padding: 15px; cursor: pointer; border-radius: 0;">
+                            > EXECUTE_SIGNAL_SEND
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
     </main>
 
-    <footer>
-        &copy; 2026 Harrison Interactive | Harrison Interactive is a Registered Entity.
+    <footer style="margin-top: 80px; text-align: center; border-top: 1px solid #1e293b; padding: 40px 0;">
+        "EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION."
     </footer>
+
 </body>
 </html>
