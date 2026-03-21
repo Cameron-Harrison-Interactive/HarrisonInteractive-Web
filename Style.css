@@ -1,0 +1,100 @@
+/* --- HARRISON INTERACTIVE: CORE LOGIC --- */
+:root {
+    --bg-dark: #05070a;
+    --panel-hex: #0f172a;
+    --border-metal: #334155;
+    
+    /* UE5 Development Color Palette */
+    --exec-white: #ffffff;
+    --target-blue: #0070ff;  /* Object Target */
+    --string-pink: #f472b6;  /* Raw String */
+    --text-cyan: #22d3ee;    /* Display Text */
+    --bool-red: #ef4444;     /* True/False */
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--exec-white);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* --- Navigation --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 8%;
+    background: rgba(5, 7, 10, 0.95);
+    border-bottom: 2px solid var(--target-blue);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.nav-links a {
+    color: var(--exec-white);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.nav-links a:hover { color: var(--text-cyan); text-shadow: 0 0 8px var(--text-cyan); }
+
+/* --- Containers & Grids --- */
+.container { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+
+.img-placeholder {
+    background: #1e293b;
+    border: 1px dashed var(--border-metal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-cyan);
+    min-height: 350px;
+    border-radius: 4px;
+    margin: 2rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+/* --- UI Components --- */
+.card {
+    background: var(--panel-hex);
+    border: 1px solid var(--border-metal);
+    padding: 2.5rem;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.card:hover { border-color: var(--target-blue); box-shadow: 0 0 20px rgba(0, 112, 255, 0.1); }
+
+.btn {
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--target-blue);
+    background: transparent;
+    color: var(--target-blue);
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn:hover { background: var(--target-blue); color: white; box-shadow: 0 0 15px var(--target-blue); }
+
+footer {
+    text-align: center;
+    padding: 4rem;
+    border-top: 1px solid var(--border-metal);
+    font-size: 0.75rem;
+    color: #475569;
+}
+
+.legal-text { font-size: 0.9rem; color: #94a3b8; }

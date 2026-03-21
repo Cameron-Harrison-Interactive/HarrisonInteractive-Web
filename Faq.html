@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>FAQ & Contact | Harrison Interactive</title>
+</head>
+<body>
+    <nav>
+        <div class="logo-text">HARRISON INTERACTIVE</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1 style="color:var(--text-cyan)">Support & Inquiries</h1>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+            <section>
+                <h2>Frequently Asked Questions</h2>
+                <div class="card" style="margin-bottom:1rem">
+                    <h4 style="color:var(--text-cyan)">What is the "Blood-Yield" release schedule?</h4>
+                    <p>We are currently entering the final polish phase for our Kickstarter demo. Follow our socials for the official date announcement.</p>
+                </div>
+                <div class="card" style="margin-bottom:1rem">
+                    <h4 style="color:var(--text-cyan)">Is Handy Ultimate compatible with UE 5.4?</h4>
+                    <p>Yes. We ensure all our Fab Marketplace tools are tested against the latest Unreal Engine stable releases.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color:var(--text-cyan)">Do you offer custom tool development?</h4>
+                    <p>We are occasionally open to bespoke Python/UMG tool development for other studios. Use the form to reach out.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Contact the Studio</h2>
+                <form>
+                    <div class="form-group">
+                        <label style="color:var(--text-cyan)">Name</label>
+                        <input type="text" placeholder="Cameron Harrison">
+                    </div>
+                    <div class="form-group">
+                        <label style="color:var(--text-cyan)">Email</label>
+                        <input type="email" placeholder="dev@harrisoninteractive.com">
+                    </div>
+                    <div class="form-group">
+                        <label style="color:var(--text-cyan)">Subject</label>
+                        <select style="width:100%; padding:1rem; background:#1e293b; color:white; border:1px solid var(--border-metal);">
+                            <option>Blood-Yield Kickstarter</option>
+                            <option>Handy Ultimate Support</option>
+                            <option>General Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label style="color:var(--text-cyan)">Message</label>
+                        <textarea rows="5"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Execute Signal (Send)</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Harrison Interactive | Harrison Interactive is a Registered Entity.
+    </footer>
+</body>
+</html>
