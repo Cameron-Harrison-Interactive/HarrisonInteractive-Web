@@ -1,71 +1,103 @@
+/* --- HARRISON INTERACTIVE: CYBER-TECH CORE --- */
 :root {
-    --bg-deep: #0A192F;
-    --accent-blue: #00D2FF;
-    --metal-silver: #C0C0C0;
-    --card-bg: rgba(15, 23, 42, 0.8);
+    --bg-deep: #0A192F;      /* Primary Deep Navy */
+    --accent-blue: #00D2FF;  /* Electric Blue */
+    --metal-silver: #C0C0C0; /* Brushed Silver */
+    --border-glow: rgba(0, 210, 255, 0.3);
+    --glass: rgba(15, 23, 42, 0.85);
 }
+
+* { box-sizing: border-box; }
 
 body {
     background-color: var(--bg-deep);
-    background-image: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.1) 0%, transparent 80%);
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
+        url('https://www.transparenttextures.com/patterns/circuit-board.png'); /* Subtle circuit texture */
     color: var(--metal-silver);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Roboto', sans-serif;
     margin: 0;
+    line-height: 1.6;
     overflow-x: hidden;
 }
 
-h1, h2 { font-family: 'Orbitron', sans-serif; color: white; letter-spacing: 2px; }
+h1, h2, .logo-text { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: white; }
 
-/* Navigation Styling */
+/* --- NAVIGATION --- */
 nav {
-    padding: 20px 8%;
-    border-bottom: 1px solid rgba(0, 210, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 8%;
     background: rgba(10, 25, 47, 0.9);
+    border-bottom: 1px solid var(--border-glow);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
-.nav-container { display: flex; justify-content: space-between; align-items: center; }
-.nav-logo { height: 50px; }
-.nav-links a { 
-    color: var(--metal-silver); 
-    text-decoration: none; 
-    margin-left: 20px; 
-    font-size: 0.9rem; 
+
+.nav-logo { height: 45px; filter: drop-shadow(0 0 5px var(--accent-blue)); }
+
+.nav-links a {
+    color: var(--metal-silver);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
     transition: 0.3s;
 }
-.nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+.nav-links a:hover { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
-/* Hero Section */
+/* --- HERO SECTION --- */
 .hero {
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    padding: 0 10%;
-    background: url('https://www.transparenttextures.com/patterns/circuit-board.png'); /* Circuit trace pattern */
+    padding: 100px 10%;
+    text-align: left;
+    border-bottom: 1px solid var(--border-glow);
 }
-.btn-glow {
-    padding: 12px 30px;
+
+.hero h1 { font-size: 4rem; line-height: 1.1; margin: 0; }
+.hero p { font-size: 1.2rem; color: #8892b0; max-width: 600px; margin-top: 20px; }
+
+.btn-main {
+    margin-top: 30px;
+    padding: 12px 35px;
     border: 1px solid var(--accent-blue);
     background: rgba(0, 210, 255, 0.1);
     color: white;
     text-decoration: none;
-    box-shadow: 0 0 15px var(--accent-blue);
     display: inline-block;
-    margin-top: 20px;
-}
-
-/* Dashboard Cards */
-.container { padding: 40px 10%; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.card {
-    background: var(--card-bg);
-    border: 2px solid #334155;
-    border-radius: 8px;
-    overflow: hidden;
+    box-shadow: 0 0 15px var(--border-glow);
     transition: 0.3s;
 }
-.card:hover { border-color: var(--accent-blue); transform: translateY(-5px); }
-.card-img img { width: 100%; height: 200px; object-fit: cover; }
-.card-header { padding: 15px; background: rgba(0,0,0,0.5); font-weight: bold; border-bottom: 1px solid #334155; }
-.card-body { padding: 15px; font-size: 0.8rem; color: #94a3b8; }
+.btn-main:hover { background: var(--accent-blue); box-shadow: 0 0 30px var(--accent-blue); }
 
-/* Info Section */
-.info-section { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; }
+/* --- PROJECT CARDS --- */
+.container { padding: 80px 10%; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+.card {
+    background: var(--glass);
+    border: 1px solid #233554;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.4s;
+}
+.card:hover { border-color: var(--accent-blue); transform: translateY(-10px); }
+
+.card-img { height: 250px; background: #112240; overflow: hidden; position: relative; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.card:hover .card-img img { transform: scale(1.1); }
+
+.card-content { padding: 30px; }
+.card-content h3 { color: var(--accent-blue); margin-top: 0; }
+.card-content p { font-size: 0.9rem; color: #8892b0; }
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 60px;
+    border-top: 1px solid var(--border-glow);
+    font-size: 0.8rem;
+    color: #475569;
+}
