@@ -2,40 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handy Ultimate | Unreal Engine Automation</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Handy Ultimate | Harrison Interactive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="handy-page">
+
     <nav>
-        <div style="color:var(--text-cyan); font-weight:bold;">HARRISON INTERACTIVE</div>
+        <img src="handyicon.png" class="nav-logo" alt="HI Logo">
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="handy.html">Handy</a>
-            <a href="blood-yield.html">Blood-Yield</a>
-            <a href="faq.html">Contact</a>
+            <a href="index.html">HOME</a>
+            <a href="Blood-Yield/">BLOOD-YIELD</a>
+            <a href="handy.html" class="active">HANDY</a>
+            <a href="faq.html">FAQ</a>
         </div>
     </nav>
 
-    <main class="container">
-        <h1 style="color:var(--text-cyan)">HANDY ULTIMATE</h1>
-        <p style="color:var(--string-pink)">// Professional-Grade Unreal Engine Editor Tooling</p>
-        
-        <div class="img-placeholder">UI SCREENSHOT: HANDY INTERFACE</div>
+    <header class="handy-hero">
+        <div class="hero-tag">ULTIMATE EDITION</div>
+        <h1>HANDY <span style="color:var(--accent-blue)">ULTIMATE</span></h1>
+        <p>The Omni-Link for Unreal Engine 5. A modular, marketplace-ready automation suite blending UMG intuition with Python industrial power.</p>
+    </header>
 
-        <section class="grid">
-            <div class="card">
-                <h3 style="color:var(--target-blue)">The "Why"</h3>
-                <p>Most editor tools are rigid. Handy Ultimate is built on a <strong>Hybrid Logic Architecture</strong>. We use UMG for the visual "Target" interface while the "Exec" signal is handled by optimized Python scripts. This prevents the editor from chugging during heavy asset automation.</p>
+    <main class="container">
+        
+        <div class="grid">
+            <div class="card glass-card">
+                <h3 style="color:var(--accent-blue)">Visual UI (Blueprints)</h3>
+                <ul class="spec-list">
+                    <li><span class="dot white"></span> <strong>EUW_HI_HandyMain</strong> — The AI Terminal Interface</li>
+                    <li><span class="dot white"></span> <strong>EUW_HI_HandyShelf</strong> — Dockable Toolbar Logic</li>
+                    <li><span class="dot white"></span> <strong>EUW_HI_HandySettings</strong> — API & Network Config</li>
+                </ul>
             </div>
-            <div class="card">
-                <h3 style="color:var(--target-blue)">The "How"</h3>
-                <p>Data flows through a centralized bridge. When you trigger a command in the Handy UI, it validates the data types (String, Boolean, Object) before passing the signal to the Python backend, ensuring zero-crash automation for your project's plumbing.</p>
+
+            <div class="card glass-card">
+                <h3 style="color:var(--accent-blue)">Logic Brains (Python)</h3>
+                <ul class="spec-list">
+                    <li><span class="dot pink"></span> <strong>handy_router.py</strong> — The Omni-Link Request Handler</li>
+                    <li><span class="dot pink"></span> <strong>handy_core_utils.py</strong> — Global Logging & Save States</li>
+                    <li><span class="dot pink"></span> <strong>handy_omni_network.py</strong> — Gemini ↔ OpenAI Bridge</li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="plumbing-section">
+            <h2>THE PLUMBING</h2>
+            <div class="terminal-box">
+                <pre><code>
+// Exec Signal (White) -> UI Interaction
+// Target (Blue)      -> Unreal Editor Subsystem
+// String (Pink)      -> Python Script Command
+
+[LOG]: Handy Router initialized.
+[LOG]: Validating modular action: action_graph_cleaner.py...
+[LOG]: SUCCESS. Optimization manifold active.
+                </code></pre>
+            </div>
+            <p>Handy uses a <strong>Hybrid Logic Architecture</strong>. When you fire an <strong>Exec (White)</strong> signal in the UMG UI, the <strong>handy_router.py</strong> validates the request before passing the heavy lifting to the Python backend. This ensures the Unreal Editor remains responsive even during massive asset batches.</p>
+        </section>
+
+        <section class="actions-grid">
+            <div class="action-item">
+                <h4 style="color:var(--accent-blue)">Atmospherics</h4>
+                <p>One-click lighting and sky calibration via <code>action_atmospherics.py</code>.</p>
+            </div>
+            <div class="action-item">
+                <h4 style="color:var(--accent-blue)">Graph Cleaner</h4>
+                <p>Industrial-strength Blueprint organization via <code>action_graph_cleaner.py</code>.</p>
+            </div>
+            <div class="action-item">
+                <h4 style="color:var(--accent-blue)">Waygate</h4>
+                <p>Contextual file-jumping and teleportation via <code>action_waygate.py</code>.</p>
             </div>
         </section>
 
-        <div style="text-align:center; margin-top:4rem;">
-            <a href="#" class="btn">View on Fab Marketplace</a>
-        </div>
     </main>
+
+    <footer>
+        "EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION."
+    </footer>
+
 </body>
 </html>
