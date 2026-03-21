@@ -1,45 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harrison Interactive | Digital Pulse Hub</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Harrison Interactive | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <nav>
-        <div class="logo" style="color:var(--handy-cyan); font-weight:bold;">HARRISON INTERACTIVE</div>
+        <img src="handyicon.png" class="nav-logo" alt="HI Logo">
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="handy.html">Handy</a>
+            <a href="index.html">HOME</a>
             <a href="Blood-Yield/">BLOOD-YIELD</a>
-            <a href="about.html">About</a>
+            <a href="about.html">ABOUT</a>
             <a href="faq.html">FAQ</a>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="img-placeholder" style="max-width:200px; min-height:200px; margin: 0 auto 2rem auto; border-radius:50%;">
-            </div>
-        <h1 class="section-title">Bridging Imagination & Logic</h1>
-        <p>Professional-grade tools and atmospheric dark fantasy built in Unreal Engine 5.</p>
+        <h1>INTEGRATING THE <br><span style="color:var(--accent-blue)">DIGITAL PULSE</span></h1>
+        <p>Advanced Interactive Solutions for a Connected Future. We specialize in high-performance Unreal Engine tools and atmospheric experiences.</p>
+        <a href="#projects" class="btn-main">EXPLORE OUR PROJECTS</a>
     </header>
 
-    <main class="container">
+    <main class="container" id="projects">
         <div class="grid">
+            
             <div class="card">
-                <h3>Handy</h3>
-                <div class="img-placeholder" style="min-height:150px;"></div>
-                <p>Advanced Editor automation for Unreal Engine 5. Efficiency through Python logic.</p>
-                <a href="handy.html" style="color:var(--handy-cyan)">View Specs</a>
+                <div class="card-img">
+                    <img src="handyicon.png" style="object-fit: contain; padding: 40px;" alt="Handy Tool">
+                </div>
+                <div class="card-content">
+                    <h3>HANDY ULTIMATE</h3>
+                    <p>The apex of Unreal Engine Editor automation. Built with a hybrid Python-UMG architecture for professional-grade performance.</p>
+                    <a href="about.html" style="color:white; font-size: 0.8rem; text-decoration: none; border-bottom: 1px solid var(--accent-blue);">VIEW DOCUMENTATION →</a>
+                </div>
             </div>
+
             <div class="card">
-                <h3>Blood-Yield</h3>
-                <div class="img-placeholder" style="min-height:150px;"></div>
-                <p>A visceral dark fantasy RPG where every choice yields consequences.</p>
-                <a href="blood-yield.html" style="color:var(--blood-red)">Enter the World</a>
+                <div class="card-img">
+                    <img src="Blood-Yield/background.png" alt="Blood-Yield Game">
+                </div>
+                <div class="card-content">
+                    <h3>BLOOD-YIELD</h3>
+                    <p>A visceral dark fantasy RPG forged in the fires of Unreal Engine 5. Experience a world where every decision yields a consequence.</p>
+                    <a href="Blood-Yield/" style="color:white; font-size: 0.8rem; text-decoration: none; border-bottom: 1px solid var(--accent-blue);">ENTER THE WORLD →</a>
+                </div>
             </div>
+
         </div>
     </main>
 
-    <footer>&copy; 2026 Harrison Interactive LLC </footer>
+    <footer>
+        EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION <br>
+        © Harrison Interactive, INC.
+    </footer>
+
 </body>
 </html>
