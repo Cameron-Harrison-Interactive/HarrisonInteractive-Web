@@ -1,0 +1,7 @@
+# Route the Game Hub domains to the specific sub-folder
+https://bloodyield.com/* /Blood-Yield/:splat 301
+https://blood-yield.com/* /Blood-Yield/:splat 301
+
+# Route the WWW versions too
+https://www.bloodyield.com/* /Blood-Yield/:splat 301
+https://www.blood-yield.com/* /Blood-Yield/:splat 301
