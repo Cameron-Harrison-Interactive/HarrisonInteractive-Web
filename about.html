@@ -1,60 +1,72 @@
-/* --- UEW INDUSTRIAL FLARE --- */
-.handy-window {
-    position: relative;
-    border: 2px solid #1e293b;
-    background: rgba(10, 25, 47, 0.95);
-    box-shadow: inset 0 0 50px rgba(0, 210, 255, 0.05), 0 20px 50px rgba(0,0,0,0.5);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Harrison Interactive Architects</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
-/* Technical Grid Overlay */
-.handy-window::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px), 
-                      linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-    pointer-events: none;
-    z-index: 0;
-}
+    <nav>
+        <img src="handyicon.png" class="nav-logo" alt="HI Logo">
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="handy.html">HANDY</a>
+            <a href="Blood-Yield/">BLOOD-YIELD</a>
+            <a href="about.html" class="active">ABOUT</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+    </nav>
 
-/* Scanning Line Animation */
-.handy-window::after {
-    content: "";
-    position: absolute;
-    top: -100%; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.05), transparent);
-    animation: scanline 8s linear infinite;
-    pointer-events: none;
-    z-index: 1;
-}
+    <main class="container handy-window" style="margin-top: 40px; border-radius: 8px;">
+        
+        <header style="padding: 20px; border-bottom: 1px solid var(--border-glow); margin-bottom: 40px;">
+            <div style="font-family:'Orbitron'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px;">HARRISON_INTERACTIVE // SYS_PROFILE</div>
+            <h1 style="margin: 10px 0 0 0; font-size: 3rem;">STUDIO <span style="color:var(--accent-blue)">ARCHITECTS</span></h1>
+        </header>
 
-@keyframes scanline {
-    0% { top: -100%; }
-    100% { top: 100%; }
-}
+        <section class="grid" style="position:relative; z-index: 10;">
+            
+            <div class="ue-panel">
+                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">MODULE_01 // PHILOSOPHY</div>
+                <h2 style="color:var(--accent-blue); margin-top:0;">THE PLUMBING</h2>
+                <p>We prioritize the "plumbing"—the intricate logic that ensures a project is as performant as it is beautiful. Every experience is built on a foundation of <strong>impeccable data flow</strong>.</p>
+                <div style="margin-top:20px; border-top: 1px solid #1e293b; padding-top: 15px;">
+                    <span class="dot white"></span> <small style="letter-spacing: 2px;">LOGIC_STABLE</small>
+                </div>
+            </div>
 
-/* Corner Brackets for Panels */
-.ue-panel {
-    position: relative;
-    padding: 30px;
-    border: 1px solid #233554;
-    background: rgba(15, 23, 42, 0.8);
-    overflow: hidden;
-}
+            <div class="ue-panel">
+                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 10px;">MODULE_02 // SYMBIOSIS</div>
+                <h2 style="color:var(--accent-blue); margin-top:0;">THE INNOVATION LOOP</h2>
+                <p><strong>Handy Ultimate</strong> is the forge; <strong>Blood-Yield</strong> is the blade. We stress-test our genre-agnostic automation tools in the trenches of live production.</p>
+                <div style="margin-top:20px; border-top: 1px solid #1e293b; padding-top: 15px;">
+                    <span class="dot pink"></span> <small style="letter-spacing: 2px;">GENRE_AGNOSTIC_ACTIVE</small>
+                </div>
+            </div>
 
-.ue-panel::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 10px; height: 10px;
-    border-top: 2px solid var(--accent-blue);
-    border-left: 2px solid var(--accent-blue);
-}
+        </section>
 
-.ue-panel::after {
-    content: "";
-    position: absolute;
-    bottom: 0; right: 0; width: 10px; height: 10px;
-    border-bottom: 2px solid var(--accent-blue);
-    border-right: 2px solid var(--accent-blue);
-}
+        <section class="ue-panel" style="margin-top: 40px; text-align: center; background: rgba(0, 210, 255, 0.02); z-index: 10; position:relative;">
+            <h2 style="letter-spacing: 10px;">OUR VISION</h2>
+            <p style="max-width: 800px; margin: 20px auto; color: #fff; line-height: 1.8;">
+                To empower developers across <strong>any genre</strong> with the industrial power of AAA automation. We bridge the gap between human imagination and machine execution.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 40px; margin-top: 20px;">
+                <div style="text-align:center;"><span class="dot white"></span><br><small>EXEC</small></div>
+                <div style="text-align:center;"><span class="dot pink"></span><br><small>STRING</small></div>
+                <div style="text-align:center;"><span class="dot cyan-glow"></span><br><small>NETWORK</small></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="margin-top: 40px;">
+        OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE <br>
+        EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION.
+    </footer>
+
+</body>
+</html>
