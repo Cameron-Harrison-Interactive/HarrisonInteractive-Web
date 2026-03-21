@@ -63,19 +63,30 @@
             <p>Handy uses a <strong>Hybrid Logic Architecture</strong>. When you fire an <strong>Exec (White)</strong> signal in the UMG UI, the <strong>handy_router.py</strong> validates the request before passing the heavy lifting to the Python backend. This ensures the Unreal Editor remains responsive even during massive asset batches.</p>
         </section>
 
-        <section class="actions-grid">
-            <div class="action-item">
-                <h4 style="color:var(--accent-blue)">Atmospherics</h4>
-                <p>One-click lighting and sky calibration via <code>action_atmospherics.py</code>.</p>
+        <section class="tier-section">
+            <h2 style="text-align:center; margin-bottom: 2rem;">INTERFACE TIER COMPARISON</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CORE MODULES</th>
+                            <th>LITE</th>
+                            <th>ELITE</th>
+                            <th class="highlight-column">ULTIMATE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>UMG HandyShelf (Toolbar)</td><td><span class="dot white"></span></td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
+                        <tr><td>HandyMain AI Terminal</td><td>—</td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
+                        <tr><td>Graph Cleaner Action</td><td><span class="dot white"></span></td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
+                        <tr><td>Atmospherics & Waygate</td><td>—</td><td><span class="dot white"></span></td><td class="highlight-column"><span class="dot white"></span></td></tr>
+                        <tr><td>Python Core Logic Bridge</td><td>—</td><td><span class="dot pink"></span></td><td class="highlight-column"><span class="dot pink"></span></td></tr>
+                        <tr><td>Omni-Network (AI Bridge)</td><td>—</td><td>—</td><td class="highlight-column"><span class="dot cyan-glow"></span></td></tr>
+                        <tr><td>Validator Diagnostics</td><td>—</td><td>—</td><td class="highlight-column"><span class="dot cyan-glow"></span></td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="action-item">
-                <h4 style="color:var(--accent-blue)">Graph Cleaner</h4>
-                <p>Industrial-strength Blueprint organization via <code>action_graph_cleaner.py</code>.</p>
-            </div>
-            <div class="action-item">
-                <h4 style="color:var(--accent-blue)">Waygate</h4>
-                <p>Contextual file-jumping and teleportation via <code>action_waygate.py</code>.</p>
-            </div>
+            <p style="text-align:center; margin-top:20px; font-size:0.75rem; color:#475569;">// Ultimate includes full source code for <code>handy_omni_network.py</code></p>
         </section>
 
     </main>
@@ -83,6 +94,5 @@
     <footer>
         "EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION."
     </footer>
-
 </body>
 </html>
