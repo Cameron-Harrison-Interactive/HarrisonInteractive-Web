@@ -22,67 +22,69 @@
 
     <main class="container" style="position:relative; z-index: 10;">
         
-        <header class="hero" style="border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 60px;">
-            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 15px;">
+        <header class="hero">
+            <div class="system-status">
                 [ SYSTEM_INIT: SUCCESS ] // [ BROADCAST_NODE: PRIMARY ]
             </div>
-            <h1>INTEGRATING THE <br><span style="color:var(--accent-blue)">DIGITAL PULSE</span></h1>
-            <p style="font-size: 1.1rem; color: #8892b0; max-width: 650px; margin-top: 20px; line-height: 1.6;">
+            <h1>INTEGRATING THE <br><span class="accent-text">DIGITAL PULSE</span></h1>
+            <p class="hero-description">
                 Advanced Interactive Solutions for a Connected Future. We specialize in high-performance Unreal Engine automation and atmospheric genre-agnostic experiences.
             </p>
         </header>
 
-        <h2 style="font-family:'Orbitron'; font-size: 1rem; letter-spacing: 5px; margin-bottom: 30px; color: #475569;">ACTIVE_PROJECTS // SELECT_MODULE</h2>
+        <h2 class="section-label">ACTIVE_PROJECTS // SELECT_MODULE</h2>
         
         <section class="grid" id="projects">
             
             <div class="card ue-panel">
-                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 15px;">ASSET_TYPE // EDITOR_UTILITY // STATUS: COMING_SOON</div>
-                <div class="card-img" style="height: auto; overflow: hidden; background: #000;">
-    <img src="Handy-Banner-Coming-Soon.png" 
-         style="width: 100%; display: block; height: auto;" 
-         alt="Handy Tool Banner">
-</div>
+                <div class="card-meta">ASSET_TYPE // EDITOR_UTILITY // STATUS: COMING_SOON</div>
+                <div class="card-img">
+                    <img src="Handy-Banner-Coming-Soon.png" alt="Handy Tool Banner">
+                </div>
                 <div class="card-content">
-                    <h3 style="color:var(--accent-blue);">HANDY</h3>
-                    <p style="font-size: 0.85rem; height: 60px;">The apex of UE5 automation. A hybrid Python-UMG bridge built for industrial-scale project management across any genre.</p>
-                    <div style="margin: 20px 0; display: flex; gap: 15px;">
+                    <h3>HANDY</h3>
+                    <p>The apex of UE5 automation. A hybrid Python-UMG bridge built for industrial-scale project management across any genre.</p>
+                    <div class="status-dots">
                         <span class="dot white"></span> <span class="dot pink"></span> <span class="dot cyan-glow"></span>
                     </div>
-                    <a href="handy.html" class="btn-main" style="font-size: 0.75rem; width: 100%; text-align: center;">> VIEW_DEVELOPMENT_LOGS</a>
+                    <a href="handy.html" class="btn-main">> VIEW_DEVELOPMENT_LOGS</a>
                 </div>
             </div>
 
             <div class="card ue-panel">
-                <div style="font-family:'Orbitron'; font-size: 0.6rem; color: #475569; margin-bottom: 15px;">ASSET_TYPE // DARK_FANTASY_RPG</div>
-                <div class="card-img" style="height: 220px; overflow: hidden; position: relative;">
-                    <img src="Blood-Yield/background.png" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" alt="Blood-Yield Game">
+                <div class="card-meta">ASSET_TYPE // DARK_FANTASY_RPG</div>
+                <div class="card-img">
+                    <img src="Blood-Yield/background.png" alt="Blood-Yield Game">
                 </div>
                 <div class="card-content">
-                    <h3 style="color:var(--accent-blue);">BLOOD-YIELD</h3>
-                    <p style="font-size: 0.85rem; height: 60px;">A visceral dark-fantasy RPG forged in UE5. Experience a world where every decision yields a consequence in cold iron.</p>
-                    <div style="margin: 20px 0; display: flex; gap: 15px;">
+                    <h3>BLOOD-YIELD</h3>
+                    <p>A visceral dark-fantasy RPG forged in UE5. Experience a world where every decision yields a consequence in cold iron.</p>
+                    <div class="status-dots">
                         <span class="dot white"></span> <span class="dot pink"></span>
                     </div>
-                    <a href="Blood-Yield/" class="btn-main" style="font-size: 0.75rem; width: 100%; text-align: center;">> INITIALIZE_CINEMATIC_LINK</a>
+                    <a href="Blood-Yield/" class="btn-main">> INITIALIZE_CINEMATIC_LINK</a>
                 </div>
             </div>
 
         </section>
 
-        <section style="margin-top: 80px; text-align: center; border-top: 1px solid #1e293b; padding-top: 60px;">
-            <div class="ue-panel" style="display: inline-block; padding: 40px; background: rgba(0, 210, 255, 0.02);">
-                <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 10px;">
-                    HARRISON_INTERACTIVE // CORE_DIRECTIVE
-                </div>
-                <h2 style="margin: 0; letter-spacing: 5px;">THE ARCHITECTS OF PLUMBING</h2>
-                <p style="max-width: 600px; margin: 20px auto; color: #8892b0; font-size: 0.9rem;">
+        <section class="manifesto-section">
+            <div class="ue-panel manifesto-box">
+                <div class="system-status">HARRISON_INTERACTIVE // CORE_DIRECTIVE</div>
+                <h2 class="manifesto-title">THE ARCHITECTS OF PLUMBING</h2>
+                <p class="manifesto-text">
                     Specializing in Hybrid Logic Architecture—merging the visual accessibility of Blueprints with the industrial power of Python.
                 </p>
-                <a href="about.html" style="color:white; font-size: 0.8rem; text-decoration: none; border-bottom: 1px solid var(--accent-blue); font-family: 'Fira Code';">READ_STUDIO_MANIFESTO →</a>
+                <a href="about.html" class="manifesto-link">READ_STUDIO_MANIFESTO →</a>
             </div>
         </section>
 
     </main>
 
-    <footer style="margin-top: 80px; text-align: center; padding-bottom: 60px
+    <footer>
+        EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION <br>
+        OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE
+    </footer>
+
+</body>
+</html>
