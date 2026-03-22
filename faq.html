@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ | Harrison Interactive LLC</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
 <body class="handy-window">
 
     <nav>
-        <img src="handyicon.png" class="nav-logo" alt="HI LLC Logo">
-        <div class="nav-links"><a href="index.html">HOME</a><a href="handy.html">HANDY</a><a href="about.html">ABOUT</a><a href="faq.html" class="active">FAQ</a></div>
+        <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="handyicon.png" class="nav-logo" alt="Harrison Interactive LLC Logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">HOME</a>
+            <a href="handy.html">HANDY</a>
+            <a href="Blood-Yield/">BLOOD-YIELD</a>
+            <a href="about.html">ABOUT</a>
+            <a href="faq.html" class="active">FAQ</a>
+        </div>
     </nav>
 
     <main class="container">
         <header class="hero">
+            <div class="accent-blue" style="font-family:'Fira Code'; font-size: 0.7rem;">[ INTERFACE_04: LISTENING ]</div>
             <h1>SIGNAL <span class="accent-blue">TERMINAL</span></h1>
         </header>
 
@@ -33,14 +43,27 @@
 
             <div class="ue-panel" style="background: #000;">
                 <h3 class="accent-blue">EXECUTE_SIGNAL</h3>
-                <form style="display: flex; flex-direction: column; gap: 10px; font-family: 'Fira Code'; font-size: 0.7rem;">
-                    <input type="text" placeholder="input_user_name" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; padding: 5px;">
-                    <textarea placeholder="exec_message_content" rows="4" style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 10px;"></textarea>
-                    <button class="btn-main">> SEND_SIGNAL</button>
+                <form action="#" style="display: flex; flex-direction: column; gap: 15px; font-family: 'Fira Code'; font-size: 0.7rem;">
+                    <input type="text" placeholder="input_user_name" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; padding: 8px; outline: none;" onfocus="this.style.borderColor='var(--accent-blue)'" onblur="this.style.borderColor='#1e293b'">
+                    <input type="email" placeholder="input_user_email" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; padding: 8px; outline: none;" onfocus="this.style.borderColor='var(--accent-blue)'" onblur="this.style.borderColor='#1e293b'">
+                    <textarea placeholder="exec_message_content" rows="4" style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 10px; outline: none;" onfocus="this.style.borderColor='var(--accent-blue)'" onblur="this.style.borderColor='#1e293b'"></textarea>
+                    <button type="submit" class="btn-main" style="cursor: pointer;">> SEND_SIGNAL</button>
                 </form>
             </div>
         </section>
     </main>
+
+    <footer>
+        <div style="margin-bottom: 10px; opacity: 0.9; font-family: 'Inter';">
+            © 2026 <span class="accent-blue">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.
+        </div>
+        <div style="font-family: 'Orbitron'; font-size: 0.6rem; letter-spacing: 2px;">
+            <a href="legal.html" style="color: var(--accent-blue); text-decoration: none;">[ ACCESS_LEGAL_TERMINAL ]</a>
+        </div>
+        <div style="margin-top: 15px; opacity: 0.4; font-size: 0.6rem;">
+            UNREAL ENGINE AI // UNRIVALED INNOVATION // CYBER ELITE
+        </div>
+    </footer>
 
 </body>
 </html>
