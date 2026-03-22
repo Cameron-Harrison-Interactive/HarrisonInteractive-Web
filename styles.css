@@ -62,7 +62,7 @@ nav {
 .nav-logo { 
     height: 140px; /* Boosted for visibility */
     width: 800px; 
-     
+     style="mix-blend-mode: multiply; opacity: 0.7;"
 }
 .nav-links a { color: var(--metal-silver); text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: bold; letter-spacing: 2px; padding: 0 10px; transition: 0.3s; }
 .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
