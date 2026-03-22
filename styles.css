@@ -1,42 +1,33 @@
-/* ==========================================================================
-   HARRISON INTERACTIVE LLC | OMNI-NETWORK MASTER STYLESHEET
-   VERSION: 12.0 | PROTOCOL: WIDE-FRAME GRID + LARGE NAV SCALE
-   ========================================================================== */
+/* HARRISON INTERACTIVE LLC: OMNI-NETWORK MASTER STYLESHEET 
+   VERSION: 10.5 | WIDE-FRAME GRID LOCK | HIGH-VIS NAV PROTOCOL
+*/
 
 :root {
-    /* Branding Palette */
-    --bg-deep: #060e1b;          /* Primary Deep Navy */
-    --accent-blue: #00D2FF;      /* Electric Blue Accent */
-    --metal-silver: #C0C0C0;     /* Brushed Silver Text */
-    --warning-orange: #f59e0b;   /* Status Warning Glow */
-    --code-violet: #a855f7;      /* Python Logic Violet */
-    
-    /* Layout Variables */
+    --bg-deep: #060e1b;          
+    --accent-blue: #00D2FF;      
+    --metal-silver: #C0C0C0;     
+    --warning-orange: #f59e0b;   
+    --code-violet: #a855f7;      
     --border-glow: rgba(0, 210, 255, 0.2);
-    --panel-bg: rgba(10, 25, 47, 0.96); 
+    --panel-bg: rgba(10, 25, 47, 0.95); 
     --text-dim: #8892b0;
-    
-    /* NAV CALIBRATION: Increased height for larger logos */
+    /* CALIBRATION: Boosted height for larger nav assets */
     --nav-height: 140px; 
 }
 
-* { 
-    box-sizing: border-box; 
-    -webkit-font-smoothing: antialiased;
-}
+* { box-sizing: border-box; }
 
 body {
     background-color: var(--bg-deep);
     color: var(--metal-silver);
     font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     line-height: 1.6;
     width: 100vw;
     overflow-x: hidden;
 }
 
-/* --- THE INDUSTRIAL WINDOW (Atmospherics) --- */
+/* --- ATMOSPHERIC LAYERS --- */
 .handy-window::before {
     content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-image: radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
@@ -48,24 +39,116 @@ body {
 
 .handy-window::after {
     content: ""; position: fixed; top: -100%; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.04), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.03), transparent);
     animation: scanline 8s linear infinite;
     pointer-events: none; z-index: -1;
 }
 @keyframes scanline { 0% { top: -100%; } 100% { top: 100%; } }
 
-/* --- NAVIGATION: 3-ZONE OMNI-LINK --- */
+/* --- NAVIGATION PROTOCOL --- */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 4%;
-    height: var(--nav-height);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 4%; height: var(--nav-height);
     background: rgba(6, 14, 27, 0.98);
     border-bottom: 1px solid var(--border-glow);
-    backdrop-filter: blur(20px);
-    position: fixed;
-    top: 0; left: 0; width: 100%; z-index: 1000;
+    backdrop-filter: blur(15px);
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
 }
 
-/* Zone 1: The
+.nav-zone-left, .nav-zone-right { flex: 1; display: flex; align-items: center; }
+.nav-zone-center { flex: 2; display: flex; justify-content: center; }
+.nav-zone-right { justify-content: flex-end; gap: 20px; }
+
+.nav-logo { 
+    height: 85px; /* Boosted for visibility */
+    width: auto; 
+    filter: drop-shadow(0 0 10px var(--accent-blue)); 
+}
+.nav-links a { color: var(--metal-silver); text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: bold; letter-spacing: 2px; padding: 0 10px; transition: 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+.nav-pipe { color: rgba(0, 210, 255, 0.2); }
+
+.nav-meta-text { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--text-dim); text-align: right; }
+.nav-seal { 
+    height: 100px; /* Boosted to be clearly visible */
+    filter: drop-shadow(0 0 12px var(--accent-blue)); 
+    transition: 0.4s;
+}
+.nav-seal:hover { transform: rotate(15deg) scale(1.1); }
+
+/* --- WIDE-FRAME LAYOUT ENGINE --- */
+.container { 
+    margin: 0 auto;
+    padding: calc(var(--nav-height) + 60px) 4% 80px; 
+    width: 100%; 
+    max-width: 1650px; 
+    display: flex; flex-direction: column;
+}
+
+.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 60px; }
+.hero h1 { font-family: 'Orbitron'; font-size: 3.5rem; color: white; margin: 15px 0; line-height: 1.1; letter-spacing: 3px; }
+.glow-text { text-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
+
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, minmax(450px, 1fr)); 
+    gap: 40px; 
+    width: 100%;
+}
+
+/* --- TERMINAL MODULES --- */
+.ue-panel {
+    border: 1px solid #1e293b;
+    background: var(--panel-bg);
+    padding: 35px; 
+    position: relative;
+    display: flex; flex-direction: column;
+    min-height: 500px;
+    opacity: 0;
+}
+
+.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 18px; height: 18px; border-top: 3px solid var(--accent-blue); border-left: 3px solid var(--accent-blue); }
+.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 18px; height: 18px; border-bottom: 3px solid var(--accent-blue); border-right: 3px solid var(--accent-blue); }
+
+.card-img { width: 100%; height: 260px; background: #000; margin-bottom: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; opacity: 0.8; }
+.ue-panel:hover .card-img img { transform: scale(1.03); opacity: 1; }
+
+.card-meta { font-family: 'Fira Code'; font-size: 0.65rem; color: #475569; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+
+/* --- STATUS INDICATORS --- */
+.status-dots { margin-top: auto; padding-top: 25px; display: flex; gap: 15px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; }
+.white { background: #fff; }
+.pink { background: var(--code-violet); }
+.cyan-glow { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+
+.blink { 
+    display: inline-block; width: 6px; height: 6px; 
+    background: var(--warning-orange); border-radius: 50%; 
+    margin-right: 8px; animation: simple-blink 1.5s infinite; 
+}
+@keyframes simple-blink { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
+
+.btn-main {
+    display: block; width: 100%; padding: 20px; border: 1px solid var(--accent-blue);
+    background: rgba(0, 210, 255, 0.05); color: white; text-decoration: none;
+    text-align: center; font-family: 'Fira Code', monospace; font-size: 0.8rem;
+    transition: 0.3s; margin-top: 20px;
+}
+.btn-main:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 25px var(--accent-blue); font-weight: bold; }
+
+footer { text-align: center; padding: 60px 5%; border-top: 1px solid var(--border-glow); color: #475569; }
+
+/* --- THE BOOT SEQUENCE --- */
+.boot-anim { animation: terminal-boot 0.8s ease-out forwards; }
+@keyframes terminal-boot {
+    0% { opacity: 0; transform: translateY(15px); filter: brightness(3) blur(5px); }
+    10% { opacity: 0.8; filter: brightness(1) blur(0px); }
+    15% { opacity: 0.2; }
+    20% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.5s; }
+.delay-3 { animation-
