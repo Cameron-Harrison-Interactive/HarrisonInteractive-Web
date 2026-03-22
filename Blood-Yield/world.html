@@ -12,8 +12,22 @@
         nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
         nav a:hover { color: var(--blood); }
         .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+        
+        /* The Zones */
         .map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 50px; }
-        .zone-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--stone); padding: 20px; text-align: left; }
+        .zone-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--stone); padding: 30px; text-align: left; position: relative; }
+        .zone-card h3 { font-family: 'Orbitron'; color: var(--gold-yield); margin-bottom: 15px; }
+        
+        /* The OLD Exchange Lockout Style */
+        .exchange-lock {
+            margin-top: 60px;
+            padding: 50px;
+            border: 1px dashed var(--gold-yield);
+            background: #000;
+            text-align: center;
+        }
+        .portal-btn { background: var(--gold-yield); color: #000; padding: 15px 30px; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; margin-top: 20px; }
+
         footer { margin-top: 80px; padding: 60px 20px; border-top: 1px solid rgba(138, 51, 36, 0.3); background: rgba(0,0,0,0.5); }
     </style>
 </head>
@@ -28,24 +42,26 @@
 </nav>
 
 <div class="container">
-    <h1 style="font-family: 'Orbitron'; letter-spacing: 5px; color: #fff;">THE GEOGRAPHY</h1>
+    <h1 style="font-family: 'Orbitron'; letter-spacing: 10px; color: #fff;">GEOGRAPHICAL SECTORS</h1>
+    <p style="font-family: 'Montserrat'; color: var(--stone);">EST. 2026 | MAPPING THE INDUSTRIAL CONVERGENCE</p>
+
     <div class="map-grid">
-        <div class="zone-card" style="border-top: 3px solid var(--blood);">
-            <h3 style="font-family: 'Orbitron'; color: var(--gold-yield);">THE BIND CONTRACT</h3>
-            <p style="font-size: 0.8rem; margin-top: 10px;">Items are cryptographically bound to the player's Chassis. Unbinding requires Forge rituals.</p>
+        <div class="zone-card">
+            <h3>THE IRON BARRENS</h3>
+            <p style="font-size: 0.9rem;">A wasteland where the "Handy Protocol" first failed. The ground is made of layered technical drafting paper, stained with rusted metallic fragments. Dangerous circuit-wraiths haunt the grid-lines.</p>
         </div>
-        <div class="zone-card" style="border-top: 3px solid var(--gold-yield);">
-            <h3 style="font-family: 'Orbitron'; color: var(--gold-yield);">EQUILIBRIUM ENGINE</h3>
-            <p style="font-size: 0.8rem; margin-top: 10px;">Monitors Voltage supply to adjust drop rates and taxes, preventing market crashes.</p>
+        <div class="zone-card">
+            <h3 style="color: var(--blood);">SANGUINE FORGE</h3>
+            <p style="font-size: 0.9rem;">The industrial heart of the world. Huge gear-driven rituals refine biological essence into "Voltage." This is where the <strong>Contract</strong> is physically stamped onto new items.</p>
         </div>
     </div>
 
-    <section style="margin-top: 80px; padding: 40px; border: 1px solid var(--gold-yield); background: rgba(0,0,0,0.8); position: relative;">
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.75); display: flex; align-items: center; justify-content: center; z-index: 10; backdrop-filter: blur(4px);">
-            <h2 style="font-family: 'Orbitron'; color: var(--gold-yield); border: 2px solid var(--gold-yield); padding: 15px;">SECURE EXCHANGE: PENDING ALPHA</h2>
-        </div>
-        <h2 style="font-family: 'Orbitron'; text-align: left; opacity: 0.2;">MARKET TERMINAL</h2>
-    </section>
+    <div class="exchange-lock">
+        <h2 style="font-family: 'Orbitron'; color: var(--gold-yield);">SECURE EXCHANGE PORTAL</h2>
+        <p style="color: var(--text-silver); margin-top: 10px;">[STATUS: ENCRYPTED // OFFLINE]</p>
+        <p style="font-size: 0.8rem; color: var(--stone); max-width: 500px; margin: 15px auto;">Access to the Real-Money Trading (RMT) layer is restricted to Alpha-Level Nodes. System uplink pending future development cycle.</p>
+        <button class="portal-btn" onclick="alert('REDIRECTING TO SECURE LOGIN...')">INITIALIZE UPLINK</button>
+    </div>
 </div>
 
 <footer>
