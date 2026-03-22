@@ -1,5 +1,5 @@
 /* HARRISON INTERACTIVE LLC: OMNI-NETWORK MASTER STYLESHEET 
-   VERSION: 7.0 | TERMINAL SIZING CALIBRATION | GRID LOCK ACTIVE
+   VERSION: 8.0 | HARD-RESET | TERMINAL SIZING LOCK
 */
 
 :root {
@@ -21,11 +21,13 @@ body {
     color: var(--metal-silver);
     font-family: 'Inter', sans-serif;
     margin: 0;
+    padding: 0;
     line-height: 1.6;
+    width: 100vw;
     overflow-x: hidden;
 }
 
-/* --- THE INDUSTRIAL WINDOW (Scanlines & Grids) --- */
+/* --- INDUSTRIAL WINDOW (Scanlines & Grids) --- */
 .handy-window::before {
     content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-image: radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
@@ -43,59 +45,107 @@ body {
 }
 @keyframes scanline { 0% { top: -100%; } 100% { top: 100%; } }
 
-/* --- NAVIGATION: 3-ZONE OMNI-LINK --- */
+/* --- NAVIGATION: 3-ZONE PROTOCOL --- */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 4%;
     height: var(--nav-height);
     background: rgba(6, 14, 27, 0.98);
     border-bottom: 1px solid var(--border-glow);
     backdrop-filter: blur(15px);
     position: fixed;
-    top: 0; width: 100%; z-index: 1000;
+    top: 0; left: 0; width: 100%; z-index: 1000;
 }
 
-.nav-zone-left { flex: 1; display: flex; align-items: center; min-width: 200px; }
+.nav-zone-left, .nav-zone-right { flex: 1; display: flex; align-items: center; }
 .nav-zone-center { flex: 2; display: flex; justify-content: center; }
-.nav-zone-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 20px; min-width: 200px; }
+.nav-zone-right { justify-content: flex-end; gap: 20px; }
 
-.nav-logo { height: 45px; width: auto; filter: drop-shadow(0 0 5px var(--accent-blue)); transition: 0.3s; }
-.nav-links a { 
-    color: var(--metal-silver); text-decoration: none; font-family: 'Orbitron';
-    font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
-}
-.nav-pipe { color: rgba(0, 210, 255, 0.2); margin: 0 15px; }
+.nav-logo { height: 45px; width: auto; filter: drop-shadow(0 0 5px var(--accent-blue)); }
+.nav-links a { color: var(--metal-silver); text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: bold; letter-spacing: 2px; padding: 0 10px; transition: 0.3s; }
 .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+.nav-pipe { color: rgba(0, 210, 255, 0.2); }
 
 .nav-meta-text { font-family: 'Fira Code'; font-size: 0.6rem; color: var(--text-dim); text-align: right; }
-.nav-seal { height: 60px; filter: drop-shadow(0 0 8px var(--accent-blue)); transition: 0.4s; }
+.nav-seal { height: 60px; filter: drop-shadow(0 0 8px var(--accent-blue)); }
 
-/* --- LAYOUT & GRID --- */
+/* --- MAIN LAYOUT ENGINE --- */
 .container { 
-    padding: calc(var(--nav-height) + 60px) 6% 60px; 
-    max-width: 1400px; /* Constrained to keep terminals tight */
-    margin: 0 auto; 
+    margin: 0 auto;
+    padding: calc(var(--nav-height) + 60px) 5% 80px;
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
 }
 
-.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 60px; }
-.hero h1 { font-family: 'Orbitron'; font-size: 2.8rem; color: white; margin: 10px 0; letter-spacing: 2px; }
-.glow-text { text-shadow: 0 0 15px rgba(0, 210, 255, 0.4); }
+.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 60px; text-align: left; }
+.hero h1 { font-family: 'Orbitron'; font-size: 3.5rem; color: white; margin: 15px 0; line-height: 1.1; }
+.glow-text { text-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
 
+/* FIXED GRID: Forces 2 Columns without shrinking into slivers */
 .grid { 
     display: grid; 
-    grid-template-columns: 1fr 1fr; /* RIGID 2-COLUMN side-by-side */
-    gap: 30px; 
+    grid-template-columns: repeat(2, minmax(400px, 1fr)); 
+    gap: 40px; 
+    width: 100%;
 }
 
 /* --- TERMINAL PANELS --- */
 .ue-panel {
     border: 1px solid #1e293b;
     background: var(--panel-bg);
-    padding: 25px;
+    padding: 30px;
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Prevents content spill */
+    min-height: 500px; /* Braces the panel vertically */
+}
+
+/* Corner Brackets */
+.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 15px; height: 15px; border-top: 3px solid var(--accent-blue); border-left: 3px solid var(--accent-blue); }
+.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 15px; height: 15px; border-bottom: 3px solid var(--accent-blue); border-right: 3px solid var(--accent-blue); }
+
+.card-img { 
+    width: 100%; 
+    height: 250px; /* Locked height */
+    background: #000; 
+    margin-bottom: 25px; 
+    overflow: hidden; 
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; opacity: 0.8; }
+.ue-panel:hover .card-img img { transform: scale(1.03); opacity: 1; }
+
+.card-meta { font-family: 'Fira Code'; font-size: 0.65rem; color: #475569; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+
+/* --- INDICATORS --- */
+.status-dots { margin-top: auto; padding-top: 20px; display: flex; gap: 12px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.white { background: #fff; }
+.pink { background: var(--code-violet); }
+.cyan-glow { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+
+.blink { 
+    display: inline-block; width: 6px; height: 6px; 
+    background: var(--warning-orange); border-radius: 50%; 
+    margin-right: 8px; animation: simple-blink 1.5s infinite; 
+}
+@keyframes simple-blink { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
+
+.btn-main {
+    display: block; width: 100%; padding: 18px; border: 1px solid var(--accent-blue);
+    background: rgba(0, 210, 255, 0.05); color: white; text-decoration: none;
+    text-align: center; font-family: 'Fira Code', monospace; font-size: 0.8rem;
+    transition: 0.3s; margin-top: 20px;
+}
+.btn-main:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); font-weight: bold; }
+
+footer { text-align: center; padding: 80px 5%; border-top: 1px solid var(--border-glow); }
+
+@media (max-width: 1000px) { 
+    .grid { grid-template-columns: 1fr; } 
+    .hero h1 { font-size: 2.5rem; }
 }
