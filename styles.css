@@ -1,5 +1,5 @@
 /* HARRISON INTERACTIVE LLC: OMNI-NETWORK MASTER STYLESHEET 
-   VERSION: 6.0 | RESTORED TERMINAL PROTOCOL | STATUS LIGHTS ACTIVE
+   VERSION: 7.0 | TERMINAL SIZING CALIBRATION | GRID LOCK ACTIVE
 */
 
 :root {
@@ -57,71 +57,45 @@ nav {
     top: 0; width: 100%; z-index: 1000;
 }
 
-.nav-zone-left { flex: 1; display: flex; align-items: center; }
+.nav-zone-left { flex: 1; display: flex; align-items: center; min-width: 200px; }
 .nav-zone-center { flex: 2; display: flex; justify-content: center; }
-.nav-zone-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 20px; }
+.nav-zone-right { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 20px; min-width: 200px; }
 
-.nav-logo { height: 50px; filter: drop-shadow(0 0 5px var(--accent-blue)); transition: 0.3s; }
+.nav-logo { height: 45px; width: auto; filter: drop-shadow(0 0 5px var(--accent-blue)); transition: 0.3s; }
 .nav-links a { 
     color: var(--metal-silver); text-decoration: none; font-family: 'Orbitron';
-    font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
+    font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
 }
 .nav-pipe { color: rgba(0, 210, 255, 0.2); margin: 0 15px; }
 .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
 .nav-meta-text { font-family: 'Fira Code'; font-size: 0.6rem; color: var(--text-dim); text-align: right; }
 .nav-seal { height: 60px; filter: drop-shadow(0 0 8px var(--accent-blue)); transition: 0.4s; }
-.nav-seal:hover { transform: rotate(15deg) scale(1.1); }
 
-/* --- TERMINAL PANELS & BRACKETS --- */
-.container { padding: calc(var(--nav-height) + 60px) 8% 60px; max-width: 1600px; margin: 0 auto; }
+/* --- LAYOUT & GRID --- */
+.container { 
+    padding: calc(var(--nav-height) + 60px) 6% 60px; 
+    max-width: 1400px; /* Constrained to keep terminals tight */
+    margin: 0 auto; 
+}
 
 .hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 60px; }
-.hero h1 { font-family: 'Orbitron'; font-size: 3rem; color: white; margin: 10px 0; }
+.hero h1 { font-family: 'Orbitron'; font-size: 2.8rem; color: white; margin: 10px 0; letter-spacing: 2px; }
 .glow-text { text-shadow: 0 0 15px rgba(0, 210, 255, 0.4); }
 
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* RIGID 2-COLUMN side-by-side */
+    gap: 30px; 
+}
 
+/* --- TERMINAL PANELS --- */
 .ue-panel {
     border: 1px solid #1e293b;
     background: var(--panel-bg);
-    padding: 30px;
+    padding: 25px;
     position: relative;
     display: flex;
     flex-direction: column;
-    transition: 0.4s;
+    overflow: hidden; /* Prevents content spill */
 }
-
-/* Technical Bracket Corners (The "Plumbing") */
-.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-top: 2px solid var(--accent-blue); border-left: 2px solid var(--accent-blue); }
-.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue); }
-.ue-panel:hover { border-color: var(--accent-blue); box-shadow: 0 0 20px rgba(0, 210, 255, 0.1); }
-
-.card-meta { font-family: 'Fira Code'; font-size: 0.65rem; color: #475569; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-
-/* --- STATUS INDICATORS (Restored) --- */
-.status-dots { margin-top: auto; padding-top: 20px; display: flex; gap: 12px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; }
-.white { background: #fff; }
-.pink { background: var(--code-violet); }
-.cyan-glow { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
-
-.blink { 
-    display: inline-block; width: 6px; height: 6px; 
-    background: var(--warning-orange); border-radius: 50%; 
-    margin-right: 8px; animation: simple-blink 1.5s infinite; 
-}
-@keyframes simple-blink { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
-
-/* --- BUTTONS --- */
-.btn-main {
-    display: block; width: 100%; padding: 15px; border: 1px solid var(--accent-blue);
-    background: rgba(0, 210, 255, 0.05); color: white; text-decoration: none;
-    text-align: center; font-family: 'Fira Code', monospace; font-size: 0.8rem;
-    transition: 0.3s;
-}
-.btn-main:hover { background: var(--accent-blue); color: #000; font-weight: bold; box-shadow: 0 0 20px var(--accent-blue); }
-
-footer { text-align: center; padding: 60px 8%; border-top: 1px solid var(--border-glow); margin-top: 60px; color: #475569; }
-
-@media (max-width: 950px) { .grid { grid-template-columns: 1fr; } }
