@@ -6,16 +6,22 @@
     <title>Blood-Yield | Community</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        :root { --rust: #8A3324; --blood: #8B0000; --gold: #F9D423; --stone: #4A4E69; }
-        body { background: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.95)), url('BY-Background.png') center/cover fixed; color: #C0C0C0; font-family: 'Inter', sans-serif; text-align: center; }
-        nav { background: #000; padding: 20px; display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid var(--rust); font-family: 'Orbitron'; }
-        nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; text-transform: uppercase; }
+        :root { --bg-dark: #050505; --rust: #8A3324; --blood: #8B0000; --gold: #F9D423; --stone: #4A4E69; --text-silver: #C0C0C0; }
+        body { background: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.95)), url('BY-Background.png') center/cover fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; text-align: center; margin: 0; }
+        nav { background: #000; padding: 20px; display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid var(--rust); font-family: 'Orbitron'; position: sticky; top: 0; z-index: 1000; }
+        nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        nav a:hover { color: var(--blood); }
         
+        .hero-section { padding: 60px 20px; }
         .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; }
-        .hub-link { padding: 40px; border: 1px solid var(--rust); background: rgba(138,51,36,0.05); text-decoration: none; color: #C0C0C0; transition: 0.3s; }
-        .hub-link:hover { border-color: var(--blood); transform: translateY(-5px); }
-        .portal { margin: 60px auto; padding: 50px; border: 1px dashed var(--gold); max-width: 600px; background: #000; }
-        .portal-btn { background: var(--gold); color: #000; padding: 15px 30px; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; margin-top: 20px; }
+        .hub-link { padding: 40px; border: 1px solid var(--rust); background: rgba(138,51,36,0.05); text-decoration: none; color: var(--text-silver); transition: 0.3s; }
+        .hub-link:hover { border-color: var(--blood); transform: translateY(-5px); background: rgba(138,51,36,0.1); }
+        
+        .portal { margin: 60px auto; padding: 50px; border: 1px dashed var(--gold); max-width: 600px; background: rgba(0,0,0,0.8); }
+        .portal-btn { background: var(--gold); color: #000; padding: 15px 30px; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; margin-top: 20px; transition: 0.2s; }
+        .portal-btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px var(--gold); }
+
+        footer { margin-top: 80px; padding: 60px 20px; border-top: 1px solid rgba(138, 51, 36, 0.3); background: rgba(0,0,0,0.5); text-align: left; }
     </style>
 </head>
 <body>
@@ -28,18 +34,42 @@
     <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
 </nav>
 
-<div style="padding: 60px 20px;">
-    <h1 style="font-family: 'Orbitron';">THE NETWORK LAYER</h1>
+<div class="hero-section">
+    <h1 style="font-family: 'Orbitron'; letter-spacing: 4px;">THE NETWORK LAYER</h1>
+    <p style="font-family: 'Montserrat'; color: var(--stone); margin-top: 10px;">COMMUNICATION PROTOCOLS & SECURE UPLINKS</p>
+
     <div class="hub-grid">
-        <a href="#" class="hub-link"><h3>DISCORD</h3><p>Join the Devs</p></a>
-        <a href="#" class="hub-link"><h3>X / TWITTER</h3><p>Real-time Logs</p></a>
+        <a href="#" class="hub-link">
+            <h3 style="font-family: 'Orbitron'; color: var(--blood);">DISCORD HUB</h3>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Join the official development frequency. Coordinate harvests and discuss the "Equilibrium Engine" with the community.</p>
+        </a>
+        <a href="https://harrisoninteractive.dev" target="_blank" class="hub-link">
+            <h3 style="font-family: 'Orbitron'; color: var(--stone);">HANDY PORTAL</h3>
+            <p style="margin-top: 10px; font-size: 0.9rem;">The technical hub for developers using the toolset that built Blood-Yield.</p>
+        </a>
     </div>
+
     <div class="portal">
-        <h2 style="font-family: 'Orbitron'; color: var(--gold);">PLAYFAB PORTAL</h2>
-        <p>Access Alpha rewards and character data.</p>
-        <button class="portal-btn" onclick="alert('REDIRECTING TO SECURE LOGIN...')">LOGIN TO SYSTEM</button>
+        <h2 style="font-family: 'Orbitron'; color: var(--gold);">PLAYFAB SECURE LOGIN</h2>
+        <p style="margin-top: 10px;">Access your Alpha character data, Yield history, and RMT marketplace credentials.</p>
+        <button class="portal-btn" onclick="alert('REDIRECTING TO PLAYFAB SECURE GATEWAY...')">INITIALIZE PORTAL</button>
     </div>
 </div>
+
+<footer>
+    <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div style="text-align: left;">
+            <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
+            <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px;">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
+        </div>
+        <div style="text-align: center; border: 1px solid var(--stone); padding: 10px 20px; font-family: 'Orbitron'; font-size: 0.6rem; color: var(--text-silver);">
+            OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE
+        </div>
+        <div style="text-align: right; font-size: 0.7rem; color: var(--stone);">
+            &copy; 2026 BloodYield.com
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
