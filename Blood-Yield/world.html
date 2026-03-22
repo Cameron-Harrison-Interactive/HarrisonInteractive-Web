@@ -7,103 +7,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg-dark: #050505; --rust: #8A3324; --stone: #4A4E69; --blood: #8B0000; --gold-yield: #F9D423; --text-silver: #C0C0C0; }
-        html, body { margin: 0; padding: 0; width: 100%; background-color: var(--bg-dark); color: var(--text-silver); font-family: 'Inter', sans-serif; background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('BY-Background.png') no-repeat center center/cover fixed; }
+        body { background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('BY-Background.png') no-repeat center center/cover fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; margin: 0; }
         nav { background: rgba(0, 0, 0, 0.9); padding: 20px; display: flex; justify-content: center; gap: 40px; font-family: 'Orbitron'; border-bottom: 2px solid var(--rust); position: sticky; top: 0; z-index: 1000; }
         nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
-        nav a:hover { color: var(--blood); text-shadow: 0 0 8px var(--blood); }
+        nav a:hover { color: var(--blood); }
         .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-        h1 { font-family: 'Orbitron'; font-size: 3rem; letter-spacing: 8px; margin-bottom: 10px; color: white; }
         .map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 50px; }
-        .zone-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--stone); padding: 20px; text-align: left; transition: transform 0.3s; }
-        .zone-card:hover { transform: translateY(-5px); border-color: var(--rust); background: rgba(138, 51, 36, 0.03); }
-        .zone-title { font-family: 'Orbitron'; color: var(--gold-yield); margin-bottom: 10px; font-size: 1.4rem; }
-        .metadata { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--stone); display: block; margin-bottom: 15px; }
+        .zone-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--stone); padding: 20px; text-align: left; }
         footer { margin-top: 80px; padding: 60px 20px; border-top: 1px solid rgba(138, 51, 36, 0.3); background: rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">HOME</a>
-        <a href="world.html" style="color: var(--blood);">THE WORLD</a>
-        <a href="lore.html">LORE</a>
-        <a href="community.html">COMMUNITY</a>
-        <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
-    </nav>
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="world.html" style="color: var(--blood);">THE WORLD</a>
+    <a href="lore.html">LORE</a>
+    <a href="community.html">COMMUNITY</a>
+    <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
+</nav>
 
-    <div class="container">
-        <span class="metadata">EST. 2026 | UNREAL ENGINE AI | GEOGRAPHICAL DATA</span>
-        <h1>THE WORLD</h1>
-        
-        <div class="map-grid">
-            <section style="margin-top: 80px; padding: 40px; border: 1px solid var(--gold-yield); background: rgba(0,0,0,0.8); position: relative; overflow: hidden;">
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.7); display: flex; align-items: center; justify-content: center; z-index: 10; backdrop-filter: blur(4px);">
-        <div style="border: 2px solid var(--gold-yield); padding: 20px 40px; background: #000; transform: rotate(-2deg); box-shadow: 0 0 30px rgba(249, 212, 35, 0.2);">
-            <h2 style="font-family: 'Orbitron'; color: var(--gold-yield); letter-spacing: 5px;">MARKET STATUS: ENCRYPTED</h2>
-            <p style="font-family: 'Montserrat'; font-size: 0.8rem; color: #fff; margin-top: 5px;">LIVE RMT EXCHANGE COMING LATER IN DEVELOPMENT</p>
+<div class="container">
+    <h1 style="font-family: 'Orbitron'; letter-spacing: 5px; color: #fff;">THE GEOGRAPHY</h1>
+    <div class="map-grid">
+        <div class="zone-card" style="border-top: 3px solid var(--blood);">
+            <h3 style="font-family: 'Orbitron'; color: var(--gold-yield);">THE BIND CONTRACT</h3>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Items are cryptographically bound to the player's Chassis. Unbinding requires Forge rituals.</p>
+        </div>
+        <div class="zone-card" style="border-top: 3px solid var(--gold-yield);">
+            <h3 style="font-family: 'Orbitron'; color: var(--gold-yield);">EQUILIBRIUM ENGINE</h3>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Monitors Voltage supply to adjust drop rates and taxes, preventing market crashes.</p>
         </div>
     </div>
 
-    <h2 style="font-family: 'Orbitron'; color: var(--text-silver); margin-bottom: 30px; text-align: left;">
-        <span style="color: var(--gold-yield);">></span> SECURE EXCHANGE TERMINAL
-    </h2>
+    <section style="margin-top: 80px; padding: 40px; border: 1px solid var(--gold-yield); background: rgba(0,0,0,0.8); position: relative;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,5,0.75); display: flex; align-items: center; justify-content: center; z-index: 10; backdrop-filter: blur(4px);">
+            <h2 style="font-family: 'Orbitron'; color: var(--gold-yield); border: 2px solid var(--gold-yield); padding: 15px;">SECURE EXCHANGE: PENDING ALPHA</h2>
+        </div>
+        <h2 style="font-family: 'Orbitron'; text-align: left; opacity: 0.2;">MARKET TERMINAL</h2>
+    </section>
+</div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; opacity: 0.3;">
-        <div style="border: 1px solid var(--stone); padding: 15px; text-align: left;">
-            <p style="font-family: 'Orbitron'; font-size: 0.6rem; color: var(--stone);">ASSET: REAPER_CORE_V1</p>
-            <p style="font-size: 1.2rem; color: var(--blood); font-weight: bold;">0.42 ETH / $1,240.00</p>
-            <p style="font-size: 0.6rem; color: #00FF00;">+ 2.4% YIELD</p>
+<footer>
+    <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div style="text-align: left;">
+            <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
+            <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px;">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
         </div>
-        <div style="border: 1px solid var(--stone); padding: 15px; text-align: left;">
-            <p style="font-family: 'Orbitron'; font-size: 0.6rem; color: var(--stone);">ASSET: BIOMASS_FLASK</p>
-            <p style="font-size: 1.2rem; color: var(--gold-yield); font-weight: bold;">0.012 ETH / $35.50</p>
-            <p style="font-size: 0.6rem; color: #FF0000;">- 1.1% YIELD</p>
-        </div>
-        <div style="border: 1px solid var(--stone); padding: 15px; text-align: left;">
-            <p style="font-family: 'Orbitron'; font-size: 0.6rem; color: var(--stone);">ASSET: SOLDER_VALKYRIE_SHIELD</p>
-            <p style="font-size: 1.2rem; color: #fff; font-weight: bold;">0.15 ETH / $450.00</p>
-            <p style="font-size: 0.6rem; color: var(--stone);">STABLE_CONTRACT</p>
+        <div style="text-align: right; font-size: 0.7rem; color: var(--stone);">
+            &copy; 2026 BloodYield.com | All Rights Decrypted.<br>
+            <a href="https://harrisoninteractive.dev" style="color: var(--rust); text-decoration: none;">Powered by Handy Ultimate</a>
         </div>
     </div>
-
-    <div style="margin-top: 30px; text-align: left; font-family: 'Orbitron'; font-size: 0.6rem; color: var(--rust);">
-        [LOG]: EQUILIBRIUM ENGINE ACTIVE... MONITORING SUPPLY...
-    </div>
-</section>
-            <div class="zone-card" style="border-top: 3px solid var(--blood);">
-                <h3 class="zone-title">THE BIND CONTRACT</h3>
-                <span class="metadata">ITEM RECOGNITION PROTOCOL</span>
-                <p>Items in Blood-Yield are <strong>Contractual Assets</strong>. Once a "Yield" is harvested, it is cryptographically bound to the player's <strong>Chassis</strong>. To trade, the contract must be "Unbound" through Sanguine Forge rituals.</p>
-            </div>
-
-            <div class="zone-card" style="border-top: 3px solid var(--gold-yield);">
-                <h3 class="zone-title">EQUILIBRIUM ENGINE</h3>
-                <span class="metadata">ANTI-INFLATION MEASURE</span>
-                <p>To prevent market crashes, the <strong>Secure Exchange</strong> utilizes the Equilibrium Engine. This system monitors total Voltage in circulation, automatically adjusting drop rates and trade taxes in real-time.</p>
-            </div>
-
-            <div class="zone-card" style="border-top: 3px solid var(--stone);">
-                <h3 class="zone-title">SECURE EXCHANGE</h3>
-                <span class="metadata">VERIFIED RMT GATEWAY</span>
-                <p>The hub for all RMT transactions. Utilizing <strong>PlayFab</strong> backends, the Exchange allows players to trade gear for real-world value with built-in fraud protection and Official Seal verification.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-            <div style="text-align: left;">
-                <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
-                <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px;">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
-            </div>
-           
-              
-            </div>
-            <div style="text-align: right; font-size: 0.7rem; color: var(--stone);">
-                &copy; 2026 BloodYield.com
-            </div>
-        </div>
-    </footer>
+</footer>
 
 </body>
 </html>
