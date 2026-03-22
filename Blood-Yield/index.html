@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood-Yield | Coming Soon</title>
+    <title>Blood-Yield | Project Terminal | Harrison Interactive</title>
     <link rel="stylesheet" href="../styles.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&family=Fira+Code&display=swap" rel="stylesheet">
     
     <style>
         body {
-            /* Force the game background to override the main studio navy blue */
+            /* Game World Overrides */
             background-image: url('background.png') !important;
             background-size: cover !important;
             background-position: center !important;
@@ -20,81 +20,178 @@
             height: 100vh;
             margin: 0;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            overflow: hidden;
             font-family: 'Rajdhani', sans-serif;
             color: #fff;
         }
 
+        /* --- THE RUNIC TERMINAL BOX --- */
         .coming-soon-box {
-            background: rgba(10, 10, 12, 0.85); /* Darker glass for better text pop */
-            padding: 60px 80px;
-            border: 2px solid #8e44ad; /* Living Wood Purple */
-            backdrop-filter: blur(15px);
-            box-shadow: 0 0 50px rgba(0,0,0,0.9), 0 0 20px rgba(142, 68, 173, 0.3);
-            border-radius: 4px;
+            background: rgba(10, 10, 12, 0.9);
+            padding: 60px;
+            width: 90%;
+            max-width: 900px;
+            border: 1px solid #8e44ad; /* Living Wood Purple */
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9), 0 0 20px rgba(142, 68, 173, 0.2);
+            position: relative;
+            text-align: center;
+            opacity: 0; /* Boot Sequence Start */
+        }
+
+        /* Technical Brackets (Game Themed: Purple) */
+        .coming-soon-box::before { content: ""; position: absolute; top: 0; left: 0; width: 30px; height: 30px; border-top: 4px solid #8e44ad; border-left: 4px solid #8e44ad; }
+        .coming-soon-box::after { content: ""; position: absolute; bottom: 0; right: 0; width: 30px; height: 30px; border-bottom: 4px solid #8e44ad; border-right: 4px solid #8e44ad; }
+
+        .game-meta {
+            font-family: 'Fira Code';
+            font-size: 0.7rem;
+            color: #8e44ad;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
         }
 
         h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: 6rem; /* The "HUGE" title */
+            font-size: 5rem;
             font-weight: 900;
-            background: linear-gradient(to bottom, #d4af37, #8e44ad); /* Gold to Purple */
+            background: linear-gradient(to bottom, #d4af37 30%, #8e44ad 100%); /* Gold to Purple */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 0; 
-            letter-spacing: 10px;
+            letter-spacing: 12px;
+            filter: drop-shadow(0 0 15px rgba(142, 68, 173, 0.4));
         }
 
         .status-tag {
-            font-size: 2.5rem;
-            letter-spacing: 15px;
-            color: #C0C0C0; /* Brushed Silver */
-            margin: 20px 0;
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            color: #C0C0C0;
+            margin: 10px 0 40px;
             text-transform: uppercase;
             font-weight: 700;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            opacity: 0.8;
         }
 
+        /* --- KICKSTARTER PROGRESS TRACKER --- */
+        .tracker-container {
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .tracker-label {
+            font-family: 'Fira Code';
+            font-size: 0.65rem;
+            color: #d4af37; /* Gold */
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(142, 68, 173, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 35%; /* Current Progress Percentage */
+            background: linear-gradient(90deg, #8e44ad, #d4af37);
+            box-shadow: 0 0 15px #8e44ad;
+            transition: width 2s ease-in-out;
+        }
+
+        /* --- TECH STACK --- */
         .tech-stack {
-            font-size: 1.1rem;
-            color: #888;
+            font-size: 0.9rem;
+            color: #666;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
+            letter-spacing: 4px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 25px;
         }
 
-        .highlight-ue5 { color: #ffffff; font-weight: bold; }
-        .highlight-handy { color: #00e5ff; font-weight: bold; text-shadow: 0 0 8px #00e5ff; }
+        .highlight-ue5 { color: #fff; font-weight: bold; }
+        .highlight-handy { color: var(--accent-blue); text-shadow: 0 0 8px var(--accent-blue); }
 
         .back-link {
-            margin-top: 40px;
+            margin-top: 50px;
             display: inline-block;
-            color: #00e5ff;
+            color: #8e44ad;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-family: 'Fira Code';
+            font-size: 0.75rem;
             letter-spacing: 2px;
             transition: 0.3s;
+            border: 1px solid transparent;
+            padding: 10px 20px;
         }
-        .back-link:hover { text-shadow: 0 0 10px #00e5ff; transform: translateX(-5px); }
+        .back-link:hover { 
+            color: #fff;
+            border-color: #8e44ad;
+            background: rgba(142, 68, 173, 0.1);
+            text-shadow: 0 0 10px #8e44ad; 
+        }
+
+        /* --- BOOT SEQUENCE RE-WIRED --- */
+        .boot-anim { animation: blood-boot 1.2s ease-out forwards; }
+        @keyframes blood-boot {
+            0% { opacity: 0; transform: scale(0.95); filter: brightness(5) saturate(0); }
+            10% { opacity: 0.7; filter: brightness(1) saturate(1); }
+            15% { opacity: 0.3; }
+            25% { opacity: 1; transform: scale(1); }
+            100% { opacity: 1; }
+        }
+
+        .blink-purple { 
+            display: inline-block; width: 8px; height: 8px; 
+            background: #8e44ad; border-radius: 50%; 
+            margin-right: 10px; animation: simple-blink-p 2s infinite; 
+        }
+        @keyframes simple-blink-p { 0%, 100% { opacity: 1; box-shadow: 0 0 8px #8e44ad; } 50% { opacity: 0.2; } }
+
     </style>
 </head>
 <body>
 
-    <div class="coming-soon-box">
-        <h1>BLOOD-YIELD</h1>
-        <div class="status-tag">COMING SOON</div>
-        
-        <div class="tech-stack">
-            Forged in <span class="highlight-ue5">Unreal Engine 5</span> <br>
-            Powered by <span class="highlight-handy">Handy Ultimate</span>
+    <div class="coming-soon-box boot-anim">
+        <div class="game-meta">
+            <span><span class="blink-purple"></span> SIGNAL_STRENGTH: 35%</span>
+            <span>TARGET_DEPLOYMENT: Q4_2026</span>
         </div>
 
-        <a href="../index.html" class="back-link">← RETURN TO STUDIO HUB</a>
+        <h1>BLOOD-YIELD</h1>
+        <div class="status-tag">PROJECT_REAP</div>
+        
+        <div class="tracker-container">
+            <div class="tracker-label">
+                <span>KICKSTARTER: SIGNATORY_MILESTONE</span>
+                <span>35% CALIBRATED</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            FORGED IN <span class="highlight-ue5">UNREAL ENGINE 5</span> <br>
+            STABILIZED BY <span class="highlight-handy">HANDY ULTIMATE</span>
+        </div>
+
+        <a href="../index.html" class="back-link">> RETURN_TO_STUDIO_HUB</a>
+        
+        <div style="margin-top: 40px; display: flex; gap: 15px; justify-content: center;">
+            <span class="dot" style="background: #d4af37; box-shadow: 0 0 10px #d4af37; width: 8px; height: 8px; border-radius: 50%;"></span> <span class="dot" style="background: #8e44ad; box-shadow: 0 0 10px #8e44ad; width: 8px; height: 8px; border-radius: 50%;"></span> <span class="dot white" style="width: 8px; height: 8px; border-radius: 50%;"></span>
+        </div>
     </div>
 
 </body>
