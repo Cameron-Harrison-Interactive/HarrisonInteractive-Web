@@ -9,55 +9,84 @@
 </head>
 <body class="handy-window">
 
-    <nav>
-        <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
-            <img src="harrison-wide-logo.png" class="nav-logo" alt="Harrison Interactive LLC // Cyber Elite">
-        </a>
-        
-        <div class="nav-links">
-            <a href="index.html" class="active">HOME</a>
-            <a href="handy.html">HANDY</a>
-            <a href="Blood-Yield/">BLOOD-YIELD</a>
-            <a href="about.html">ABOUT</a>
-            <a href="faq.html">FAQ</a>
+    <nav class="omni-nav">
+        <div class="nav-zone-left">
+            <a href="index.html" class="nav-brand-container">
+                <img src="harrison-wide-logo.png" class="nav-logo" alt="Harrison Interactive">
+            </a>
+        </div>
+        <div class="nav-zone-center">
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <span class="nav-pipe">|</span>
+                <a href="handy.html">HANDY</a>
+                <span class="nav-pipe">|</span>
+                <a href="Blood-Yield/">BLOOD-YIELD</a>
+                <span class="nav-pipe">|</span>
+                <a href="about.html" class="active">ABOUT</a>
+                <span class="nav-pipe">|</span>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </div>
+        <div class="nav-zone-right">
+            <div class="nav-meta-text">UE5 AI AUTO // EST. 2026</div>
+            <img src="T_HI_Logo.png" class="nav-seal" alt="Official Seal">
         </div>
     </nav>
 
     <main class="container">
         <header class="hero">
-            <div class="accent-blue" style="font-family:'Fira Code'; font-size: 0.7rem;">[ SCANNING_IDENTITY... ]</div>
-            <h1>STUDIO <span class="accent-blue">MANIFESTO</span></h1>
+            <div class="accent-blue sys-init">[ SCANNING_IDENTITY... ]</div>
+            <h1 class="glow-text">STUDIO <span class="accent-blue">MANIFESTO</span></h1>
+            <p class="hero-description">Harrison Interactive LLC is a tech-forward studio specializing in the intersection of visceral gameplay and industrial-grade Unreal Engine automation.</p>
         </header>
 
         <section class="grid">
-            <div class="ue-panel">
+            <div class="ue-panel terminal-block">
+                <div class="card-meta">
+                    <span>SECTOR // SYSTEM_ARCH</span>
+                    <span><span class="blink"></span> LOGIC: STABLE</span>
+                </div>
                 <h3 class="accent-blue">SYSTEM ARCHITECTURE</h3>
-                <p style="color: var(--text-dim);">We architect the <strong>Logic Manifolds</strong> that make immersion possible. Our philosophy is rooted in "The Plumbing"—the belief that flawless data flow is the only path to true AAA quality.</p>
+                <p class="panel-text">We architect the <strong>Logic Manifolds</strong> that make immersion possible. Our philosophy is rooted in "The Plumbing"—the belief that flawless data flow is the only path to true AAA quality.</p>
+                <div class="status-dots">
+                    <span class="dot cyan-glow"></span> <span class="dot white"></span> <span class="dot white"></span>
+                </div>
             </div>
 
-            <div class="ue-panel">
+            <div class="ue-panel terminal-block">
+                <div class="card-meta">
+                    <span>SECTOR // INDUSTRIAL_SCALING</span>
+                    <span><span class="blink"></span> STATUS: ACTIVE</span>
+                </div>
                 <h3 class="accent-blue">INDUSTRIAL SCALING</h3>
-                <p style="color: var(--text-dim);">Harrison Interactive LLC builds tools that scale. Engineered for any genre, we provide the industrial power of a top-tier studio to teams of any size.</p>
+                <p class="panel-text">Harrison Interactive LLC builds tools that scale. Engineered for any genre, we provide the industrial power of a top-tier studio to teams of any size.</p>
+                <div class="status-dots">
+                    <span class="dot cyan-glow"></span> <span class="dot pink"></span> <span class="dot white"></span>
+                </div>
             </div>
         </section>
 
-        <section class="ue-panel" style="margin-top: 40px; text-align: center;">
-            <p>Specializing in <strong>Hybrid Logic Architecture</strong>—merging UMG Blueprints with Python automation.</p>
-            <div style="font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">#UE5_AUTOMATION // #AI_OMNI_LINK // #INDUSTRIAL_LOGIC</div>
+        <section class="ue-panel terminal-block" style="margin-top: 40px; text-align: center;">
+            <div class="card-meta">
+                <span>SECTOR // HYBRID_LOGIC</span>
+                <span><span class="blink"></span> SYNC_COMPLETE</span>
+            </div>
+            <p class="panel-text">Specializing in <strong>Hybrid Logic Architecture</strong>—merging UMG Blueprints with Python automation to create unrivaled innovation in the Unreal Engine ecosystem.</p>
+            <div style="font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); margin-top: 15px; letter-spacing: 2px;">
+                #UE5_AUTOMATION // #AI_OMNI_LINK // #INDUSTRIAL_LOGIC
+            </div>
+            <div class="status-dots" style="justify-content: center; margin-top: 20px;">
+                <span class="dot cyan-glow"></span> <span class="dot white"></span> <span class="dot pink"></span>
+            </div>
         </section>
     </main>
 
-   <footer>
-        <div style="margin-bottom: 10px; opacity: 0.9; font-family: 'Inter';">
-            © 2026 <span class="accent-blue">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.
-        </div>
-        <div style="font-family: 'Orbitron'; font-size: 0.6rem; letter-spacing: 2px;">
-            <a href="legal.html" style="color: var(--accent-blue); text-decoration: none;">[ ACCESS_LEGAL_TERMINAL ]</a>
-        </div>
-        <div style="margin-top: 15px; opacity: 0.4; font-size: 0.6rem;">
-            UNREAL ENGINE AI // UNRIVALED INNOVATION // CYBER ELITE
+    <footer class="omni-footer">
+        <div class="footer-copyright" style="text-align: center; padding: 40px 8%; border-top: 1px solid var(--border-glow); margin-top: 60px;">
+            <div style="margin-bottom: 10px; opacity: 0.9; font-family: 'Inter';">© 2026 <span class="accent-blue">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div>
+            <div style="font-family: 'Orbitron'; font-size: 0.6rem; letter-spacing: 2px;"><a href="legal.html" style="color: var(--accent-blue); text-decoration: none;">[ ACCESS_LEGAL_TERMINAL ]</a></div>
         </div>
     </footer>
-
 </body>
 </html>
