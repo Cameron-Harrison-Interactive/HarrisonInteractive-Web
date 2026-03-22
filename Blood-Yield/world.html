@@ -6,132 +6,19 @@
     <title>The World | Blood-Yield</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #050505;
-            --rust: #8A3324;
-            --stone: #4A4E69;
-            --blood: #8B0000;
-            --gold-yield: #F9D423;
-            --text-silver: #C0C0C0;
-        }
-
-        /* The "Plumbing": Ensures no white space leaks through */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-dark);
-            color: var(--text-silver);
-            font-family: 'Inter', sans-serif;
-            /* Applying your background asset */
-            background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), 
-                        url('BY-Background.png') no-repeat center center/cover fixed;
-        }
-
-        /* Modular Navigation */
-        nav {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            font-family: 'Orbitron', sans-serif;
-            border-bottom: 2px solid var(--rust);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--stone);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        nav a:hover {
-            color: var(--blood);
-            text-shadow: 0 0 8px var(--blood);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        h1 {
-            font-family: 'Orbitron';
-            font-size: 3rem;
-            letter-spacing: 8px;
-            margin-bottom: 10px;
-            color: white;
-            text-shadow: 2px 2px 10px rgba(138, 51, 36, 0.5);
-        }
-
-        .map-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        /* Modular Zone Cards */
-        .zone-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--stone);
-            padding: 20px;
-            text-align: left;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .zone-card:hover {
-            border-color: var(--rust);
-            transform: translateY(-5px);
-            background: rgba(138, 51, 36, 0.03);
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: 250px;
-            background: #101010;
-            border: 1px dashed var(--rust);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--rust);
-            font-family: 'Orbitron';
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .zone-title {
-            font-family: 'Orbitron';
-            color: var(--gold-yield);
-            margin-bottom: 10px;
-            font-size: 1.4rem;
-        }
-
-        .metadata {
-            font-family: 'Orbitron';
-            font-size: 0.7rem;
-            color: var(--stone);
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        footer {
-            margin-top: 80px;
-            padding: 40px;
-            border-top: 1px solid rgba(138, 51, 36, 0.2);
-            opacity: 0.6;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-        }
+        :root { --bg-dark: #050505; --rust: #8A3324; --stone: #4A4E69; --blood: #8B0000; --gold-yield: #F9D423; --text-silver: #C0C0C0; }
+        html, body { margin: 0; padding: 0; width: 100%; background-color: var(--bg-dark); color: var(--text-silver); font-family: 'Inter', sans-serif; background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('BY-Background.png') no-repeat center center/cover fixed; }
+        nav { background: rgba(0, 0, 0, 0.9); padding: 20px; display: flex; justify-content: center; gap: 40px; font-family: 'Orbitron'; border-bottom: 2px solid var(--rust); position: sticky; top: 0; z-index: 1000; }
+        nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        nav a:hover { color: var(--blood); text-shadow: 0 0 8px var(--blood); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+        h1 { font-family: 'Orbitron'; font-size: 3rem; letter-spacing: 8px; margin-bottom: 10px; color: white; }
+        .map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 50px; }
+        .zone-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--stone); padding: 20px; text-align: left; transition: transform 0.3s; }
+        .zone-card:hover { transform: translateY(-5px); border-color: var(--rust); background: rgba(138, 51, 36, 0.03); }
+        .zone-title { font-family: 'Orbitron'; color: var(--gold-yield); margin-bottom: 10px; font-size: 1.4rem; }
+        .metadata { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--stone); display: block; margin-bottom: 15px; }
+        footer { margin-top: 80px; padding: 60px 20px; border-top: 1px solid rgba(138, 51, 36, 0.3); background: rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
@@ -147,32 +34,41 @@
     <div class="container">
         <span class="metadata">EST. 2026 | UNREAL ENGINE AI | GEOGRAPHICAL DATA</span>
         <h1>THE WORLD</h1>
-        <p style="font-family: 'Montserrat'; opacity: 0.8;">MAPPING THE INDUSTRIAL CONVERGENCE</p>
-
+        
         <div class="map-grid">
-            <div class="zone-card">
-                <div class="image-placeholder">
-                    [IMAGE: THE IRON BARRENS]
-                    <div style="position: absolute; bottom: 5px; right: 10px; font-size: 0.5rem;">SECTOR_01</div>
-                </div>
-                <h3 class="zone-title">THE IRON BARRENS</h3>
-                <p>A wasteland of technical drafting paper textures and circuit traces. The soil is stained with solder and rusted metallic fragments.</p>
+            <div class="zone-card" style="border-top: 3px solid var(--blood);">
+                <h3 class="zone-title">THE BIND CONTRACT</h3>
+                <span class="metadata">ITEM RECOGNITION PROTOCOL</span>
+                <p>Items in Blood-Yield are <strong>Contractual Assets</strong>. Once a "Yield" is harvested, it is cryptographically bound to the player's <strong>Chassis</strong>. To trade, the contract must be "Unbound" through Sanguine Forge rituals.</p>
             </div>
 
-            <div class="zone-card" style="border-right: 3px solid var(--blood);">
-                <div class="image-placeholder">
-                    [IMAGE: SANGUINE FORGE]
-                    <div style="position: absolute; bottom: 5px; right: 10px; font-size: 0.5rem;">SECTOR_02</div>
-                </div>
-                <h3 class="zone-title" style="color: var(--blood);">SANGUINE FORGE</h3>
-                <p>The industrial heart where biological essence is refined. The "Yield" is processed here through massive gear-driven rituals.</p>
+            <div class="zone-card" style="border-top: 3px solid var(--gold-yield);">
+                <h3 class="zone-title">EQUILIBRIUM ENGINE</h3>
+                <span class="metadata">ANTI-INFLATION MEASURE</span>
+                <p>To prevent market crashes, the <strong>Secure Exchange</strong> utilizes the Equilibrium Engine. This system monitors total Voltage in circulation, automatically adjusting drop rates and trade taxes in real-time.</p>
+            </div>
+
+            <div class="zone-card" style="border-top: 3px solid var(--stone);">
+                <h3 class="zone-title">SECURE EXCHANGE</h3>
+                <span class="metadata">VERIFIED RMT GATEWAY</span>
+                <p>The hub for all RMT transactions. Utilizing <strong>PlayFab</strong> backends, the Exchange allows players to trade gear for real-world value with built-in fraud protection and Official Seal verification.</p>
             </div>
         </div>
     </div>
 
     <footer>
-        OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE<br>
-        HARRISON INTERACTIVE © 2026
+        <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+            <div style="text-align: left;">
+                <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
+                <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px;">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
+            </div>
+            <div style="border: 1px solid var(--stone); padding: 10px 20px; font-family: 'Orbitron'; font-size: 0.6rem; color: var(--text-silver);">
+                OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE
+            </div>
+            <div style="text-align: right; font-size: 0.7rem; color: var(--stone);">
+                &copy; 2026 BloodYield.com
+            </div>
+        </div>
     </footer>
 
 </body>
