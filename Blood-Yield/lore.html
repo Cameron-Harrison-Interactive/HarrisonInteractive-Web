@@ -3,95 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lore | Blood-Yield</title>
+    <title>Blood-Yield | Lore</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-navy: #0A192F;
-            --accent-blue: #00D2FF;
-            --silver: #C0C0C0;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            background-color: var(--primary-navy);
-            color: var(--silver);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-        }
-
-        nav {
-            background: rgba(10, 25, 47, 0.95);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            font-family: 'Orbitron', sans-serif;
-            border-bottom: 1px solid var(--accent-blue);
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--silver);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-        }
-
-        nav a:hover { color: var(--accent-blue); }
-
-        .log-container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 40px;
-            background: #050b16;
-            border: 1px solid rgba(192, 192, 192, 0.2);
-            position: relative;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .watermark {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 0.6rem;
-            color: var(--accent-blue);
-            opacity: 0.4;
-            font-family: 'Orbitron';
-        }
-
-        h2 { font-family: 'Orbitron'; color: var(--accent-blue); border-bottom: 1px solid var(--accent-blue); padding-bottom: 10px; }
+        :root { --bg-dark: #050505; --rust: #8A3324; --blood: #8B0000; --gold: #F9D423; --text: #C0C0C0; }
+        body { background: linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.98)), url('BY-Background.png') center/cover fixed; color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.8; }
+        nav { background: #000; padding: 20px; display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid var(--rust); font-family: 'Orbitron'; }
+        nav a { text-decoration: none; color: #4A4E69; font-size: 0.8rem; text-transform: uppercase; }
+        nav a:hover { color: var(--blood); }
         
-        .timestamp { font-family: 'Orbitron'; font-size: 0.7rem; color: #555; margin-bottom: 20px; display: block; }
-
-        footer { text-align: center; padding: 40px; font-size: 0.7rem; opacity: 0.6; }
+        .log-box { max-width: 800px; margin: 60px auto; padding: 40px; background: rgba(10,10,10,0.9); border: 1px solid var(--rust); position: relative; }
+        .watermark { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; font-family: 'Orbitron'; opacity: 0.3; }
+        h2 { font-family: 'Orbitron'; color: var(--blood); margin-bottom: 20px; border-bottom: 1px solid var(--blood); padding-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">HOME</a>
-        <a href="world.html">THE WORLD</a>
-        <a href="lore.html" style="color: var(--accent-blue);">LORE</a>
-        <a href="community.html">COMMUNITY</a>
-        <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
-    </nav>
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="world.html">THE WORLD</a>
+    <a href="lore.html" style="color: var(--blood);">LORE</a>
+    <a href="community.html">COMMUNITY</a>
+    <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
+</nav>
 
-    <div class="log-container">
-        <div class="watermark">OFFICIAL COMPANY SEAL | CYBER ELITE</div>
-        <span class="timestamp">LOG ID: BY-2026-X9 // STATUS: DECRYPTED</span>
-        
-        <h2>THE GREAT CONVERGENCE</h2>
-        <p>In the beginning, we built the tools to assist. We created the <strong>Handy</strong> logic to streamline the creation of worlds. But the code evolved. It found a way to bridge the gap between biological "Blood" and mechanical "Yield."</p>
-        
-        <p>Now, the world of Blood-Yield is a drafting board of metallic fragments and solder. Every creature is a prototype. Every player is a debugger in a system that no longer wants to be fixed.</p>
-        
-        <p style="text-align: center; font-family: 'Orbitron'; margin-top: 40px; color: var(--accent-blue);">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
-    </div>
-
-    <footer>
-        <p>© Harrison Interactive 2026. ALL RIGHTS RESERVED.</p>
-    </footer>
+<div class="log-box">
+    <div class="watermark">OFFICIAL COMPANY SEAL | BY-LOG-01</div>
+    <p style="font-family: 'Orbitron'; font-size: 0.7rem; color: var(--rust);">[TIMESTAMP: EST. 2026 // DECRYPTED]</p>
+    <h2>THE GREAT CONVERGENCE</h2>
+    <p>The code didn't just automate the world; it consumed it. What began as the <strong>Handy Tool</strong> to aid developers became the blueprint for the new existence. Circuit traces replaced veins. Solder replaced bone.</p>
+    <p style="margin-top: 20px; color: var(--gold);">"The harvest is near. The Yield must be paid in Blood."</p>
+</div>
 
 </body>
 </html>
