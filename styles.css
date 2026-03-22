@@ -1,5 +1,5 @@
-/* HARRISON INTERACTIVE: MASTER CYBER-TECH STYLESHEET 
-    VERSION: 2.1 | EST. 2026 | UNRIVALED INNOVATION
+/* HARRISON INTERACTIVE LLC: MASTER CYBER-TECH STYLESHEET 
+    VERSION: 2.5 | EST. 2026 | UNRIVALED INNOVATION | CYBER ELITE
 */
 
 :root {
@@ -69,7 +69,7 @@ body {
 }
 
 /* --- TYPOGRAPHY --- */
-h1, h2, h3, .logo-text { 
+h1, h2, h3, h4, .logo-text { 
     font-family: 'Orbitron', sans-serif; 
     text-transform: uppercase; 
     letter-spacing: 3px; 
@@ -78,6 +78,7 @@ h1, h2, h3, .logo-text {
 
 .accent-blue { color: var(--accent-blue); text-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
 .accent-violet { color: var(--code-violet); text-shadow: 0 0 8px rgba(168, 85, 247, 0.4); }
+.accent-green { color: var(--success-green); text-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
 
 /* --- NAVIGATION --- */
 nav {
@@ -87,121 +88,3 @@ nav {
     padding: 1.5rem 8%;
     background: rgba(10, 25, 47, 0.9);
     border-bottom: 1px solid var(--border-glow);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-logo { height: 45px; filter: drop-shadow(0 0 5px var(--accent-blue)); }
-
-.nav-links a {
-    color: var(--metal-silver);
-    text-decoration: none;
-    margin-left: 2rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-    transition: 0.3s;
-}
-.nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
-
-/* --- CONTAINERS --- */
-.container { padding: 80px 10%; position: relative; z-index: 2; }
-.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 60px; margin-bottom: 60px; }
-.hero h1 { font-size: 4rem; line-height: 1.1; margin: 0; }
-.hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin-top: 20px; }
-
-/* --- PROJECT GRID & CARDS --- */
-.grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
-    gap: 40px; 
-}
-
-.card {
-    background: var(--panel-gradient);
-    border: 1px solid #233554;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.card:hover { 
-    border-color: var(--accent-blue); 
-    transform: translateY(-8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 210, 255, 0.1);
-}
-
-/* Image/Banner Fix for Handy Tool */
-.card-img { 
-    width: 100%;
-    height: auto; 
-    background: #000; 
-    overflow: hidden; 
-    position: relative; 
-    line-height: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.card-img img { 
-    width: 100%; 
-    height: auto; 
-    display: block;
-    transition: transform 0.6s ease; 
-}
-
-.card:hover .card-img img { transform: scale(1.05); }
-
-/* Card Content Logic */
-.card-meta {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.65rem;
-    padding: 12px 20px;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    color: #475569;
-}
-
-.card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
-.card-content h3 { margin-top: 0; font-size: 1.3rem; }
-.card-content p { font-size: 0.9rem; color: var(--text-dim); flex-grow: 1; }
-
-/* --- STATUS INDICATORS --- */
-.status-indicator { display: flex; align-items: center; gap: 8px; color: var(--warning-orange); }
-.blink {
-    width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%;
-    animation: status-blink 1.5s infinite;
-}
-
-@keyframes status-blink {
-    0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); }
-    50% { opacity: 0.3; box-shadow: 0 0 0px var(--warning-orange); }
-}
-
-.status-dots { margin: 20px 0; display: flex; gap: 15px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-.dot.white { background: #fff; box-shadow: 0 0 5px #fff; }
-.dot.pink { background: #f472b6; box-shadow: 0 0 5px #f472b6; }
-.dot.cyan-glow { 
-    background: var(--accent-blue); 
-    box-shadow: 0 0 10px var(--accent-blue); 
-    animation: pulse 2s infinite; 
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-/* --- BUTTONS --- */
-.btn-main {
-    margin-top: auto;
-    padding: 14px;
-    border: 1px solid var(--accent-blue);
-    background: linear-gradient(90deg, rgba(0, 210, 255, 0.05), rgba(0, 210, 255, 0.15));
-    color: white;
-    text
