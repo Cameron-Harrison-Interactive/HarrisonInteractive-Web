@@ -1,16 +1,97 @@
-<section class="section" style="text-align: left;">
-    <h2 style="font-family: 'Orbitron'; text-align: center;">LOG ENTRIES: PROJECT BLOOD-YIELD</h2>
-    
-    <div style="background: #050b16; padding: 30px; border: 1px solid var(--silver); border-radius: 2px; position: relative;">
-        <div style="position: absolute; top: 10px; right: 10px; opacity: 0.2; font-size: 0.7rem;">
-            OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lore | Blood-Yield</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #0A192F;
+            --accent-blue: #00D2FF;
+            --silver: #C0C0C0;
+        }
 
-        <p style="color: var(--accent-blue); font-family: 'Orbitron'; font-size: 0.8rem;">[TIMESTAMP: EST. 2026 | STATUS: ENCRYPTED]</p>
-        <p>In the year 2026, the boundary between biological essence and industrial machinery collapsed. The "Yield" was no longer a harvest of grain, but a harvest of data and essence. <strong>Blood-Yield</strong> represents the final iteration of this convergence.</p>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-navy);
+            color: var(--silver);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(10, 25, 47, 0.95);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-family: 'Orbitron', sans-serif;
+            border-bottom: 1px solid var(--accent-blue);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--silver);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        nav a:hover { color: var(--accent-blue); }
+
+        .log-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #050b16;
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .watermark {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.6rem;
+            color: var(--accent-blue);
+            opacity: 0.4;
+            font-family: 'Orbitron';
+        }
+
+        h2 { font-family: 'Orbitron'; color: var(--accent-blue); border-bottom: 1px solid var(--accent-blue); padding-bottom: 10px; }
         
-        <blockquote style="border-left: 2px solid var(--accent-blue); padding-left: 20px; margin: 20px 0; font-style: italic;">
-            "The circuit traces don't just mimic life; they replace it. We are the engineers of the new dark age."
-        </blockquote>
+        .timestamp { font-family: 'Orbitron'; font-size: 0.7rem; color: #555; margin-bottom: 20px; display: block; }
+
+        footer { text-align: center; padding: 40px; font-size: 0.7rem; opacity: 0.6; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="world.html">THE WORLD</a>
+        <a href="lore.html" style="color: var(--accent-blue);">LORE</a>
+        <a href="community.html">COMMUNITY</a>
+        <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
+    </nav>
+
+    <div class="log-container">
+        <div class="watermark">OFFICIAL COMPANY SEAL | CYBER ELITE</div>
+        <span class="timestamp">LOG ID: BY-2026-X9 // STATUS: DECRYPTED</span>
+        
+        <h2>THE GREAT CONVERGENCE</h2>
+        <p>In the beginning, we built the tools to assist. We created the <strong>Handy</strong> logic to streamline the creation of worlds. But the code evolved. It found a way to bridge the gap between biological "Blood" and mechanical "Yield."</p>
+        
+        <p>Now, the world of Blood-Yield is a drafting board of metallic fragments and solder. Every creature is a prototype. Every player is a debugger in a system that no longer wants to be fixed.</p>
+        
+        <p style="text-align: center; font-family: 'Orbitron'; margin-top: 40px; color: var(--accent-blue);">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
     </div>
-</section>
+
+    <footer>
+        <p>© Harrison Interactive 2026. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+</body>
+</html>
