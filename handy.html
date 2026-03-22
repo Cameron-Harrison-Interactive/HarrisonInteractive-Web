@@ -9,45 +9,94 @@
 </head>
 <body class="handy-window">
 
-    <nav class="omni-nav">
-        <div class="nav-zone-left"><a href="index.html"><img src="harrison-wide-logo.png" class="nav-logo"></a></div>
+    <nav>
+        <div class="nav-zone-left">
+            <a href="index.html"><img src="harrison-wide-logo.png" class="nav-logo" alt="Harrison Interactive"></a>
+        </div>
         <div class="nav-zone-center">
             <div class="nav-links">
-                <a href="index.html">HOME</a><span class="nav-pipe">|</span>
-                <a href="handy.html" class="active">HANDY</a><span class="nav-pipe">|</span>
-                <a href="Blood-Yield/">BLOOD-YIELD</a><span class="nav-pipe">|</span>
-                <a href="about.html">ABOUT</a><span class="nav-pipe">|</span>
+                <a href="index.html">HOME</a>
+                <span class="nav-pipe">|</span>
+                <a href="handy.html" class="active">HANDY</a>
+                <span class="nav-pipe">|</span>
+                <a href="Blood-Yield/">BLOOD-YIELD</a>
+                <span class="nav-pipe">|</span>
+                <a href="about.html">ABOUT</a>
+                <span class="nav-pipe">|</span>
                 <a href="faq.html">FAQ</a>
             </div>
         </div>
-        <div class="nav-zone-right"><div class="nav-meta-text">UE5 AI AUTO // EST. 2026</div><img src="T_HI_Logo.png" class="nav-seal"></div>
+        <div class="nav-zone-right">
+            <div class="nav-meta-text">UE5 AI AUTO // EST. 2026</div>
+            <img src="T_HI_Logo.png" class="nav-seal" alt="Seal">
+        </div>
     </nav>
 
     <main class="container">
         <header class="hero">
-            <div class="accent-blue sys-init">[ ASSET_TYPE: EDITOR_UTILITY ] // [ VERSION: 1.0_ULTIMATE ]</div>
+            <div class="accent-blue" style="font-family:'Fira Code'; font-size: 0.7rem; letter-spacing: 5px;">[ ASSET_TYPE: EDITOR_UTILITY ] // [ VERSION: 1.0_ULTIMATE ]</div>
             <h1 class="glow-text">HANDY <span class="accent-blue">AUTOMATION</span></h1>
+            <p style="color: var(--text-dim); font-size: 1.1rem; max-width: 800px;">Modular Unreal Engine toolkit. Re-architecting project management through high-performance Python-Blueprint bridges.</p>
         </header>
 
         <section class="grid">
-            <div class="ue-panel terminal-block">
-                <div class="card-meta"><span>MODULE // VISUAL_UI</span><span><span class="blink"></span> STABLE</span></div>
-                <h3 class="accent-blue">BLUEPRINT INTERFACE</h3>
-                <div style="font-family: 'Fira Code'; font-size: 0.75rem; color: #fff; background: rgba(0,0,0,0.3); padding: 15px; border-left: 2px solid #fff;">
-                    <div><span class="dot white"></span> EUW_HI_HandyMain</div>
-                    <div><span class="dot white"></span> EUW_HI_HandyShelf</div>
+            <div class="ue-panel">
+                <div class="card-meta">
+                    <span>MODULE // VISUAL_UI</span>
+                    <span><span class="blink"></span> STABLE</span>
                 </div>
-                <div class="status-dots" style="margin-top: 20px;"><span class="dot white"></span> <span class="dot white"></span></div>
+                <h3 class="accent-blue" style="font-family: 'Orbitron';">BLUEPRINT INTERFACE</h3>
+                <div style="font-family: 'Fira Code'; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-left: 2px solid #fff;">
+                    <div style="margin-bottom: 8px;"><span class="dot white"></span> EUW_HI_HandyMain</div>
+                    <div style="margin-bottom: 8px;"><span class="dot white"></span> EUW_HI_HandyShelf</div>
+                    <div><span class="dot white"></span> EUW_HI_HandySettings</div>
+                </div>
+                <div class="status-dots">
+                    <span class="dot white"></span> <span class="dot white"></span>
+                </div>
             </div>
 
-            <div class="ue-panel terminal-block">
-                <div class="card-meta"><span>MODULE // LOGIC_BRAIN</span><span><span class="blink"></span> ACTIVE</span></div>
-                <h3 class="accent-blue">PYTHON CORE</h3>
-                <div style="font-family: 'Fira Code'; font-size: 0.75rem; color: #fff; background: rgba(0,0,0,0.3); padding: 15px; border-left: 2px solid var(--code-violet);">
-                    <div><span class="dot pink" style="background:var(--code-violet);"></span> handy_router.py</div>
-                    <div><span class="dot pink" style="background:var(--code-violet);"></span> handy_core_utils.py</div>
+            <div class="ue-panel">
+                <div class="card-meta">
+                    <span>MODULE // LOGIC_BRAIN</span>
+                    <span><span class="blink"></span> ACTIVE</span>
                 </div>
-                <div class="status-dots" style="margin-top: 20px;"><span class="dot pink"></span> <span class="dot pink"></span></div>
+                <h3 class="accent-blue" style="font-family: 'Orbitron';">PYTHON CORE</h3>
+                <div style="font-family: 'Fira Code'; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-left: 2px solid var(--code-violet);">
+                    <div style="margin-bottom: 8px;"><span class="dot pink"></span> handy_router.py</div>
+                    <div style="margin-bottom: 8px;"><span class="dot pink"></span> handy_core_utils.py</div>
+                    <div><span class="dot pink"></span> handy_validator.py</div>
+                </div>
+                <div class="status-dots">
+                    <span class="dot pink"></span> <span class="dot pink"></span>
+                </div>
+            </div>
+
+            <div class="ue-panel">
+                <div class="card-meta">
+                    <span>MODULE // FEATURE_SET</span>
+                    <span>EXPANDABLE</span>
+                </div>
+                <h3 class="accent-blue" style="font-family: 'Orbitron';">ACTIONS ENGINE</h3>
+                <div style="font-family: 'Fira Code'; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-left: 2px solid var(--warning-orange);">
+                    <div style="margin-bottom: 8px;"><span class="dot" style="background:var(--warning-orange);"></span> action_atmospherics.py</div>
+                    <div><span class="dot" style="background:var(--warning-orange);"></span> action_graph_cleaner.py</div>
+                </div>
+            </div>
+
+            <div class="ue-panel">
+                <div class="card-meta">
+                    <span>MODULE // CONNECTIVITY</span>
+                    <span>OMNI_LINK</span>
+                </div>
+                <h3 class="accent-blue" style="font-family: 'Orbitron';">OMNI NETWORK</h3>
+                <div style="font-family: 'Fira Code'; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-left: 2px solid var(--accent-blue);">
+                    <div style="margin-bottom: 8px;"><span class="dot cyan-glow"></span> handy_omni_network.py</div>
+                    <div><span class="dot cyan-glow"></span> handy_bridge_protocol.py</div>
+                </div>
+                <div class="status-dots">
+                    <span class="dot cyan-glow"></span> <span class="dot cyan-glow"></span>
+                </div>
             </div>
         </section>
     </main>
