@@ -1,5 +1,5 @@
-/* HARRISON INTERACTIVE LLC: STABLE CORE 
-   VERSION: 2.6 | FIX: LAYERING & PROPORTIONS 
+/* HARRISON INTERACTIVE LLC: STABLE MASTER STYLESHEET
+   VERSION: 2.7 | FIX: ASPECT RATIO SYMMETRY
 */
 
 :root {
@@ -24,7 +24,7 @@ body {
     line-height: 1.6;
 }
 
-/* --- TEXT --- */
+/* --- TYPOGRAPHY --- */
 h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: white; }
 .accent-blue { color: var(--accent-blue); }
 .accent-violet { color: var(--code-violet); }
@@ -37,6 +37,7 @@ nav {
     padding: 1.5rem 8%;
     background: rgba(10, 25, 47, 0.95);
     border-bottom: 1px solid var(--border-glow);
+    backdrop-filter: blur(10px);
 }
 
 .nav-logo { height: 45px; }
@@ -52,65 +53,66 @@ nav {
 
 /* --- CONTAINERS --- */
 .container { padding: 60px 8%; max-width: 1400px; margin: 0 auto; }
-.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 40px; }
-.hero h1 { font-size: 3.5rem; margin: 0; }
 
-/* --- THE GRID FIX --- */
+.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 40px; }
+.hero h1 { font-size: 3.5rem; margin: 0; line-height: 1.1; }
+.hero-description { color: var(--text-dim); font-size: 1.1rem; max-width: 700px; margin-top: 20px; }
+
+.system-status { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 15px; }
+
+/* --- THE GRID --- */
 .grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
     gap: 30px; 
 }
 
-/* --- CARDS --- */
+/* --- PROJECT CARDS --- */
 .ue-panel {
     border: 1px solid #1e293b;
     background: rgba(15, 23, 42, 0.8);
     position: relative;
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
+/* Corner Brackets */
+.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 2px solid var(--accent-blue); border-left: 2px solid var(--accent-blue); }
+.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue); }
 
-/* IMAGE FIX: Forces HANDY and Blood-Yield to be identical height */
+.card { display: flex; flex-direction: column; height: 100%; transition: transform 0.3s ease; }
+.card:hover { transform: translateY(-5px); }
+
+/* Unified Image Container */
 .card-img { 
     width: 100%;
-    height: 220px; /* Fixed height for symmetry */
+    height: 220px; 
     background: #000; 
     overflow: hidden; 
-}
-
-.card-img img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; /* This is the "Plumbing" fix for image sizes */
+    border-bottom: 1px solid #1e293b;
 }
 
 .card-meta {
     font-family: 'Fira Code', monospace;
     font-size: 0.65rem;
-    padding: 10px 20px;
+    padding: 12px 20px;
     background: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: space-between;
     color: #475569;
 }
 
-.card-content { padding: 25px; flex-grow: 1; }
+.card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.card-content p { color: var(--text-dim); font-size: 0.9rem; flex-grow: 1; }
 
-/* --- STATUS ELEMENTS --- */
+/* --- STATUS INDICATORS --- */
 .status-indicator { display: flex; align-items: center; gap: 8px; color: var(--warning-orange); }
 .blink {
     width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%;
     animation: simple-blink 1.5s infinite;
 }
 
-@keyframes simple-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes simple-blink { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
 
-.status-dots { margin: 15px 0; display: flex; gap: 10px; }
+.status-dots { margin: 15px 0; display: flex; gap: 12px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; }
 .white { background: #fff; }
 .pink { background: var(--code-violet); }
@@ -120,7 +122,7 @@ nav {
 .btn-main {
     display: block;
     margin-top: 15px;
-    padding: 12px;
+    padding: 14px;
     border: 1px solid var(--accent-blue);
     background: rgba(0, 210, 255, 0.1);
     color: white;
@@ -128,10 +130,15 @@ nav {
     text-align: center;
     font-family: 'Fira Code', monospace;
     font-size: 0.8rem;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
-.btn-main:hover { background: var(--accent-blue); color: #000; }
+.btn-main:hover { background: var(--accent-blue); color: #000; font-weight: bold; }
+
+/* --- MANIFESTO SECTION --- */
+.manifesto-section { margin-top: 60px; text-align: center; }
+.manifesto-box { display: inline-block; padding: 40px; background: rgba(0, 210, 255, 0.02); border: 1px solid var(--border-glow); }
+.manifesto-link { color: var(--accent-blue); text-decoration: none; font-family: 'Fira Code'; font-size: 0.8rem; border-bottom: 1px solid var(--accent-blue); padding-bottom: 2px; }
 
 /* --- FOOTER --- */
-footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-glow); font-size: 0.75rem; color: #475569; }
+footer { text-align: center; padding: 60px; border-top: 1px solid var(--border-glow); font-size: 0.75rem; color: #475569; }
