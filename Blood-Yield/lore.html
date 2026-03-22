@@ -8,24 +8,15 @@
     <style>
         :root { --bg-dark: #050505; --rust: #8A3324; --blood: #8B0000; --gold: #F9D423; --text: #C0C0C0; --stone: #4A4E69; }
         body { background: linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.98)), url('BY-Background.png') center/cover fixed; color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.8; margin: 0; }
-        
         nav { background: #000; padding: 20px; display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid var(--rust); font-family: 'Orbitron'; position: sticky; top: 0; z-index: 1000; }
-        nav a { text-decoration: none; color: #4A4E69; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        nav a { text-decoration: none; color: #4A4E69; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
         nav a:hover { color: var(--blood); }
-        
         .log-box { max-width: 900px; margin: 60px auto; padding: 40px; background: rgba(10,10,10,0.9); border: 1px solid var(--rust); position: relative; }
         .watermark { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; font-family: 'Orbitron'; opacity: 0.3; }
-        
         h2 { font-family: 'Orbitron'; color: var(--blood); margin-bottom: 20px; border-bottom: 1px solid var(--blood); padding-bottom: 10px; letter-spacing: 3px; }
-        h3 { font-family: 'Orbitron'; color: var(--gold); margin-top: 30px; margin-bottom: 15px; font-size: 1.1rem; border-left: 3px solid var(--gold); padding-left: 15px; }
-        
-        .class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 30px; }
-        .class-card { background: rgba(255,255,255,0.03); padding: 25px; border: 1px solid rgba(138, 51, 36, 0.2); }
-        .class-card h4 { font-family: 'Orbitron'; margin-bottom: 10px; letter-spacing: 1px; }
-        
-        .locked-overlay { position: relative; border: 1px dashed var(--stone); opacity: 0.6; }
-        .locked-tag { position: absolute; top: 10px; right: 10px; background: var(--blood); color: white; font-size: 0.5rem; padding: 2px 8px; font-family: 'Orbitron'; }
-
+        .class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 20px; }
+        .class-card { background: rgba(255,255,255,0.02); border: 1px solid var(--stone); padding: 20px; }
+        .locked { border: 1px dashed var(--blood); opacity: 0.6; }
         footer { margin-top: 80px; padding: 60px 20px; border-top: 1px solid rgba(138, 51, 36, 0.3); background: rgba(0,0,0,0.5); }
     </style>
 </head>
@@ -42,41 +33,36 @@
 <div class="log-box">
     <div class="watermark">OFFICIAL COMPANY SEAL | BY-LOG-01</div>
     <p style="font-family: 'Orbitron'; font-size: 0.7rem; color: var(--rust);">[TIMESTAMP: EST. 2026 // DECRYPTED]</p>
-    <h2>THE CONTRACT & THE CONVERGENCE</h2>
-    <p>The "Contract" is the fundamental physics of our dying world. It is the inescapable agreement between the organic and the synthetic. In <strong>Blood-Yield</strong>, your character is not just a warrior, but a node in a massive, industrial network. Your efficiency is governed by the four technical stats of the Convergence:</p>
-    
-    <ul style="list-style: none; margin: 25px 0; color: var(--gold); font-family: 'Orbitron'; font-size: 0.8rem;">
-        <li><span style="color: var(--blood);">></span> <strong>CHASSIS:</strong> Your physical frame. Determines armor integrity and mitigation logic.</li>
-        <li><span style="color: var(--blood);">></span> <strong>WEAVE:</strong> Your digital soul. Determines the bandwidth of your ethereal abilities.</li>
-        <li><span style="color: var(--blood);">></span> <strong>BIOMASS:</strong> Your organic fuel. Vital for biological reconstruction and support.</li>
-        <li><span style="color: var(--blood);">></span> <strong>VOLTAGE:</strong> Your power output. Drives industrial-grade weaponry and rapid execution.</li>
+    <h2>THE CONTRACT</h2>
+    <p>The "Contract" binds the industrial and the organic. Circuit traces replaced veins. Solder replaced bone. Existence is defined by four core stats:</p>
+    <ul style="list-style: none; margin: 20px 0; color: var(--gold); font-family: 'Orbitron'; font-size: 0.8rem;">
+        <li>> CHASSIS: Structural Integrity.</li>
+        <li>> WEAVE: Digital Connection.</li>
+        <li>> BIOMASS: Organic Growth fuel.</li>
+        <li>> VOLTAGE: Electrical Power output.</li>
     </ul>
 </div>
 
 <div class="log-box" style="margin-top: -40px; border-color: var(--stone);">
-    <h2 style="color: var(--stone);">AVAILABLE SYMBIOSIS NODES</h2>
+    <h2 style="color: var(--stone);">SYMBIOSIS NODES</h2>
     <div class="class-grid">
         <div class="class-card">
-            <h4 style="color: var(--blood);">THE REAPER</h4>
-            <p style="font-size: 0.8rem;">The ultimate resource extractor. Reapers are industrial powerhouses designed for front-line saturation. By prioritizing <strong>Voltage</strong>, they overclock their metallic limbs to deliver crushing blows. They don't just kill; they harvest the metallic filings from the fallen to reinforce their own <strong>Chassis</strong>.</p>
+            <h4 style="font-family: 'Orbitron'; color: var(--blood);">THE REAPER</h4>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Industrial focus. Reapers prioritize <strong>Voltage</strong> to drive heavy weaponry, harvesting metallic fragments to reinforce their <strong>Chassis</strong>.</p>
         </div>
         <div class="class-card">
-            <h4 style="color: var(--gold);">THE SOWER</h4>
-            <p style="font-size: 0.8rem;">The guardian of the organic weave. Sowers manipulate <strong>Biomass</strong> to terraform the battlefield. They provide the support logic required for high-tier Yields, using their high <strong>Weave</strong> stat to stitch together the wounds of their allies with bio-synthetic silk and growth protocols.</p>
+            <h4 style="font-family: 'Orbitron'; color: var(--gold);">THE SOWER</h4>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Organic focus. Sowers utilize <strong>Biomass</strong> and <strong>Weave</strong> to terraform battlefields and stitch wounds with bio-synthetic growth.</p>
         </div>
-    </div>
-
-    <h3>[EXPERIMENTAL ARCHETYPES]</h3>
-    <div class="class-grid">
-        <div class="class-card locked-overlay">
-            <div class="locked-tag">PATCH 1.1 // ENCRYPTED</div>
-            <h4 style="color: var(--text);">THE VALKYRIE</h4>
-            <p style="font-size: 0.75rem;">The Shield Maiden of the Convergence. A hybrid node utilizing heavy defensive <strong>Chassis</strong> protocols combined with ethereal <strong>Weave</strong> logic. Designed for airborne redirection and total battlefield mitigation. High-speed, high-impact protection.</p>
+        <div class="class-card locked">
+            <h4 style="font-family: 'Orbitron'; color: var(--stone);">THE VALKYRIE</h4>
+            <p style="font-size: 0.7rem; color: var(--blood); font-family: 'Orbitron';">[LOCKED // FUTURE UPDATE]</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">The Shield Maiden. A hybrid node utilizing heavy defensive Chassis protocols and ethereal flight logic.</p>
         </div>
-        <div class="class-card locked-overlay">
-            <div class="locked-tag">PATCH 1.2 // ENCRYPTED</div>
-            <h4 style="color: var(--text);">THE SENTINEL</h4>
-            <p style="font-size: 0.75rem;">The silent observer of the Contract. Sentinels are long-range detection and elimination units. They utilize maximum <strong>Voltage</strong> for rail-based weaponry and <strong>Biomass</strong>-infused optics to track soul-traces across the Iron Barrens.</p>
+        <div class="class-card locked">
+            <h4 style="font-family: 'Orbitron'; color: var(--stone);">THE SENTINEL</h4>
+            <p style="font-size: 0.7rem; color: var(--blood); font-family: 'Orbitron';">[LOCKED // FUTURE UPDATE]</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Long-range detector. Sentinels use max Voltage for rail-weaponry and Biomass-infused optics to track soul-traces.</p>
         </div>
     </div>
 </div>
@@ -86,11 +72,10 @@
         <div style="text-align: left;">
             <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
             <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px;">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
-       
-            
         </div>
         <div style="text-align: right; font-size: 0.7rem; color: var(--stone);">
-            &copy; 2026 BloodYield.com
+            &copy; 2026 BloodYield.com | All Rights Decrypted.<br>
+            <a href="https://harrisoninteractive.dev" style="color: var(--rust); text-decoration: none;">Powered by Handy Ultimate</a>
         </div>
     </div>
 </footer>
