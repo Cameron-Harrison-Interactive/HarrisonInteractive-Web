@@ -1,5 +1,5 @@
-/* HARRISON INTERACTIVE LLC: STABLE MASTER STYLESHEET
-   VERSION: 2.7 | FIX: ASPECT RATIO SYMMETRY
+/* HARRISON INTERACTIVE LLC: OMNI-NETWORK MASTER STYLESHEET 
+   VERSION: 3.0 | 2-COLUMN TERMINAL ARCHITECTURE 
 */
 
 :root {
@@ -10,6 +10,7 @@
     --success-green: #10b981;    
     --code-violet: #a855f7;      
     --border-glow: rgba(0, 210, 255, 0.2);
+    --panel-bg: rgba(10, 25, 47, 0.85);
     --text-dim: #8892b0;
 }
 
@@ -17,128 +18,94 @@
 
 body {
     background-color: var(--bg-deep);
-    background-image: radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.1) 0%, transparent 50%);
     color: var(--metal-silver);
     font-family: 'Inter', sans-serif;
     margin: 0;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* --- TYPOGRAPHY --- */
-h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: white; }
-.accent-blue { color: var(--accent-blue); }
-.accent-violet { color: var(--code-violet); }
+/* --- ANIMATED BACKGROUND LAYER (Fixed & Non-Blocking) --- */
+body::before {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
+        linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px), 
+        linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    z-index: -2;
+}
+
+body::after {
+    content: ""; position: fixed; top: -100%; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.03), transparent);
+    animation: scanline 8s linear infinite;
+    z-index: -1; pointer-events: none;
+}
+
+@keyframes scanline { 0% { top: -100%; } 100% { top: 100%; } }
 
 /* --- NAVIGATION --- */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 8%;
-    background: rgba(10, 25, 47, 0.95);
-    border-bottom: 1px solid var(--border-glow);
-    backdrop-filter: blur(10px);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 8%; background: rgba(6, 14, 27, 0.9);
+    border-bottom: 1px solid var(--border-glow); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 1000;
 }
+.nav-logo { height: 40px; filter: drop-shadow(0 0 5px var(--accent-blue)); }
+.nav-links a { color: var(--metal-silver); text-decoration: none; margin-left: 2rem; font-family: 'Orbitron'; font-size: 0.75rem; transition: 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
-.nav-logo { height: 45px; }
+/* --- GLOBAL 2-COLUMN ARCHITECTURE --- */
+.container { padding: 60px 8%; max-width: 1600px; margin: 0 auto; }
 
-.nav-links a {
-    color: var(--metal-silver);
-    text-decoration: none;
-    margin-left: 2rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-.nav-links a.active { color: var(--accent-blue); }
+.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 60px; }
+.hero h1 { font-family: 'Orbitron'; font-size: 3.5rem; margin: 0; line-height: 1.1; color: #fff; }
 
-/* --- CONTAINERS --- */
-.container { padding: 60px 8%; max-width: 1400px; margin: 0 auto; }
-
-.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 40px; }
-.hero h1 { font-size: 3.5rem; margin: 0; line-height: 1.1; }
-.hero-description { color: var(--text-dim); font-size: 1.1rem; max-width: 700px; margin-top: 20px; }
-
-.system-status { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 15px; }
-
-/* --- THE GRID --- */
+/* THE MASTER GRID: Side-by-side Terminal Force */
 .grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
-    gap: 30px; 
+    grid-template-columns: 1fr 1fr; /* Strict 2 Column */
+    gap: 40px; 
 }
 
-/* --- PROJECT CARDS --- */
+/* --- TERMINAL PANELS --- */
 .ue-panel {
     border: 1px solid #1e293b;
-    background: rgba(15, 23, 42, 0.8);
+    background: var(--panel-bg);
     position: relative;
+    padding: 30px;
+    transition: 0.4s;
 }
 
-/* Corner Brackets */
-.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 10px; height: 10px; border-top: 2px solid var(--accent-blue); border-left: 2px solid var(--accent-blue); }
-.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue); }
+.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-top: 2px solid var(--accent-blue); border-left: 2px solid var(--accent-blue); }
+.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue); }
 
-.card { display: flex; flex-direction: column; height: 100%; transition: transform 0.3s ease; }
-.card:hover { transform: translateY(-5px); }
+.ue-panel:hover { border-color: var(--accent-blue); box-shadow: 0 0 20px rgba(0, 210, 255, 0.1); }
 
-/* Unified Image Container */
+/* Image Terminal Fix */
 .card-img { 
-    width: 100%;
-    height: 220px; 
-    background: #000; 
-    overflow: hidden; 
-    border-bottom: 1px solid #1e293b;
+    width: 100%; height: 250px; background: #000; 
+    overflow: hidden; margin-bottom: 20px;
 }
+.card-img img { width: 100%; height: 100%; object-fit: contain; transition: 0.5s; }
+.ue-panel:hover .card-img img { transform: scale(1.05); }
 
-.card-meta {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.65rem;
-    padding: 12px 20px;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: space-between;
-    color: #475569;
-}
+/* --- STATUS & UI --- */
+.card-meta { font-family: 'Fira Code'; font-size: 0.65rem; color: #475569; margin-bottom: 15px; display: flex; justify-content: space-between; }
+.accent-blue { color: var(--accent-blue); }
+.blink { width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%; display: inline-block; animation: b 1.5s infinite; margin-right: 5px; }
+@keyframes b { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
 
-.card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-.card-content p { color: var(--text-dim); font-size: 0.9rem; flex-grow: 1; }
-
-/* --- STATUS INDICATORS --- */
-.status-indicator { display: flex; align-items: center; gap: 8px; color: var(--warning-orange); }
-.blink {
-    width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%;
-    animation: simple-blink 1.5s infinite;
-}
-
-@keyframes simple-blink { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
-
-.status-dots { margin: 15px 0; display: flex; gap: 12px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; }
-.white { background: #fff; }
-.pink { background: var(--code-violet); }
-.cyan-glow { background: var(--accent-blue); box-shadow: 0 0 8px var(--accent-blue); }
-
-/* --- BUTTONS --- */
 .btn-main {
-    display: block;
-    margin-top: 15px;
-    padding: 14px;
-    border: 1px solid var(--accent-blue);
-    background: rgba(0, 210, 255, 0.1);
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.8rem;
-    transition: 0.3s;
+    display: block; width: 100%; padding: 15px; border: 1px solid var(--accent-blue);
+    background: rgba(0, 210, 255, 0.05); color: #fff; text-decoration: none;
+    text-align: center; font-family: 'Fira Code'; font-size: 0.8rem; transition: 0.3s;
 }
-
 .btn-main:hover { background: var(--accent-blue); color: #000; font-weight: bold; }
-
-/* --- MANIFESTO SECTION --- */
-.manifesto-section { margin-top: 60px; text-align: center; }
-.manifesto-box { display: inline-block; padding: 40px; background: rgba(0, 210, 255, 0.02); border: 1px solid var(--border-glow); }
-.manifesto-link { color: var(--accent-blue); text-decoration: none; font-family: 'Fira Code'; font-size: 0.8rem; border-bottom: 1px solid var(--accent-blue); padding-bottom: 2px; }
 
 /* --- FOOTER --- */
 footer { text-align: center; padding: 60px; border-top: 1px solid var(--border-glow); font-size: 0.75rem; color: #475569; }
+
+/* Responsive break for mobile only */
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
