@@ -1,16 +1,21 @@
 /* HARRISON INTERACTIVE LLC: OMNI-NETWORK MASTER STYLESHEET 
-   VERSION: 3.2 | 2-COLUMN TERMINAL ARCHITECTURE & NAV FIX
+   VERSION: 3.3 | THE OMNI-LINK PROTOCOL | WIDE LOGO REBUILD
 */
 
 :root {
+    /* Core Branding Palette */
     --bg-deep: #060e1b;          
-    --accent-blue: #00D2FF;      
-    --metal-silver: #C0C0C0;     
-    --warning-orange: #f59e0b;   
-    --success-green: #10b981;    
-    --code-violet: #a855f7;      
+    --accent-blue: #00D2FF;      /* Electric Blue (Cyan) */
+    --metal-silver: #C0C0C0;     /* Code / Authority */
+    
+    /* Functional Status Accents */
+    --warning-orange: #f59e0b;   /* Pending/Amber */
+    --success-green: #10b981;    /* Active/Balanced */
+    --code-violet: #a855f7;      /* Logic/Python */
+    
+    /* UI Structure */
     --border-glow: rgba(0, 210, 255, 0.2);
-    --panel-bg: rgba(10, 25, 47, 0.85);
+    --panel-bg: rgba(10, 25, 47, 0.9); /* Opaque Terminal Glass */
     --text-dim: #8892b0;
 }
 
@@ -25,124 +30,118 @@ body {
     overflow-x: hidden;
 }
 
-/* --- ANIMATED BACKGROUND LAYER (Fixed & Non-Blocking) --- */
-body::before {
+/* --- THE INDUSTRIAL WINDOW (Scanlines & Grids) --- */
+.handy-window::before {
     content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: 
-        radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
+    background-image: radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
         linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px), 
         linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px);
     background-size: 100% 100%, 40px 40px, 40px 40px;
-    z-index: -2;
+    pointer-events: none; z-index: -2;
 }
 
-body::after {
+/* Scanning Line Animation */
+.handy-window::after {
     content: ""; position: fixed; top: -100%; left: 0; width: 100%; height: 100%;
     background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.03), transparent);
     animation: scanline 8s linear infinite;
-    z-index: -1; pointer-events: none;
+    pointer-events: none; z-index: -1;
 }
 
 @keyframes scanline { 0% { top: -100%; } 100% { top: 100%; } }
 
-/* --- TYPOGRAPHY & COLORS --- */
-h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: white; }
+/* --- TYPOGRAPHY & AUTHORIZATION --- */
+h1, h2, h3, h4, .logo-text { 
+    font-family: 'Orbitron', sans-serif; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    color: white; 
+}
 .accent-blue { color: var(--accent-blue); }
-.glow-text { color: white; text-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
+.accent-violet { color: var(--code-violet); }
+.glow-text { color: white; text-shadow: 0 0 10px rgba(0, 210, 255, 0.6); }
 
-/* --- NAVIGATION BAR --- */
+/* --- NAVIGATION BAR REBUILD (Wide Logo) --- */
 nav {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    padding: 1.2rem 8%; 
-    background: rgba(6, 14, 27, 0.9);
-    border-bottom: 1px solid var(--border-glow); 
-    backdrop-filter: blur(10px);
-    position: sticky; 
-    top: 0; 
-    z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 8%; background: rgba(6, 14, 27, 0.95);
+    border-bottom: 1px solid var(--border-glow); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 1000;
 }
 
-/* --- THE LOGO PLUMBING --- */
+/* --- THE WIDE LOGO PLUMBING --- */
 .nav-logo { 
-    height: 45px; 
-    width: auto; 
+    height: 55px; /* INCREASED: gives wide text room to breathe */
+    width: auto;  /* AUTO: preserves aspect ratio, allows expansion */
     object-fit: contain; 
-    filter: drop-shadow(0 0 6px var(--accent-blue)); 
+    filter: drop-shadow(0 0 5px var(--accent-blue)); /* Cyber Elite Glow */
     transition: filter 0.3s ease, transform 0.3s ease;
 }
-
-.nav-logo:hover {
-    filter: drop-shadow(0 0 12px var(--accent-blue)); 
-    transform: scale(1.02); 
-}
+.nav-logo:hover { filter: drop-shadow(0 0 12px var(--accent-blue)); transform: scale(1.02); }
 
 .nav-links a { 
-    color: var(--metal-silver); 
-    text-decoration: none; 
-    margin-left: 2.2rem; 
-    font-family: 'Orbitron'; 
-    font-size: 0.7rem; 
-    font-weight: bold; 
-    transition: 0.3s; 
-    text-transform: uppercase; 
-    letter-spacing: 1px;
+    color: var(--metal-silver); text-decoration: none; margin-left: 2.5rem; 
+    font-family: 'Orbitron'; font-size: 0.7rem; font-weight: bold; 
+    transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
 /* --- GLOBAL 2-COLUMN ARCHITECTURE --- */
-.container { padding: 60px 8%; max-width: 1600px; margin: 0 auto; }
-
+.container { padding: 60px 8%; max-width: 1600px; margin: 0 auto; position: relative; z-index: 2; }
 .hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 60px; }
-.hero h1 { font-family: 'Orbitron'; font-size: 3.5rem; margin: 0; line-height: 1.1; color: #fff; }
+.hero h1 { font-size: 3.5rem; margin: 0; line-height: 1.1; }
+.hero-description { color: var(--text-dim); font-size: 1.1rem; max-width: 700px; margin-top: 20px; }
 
 /* THE MASTER GRID: Side-by-side Terminal Force */
 .grid { 
     display: grid; 
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
     gap: 40px; 
 }
 
-/* --- TERMINAL PANELS --- */
+/* --- TERMINAL PANELS & BRACKETS --- */
 .ue-panel {
     border: 1px solid #1e293b;
     background: var(--panel-bg);
     position: relative;
     padding: 30px;
     transition: 0.4s;
-    overflow: hidden; 
 }
 
+/* Technical Bracket Corners */
 .ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-top: 2px solid var(--accent-blue); border-left: 2px solid var(--accent-blue); pointer-events: none; }
 .ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue); pointer-events: none; }
-
 .ue-panel:hover { border-color: var(--accent-blue); box-shadow: 0 0 20px rgba(0, 210, 255, 0.1); }
 
-/* Image Terminal Fix */
+/* Unified Image Container */
 .card-img { 
     width: 100%; height: 250px; background: #000; 
     overflow: hidden; margin-bottom: 20px;
     display: flex; align-items: center; justify-content: center;
 }
-.card-img img { width: 100%; height: 100%; object-fit: contain; transition: 0.5s; }
+.card-img img { width: 100%; height: 100%; object-fit: contain; transition: 0.6s ease; }
 .ue-panel:hover .card-img img { transform: scale(1.05); }
 
-/* --- STATUS & UI --- */
+/* --- STATUS & UI INDICATORS --- */
 .card-meta { font-family: 'Fira Code'; font-size: 0.65rem; color: #475569; margin-bottom: 15px; display: flex; justify-content: space-between; }
-.blink { width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%; display: inline-block; animation: b 1.5s infinite; margin-right: 5px; }
-@keyframes b { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
+.status-dots { margin: 15px 0; display: flex; gap: 12px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.blink { width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%; animation: simple-blink 1.5s infinite; }
+@keyframes simple-blink { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
+.white { background: #fff; } .pink { background: var(--code-violet); } .cyan-glow { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
 
+/* --- BUTTONS & EXECUTABLES --- */
 .btn-main {
     display: block; width: 100%; padding: 15px; border: 1px solid var(--accent-blue);
-    background: rgba(0, 210, 255, 0.05); color: #fff; text-decoration: none;
-    text-align: center; font-family: 'Fira Code'; font-size: 0.8rem; transition: 0.3s;
-    margin-top: 20px;
+    background: rgba(0, 210, 255, 0.05); color: white; text-decoration: none;
+    text-align: center; font-family: 'Fira Code', monospace; font-size: 0.8rem;
+    transition: 0.3s; margin-top: auto;
 }
-.btn-main:hover { background: var(--accent-blue); color: #000; font-weight: bold; }
+.btn-main:hover { background: var(--accent-blue); color: #000; font-weight: bold; box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
+
+/* --- MANIFESTO SECTION --- */
+.manifesto-link { color: var(--accent-blue); text-decoration: none; font-family: 'Fira Code'; font-size: 0.8rem; }
 
 /* --- FOOTER --- */
-footer { text-align: center; padding: 60px; border-top: 1px solid var(--border-glow); font-size: 0.75rem; color: #475569; }
-
-/* Responsive break for mobile only */
-@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+footer { text-align: center; padding: 60px; border-top: 1px solid var(--border-glow); font-size: 0.75rem; color: #475569; position: relative; z-index: 2; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
