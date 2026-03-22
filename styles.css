@@ -1,10 +1,24 @@
-/* --- HARRISON INTERACTIVE: CYBER-TECH CORE --- */
+/* HARRISON INTERACTIVE: MASTER CYBER-TECH STYLESHEET 
+    VERSION: 2.1 | EST. 2026 | UNRIVALED INNOVATION
+*/
+
 :root {
-    --bg-deep: #0A192F;
-    --accent-blue: #00D2FF;
-    --metal-silver: #C0C0C0;
-    --border-glow: rgba(0, 210, 255, 0.3);
-    --glass: rgba(15, 23, 42, 0.85);
+    /* Core Branding */
+    --bg-deep: #060e1b;          
+    --accent-blue: #00D2FF;      
+    --metal-silver: #C0C0C0;     
+    
+    /* Functional Status Accents */
+    --warning-orange: #f59e0b;   /* Pending/Coming Soon */
+    --success-green: #10b981;    /* Active/Stable */
+    --code-violet: #a855f7;      /* Logic/Python */
+    --danger-red: #ef4444;       /* Critical/Blood-Yield */
+    
+    /* UI Structure */
+    --border-glow: rgba(0, 210, 255, 0.2);
+    --glass: rgba(10, 25, 47, 0.85);
+    --panel-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.9) 100%);
+    --text-dim: #8892b0;
 }
 
 * { box-sizing: border-box; }
@@ -21,7 +35,49 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, .logo-text { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: white; }
+/* --- THE INDUSTRIAL WINDOW (Scanlines & Grids) --- */
+.handy-window {
+    position: relative;
+}
+
+/* Technical Grid Overlay */
+.handy-window::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Scanning Line Animation */
+.handy-window::after {
+    content: "";
+    position: fixed;
+    top: -100%; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.03), transparent);
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes scanline {
+    0% { top: -100%; }
+    100% { top: 100%; }
+}
+
+/* --- TYPOGRAPHY --- */
+h1, h2, h3, .logo-text { 
+    font-family: 'Orbitron', sans-serif; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    color: white; 
+}
+
+.accent-blue { color: var(--accent-blue); text-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
+.accent-violet { color: var(--code-violet); text-shadow: 0 0 8px rgba(168, 85, 247, 0.4); }
 
 /* --- NAVIGATION --- */
 nav {
@@ -49,119 +105,103 @@ nav {
 }
 .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
-.hero { padding: 100px 10%; text-align: left; border-bottom: 1px solid var(--border-glow); }
+/* --- CONTAINERS --- */
+.container { padding: 80px 10%; position: relative; z-index: 2; }
+.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 60px; margin-bottom: 60px; }
 .hero h1 { font-size: 4rem; line-height: 1.1; margin: 0; }
-.hero p { font-size: 1.2rem; color: #8892b0; max-width: 600px; margin-top: 20px; }
+.hero p { font-size: 1.2rem; color: var(--text-dim); max-width: 600px; margin-top: 20px; }
 
-.btn-main {
-    margin-top: 30px;
-    padding: 12px 35px;
-    border: 1px solid var(--accent-blue);
-    background: rgba(0, 210, 255, 0.1);
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 0 15px var(--border-glow);
-    transition: 0.3s;
+/* --- PROJECT GRID & CARDS --- */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); 
+    gap: 40px; 
 }
-.btn-main:hover { background: var(--accent-blue); box-shadow: 0 0 30px var(--accent-blue); }
-
-.container { padding: 80px 10%; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 
 .card {
-    background: var(--glass);
+    background: var(--panel-gradient);
     border: 1px solid #233554;
-    border-radius: 4px;
+    position: relative;
     overflow: hidden;
-    transition: 0.4s;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
-.card:hover { border-color: var(--accent-blue); transform: translateY(-10px); }
 
-.card-img { height: 250px; background: #112240; overflow: hidden; position: relative; }
-.card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.card:hover { 
+    border-color: var(--accent-blue); 
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 210, 255, 0.1);
+}
 
-.card-content { padding: 30px; }
-.card-content h3 { color: var(--accent-blue); margin-top: 0; }
-.card-content p { font-size: 0.9rem; color: #8892b0; }
+/* Image/Banner Fix for Handy Tool */
+.card-img { 
+    width: 100%;
+    height: auto; 
+    background: #000; 
+    overflow: hidden; 
+    position: relative; 
+    line-height: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-footer { text-align: center; padding: 60px; border-top: 1px solid var(--border-glow); font-size: 0.8rem; color: #475569; }
+.card-img img { 
+    width: 100%; 
+    height: auto; 
+    display: block;
+    transition: transform 0.6s ease; 
+}
 
-/* --- HANDY PAGE SPECIFICS --- */
-.handy-hero { text-align: center; padding: 80px 10%; background: radial-gradient(circle at center, rgba(0, 210, 255, 0.1) 0%, transparent 70%); }
-.hero-tag { display: inline-block; padding: 5px 15px; border: 1px solid var(--accent-blue); font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 15px; color: var(--accent-blue); }
-.glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-.spec-list { list-style: none; padding: 0; }
-.spec-list li { margin-bottom: 12px; font-size: 0.9rem; display: flex; align-items: center; }
-.dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 15px; display: inline-block; }
-.dot.white { background: #ffffff; box-shadow: 0 0 5px #fff; }
+.card:hover .card-img img { transform: scale(1.05); }
+
+/* Card Content Logic */
+.card-meta {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    color: #475569;
+}
+
+.card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+.card-content h3 { margin-top: 0; font-size: 1.3rem; }
+.card-content p { font-size: 0.9rem; color: var(--text-dim); flex-grow: 1; }
+
+/* --- STATUS INDICATORS --- */
+.status-indicator { display: flex; align-items: center; gap: 8px; color: var(--warning-orange); }
+.blink {
+    width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%;
+    animation: status-blink 1.5s infinite;
+}
+
+@keyframes status-blink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); }
+    50% { opacity: 0.3; box-shadow: 0 0 0px var(--warning-orange); }
+}
+
+.status-dots { margin: 20px 0; display: flex; gap: 15px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot.white { background: #fff; box-shadow: 0 0 5px #fff; }
 .dot.pink { background: #f472b6; box-shadow: 0 0 5px #f472b6; }
-.terminal-box { background: #000; border: 1px solid #334155; padding: 20px; border-radius: 4px; margin: 20px 0; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: #4ade80; }
-.tier-section { margin-top: 80px; padding: 40px 0; border-top: 1px solid var(--border-glow); }
-.table-container { overflow-x: auto; background: rgba(10, 25, 47, 0.5); border-radius: 4px; border: 1px solid #233554; }
-table { width: 100%; border-collapse: collapse; text-align: left; }
-th, td { padding: 15px 20px; border-bottom: 1px solid #1e293b; font-size: 0.85rem; }
-th { background: #112240; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 2px; }
-.highlight-column { background: rgba(0, 210, 255, 0.05); border-left: 1px solid var(--accent-blue); border-right: 1px solid var(--accent-blue); }
-.dot.cyan-glow { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
-
-/* --- UEW INDUSTRIAL FLARE --- */
-.handy-window {
-    position: relative;
-    border: 2px solid #1e293b;
-    background: rgba(10, 25, 47, 0.95);
-    box-shadow: inset 0 0 50px rgba(0, 210, 255, 0.05), 0 20px 50px rgba(0,0,0,0.5);
+.dot.cyan-glow { 
+    background: var(--accent-blue); 
+    box-shadow: 0 0 10px var(--accent-blue); 
+    animation: pulse 2s infinite; 
 }
 
-/* Technical Grid Overlay */
-.handy-window::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px), 
-                      linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-    pointer-events: none;
-    z-index: 0;
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
-/* Scanning Line Animation */
-.handy-window::after {
-    content: "";
-    position: absolute;
-    top: -100%; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.05), transparent);
-    animation: scanline 8s linear infinite;
-    pointer-events: none;
-    z-index: 1;
-}
-
-@keyframes scanline {
-    0% { top: -100%; }
-    100% { top: 100%; }
-}
-
-/* Corner Brackets for Panels */
-.ue-panel {
-    position: relative;
-    padding: 30px;
-    border: 1px solid #233554;
-    background: rgba(15, 23, 42, 0.8);
-    overflow: hidden;
-}
-
-.ue-panel::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 10px; height: 10px;
-    border-top: 2px solid var(--accent-blue);
-    border-left: 2px solid var(--accent-blue);
-}
-
-.ue-panel::after {
-    content: "";
-    position: absolute;
-    bottom: 0; right: 0; width: 10px; height: 10px;
-    border-bottom: 2px solid var(--accent-blue);
-    border-right: 2px solid var(--accent-blue);
-}
+/* --- BUTTONS --- */
+.btn-main {
+    margin-top: auto;
+    padding: 14px;
+    border: 1px solid var(--accent-blue);
+    background: linear-gradient(90deg, rgba(0, 210, 255, 0.05), rgba(0, 210, 255, 0.15));
+    color: white;
+    text
