@@ -3,136 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The World | Blood-Yield</title>
+    <title>Blood-Yield | The World</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-navy: #0A192F;
-            --accent-blue: #00D2FF;
-            --silver: #C0C0C0;
-            --blood-red: #8B0000;
+            --bg-dark: #050505; --rust: #8A3324; --stone: #4A4E69; --blood: #8B0000; --text: #C0C0C0;
         }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            background-color: var(--primary-navy);
-            color: var(--silver);
-            font-family: 'Inter', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.95)), url('BY-Background.png') no-repeat center center/cover fixed;
+            color: var(--text); font-family: 'Inter', sans-serif;
         }
-
-        /* Shared Navigation */
-        nav {
-            background: rgba(10, 25, 47, 0.95);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            font-family: 'Orbitron', sans-serif;
-            border-bottom: 1px solid var(--accent-blue);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--silver);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--accent-blue);
-            text-shadow: 0 0 10px var(--accent-blue);
-        }
-
-        .header-section {
-            padding: 60px 20px;
-            text-align: center;
-            background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), url('BY-Background.png') center/cover;
-        }
-
-        .section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .zone-card {
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            background: rgba(255, 255, 255, 0.02);
-            padding: 20px;
-            transition: border 0.3s;
-        }
-
-        .zone-card:hover {
-            border-color: var(--accent-blue);
-        }
-
-        .placeholder-media {
-            width: 100%;
-            height: 200px;
-            background: #162a4a;
-            border: 1px dashed var(--accent-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent-blue);
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(192, 192, 192, 0.1);
-            font-size: 0.7rem;
-            opacity: 0.6;
-        }
+        nav { background: rgba(0,0,0,0.95); padding: 20px; display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid var(--rust); position: sticky; top: 0; font-family: 'Orbitron'; }
+        nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        nav a:hover { color: var(--blood); }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { background: rgba(255,255,255,0.02); border: 1px solid var(--stone); padding: 20px; transition: 0.3s; }
+        .card:hover { border-color: var(--rust); background: rgba(138,51,36,0.03); }
+        .media-placeholder { width: 100%; height: 200px; background: #101010; border: 1px dashed var(--rust); display: flex; align-items: center; justify-content: center; color: var(--rust); font-family: 'Orbitron'; margin-bottom: 15px; }
+        h1, h3 { font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 3px; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">HOME</a>
-        <a href="world.html" style="color: var(--accent-blue);">THE WORLD</a>
-        <a href="lore.html">LORE</a>
-        <a href="community.html">COMMUNITY</a>
-        <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
-    </nav>
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="world.html" style="color: var(--blood);">THE WORLD</a>
+    <a href="lore.html">LORE</a>
+    <a href="community.html">COMMUNITY</a>
+    <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
+</nav>
 
-    <div class="header-section">
-        <h1 style="font-family: 'Orbitron'; letter-spacing: 5px;">GEOGRAPHICAL DATA</h1>
-        <p style="font-family: 'Montserrat';">MAPPING THE DEVASTATION OF BLOOD-YIELD</p>
-    </div>
-
-    <section class="section">
-        <div class="grid">
-            <div class="zone-card">
-                <div class="placeholder-media">[IMAGE: THE IRON BARRENS]</div>
-                <h3 style="font-family: 'Orbitron';">THE IRON BARRENS</h3>
-                <p>Industrial wasteland littered with metallic engineering fragments and circuit traces. Home to the first rogue AI sentinels.</p>
-            </div>
-            <div class="zone-card">
-                <div class="placeholder-media">[IMAGE: SANGUINE FORGE]</div>
-                <h3 style="font-family: 'Orbitron';">SANGUINE FORGE</h3>
-                <p>The heart of the "Yield." A massive facility where biological essence is refined into high-tech fuel.</p>
-            </div>
+<div class="container">
+    <h1 style="text-align: center;">GEOGRAPHICAL DATA</h1>
+    <div class="grid">
+        <div class="card">
+            <div class="media-placeholder">[IMAGE: THE IRON BARRENS]</div>
+            <h3>THE IRON BARRENS</h3>
+            <p>Industrial waste and circuit traces dominate this sector. Avoid AI Sentinels.</p>
         </div>
-    </section>
-
-    <footer>
-        <p>© Harrison Interactive 2026 | EST. 2026 | UNRIVALED INNOVATION</p>
-        <p>OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE</p>
-    </footer>
+        <div class="card">
+            <div class="media-placeholder">[IMAGE: SANGUINE FORGE]</div>
+            <h3>SANGUINE FORGE</h3>
+            <p>The refinery where Blood is converted to Yield. Highly volatile sector.</p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
