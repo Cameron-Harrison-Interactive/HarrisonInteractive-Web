@@ -9,51 +9,74 @@
 </head>
 <body class="handy-window">
 
-    <nav class="omni-nav">
-        <div class="nav-zone-left"><a href="index.html"><img src="harrison-wide-logo.png" class="nav-logo" alt="Harrison Interactive"></a></div>
+    <nav>
+        <div class="nav-zone-left">
+            <a href="index.html"><img src="harrison-wide-logo.png" class="nav-logo" alt="Harrison Interactive"></a>
+        </div>
         <div class="nav-zone-center">
             <div class="nav-links">
-                <a href="index.html">HOME</a><span class="nav-pipe">|</span>
-                <a href="handy.html">HANDY</a><span class="nav-pipe">|</span>
-                <a href="Blood-Yield/">BLOOD-YIELD</a><span class="nav-pipe">|</span>
-                <a href="about.html">ABOUT</a><span class="nav-pipe">|</span>
+                <a href="index.html">HOME</a>
+                <span class="nav-pipe">|</span>
+                <a href="handy.html">HANDY</a>
+                <span class="nav-pipe">|</span>
+                <a href="Blood-Yield/">BLOOD-YIELD</a>
+                <span class="nav-pipe">|</span>
+                <a href="about.html">ABOUT</a>
+                <span class="nav-pipe">|</span>
                 <a href="faq.html" class="active">FAQ</a>
             </div>
         </div>
-        <div class="nav-zone-right"><div class="nav-meta-text">UE5 AI AUTO // EST. 2026</div><img src="T_HI_Logo.png" class="nav-seal"></div>
+        <div class="nav-zone-right">
+            <div class="nav-meta-text">UE5 AI AUTO // EST. 2026</div>
+            <img src="T_HI_Logo.png" class="nav-seal" alt="Seal">
+        </div>
     </nav>
 
     <main class="container">
         <header class="hero">
-            <div class="accent-blue sys-init">[ INTERFACE_04: LISTENING ]</div>
+            <div class="accent-blue" style="font-family:'Fira Code'; font-size: 0.7rem; letter-spacing: 5px;">[ INTERFACE_04: LISTENING ]</div>
             <h1 class="glow-text">SIGNAL <span class="accent-blue">TERMINAL</span></h1>
         </header>
 
         <section class="grid">
-            <div class="ue-panel terminal-block">
-                <div class="card-meta"><span>SECTOR // KNOWLEDGE_BASE</span><span><span class="blink"></span> LOGS: ENCRYPTED</span></div>
-                <h3 class="accent-blue">QUERY_RESULTS</h3>
+            <div class="ue-panel">
+                <div class="card-meta">
+                    <span>SECTOR // KNOWLEDGE_BASE</span>
+                    <span><span class="blink"></span> LOGS: ENCRYPTED</span>
+                </div>
+                <h3 class="accent-blue" style="font-family: 'Orbitron';">QUERY_RESULTS</h3>
+                
                 <div style="margin-bottom: 25px; border-left: 2px solid var(--accent-blue); padding-left: 15px;">
                     <strong style="color: #fff; font-family: 'Fira Code';">> HANDY UE Compatibility?</strong><br>
-                    <small style="color: var(--text-dim);">Validated for UE 5.4+ stable releases.</small>
+                    <p style="color: var(--text-dim); font-size: 0.85rem;">Validated for UE 5.4+ stable releases. Legacy support for 5.1-5.3 optimization in progress.</p>
                 </div>
+
                 <div style="margin-bottom: 25px; border-left: 2px solid var(--accent-blue); padding-left: 15px;">
                     <strong style="color: #fff; font-family: 'Fira Code';">> Blood-Yield Release?</strong><br>
-                    <small style="color: var(--text-dim);">Kickstarter demo targeting Late 2026.</small>
+                    <p style="color: var(--text-dim); font-size: 0.85rem;">Kickstarter demo targeting Q4 2026 deployment.</p>
                 </div>
-                <div class="status-dots" style="margin-top: auto;"><span class="dot cyan-glow"></span> <span class="dot white"></span> <span class="dot white"></span></div>
+
+                <div class="status-dots">
+                    <span class="dot cyan-glow"></span> <span class="dot white"></span> <span class="dot white"></span>
+                </div>
             </div>
 
-            <div class="ue-panel terminal-block">
-                <div class="card-meta"><span>SECTOR // EXECUTE_SIGNAL</span><span><span class="blink"></span> READY_FOR_INPUT</span></div>
-                <h3 class="accent-blue">TRANSMIT_DATA</h3>
-                <form action="#" style="display: flex; flex-direction: column; gap: 15px; font-family: 'Fira Code';">
-                    <input type="text" placeholder="input_name..." style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 10px; outline: none;">
-                    <input type="email" placeholder="input_email..." style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 10px; outline: none;">
-                    <textarea placeholder="exec_message..." rows="3" style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 10px; outline: none; resize: none;"></textarea>
+            <div class="ue-panel">
+                <div class="card-meta">
+                    <span>SECTOR // EXECUTE_SIGNAL</span>
+                    <span><span class="blink"></span> READY_FOR_INPUT</span>
+                </div>
+                <h3 class="accent-blue" style="font-family: 'Orbitron';">TRANSMIT_DATA</h3>
+                
+                <form action="#" style="display: flex; flex-direction: column; gap: 15px; font-family: 'Fira Code'; margin-top: 10px;">
+                    <input type="text" placeholder="input_name" style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 12px; outline: none;">
+                    <input type="email" placeholder="input_email" style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 12px; outline: none;">
+                    <textarea placeholder="exec_message" rows="4" style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 12px; outline: none; resize: none;"></textarea>
                     <button type="submit" class="btn-main">> SEND_SIGNAL</button>
                 </form>
-                <div class="status-dots" style="margin-top: 15px;"><span class="dot pink"></span> <span class="dot cyan-glow"></span></div>
+                <div class="status-dots">
+                    <span class="dot pink"></span> <span class="dot cyan-glow"></span>
+                </div>
             </div>
         </section>
     </main>
