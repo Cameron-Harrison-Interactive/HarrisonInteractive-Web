@@ -3,201 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood-Yield | Harrison Interactive</title>
+    <title>Blood-Yield | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-navy: #0A192F;
-            --accent-blue: #00D2FF;
-            --silver: #C0C0C0;
-            --blood-red: #8B0000;
+            --bg-dark: #050505;
+            --rust: #8A3324;
+            --stone: #4A4E69;
+            --blood: #8B0000;
+            --gold-yield: #F9D423;
+            --text-primary: #C0C0C0;
         }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            background-color: var(--primary-navy);
-            color: var(--silver);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            background: linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.95)), 
+                        url('BY-Background.png') no-repeat center center/cover fixed;
         }
 
-        /* Hero Section */
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-family: 'Orbitron', sans-serif;
+            border-bottom: 2px solid var(--rust);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--stone);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        nav a:hover { color: var(--blood); text-shadow: 0 0 10px var(--blood); }
+
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.9)), 
-                        url('BY-Background.png') no-repeat center center/cover;
+            height: 70vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            border-bottom: 2px solid var(--accent-blue);
         }
 
-        nav {
-            position: absolute;
-            top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--silver);
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--accent-blue);
-        }
-
-        .logo-text {
-            font-family: 'Orbitron', sans-serif;
+        .logo-by {
             font-size: 5rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 50%, #f9d423 100%);
+            font-family: 'Orbitron';
+            background: linear-gradient(to bottom, #FFD700 0%, #F9D423 40%, #8B0000 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.4));
+            margin-bottom: 20px;
         }
 
-        .tagline {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-
-        /* Content Sections */
         .section {
-            padding: 80px 20px;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 60px 20px;
             text-align: center;
         }
 
-        .placeholder-media {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #162a4a;
-            border: 1px dashed var(--accent-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-            color: var(--accent-blue);
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        /* PlayFab Newsletter Form */
-        .newsletter-box {
-            background: rgba(0, 210, 255, 0.05);
+        .newsletter-form {
+            background: rgba(138, 51, 36, 0.05);
             padding: 40px;
-            border: 1px solid var(--accent-blue);
-            border-radius: 4px;
-            margin-top: 50px;
+            border: 1px solid var(--rust);
+            margin-top: 40px;
         }
 
         input[type="email"] {
-            padding: 12px;
-            width: 300px;
-            background: var(--primary-navy);
-            border: 1px solid var(--silver);
+            padding: 15px;
+            width: 320px;
+            background: #101010;
+            border: 1px solid var(--stone);
             color: white;
             margin-bottom: 10px;
         }
 
-        button {
-            padding: 12px 30px;
-            background: var(--accent-blue);
-            color: var(--primary-navy);
-            border: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
+        .btn {
+            padding: 15px 40px;
+            background: var(--blood);
+            color: white;
+            border: 1px solid var(--rust);
+            font-family: 'Orbitron';
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: 0.2s;
         }
 
-        button:hover {
-            transform: scale(1.05);
-        }
+        .btn:hover { box-shadow: 0 0 20px var(--blood); filter: brightness(1.2); }
 
-        footer {
-            padding: 40px;
-            text-align: center;
-            font-size: 0.8rem;
-            opacity: 0.6;
-            border-top: 1px solid rgba(192, 192, 192, 0.1);
-        }
+        footer { padding: 40px; text-align: center; font-size: 0.7rem; color: var(--stone); }
     </style>
 </head>
 <body>
 
-    <nav>
-    <a href="index.html">HOME</a>
+<nav>
+    <a href="index.html" style="color: var(--blood);">HOME</a>
     <a href="world.html">THE WORLD</a>
     <a href="lore.html">LORE</a>
     <a href="community.html">COMMUNITY</a>
     <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
 </nav>
 
-    <header class="hero">
-        <h1 class="logo-text">BLOOD-YIELD</h1>
-        <p class="tagline">
-            BLOOD-YIELD IS IN DEVELOPMENT.<br>
-            CRAFTED WITH OUR <strong>HANDY TOOL</strong> FOR UE5, ALSO A WORK-IN-PROGRESS.
-        </p>
-    </header>
+<header class="hero">
+    <h1 class="logo-by">BLOOD-YIELD</h1>
+    <p style="font-family: 'Montserrat'; letter-spacing: 2px;">CRAFTED WITH HANDY FOR UE5 | ALPHA COMING 2026</p>
+</header>
 
-    <section class="section">
-        <h2>GAMEPLAY PREVIEW</h2>
-        <div class="placeholder-media">
-            [VIDEO PLACEHOLDER: CINEMATIC TRAILER]
-        </div>
+<section class="section">
+    <div class="newsletter-form">
+        <h2 style="font-family: 'Orbitron'; margin-bottom: 15px;">JOIN THE HARVEST</h2>
+        <p style="margin-bottom: 20px;">Connect your account to PlayFab for early development access.</p>
+        <form>
+            <input type="email" placeholder="ENTER EMAIL ADDRESS" required><br>
+            <button type="submit" class="btn">INITIALIZE UPLINK</button>
+        </form>
+    </div>
+</section>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-            <div class="placeholder-media">[IMAGE: ENVIRONMENT]</div>
-            <div class="placeholder-media">[IMAGE: CHARACTER]</div>
-        </div>
-    </section>
+<footer>
+    <p>EST. 2026 | UNRIVALED INNOVATION | OFFICIAL COMPANY SEAL</p>
+</footer>
 
-    <section class="section">
-        <div class="newsletter-box">
-            <h3>JOIN THE HARVEST</h3>
-            <p>Sign up for the newsletter to receive development updates and Alpha access.</p>
-            <form id="playfabForm">
-                <input type="email" id="userEmail" placeholder="Enter your email" required>
-                <button type="submit">REGISTER</button>
-            </form>
-            <p id="responseMsg" style="margin-top: 15px;"></p>
-        </div>
-    </section>
-
-    <footer>
-        <p>© Harrison Interactive 2026. EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION.</p>
-        <p>OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE</p>
-    </footer>
-
-    <script>
-        document.getElementById('playfabForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('userEmail').value;
-            const msg = document.getElementById('responseMsg');
-
-            // PLACEHOLDER: Logic to link to PlayFab "AddUsernamePassword" or "UpdateUserData"
-            msg.innerText = "Processing connection to PlayFab...";
-            msg.style.color = "var(--accent-blue)";
-            
-            // In your actual implementation, you will use PlayFab Client SDK:
-            // PlayFabClientSDK.AddOrUpdateContactEmail({ ContactEmail: email }, callback);
-        });
-    </script>
 </body>
 </html>
