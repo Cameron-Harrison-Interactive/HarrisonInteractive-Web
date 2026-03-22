@@ -3,54 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood-Yield | The World</title>
+    <title>The World | Blood-Yield</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #050505; --rust: #8A3324; --stone: #4A4E69; --blood: #8B0000; --text: #C0C0C0;
+            --bg-dark: #050505;
+            --rust: #8A3324;
+            --stone: #4A4E69;
+            --blood: #8B0000;
+            --gold-yield: #F9D423;
+            --text-silver: #C0C0C0;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0.95)), url('BY-Background.png') no-repeat center center/cover fixed;
-            color: var(--text); font-family: 'Inter', sans-serif;
+
+        /* The "Plumbing": Ensures no white space leaks through */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            color: var(--text-silver);
+            font-family: 'Inter', sans-serif;
+            /* Applying your background asset */
+            background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), 
+                        url('BY-Background.png') no-repeat center center/cover fixed;
         }
-        nav { background: rgba(0,0,0,0.95); padding: 20px; display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid var(--rust); position: sticky; top: 0; font-family: 'Orbitron'; }
-        nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
-        nav a:hover { color: var(--blood); }
-        
-        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { background: rgba(255,255,255,0.02); border: 1px solid var(--stone); padding: 20px; transition: 0.3s; }
-        .card:hover { border-color: var(--rust); background: rgba(138,51,36,0.03); }
-        .media-placeholder { width: 100%; height: 200px; background: #101010; border: 1px dashed var(--rust); display: flex; align-items: center; justify-content: center; color: var(--rust); font-family: 'Orbitron'; margin-bottom: 15px; }
-        h1, h3 { font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 3px; }
+
+        /* Modular Navigation */
+        nav {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-family: 'Orbitron', sans-serif;
+            border-bottom: 2px solid var(--rust);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--stone);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--blood);
+            text-shadow: 0 0 8px var(--blood);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Orbitron';
+            font-size: 3rem;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(138, 51, 36, 0.5);
+        }
+
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        /* Modular Zone Cards */
+        .zone-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--stone);
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .zone-card:hover {
+            border-color: var(--rust);
+            transform: translateY(-5px);
+            background: rgba(138, 51, 36, 0.03);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #101010;
+            border: 1px dashed var(--rust);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--rust);
+            font-family: 'Orbitron';
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .zone-title {
+            font-family: 'Orbitron';
+            color: var(--gold-yield);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .metadata {
+            font-family: 'Orbitron';
+            font-size: 0.7rem;
+            color: var(--stone);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px;
+            border-top: 1px solid rgba(138, 51, 36, 0.2);
+            opacity: 0.6;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="index.html">HOME</a>
-    <a href="world.html" style="color: var(--blood);">THE WORLD</a>
-    <a href="lore.html">LORE</a>
-    <a href="community.html">COMMUNITY</a>
-    <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
-</nav>
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="world.html" style="color: var(--blood);">THE WORLD</a>
+        <a href="lore.html">LORE</a>
+        <a href="community.html">COMMUNITY</a>
+        <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
+    </nav>
 
-<div class="container">
-    <h1 style="text-align: center;">GEOGRAPHICAL DATA</h1>
-    <div class="grid">
-        <div class="card">
-            <div class="media-placeholder">[IMAGE: THE IRON BARRENS]</div>
-            <h3>THE IRON BARRENS</h3>
-            <p>Industrial waste and circuit traces dominate this sector. Avoid AI Sentinels.</p>
-        </div>
-        <div class="card">
-            <div class="media-placeholder">[IMAGE: SANGUINE FORGE]</div>
-            <h3>SANGUINE FORGE</h3>
-            <p>The refinery where Blood is converted to Yield. Highly volatile sector.</p>
+    <div class="container">
+        <span class="metadata">EST. 2026 | UNREAL ENGINE AI | GEOGRAPHICAL DATA</span>
+        <h1>THE WORLD</h1>
+        <p style="font-family: 'Montserrat'; opacity: 0.8;">MAPPING THE INDUSTRIAL CONVERGENCE</p>
+
+        <div class="map-grid">
+            <div class="zone-card">
+                <div class="image-placeholder">
+                    [IMAGE: THE IRON BARRENS]
+                    <div style="position: absolute; bottom: 5px; right: 10px; font-size: 0.5rem;">SECTOR_01</div>
+                </div>
+                <h3 class="zone-title">THE IRON BARRENS</h3>
+                <p>A wasteland of technical drafting paper textures and circuit traces. The soil is stained with solder and rusted metallic fragments.</p>
+            </div>
+
+            <div class="zone-card" style="border-right: 3px solid var(--blood);">
+                <div class="image-placeholder">
+                    [IMAGE: SANGUINE FORGE]
+                    <div style="position: absolute; bottom: 5px; right: 10px; font-size: 0.5rem;">SECTOR_02</div>
+                </div>
+                <h3 class="zone-title" style="color: var(--blood);">SANGUINE FORGE</h3>
+                <p>The industrial heart where biological essence is refined. The "Yield" is processed here through massive gear-driven rituals.</p>
+            </div>
         </div>
     </div>
-</div>
+
+    <footer>
+        OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE<br>
+        HARRISON INTERACTIVE © 2026
+    </footer>
 
 </body>
 </html>
