@@ -3,115 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support | Harrison Interactive LLC Signal Terminal</title>
+    <title>FAQ | Harrison Interactive LLC</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
 </head>
 <body class="handy-window">
 
     <nav>
-        <img src="handyicon.png" class="nav-logo" alt="Harrison Interactive LLC Logo">
-        <div class="nav-links">
-            <a href="index.html">HOME</a>
-            <a href="handy.html">HANDY</a>
-            <a href="Blood-Yield/">BLOOD-YIELD</a>
-            <a href="about.html">ABOUT</a>
-            <a href="faq.html" class="active">FAQ</a>
-        </div>
+        <img src="handyicon.png" class="nav-logo" alt="HI LLC Logo">
+        <div class="nav-links"><a href="index.html">HOME</a><a href="handy.html">HANDY</a><a href="about.html">ABOUT</a><a href="faq.html" class="active">FAQ</a></div>
     </nav>
 
     <main class="container">
-        
-        <header class="hero" style="text-align: center;">
-            <div class="system-status">
-                [ INTERFACE_04 ] // [ STATUS: LISTENING ]
-            </div>
+        <header class="hero">
             <h1>SIGNAL <span class="accent-blue">TERMINAL</span></h1>
-            <p style="margin: 20px auto; letter-spacing: 2px; color: var(--text-dim); font-size: 0.8rem; font-family: 'Orbitron';">
-                FREQUENTLY ASKED QUESTIONS // DIRECT DATA UPLOAD
-            </p>
         </header>
 
         <section class="grid">
-            
-            <div style="display: flex; flex-direction: column; gap: 25px;">
-                <h2 style="font-size: 1.2rem; color: var(--accent-blue); margin-bottom: 10px;">KNOWLEDGE_BASE</h2>
-                
-                <div class="card ue-panel" style="padding: 25px; background: rgba(0,0,0,0.2);">
-                    <h4 style="color:white; margin: 0 0 10px 0; font-family: 'Orbitron'; font-size: 0.9rem;">
-                        <span class="accent-blue">></span> What is the "Blood-Yield" schedule?
-                    </h4>
-                    <p style="font-size: 0.85rem; color: var(--text-dim); margin: 0;">
-                        We are currently entering the final polish phase for our <span class="accent-blue">Kickstarter 2026</span> demo. Follow our official hub for the signal drop.
-                    </p>
+            <div class="ue-panel">
+                <h3 class="accent-blue">KNOWLEDGE_BASE</h3>
+                <div style="margin-bottom: 20px;">
+                    <strong style="color: #fff;">> HANDY UE Compatibility?</strong><br>
+                    <small style="color: var(--text-dim);">Validated for UE 5.4+ stable releases.</small>
                 </div>
-
-                <div class="card ue-panel" style="padding: 25px; background: rgba(0,0,0,0.2);">
-                    <h4 style="color:white; margin: 0 0 10px 0; font-family: 'Orbitron'; font-size: 0.9rem;">
-                        <span class="accent-blue">></span> Is HANDY compatible with UE 5.4+?
-                    </h4>
-                    <p style="font-size: 0.85rem; color: var(--text-dim); margin: 0;">
-                        Yes. We ensure all <strong style="color:white;">Harrison Interactive LLC</strong> assets are validated against the latest Unreal Engine stable releases to ensure zero-crash automation.
-                    </p>
-                </div>
-
-                <div class="card ue-panel" style="padding: 25px; background: rgba(0,0,0,0.2);">
-                    <h4 style="color:white; margin: 0 0 10px 0; font-family: 'Orbitron'; font-size: 0.9rem;">
-                        <span class="accent-blue">></span> Do you offer bespoke tool development?
-                    </h4>
-                    <p style="font-size: 0.85rem; color: var(--text-dim); margin: 0;">
-                        We are open to custom <span class="accent-violet">Python/UMG bridge</span> development for external studios. Use the terminal to initiate a request.
-                    </p>
+                <div>
+                    <strong style="color: #fff;">> Blood-Yield Release?</strong><br>
+                    <small style="color: var(--text-dim);">Kickstarter demo targeting Late 2026.</small>
                 </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 25px;">
-                <h2 style="font-size: 1.2rem; color: var(--accent-blue); margin-bottom: 10px;">EXECUTE_SIGNAL</h2>
-                
-                <div class="ue-panel" style="padding: 30px; background: #000; border: 1px solid var(--accent-blue); box-shadow: 0 0 30px rgba(0, 210, 255, 0.05);">
-                    <form action="#" style="display: flex; flex-direction: column; gap: 20px;">
-                        <div>
-                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">input_user_name = </label>
-                            <input type="text" placeholder="'Cameron Harrison'" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 8px 0; transition: 0.3s;" onfocus="this.style.borderColor='var(--accent-blue)'" onblur="this.style.borderColor='#1e293b'">
-                        </div>
-                        <div>
-                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">input_user_email = </label>
-                            <input type="email" placeholder="'ch@harrisoninteractive.dev'" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 8px 0; transition: 0.3s;" onfocus="this.style.borderColor='var(--accent-blue)'" onblur="this.style.borderColor='#1e293b'">
-                        </div>
-                        <div>
-                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">signal_subject = </label>
-                            <select style="background: #0a192f; border: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 10px; margin-top: 5px;">
-                                <option>BLOOD_YIELD_KICKSTARTER</option>
-                                <option>HANDY_SUPPORT</option>
-                                <option>GENERAL_INQUIRY</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">exec_message_content:</label>
-                            <textarea rows="5" style="background: rgba(0, 210, 255, 0.02); border: 1px solid #1e293b; color: #fff; font-family: 'Fira Code'; width: 100%; outline: none; padding: 15px; margin-top: 10px; transition: 0.3s;" onfocus="this.style.borderColor='var(--accent-blue)'" onblur="this.style.borderColor='#1e293b'"></textarea>
-                        </div>
-                        <button type="submit" class="btn-main" style="width: 100%; cursor: pointer;">
-                            > EXECUTE_SIGNAL_SEND
-                        </button>
-                    </form>
-                </div>
+            <div class="ue-panel" style="background: #000;">
+                <h3 class="accent-blue">EXECUTE_SIGNAL</h3>
+                <form style="display: flex; flex-direction: column; gap: 10px; font-family: 'Fira Code'; font-size: 0.7rem;">
+                    <input type="text" placeholder="input_user_name" style="background: transparent; border: none; border-bottom: 1px solid #1e293b; color: #fff; padding: 5px;">
+                    <textarea placeholder="exec_message_content" rows="4" style="background: rgba(0,210,255,0.02); border: 1px solid #1e293b; color: #fff; padding: 10px;"></textarea>
+                    <button class="btn-main">> SEND_SIGNAL</button>
+                </form>
             </div>
-
         </section>
-
     </main>
-
-    <footer>
-        <div style="margin-bottom: 10px; opacity: 0.9; font-family: 'Inter';">
-            © 2026 <span class="accent-blue">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.
-        </div>
-        <div style="font-family: 'Orbitron'; font-size: 0.6rem; letter-spacing: 2px;">
-            <a href="legal.html" style="color: var(--accent-blue); text-decoration: none;">[ ACCESS_LEGAL_TERMINAL ]</a>
-        </div>
-        <div style="margin-top: 15px; opacity: 0.4; font-size: 0.6rem;">
-            UNREAL ENGINE AI // UNRIVALED INNOVATION // CYBER ELITE
-        </div>
-    </footer>
 
 </body>
 </html>
