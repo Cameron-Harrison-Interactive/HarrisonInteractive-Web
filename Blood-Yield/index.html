@@ -3,170 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood-Yield | Project Terminal | Harrison Interactive</title>
-    <link rel="stylesheet" href="../styles.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@500;700&family=Fira+Code&display=swap" rel="stylesheet">
-    
+    <title>Blood-Yield | Harrison Interactive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-image: url('background.png') !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-attachment: fixed !important;
-            background-color: #050505 !important;
-            margin: 0; padding: 0;
-            font-family: 'Rajdhani', sans-serif;
-            color: #fff;
+        :root {
+            --primary-navy: #0A192F;
+            --accent-blue: #00D2FF;
+            --silver: #C0C0C0;
+            --blood-red: #8B0000;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-navy);
+            color: var(--silver);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- THE GAME NAV (3-ZONE PROTOCOL) --- */
-        .game-nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 4%; height: 100px;
-            background: rgba(10, 10, 12, 0.95);
-            border-bottom: 1px solid #8e44ad;
-            backdrop-filter: blur(15px);
-            position: fixed; top: 0; width: 100%; z-index: 1000;
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.9)), 
+                        url('BY-Background.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-blue);
         }
 
-        /* --- CONTAINER CALIBRATION --- */
-        .container {
-            padding: 160px 4% 80px;
-            max-width: 1650px;
+        nav {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--silver);
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 50%, #f9d423 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-
-        /* --- HERO TERMINAL --- */
-        .hero-terminal {
-            background: rgba(10, 10, 12, 0.9);
-            padding: 40px;
-            border: 1px solid #8e44ad;
-            position: relative;
-            margin-bottom: 40px;
             text-align: center;
         }
-        .hero-terminal::before { content: ""; position: absolute; top: 0; left: 0; width: 20px; height: 20px; border-top: 4px solid #8e44ad; border-left: 4px solid #8e44ad; }
-        .hero-terminal::after { content: ""; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; border-bottom: 4px solid #8e44ad; border-right: 4px solid #8e44ad; }
 
-        h1 { 
-            font-family: 'Cinzel', serif; font-size: 4.5rem; letter-spacing: 15px; margin: 0;
-            background: linear-gradient(to bottom, #d4af37, #8e44ad);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .placeholder-media {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #162a4a;
+            border: 1px dashed var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            color: var(--accent-blue);
+            font-family: 'Orbitron', sans-serif;
         }
 
-        /* --- TERMINAL GRID --- */
-        .grid { display: grid; grid-template-columns: repeat(2, minmax(450px, 1fr)); gap: 30px; }
-
-        .ue-panel {
-            background: rgba(15, 15, 20, 0.95);
-            border: 1px solid rgba(142, 68, 173, 0.3);
-            padding: 30px;
-            position: relative;
-            min-height: 400px;
-            opacity: 0;
+        /* PlayFab Newsletter Form */
+        .newsletter-box {
+            background: rgba(0, 210, 255, 0.05);
+            padding: 40px;
+            border: 1px solid var(--accent-blue);
+            border-radius: 4px;
+            margin-top: 50px;
         }
-        .ue-panel h3 { font-family: 'Cinzel', serif; color: #d4af37; letter-spacing: 3px; margin-top: 0; }
-        
-        /* Symbiosis Wide Panel */
-        .wide-panel { grid-column: span 2; min-height: 300px; border-color: #d4af37; }
 
-        /* --- THE PLUMBING: PROGRESS BAR --- */
-        .tracker { margin-top: 20px; }
-        .bar-bg { width: 100%; height: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(142,68,173,0.5); overflow: hidden; }
-        .bar-fill { height: 100%; width: 35%; background: linear-gradient(90deg, #8e44ad, #d4af37); box-shadow: 0 0 15px #8e44ad; }
-
-        /* --- BLINKERS --- */
-        .blink-p { display: inline-block; width: 7px; height: 7px; background: #8e44ad; border-radius: 50%; animation: p-flicker 2s infinite; margin-right: 10px; }
-        @keyframes p-flicker { 0%, 100% { opacity: 1; box-shadow: 0 0 8px #8e44ad; } 50% { opacity: 0.2; } }
-
-        .btn-game {
-            display: block; width: 100%; padding: 15px; border: 1px solid #d4af37;
-            background: rgba(212, 175, 55, 0.05); color: #d4af37; text-decoration: none;
-            font-family: 'Fira Code'; text-align: center; margin-top: 20px; transition: 0.3s;
+        input[type="email"] {
+            padding: 12px;
+            width: 300px;
+            background: var(--primary-navy);
+            border: 1px solid var(--silver);
+            color: white;
+            margin-bottom: 10px;
         }
-        .btn-game:hover { background: #d4af37; color: #000; box-shadow: 0 0 20px #d4af37; }
 
-        /* --- BOOT SEQUENCE --- */
-        .boot { animation: terminal-boot 0.8s ease-out forwards; }
-        .d1 { animation-delay: 0.2s; }
-        .d2 { animation-delay: 0.5s; }
-        .d3 { animation-delay: 0.8s; }
+        button {
+            padding: 12px 30px;
+            background: var(--accent-blue);
+            color: var(--primary-navy);
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            border-top: 1px solid rgba(192, 192, 192, 0.1);
+        }
     </style>
 </head>
 <body>
 
-    <nav class="game-nav">
-        <div class="nav-zone-left"><a href="../index.html"><img src="../hi_logo_long.png" class="nav-logo"  height: 140px; /* Boosted for visibility */
-    width: 800px; ></a></div>
-        <div class="nav-zone-center">
-            <div class="nav-links" style="font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 3px;">
-                PROJECT_SYMBIOSIS // DATA_TERMINAL
-            </div>
-        </div>
-        <div class="nav-zone-right"><img src="../hi_logo.png" class="nav-seal" style="height:50px;"></div>
+    <nav>
+        <a href="#">THE WORLD</a>
+        <a href="#">LORE</a>
+        <a href="https://harrisoninteractive.dev">HANDY TOOL</a>
+        <a href="#">COMMUNITY</a>
     </nav>
 
-    <main class="container">
-        <header class="hero-terminal boot d1">
-            <div style="font-family: 'Fira Code'; font-size: 0.6rem; color: #8e44ad; letter-spacing: 4px; margin-bottom: 10px;">[ STATUS: INITIALIZING_KICKSTARTER_CORE ]</div>
-            <h1>BLOOD-YIELD</h1>
-            <div class="tracker">
-                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.6rem; color: #d4af37; margin-bottom: 5px;">
-                    <span>SIGNATORY_MILESTONE</span>
-                    <span>35% CALIBRATED</span>
-                </div>
-                <div class="bar-bg"><div class="bar-fill"></div></div>
-            </div>
-        </header>
+    <header class="hero">
+        <h1 class="logo-text">BLOOD-YIELD</h1>
+        <p class="tagline">
+            BLOOD-YIELD IS IN DEVELOPMENT.<br>
+            CRAFTED WITH OUR <strong>HANDY TOOL</strong> FOR UE5, ALSO A WORK-IN-PROGRESS.
+        </p>
+    </header>
 
-        <section class="grid">
-            <div class="ue-panel boot d2">
-                <div class="card-meta"><span>SECTOR // INDUSTRIAL</span><span><span class="blink-p"></span> ACTIVE</span></div>
-                <h3>THE COLD IRON</h3>
-                <p style="color: #888; font-size: 0.9rem;">The hardware of the world. Representing the **Industrial Protocol**, players utilize high-tier mechanical constructs and manufactured weaponry to dominate the landscape.</p>
-                <div style="font-family: 'Fira Code'; font-size: 0.7rem; color: #fff; background: rgba(255,255,255,0.03); padding: 15px; border-left: 2px solid #C0C0C0;">
-                    > HARDWARE_DURABILITY: MAX<br>
-                    > OUTPUT_EFFICIENCY: 98.4%<br>
-                    > PROTOCOL: ENFORCE
-                </div>
-                <div class="status-dots"><span class="dot white"></span> <span class="dot cyan-glow"></span></div>
-            </div>
+    <section class="section">
+        <h2>GAMEPLAY PREVIEW</h2>
+        <div class="placeholder-media">
+            [VIDEO PLACEHOLDER: CINEMATIC TRAILER]
+        </div>
 
-            <div class="ue-panel boot d2">
-                <div class="card-meta"><span>SECTOR // ORGANIC</span><span><span class="blink-p"></span> STABLE</span></div>
-                <h3>THE LIVING WOOD</h3>
-                <p style="color: #888; font-size: 0.9rem;">The software of the soul. Representing **Organic Synthesis**, the Wood provides the raw magical essence and biological components required for evolution.</p>
-                <div style="font-family: 'Fira Code'; font-size: 0.7rem; color: #fff; background: rgba(142,68,173,0.05); padding: 15px; border-left: 2px solid #8e44ad;">
-                    > GROWTH_RATE: ACCELERATED<br>
-                    > BIOTIC_STRESS: NOMINAL<br>
-                    > PROTOCOL: SYNTHESIZE
-                </div>
-                <div class="status-dots"><span class="dot" style="background:#8e44ad;"></span> <span class="dot pink"></span></div>
-            </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+            <div class="placeholder-media">[IMAGE: ENVIRONMENT]</div>
+            <div class="placeholder-media">[IMAGE: CHARACTER]</div>
+        </div>
+    </section>
 
-            <div class="ue-panel wide-panel boot d3">
-                <div class="card-meta"><span>SECTOR // ECONOMY</span><span><span class="blink-p" style="background:#d4af37; box-shadow: 0 0 8px #d4af37;"></span> TRADING_OPEN</span></div>
-                <h3>OMNI-MARKET SYMBIOSIS</h3>
-                <p style="color: #bbb;">The **Symbiosis** is the core loop where Iron meets Wood. Industrial machines require organic fuel, and organic life seeks industrial protection. This creates the foundation of the **Real Money Trading (RMT) Marketplace**.</p>
-                
-                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div style="font-size: 0.85rem; color: #888;">
-                        <strong style="color: #d4af37;">> ASSET LIQUIDITY:</strong> Players can mint high-tier manufactured components or rare organic artifacts into tradeable assets.
-                    </div>
-                    <div style="font-size: 0.85rem; color: #888;">
-                        <strong style="color: #d4af37;">> VALUE RETENTION:</strong> By merging rare wood with cold iron, players create "Signatory Grade" items with permanent value in the Omni-Market.
-                    </div>
-                </div>
+    <section class="section">
+        <div class="newsletter-box">
+            <h3>JOIN THE HARVEST</h3>
+            <p>Sign up for the newsletter to receive development updates and Alpha access.</p>
+            <form id="playfabForm">
+                <input type="email" id="userEmail" placeholder="Enter your email" required>
+                <button type="submit">REGISTER</button>
+            </form>
+            <p id="responseMsg" style="margin-top: 15px;"></p>
+        </div>
+    </section>
 
-                <a href="#" class="btn-game">> INITIALIZE_MARKETPLACE_QUERY</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="boot d3" style="text-align: center; padding: 40px; opacity: 0.4; font-family: 'Fira Code'; font-size: 0.6rem;">
-        HARRISON_INTERACTIVE //  PROJECT_SYMBIOSIS // EST_2026
+    <footer>
+        <p>© Harrison Interactive 2026. EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION.</p>
+        <p>OFFICIAL COMPANY SEAL | DIGITAL WATERMARK | CYBER ELITE</p>
     </footer>
 
+    <script>
+        document.getElementById('playfabForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value;
+            const msg = document.getElementById('responseMsg');
+
+            // PLACEHOLDER: Logic to link to PlayFab "AddUsernamePassword" or "UpdateUserData"
+            msg.innerText = "Processing connection to PlayFab...";
+            msg.style.color = "var(--accent-blue)";
+            
+            // In your actual implementation, you will use PlayFab Client SDK:
+            // PlayFabClientSDK.AddOrUpdateContactEmail({ ContactEmail: email }, callback);
+        });
+    </script>
 </body>
 </html>
