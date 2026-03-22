@@ -1,5 +1,5 @@
 /* HARRISON INTERACTIVE LLC: OMNI-NETWORK MASTER STYLESHEET 
-   VERSION: 3.0 | 2-COLUMN TERMINAL ARCHITECTURE 
+   VERSION: 3.2 | 2-COLUMN TERMINAL ARCHITECTURE & NAV FIX
 */
 
 :root {
@@ -45,15 +45,50 @@ body::after {
 
 @keyframes scanline { 0% { top: -100%; } 100% { top: 100%; } }
 
-/* --- NAVIGATION --- */
+/* --- TYPOGRAPHY & COLORS --- */
+h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: white; }
+.accent-blue { color: var(--accent-blue); }
+.glow-text { color: white; text-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
+
+/* --- NAVIGATION BAR --- */
 nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 8%; background: rgba(6, 14, 27, 0.9);
-    border-bottom: 1px solid var(--border-glow); backdrop-filter: blur(10px);
-    position: sticky; top: 0; z-index: 1000;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 1.2rem 8%; 
+    background: rgba(6, 14, 27, 0.9);
+    border-bottom: 1px solid var(--border-glow); 
+    backdrop-filter: blur(10px);
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
 }
-.nav-logo { height: 40px; filter: drop-shadow(0 0 5px var(--accent-blue)); }
-.nav-links a { color: var(--metal-silver); text-decoration: none; margin-left: 2rem; font-family: 'Orbitron'; font-size: 0.75rem; transition: 0.3s; }
+
+/* --- THE LOGO PLUMBING --- */
+.nav-logo { 
+    height: 45px; 
+    width: auto; 
+    object-fit: contain; 
+    filter: drop-shadow(0 0 6px var(--accent-blue)); 
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.nav-logo:hover {
+    filter: drop-shadow(0 0 12px var(--accent-blue)); 
+    transform: scale(1.02); 
+}
+
+.nav-links a { 
+    color: var(--metal-silver); 
+    text-decoration: none; 
+    margin-left: 2.2rem; 
+    font-family: 'Orbitron'; 
+    font-size: 0.7rem; 
+    font-weight: bold; 
+    transition: 0.3s; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+}
 .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
 /* --- GLOBAL 2-COLUMN ARCHITECTURE --- */
@@ -65,7 +100,7 @@ nav {
 /* THE MASTER GRID: Side-by-side Terminal Force */
 .grid { 
     display: grid; 
-    grid-template-columns: 1fr 1fr; /* Strict 2 Column */
+    grid-template-columns: 1fr 1fr; 
     gap: 40px; 
 }
 
@@ -76,10 +111,11 @@ nav {
     position: relative;
     padding: 30px;
     transition: 0.4s;
+    overflow: hidden; 
 }
 
-.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-top: 2px solid var(--accent-blue); border-left: 2px solid var(--accent-blue); }
-.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue); }
+.ue-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-top: 2px solid var(--accent-blue); border-left: 2px solid var(--accent-blue); pointer-events: none; }
+.ue-panel::after { content: ""; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-bottom: 2px solid var(--accent-blue); border-right: 2px solid var(--accent-blue); pointer-events: none; }
 
 .ue-panel:hover { border-color: var(--accent-blue); box-shadow: 0 0 20px rgba(0, 210, 255, 0.1); }
 
@@ -87,13 +123,13 @@ nav {
 .card-img { 
     width: 100%; height: 250px; background: #000; 
     overflow: hidden; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
 }
 .card-img img { width: 100%; height: 100%; object-fit: contain; transition: 0.5s; }
 .ue-panel:hover .card-img img { transform: scale(1.05); }
 
 /* --- STATUS & UI --- */
 .card-meta { font-family: 'Fira Code'; font-size: 0.65rem; color: #475569; margin-bottom: 15px; display: flex; justify-content: space-between; }
-.accent-blue { color: var(--accent-blue); }
 .blink { width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%; display: inline-block; animation: b 1.5s infinite; margin-right: 5px; }
 @keyframes b { 0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--warning-orange); } 50% { opacity: 0.3; } }
 
@@ -101,6 +137,7 @@ nav {
     display: block; width: 100%; padding: 15px; border: 1px solid var(--accent-blue);
     background: rgba(0, 210, 255, 0.05); color: #fff; text-decoration: none;
     text-align: center; font-family: 'Fira Code'; font-size: 0.8rem; transition: 0.3s;
+    margin-top: 20px;
 }
 .btn-main:hover { background: var(--accent-blue); color: #000; font-weight: bold; }
 
