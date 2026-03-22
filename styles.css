@@ -1,23 +1,15 @@
-/* HARRISON INTERACTIVE LLC: MASTER CYBER-TECH STYLESHEET 
-    VERSION: 2.5 | EST. 2026 | UNRIVALED INNOVATION | CYBER ELITE
+/* HARRISON INTERACTIVE LLC: STABLE CORE 
+   VERSION: 2.6 | FIX: LAYERING & PROPORTIONS 
 */
 
 :root {
-    /* Core Branding */
     --bg-deep: #060e1b;          
     --accent-blue: #00D2FF;      
     --metal-silver: #C0C0C0;     
-    
-    /* Functional Status Accents */
-    --warning-orange: #f59e0b;   /* Pending/Coming Soon */
-    --success-green: #10b981;    /* Active/Stable */
-    --code-violet: #a855f7;      /* Logic/Python */
-    --danger-red: #ef4444;       /* Critical/Blood-Yield */
-    
-    /* UI Structure */
+    --warning-orange: #f59e0b;   
+    --success-green: #10b981;    
+    --code-violet: #a855f7;      
     --border-glow: rgba(0, 210, 255, 0.2);
-    --glass: rgba(10, 25, 47, 0.85);
-    --panel-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.9) 100%);
     --text-dim: #8892b0;
 }
 
@@ -25,60 +17,17 @@
 
 body {
     background-color: var(--bg-deep);
-    background-image: 
-        radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
-        url('https://www.transparenttextures.com/patterns/circuit-board.png');
+    background-image: radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.1) 0%, transparent 50%);
     color: var(--metal-silver);
     font-family: 'Inter', sans-serif;
     margin: 0;
     line-height: 1.6;
-    overflow-x: hidden;
 }
 
-/* --- THE INDUSTRIAL WINDOW (Scanlines & Grids) --- */
-.handy-window {
-    position: relative;
-}
-
-/* Technical Grid Overlay */
-.handy-window::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px), 
-                      linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Scanning Line Animation */
-.handy-window::after {
-    content: "";
-    position: fixed;
-    top: -100%; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.03), transparent);
-    animation: scanline 10s linear infinite;
-    pointer-events: none;
-    z-index: 1;
-}
-
-@keyframes scanline {
-    0% { top: -100%; }
-    100% { top: 100%; }
-}
-
-/* --- TYPOGRAPHY --- */
-h1, h2, h3, h4, .logo-text { 
-    font-family: 'Orbitron', sans-serif; 
-    text-transform: uppercase; 
-    letter-spacing: 3px; 
-    color: white; 
-}
-
-.accent-blue { color: var(--accent-blue); text-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
-.accent-violet { color: var(--code-violet); text-shadow: 0 0 8px rgba(168, 85, 247, 0.4); }
-.accent-green { color: var(--success-green); text-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
+/* --- TEXT --- */
+h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 3px; color: white; }
+.accent-blue { color: var(--accent-blue); }
+.accent-violet { color: var(--code-violet); }
 
 /* --- NAVIGATION --- */
 nav {
@@ -86,5 +35,103 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 8%;
-    background: rgba(10, 25, 47, 0.9);
+    background: rgba(10, 25, 47, 0.95);
     border-bottom: 1px solid var(--border-glow);
+}
+
+.nav-logo { height: 45px; }
+
+.nav-links a {
+    color: var(--metal-silver);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.nav-links a.active { color: var(--accent-blue); }
+
+/* --- CONTAINERS --- */
+.container { padding: 60px 8%; max-width: 1400px; margin: 0 auto; }
+.hero { border-bottom: 1px solid var(--border-glow); padding-bottom: 40px; margin-bottom: 40px; }
+.hero h1 { font-size: 3.5rem; margin: 0; }
+
+/* --- THE GRID FIX --- */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+    gap: 30px; 
+}
+
+/* --- CARDS --- */
+.ue-panel {
+    border: 1px solid #1e293b;
+    background: rgba(15, 23, 42, 0.8);
+    position: relative;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* IMAGE FIX: Forces HANDY and Blood-Yield to be identical height */
+.card-img { 
+    width: 100%;
+    height: 220px; /* Fixed height for symmetry */
+    background: #000; 
+    overflow: hidden; 
+}
+
+.card-img img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* This is the "Plumbing" fix for image sizes */
+}
+
+.card-meta {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    color: #475569;
+}
+
+.card-content { padding: 25px; flex-grow: 1; }
+
+/* --- STATUS ELEMENTS --- */
+.status-indicator { display: flex; align-items: center; gap: 8px; color: var(--warning-orange); }
+.blink {
+    width: 6px; height: 6px; background: var(--warning-orange); border-radius: 50%;
+    animation: simple-blink 1.5s infinite;
+}
+
+@keyframes simple-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.status-dots { margin: 15px 0; display: flex; gap: 10px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.white { background: #fff; }
+.pink { background: var(--code-violet); }
+.cyan-glow { background: var(--accent-blue); box-shadow: 0 0 8px var(--accent-blue); }
+
+/* --- BUTTONS --- */
+.btn-main {
+    display: block;
+    margin-top: 15px;
+    padding: 12px;
+    border: 1px solid var(--accent-blue);
+    background: rgba(0, 210, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+
+.btn-main:hover { background: var(--accent-blue); color: #000; }
+
+/* --- FOOTER --- */
+footer { text-align: center; padding: 40px; border-top: 1px solid var(--border-glow); font-size: 0.75rem; color: #475569; }
