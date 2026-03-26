@@ -13,10 +13,9 @@
             --bg-navy: #0A192F;
             --accent-blue: #00D2FF;
             --text-silver: #C0C0C0;
-            --glass: rgba(10, 25, 47, 0.9);
+            --glass: rgba(10, 25, 47, 0.95);
         }
 
-        /* --- GLOBAL RESET --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -29,12 +28,13 @@
             flex-direction: column;
         }
 
-        /* --- FIXED CENTERED HEADER --- */
+        /* --- FIXED HEADER --- */
         header {
-            position: fixed; top: 0; width: 100%; height: 80px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             display: flex; justify-content: center; align-items: center;
             background: var(--glass); backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2); z-index: 1000;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
+            z-index: 2000; /* Higher than content */
         }
 
         .studio-logo {
@@ -43,16 +43,24 @@
             text-shadow: 0 0 10px var(--accent-blue);
         }
 
-        .menu-trigger { position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; }
+        /* The Blue Pin: The target for the click */
+        .menu-trigger { 
+            position: absolute; right: 5%; 
+            color: var(--accent-blue); font-size: 1.8rem; 
+            cursor: pointer; z-index: 2100; 
+        }
 
         /* --- NAV DRAWER --- */
         #nav-menu {
             position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
             background: var(--bg-navy); border-left: 2px solid var(--accent-blue);
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); z-index: 999; padding-top: 100px;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            z-index: 3000; /* Highest layer */
+            padding-top: 100px;
         }
         #nav-menu.active { right: 0; }
         #nav-menu a { display: block; padding: 20px 40px; color: #fff; text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        #nav-menu a:hover { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); }
 
         /* --- MAIN TERMINAL AREA --- */
         .terminal-container {
@@ -63,6 +71,7 @@
             background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
                               linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
             background-size: 50px 50px;
+            z-index: 1;
         }
 
         .terminal-header { text-align: center; margin-bottom: 50px; }
@@ -77,18 +86,15 @@
         .terminal-input {
             width: 100%; background: rgba(0, 210, 255, 0.03); border: 1px solid rgba(0, 210, 255, 0.2);
             color: #fff; padding: 15px; margin-bottom: 15px; font-family: 'Fira Code', monospace; outline: none;
-            transition: 0.3s;
         }
-        .terminal-input:focus { border-color: var(--accent-blue); box-shadow: 0 0 10px rgba(0, 210, 255, 0.15); }
 
         .btn {
             padding: 15px 30px; font-family: 'Orbitron'; background: transparent;
             border: 2px solid var(--accent-blue); color: var(--accent-blue);
-            cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase;
         }
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
 
-        /* --- FOOTER --- */
         footer {
             background: var(--bg-deep);
             padding: 40px 5%;
@@ -96,26 +102,15 @@
             border-top: 1px solid rgba(255,255,255,0.05);
             font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
+            z-index: 10;
         }
 
-        .legal-link {
-            display: inline-block; margin-top: 15px; font-family: 'Fira Code';
-            color: var(--accent-blue); text-decoration: none; font-size: 0.7rem;
-            letter-spacing: 1px; transition: 0.3s;
-        }
-        .legal-link:hover { text-shadow: 0 0 8px var(--accent-blue); letter-spacing: 2px; }
-
-        /* --- MODAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.92); backdrop-filter: blur(10px);
-            z-index: 2000; justify-content: center; align-items: center;
+            z-index: 4000; justify-content: center; align-items: center;
         }
-        .modal-box { 
-            background: var(--bg-navy); border: 1px solid var(--accent-blue); 
-            padding: 40px; text-align: center; max-width: 420px; width: 90%;
-            box-shadow: 0 0 50px rgba(0, 210, 255, 0.2);
-        }
+        .modal-box { background: var(--bg-navy); border: 1px solid var(--accent-blue); padding: 40px; text-align: center; max-width: 420px; width: 90%; }
     </style>
 </head>
 <body>
@@ -140,37 +135,10 @@
 
         <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 100%;">
             <div class="ue-panel">
-                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); margin-bottom: 25px; font-size: 1.1rem; letter-spacing: 1px;">KNOWLEDGE_MODULE</h3>
+                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); margin-bottom: 25px; font-size: 1.1rem;">KNOWLEDGE_MODULE</h3>
                 <div style="border-left: 2px solid rgba(0, 210, 255, 0.3); padding-left: 15px; margin-bottom: 25px;">
                     <strong style="font-family: 'Fira Code'; color: #fff;">> HANDY UE Compatibility?</strong><br>
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-silver);">Validated for Unreal Engine 5.4+ stable environments.</p>
+                    <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-silver);">Validated for Unreal Engine 5.4+ environments.</p>
                 </div>
                 <div style="border-left: 2px solid rgba(0, 210, 255, 0.3); padding-left: 15px;">
-                    <strong style="font-family: 'Fira Code'; color: #fff;">> Blood-Yield Access?</strong><br>
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-silver);">Project Blood-Yield deployment targeted for Q4 2026.</p>
-                </div>
-            </div>
-
-            <div class="ue-panel">
-                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); margin-bottom: 25px; font-size: 1.1rem; letter-spacing: 1px;">TRANSMIT_SIGNAL</h3>
-                <form id="signal-form" action="https://hi-signal-terminal.bccomp97249.workers.dev/" method="POST">
-                    <input type="text" name="input_name" class="terminal-input" placeholder="> input_user_name" required>
-                    <input type="email" name="input_email" class="terminal-input" placeholder="> input_user_email" required>
-                    <textarea name="exec_message" class="terminal-input" placeholder="> exec_message_payload" rows="4" style="resize: none;" required></textarea>
-                    <button type="submit" class="btn" id="submit-btn">EXECUTE SIGNAL</button>
-                </form>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div style="opacity: 0.8;">© 2026 <span style="color: var(--accent-blue); font-weight: 600;">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div>
-        <div style="margin-top: 5px; opacity: 0.6; font-size: 0.7rem; font-family: 'Fira Code';">UNRIVALED INNOVATION // EST. 2026</div>
-        <a href="legal.html" class="legal-link">[ ACCESS_LEGAL_TERMINAL ]</a>
-    </footer>
-
-    <div id="signal-modal" class="modal-overlay">
-        <div class="modal-box">
-            <div style="font-family: 'Fira Code'; color: var(--accent-blue); margin-bottom: 10px; font-size: 0.8rem;">[ STATUS: 200 OK ]</div>
-            <h2 style="font-family: 'Orbitron'; color: #fff; margin-bottom: 20px; letter-spacing: 2px;">SIGNAL<br><span style="color: var(--accent-blue);">RECEIVED</span></h2>
-            <p style="font-size: 0.9rem; margin-bottom: 30px;
+                    <strong style="font-family: 'Fira Code'; color: #fff;">> Blood-Yield
