@@ -59,10 +59,8 @@
             z-index: 10; cursor: pointer; text-align: center;
         }
 
-        /* Mobile Menu Trigger (Hidden on PC) */
         #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
 
-        /* Full Mobile Menu (Hidden on PC) */
         #mobile-nav {
             position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
             background: rgba(5,5,5,0.98); z-index: 3000; display: flex; flex-direction: column;
@@ -78,16 +76,27 @@
             flex: 1; display: flex; flex-direction: column; justify-content: flex-end; 
             align-items: center; padding: 40px; transition: flex 0.7s ease;
             position: relative; overflow: hidden;
+            background-color: var(--bg-deep); /* Ensures seamless black if image ends early */
         }
         .split-panel:hover { flex: 2.5; }
 
         .panel-blood {
-            background-image: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,1) 80%), url('Blood-Yield/BY-Background.png');
-            background-size: cover; background-position: center; border-right: 1px solid rgba(139,0,0,0.3);
+            /* FIXED: 100% width ensures the logo/text is NEVER cutoff on the sides */
+            background-image: 
+                linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.95) 70%), 
+                url('Blood-Yield/BY-Background.png');
+            background-size: 100% auto; 
+            background-position: center top; 
+            background-repeat: no-repeat;
+            border-right: 1px solid rgba(139,0,0,0.3);
         }
         .panel-handy {
-            background-image: linear-gradient(to bottom, rgba(5,5,5,0.2) 0%, rgba(5,5,5,1) 80%), url('handy_terminal.png');
-            background-size: cover; background-position: center;
+            background-image: 
+                linear-gradient(to bottom, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.95) 75%), 
+                url('handy_terminal.png');
+            background-size: 100% auto; 
+            background-position: center top;
+            background-repeat: no-repeat;
         }
 
         .content-box { max-width: 500px; z-index: 20; text-align: left; width: 100%; }
@@ -95,15 +104,17 @@
         .panel-heading { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin-bottom: 15px; }
         .btn { padding: 15px 30px; font-family: 'Orbitron'; cursor: pointer; border: 1px solid var(--accent-blue); color: var(--accent-blue); text-decoration: none; display: inline-block; background: rgba(0,0,0,0.5); }
 
-        /* --- THE RESPONSIVE BREAKPOINTS --- */
+        /* --- RESPONSIVE BREAKPOINTS --- */
         @media (max-width: 1100px) {
-            .nav-group { display: none; } /* Hide PC nav */
-            #menu-btn { display: block; }  /* Show Menu Toggle */
+            .nav-group { display: none; }
+            #menu-btn { display: block; }
         }
 
         @media (max-width: 800px) {
             main { flex-direction: column; height: auto; overflow-y: visible; }
-            .split-panel { width: 100%; min-height: 90vh; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .split-panel { width: 100%; min-height: 80vh; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            /* Mobile uses 'cover' because text cutoff is less of an issue than a vertical gap */
+            .panel-blood, .panel-handy { background-size: cover; background-position: center; }
             .split-panel:hover { flex: 1; }
             body { overflow-y: auto; }
         }
@@ -155,7 +166,10 @@
     <script>
         const btn = document.getElementById('menu-btn');
         const nav = document.getElementById('mobile-nav');
-        btn.onclick = () => { nav.classList.toggle('active'); btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; };
+        btn.onclick = () => { 
+            nav.classList.toggle('active'); 
+            btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; 
+        };
     </script>
 </body>
 </html>
