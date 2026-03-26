@@ -1,44 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HI_DATABASE | Heimr Geography</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Montserrat:wght@400&family=Fira+Code&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI_DATABASE | Heimr_Geography_v4.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --accent: #00D2FF; --blood: #8B0000; --gold: #F9D423; --stone: #4A4E69; --silver: #C0C0C0; }
-        body { background: var(--bg); color: var(--silver); font-family: 'Montserrat'; background-image: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.95)), url('BY-Background.png'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; }
-        header { width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid var(--accent); position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(10px); }
-        .command-deck { background: #000; border-bottom: 2px solid var(--blood); padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 20px rgba(0,0,0,1); }
-        .command-deck a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; color: #fff; border: 1px solid rgba(139,0,0,0.5); padding: 8px 15px; background: rgba(139,0,0,0.1); text-shadow: 0 0 10px var(--blood); transition: 0.3s; box-shadow: 0 0 5px var(--blood); }
-        .command-deck a.active { color: var(--gold); border-color: var(--gold); text-shadow: 0 0 12px var(--gold); box-shadow: 0 0 10px var(--gold); }
-        .container { max-width: 1600px; margin: 20px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; }
-        .node { background: rgba(10, 10, 10, 0.96); border: 1px solid rgba(255,255,255,0.05); padding: 40px; border-top: 4px solid var(--stone); }
-        .view-specs { background: rgba(0,0,0,0.5); padding: 20px; margin-top: 25px; font-family: 'Fira Code'; font-size: 0.75rem; border: 1px solid rgba(249, 212, 35, 0.1); line-height: 1.6; }
-        .view-specs strong { color: var(--gold); }
-        footer { text-align: center; padding: 40px; font-family: 'Fira Code'; font-size: 0.7rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .command-deck a { flex: 1 1 40%; text-align: center; } }
+        :root {
+            --bg-deep: #050505;
+            --accent-blue: #00D2FF; 
+            --blood: #8B0000;       
+            --rust: #8A3324;        
+            --gold-yield: #F9D423;  
+            --stone: #4A4E69;
+            --text-silver: #C0C0C0;
+            --navy-grid: #0A192F;
+            --emerald: #00FF88;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-silver); 
+            font-family: 'Montserrat', sans-serif;
+            background-image: linear-gradient(rgba(5,5,5,0.88), rgba(5,5,5,0.96)), url('BY-Background.png');
+            background-size: cover; background-position: center center; background-attachment: fixed;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        /* --- HARRISON INTERACTIVE HEADER --- */
+        header {
+            width: 100%; min-height: 80px; display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px);
+        }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+
+        /* --- THE COMMAND DECK (HUD GLOW) --- */
+        .command-deck {
+            background: #000; border-bottom: 2px solid var(--blood);
+            padding: 15px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
+        }
+        .command-deck a {
+            text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900;
+            color: #fff; letter-spacing: 3px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 1);
+            border: 1px solid rgba(139, 0, 0, 0.5); padding: 10px 20px; background: rgba(139, 0, 0, 0.1);
+        }
+        .command-deck a:hover, .command-deck a.active { 
+            color: var(--gold-yield); border-color: var(--gold-yield);
+            text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
+        }
+
+        /* --- PROJECT BANNER --- */
+        .project-banner { text-align: center; padding: 20px 0 10px; }
+        .logo-by { 
+            font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
+            background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
+        }
+
+        /* --- MAIN TERMINAL GRID --- */
+        .main-grid { max-width: 1600px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        
+        /* Left: Sector Nodes */
+        .sector-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        
+        .sector-node { 
+            background: rgba(10, 10, 10, 0.98); border: 1px solid rgba(255,255,255,0.05); 
+            padding: 35px; border-top: 4px solid var(--stone); transition: 0.3s;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8); display: flex; flex-direction: column;
+        }
+        .sector-node:hover { background: rgba(15, 15, 15, 1); transform: translateY(-3px); }
+
+        .sector-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+        .sector-header h2 { font-family: 'Orbitron'; color: #fff; letter-spacing: 4px; font-size: 1.2rem; }
+        .sector-id { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--text-silver); opacity: 0.6; text-align: right; }
+
+        .sector-desc { font-size: 0.85rem; line-height: 1.7; opacity: 0.8; margin-bottom: 20px; flex-grow: 1; }
+
+        /* View Protocol Box */
+        .view-protocols { 
+            background: rgba(0,0,0,0.6); padding: 15px; border-left: 2px solid var(--stone);
+            font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); line-height: 1.6;
+        }
+        .view-protocols strong { color: var(--gold-yield); margin-right: 5px; }
+
+        /* Right: Geographic Telemetry */
+        .data-panel { background: rgba(0, 0, 0, 0.95); border: 1px solid var(--navy-grid); padding: 40px; font-family: 'Fira Code'; color: var(--accent-blue); box-shadow: 0 0 40px rgba(0, 210, 255, 0.05); height: fit-content; position: sticky; top: 180px; }
+        .data-panel h3 { color: var(--gold-yield); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 25px; border-bottom: 1px solid var(--gold-yield); padding-bottom: 15px; letter-spacing: 3px; }
+        
+        .data-line { margin-bottom: 12px; border-bottom: 1px solid rgba(0, 210, 255, 0.08); padding-bottom: 8px; font-size: 0.8rem; display: flex; justify-content: space-between; }
+        .data-label { color: var(--stone); text-transform: uppercase; }
+        .data-value { color: var(--accent-blue); font-weight: bold; text-align: right; }
+
+        /* Global Status Log */
+        .status-log { background: #000; border: 1px solid var(--stone); padding: 25px; font-family: 'Fira Code'; font-size: 0.7rem; margin-top: 30px; color: var(--stone); }
+        .log-entry { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
+        .log-entry span { color: var(--gold-yield); margin-right: 10px; }
+
+        footer { text-align: center; padding: 50px; font-family: 'Fira Code'; font-size: 0.8rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+
+        @media (max-width: 1200px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .sector-container { grid-template-columns: 1fr; }
+            .command-deck a { font-size: 0.65rem; padding: 8px 12px; flex: 1 1 45%; text-align: center; }
+            .data-panel { position: relative; top: 0; }
+        }
     </style>
 </head>
 <body>
-    <header><a href="index.html" style="font-family:'Orbitron'; color:#fff; text-decoration:none; font-weight:900; letter-spacing:2px;">HARRISON INTERACTIVE</a></header>
-    <nav class="command-deck"><a href="world.html" class="active">GEOGRAPHY</a><a href="waygates.html">WAYGATES</a><a href="plots.html">PLOTS</a><a href="maw.html">MAW</a></nav>
-    <div style="text-align:center; padding:20px 0 0;"><h1 style="font-family:'Orbitron'; font-size:clamp(2rem, 5vw, 3.5rem); color:#fff; letter-spacing:10px; margin:0;">HEIMR_GEOGRAPHY</h1><p style="font-family:'Fira Code'; color:var(--gold); font-size:0.7rem; letter-spacing:4px;">[ GEOGRAPHICAL_MAPPING // HANDY_RENDER_ENGINE ]</p></div>
-    <main class="container">
-        <div class="node" style="border-top-color: var(--accent);">
-            <h2 style="font-family:'Orbitron'; color:#fff; letter-spacing:3px;">HJÄRTA HUB</h2>
-            <p style="font-size:0.9rem; line-height:1.7; opacity:0.8;">The primary BIOS sanctuary. A Brutalist monolith constructed of wet, specular-heavy stone. Here, the <strong>Handy</strong> kernel stabilizes the Waygates.</p>
-            <div class="view-specs">
-                <strong>[ISO]</strong> Kernel Monitoring: Overseeing trade-hub traffic.<br><strong>[3P]</strong> Social Navigation: Interfacing with the Mirror Waygates.<br><strong>[1P]</strong> Diagnostic: Detailed inspection of Gear-Stamping.
+
+    <header>
+        <a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a>
+        <div class="nav-links">
+            <a href="index.html">DATABASE_MAIN</a>
+            <a href="world.html" class="active">HEIMR_CORE</a>
+            <a href="lore.html">LORE_RECORDS</a>
+        </div>
+    </header>
+
+    <nav class="command-deck">
+        <a href="world.html" class="active">GEOGRAPHY</a>
+        <a href="waygates.html">WAYGATES</a>
+        <a href="plots.html">HALLOWED_PLOTS</a>
+        <a href="maw.html">THE_MAW</a>
+    </nav>
+
+    <div class="project-banner">
+        <h1 class="logo-by">BLOOD-YIELD</h1>
+        <div style="font-family:'Fira Code'; color:var(--gold-yield); font-size:0.75rem; letter-spacing:5px; margin-top:5px;">[ KERNEL: HANDY // MODULE: SECTOR_MAPPING ]</div>
+    </div>
+
+    <main class="main-grid">
+        
+        <div class="sector-container">
+            
+            <div class="sector-node" style="border-top-color: var(--accent-blue);">
+                <div class="sector-header">
+                    <h2>HJÄRTA HUB</h2>
+                    <span class="sector-id">NODE: 0x001<br>BIOS_CORE</span>
+                </div>
+                <div class="sector-desc">
+                    The central BIOS of Heimr. A Brutalist monolith of wet, high-specularity stone. Here, the <strong>Handy</strong> kernel stabilizes the Black Oily Waygates, preventing data-leakage into the void. This is the only neutral ground for exchanging Kilo-Vials ($KV$).
+                </div>
+                <div class="view-protocols" style="border-left-color: var(--accent-blue);">
+                    <div><strong>[ISO]</strong> Kernel Overview: Macro-monitoring Waygate handshakes.</div>
+                    <div style="margin: 8px 0;"><strong>[3P]</strong> Social Nav: Interfacing with terminals and other signatories.</div>
+                    <div><strong>[1P]</strong> Diagnostic: Micro-inspection of Kilo-Vial compression vats.</div>
+                </div>
+            </div>
+
+            <div class="sector-node" style="border-top-color: var(--blood);">
+                <div class="sector-header">
+                    <h2>IRON BARRENS</h2>
+                    <span class="sector-id">NODE: 0x002<br>UNALLOCATED</span>
+                </div>
+                <div class="sector-desc">
+                    The unallocated sector. The terrain is raw <strong>Technical Drafting Paper</strong>, charred by the Ashen Convergence. Glowing circuit-traces pulse beneath 0.8 Vignette fog. Reapers deploy here to scavenge loose Vial-Bits ($vb$).
+                </div>
+                <div class="view-protocols" style="border-left-color: var(--blood);">
+                    <div><strong>[ISO]</strong> Tactical Mapping: Tracking Husk clusters via grid lines.</div>
+                    <div style="margin: 8px 0;"><strong>[3P]</strong> Kinetic Combat: High-mobility Reaper harvesting.</div>
+                    <div><strong>[1P]</strong> Survival Check: Fog density management & audio cues.</div>
+                </div>
+            </div>
+
+            <div class="sector-node" style="border-top-color: var(--rust);">
+                <div class="sector-header">
+                    <h2>THE MAW</h2>
+                    <span class="sector-id">NODE: 0x003<br>RECYCLE_BIN</span>
+                </div>
+                <div class="sector-desc">
+                    The world's hardware shredder. A vertical abyss where Soul-Blighted gear is sacrificed. The de-compiler shreds the item's skeleton, yielding a 5% return to keep the industrial economy churning.
+                </div>
+                <div class="view-protocols" style="border-left-color: var(--rust);">
+                    <div><strong>[ISO]</strong> Logistics: Calculating yield-rates for bulk sacrifices.</div>
+                    <div style="margin: 8px 0;"><strong>[3P]</strong> Positioning: Aligning operators over the de-compilation pit.</div>
+                    <div><strong>[1P]</strong> Void Code: Inspecting the pit for raw Cold Iron anomalies.</div>
+                </div>
+            </div>
+
+            <div class="sector-node" style="border-top-color: var(--emerald);">
+                <div class="sector-header">
+                    <h2>HALLOWED PLOTS</h2>
+                    <span class="sector-id">NODE: 0x004<br>PARTITION</span>
+                </div>
+                <div class="sector-desc">
+                    Sovereign user-partitions. Sowers use <strong>Handy</strong> editor tools to graft Yggdrasil-Link fiber-optics into the soil, creating refining stations. Protected strictly by the Guest Protocol firewall.
+                </div>
+                <div class="view-protocols" style="border-left-color: var(--emerald);">
+                    <div><strong>[ISO]</strong> Architect Mode: Placing roots and routing power cables.</div>
+                    <div style="margin: 8px 0;"><strong>[3P]</strong> Verification: Perimeter checks and signatory validation.</div>
+                    <div><strong>[1P]</strong> Detail Work: Customizing Bio-Armor storage and vats.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <div class="data-panel">
+                <h3>> GEO_TELEMETRY</h3>
+                <div class="data-line"><span class="data-label">ACTIVE_NODES:</span> <span class="data-value">04_SECTORS</span></div>
+                <div class="data-line"><span class="data-label">ATMOSPHERE:</span> <span class="data-value">HEAVY_FOG</span></div>
+                <div class="data-line"><span class="data-label">RENDERER:</span> <span class="data-value">UNREAL_ENGINE_5</span></div>
+                <div class="data-line"><span class="data-label">VIGNETTE_VOL:</span> <span class="data-value">0.8_DENSITY</span></div>
+                <div class="data-line"><span class="data-label">BASE_TEXTURE:</span> <span class="data-value">DRAFTING_PAPER</span></div>
+                <div class="data-line"><span class="data-label">GRID_STATUS:</span> <span class="data-value">CIRCUIT_PULSE</span></div>
+                <div class="data-line"><span class="data-label">YGGDRASIL_NET:</span> <span class="data-value">ONLINE</span></div>
+                <div class="data-line" style="color:var(--blood)"><span class="data-label">CORRUPTION:</span> <span class="data-value">IRON_BARRENS_HIGH</span></div>
+                <div class="data-line" style="color:var(--accent-blue)"><span class="data-label">WAYGATES:</span> <span class="data-value">OILY_MIRROR_SYNCED</span></div>
+                <div class="data-line" style="color:var(--gold-yield)"><span class="data-label">RMT_TRADE:</span> <span class="data-value">HJÄRTA_ONLY</span></div>
+                
+                <div style="margin-top:35px; font-size:0.7rem; color:var(--stone); line-height:1.6; border-top: 1px dashed var(--stone); padding-top: 20px;">
+                    [HI_SYSTEM_NOTICE]:<br>
+                    Transitioning between ISO and 3P Render Protocols requires a 0.5s localized hard-drive spin-up simulation.
+                </div>
+            </div>
+
+            <div class="status-log">
+                <div class="log-entry"><span>[SYS]</span> TRACKING 14,021 VIAL-BITS IN SECTOR 0x002.</div>
+                <div class="log-entry"><span>[SYS]</span> GUEST PROTOCOL BREACH ATTEMPT IN SECTOR 0x004. DENIED.</div>
+                <div class="log-entry"><span>[SYS]</span> SOWER ROOT_NETWORK EXPANDED BY 4%.</div>
+                <div class="log-entry"><span>[SYS]</span> MAW DE-COMPILER YIELDING 5.01% COLD IRON.</div>
             </div>
         </div>
-        <div class="node" style="border-top-color: var(--blood);">
-            <h2 style="font-family:'Orbitron'; color:#fff; letter-spacing:3px;">IRON BARRENS</h2>
-            <p style="font-size:0.9rem; line-height:1.7; opacity:0.8;">Unallocated sectors of charred drafting paper. Circuit-traces pulse beneath the 0.8 Vignette fog during high-stakes combat.</p>
-            <div class="view-specs">
-                <strong>[ISO]</strong> Tactical Mapping: Tracking Soul-Blighted clusters.<br><strong>[3P]</strong> Kinetic Combat: High-mobility harvesting in fog.<br><strong>[1P]</strong> Survival Diagnostic: Spotting glitches in the grid.
-            </div>
-        </div>
+
     </main>
-    <footer>HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // 2026</footer>
+
+    <footer>HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // EST. 2026</footer>
+
 </body>
 </html>
