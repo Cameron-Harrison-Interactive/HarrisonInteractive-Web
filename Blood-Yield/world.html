@@ -3,79 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The World | Blood-Yield</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <title>AN SAOL | The World of Blood-Yield</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-dark: #050505; --rust: #8A3324; --stone: #4A4E69; --blood: #8B0000; --gold-yield: #F9D423; --text-silver: #C0C0C0; }
-        body { background: linear-gradient(rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('BY-Background.png') no-repeat center center/cover fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; margin: 0; }
-        nav { background: rgba(0, 0, 0, 0.9); padding: 20px; display: flex; justify-content: center; gap: 40px; font-family: 'Orbitron'; border-bottom: 2px solid var(--rust); position: sticky; top: 0; z-index: 1000; }
-        nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
-        nav a:hover { color: var(--blood); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-        
-        /* The Zones */
-        .map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 50px; }
-        .zone-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--stone); padding: 30px; text-align: left; position: relative; }
-        .zone-card h3 { font-family: 'Orbitron'; color: var(--gold-yield); margin-bottom: 15px; }
-        
-        /* The OLD Exchange Lockout Style */
-        .exchange-lock {
-            margin-top: 60px;
-            padding: 50px;
-            border: 1px dashed var(--gold-yield);
-            background: #000;
-            text-align: center;
+        :root {
+            --bg-deep: #050505;
+            --accent-blue: #00D2FF; 
+            --blood: #8B0000;       
+            --rust: #8A3324;        
+            --gold-yield: #F9D423;  
+            --stone: #4A4E69;
+            --text-silver: #C0C0C0;
+            --glass: rgba(5, 5, 5, 0.9);
         }
-        .portal-btn { background: var(--gold-yield); color: #000; padding: 15px 30px; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; margin-top: 20px; }
 
-        footer { margin-top: 80px; padding: 60px 20px; border-top: 1px solid rgba(138, 51, 36, 0.3); background: rgba(0,0,0,0.5); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-silver); 
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- GLOBAL COMMAND DECK (SYNCED) --- */
+        @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
+        @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100px;
+            display: flex; justify-content: center; align-items: center;
+            background: var(--glass); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
+            z-index: 2000; overflow: hidden; padding: 0 5%;
+        }
+        header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
+        header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
+        
+        .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
+        .nav-group-left { justify-content: flex-end; padding-right: 40px; }
+        .nav-group-right { justify-content: flex-start; padding-left: 40px; }
+        .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
+        .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; z-index: 10; cursor: pointer; }
+
+        /* --- GAME NAVIGATION --- */
+        .game-nav {
+            margin-top: 100px; background: rgba(139, 0, 0, 0.05); border-bottom: 1px solid var(--rust);
+            padding: 15px; display: flex; justify-content: center; gap: 30px; z-index: 1000;
+        }
+        .game-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; color: var(--stone); letter-spacing: 3px; transition: 0.3s; }
+        .game-nav a:hover, .game-nav a.active { color: var(--blood); text-shadow: 0 0 10px var(--blood); }
+
+        /* --- WORLD HERO --- */
+        .hero {
+            height: 40vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.2) 0%, rgba(5,5,5,1) 100%), url('BY-Background.png');
+            background-size: cover; background-position: center;
+        }
+
+        /* --- MAP GRID --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 5%; }
+        
+        .map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin-top: 50px; }
+        
+        .zone-card { 
+            background: rgba(10, 10, 10, 0.8); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            padding: 40px; 
+            position: relative; 
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+        }
+        .zone-card:hover { border-color: var(--blood); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(139, 0, 0, 0.15); }
+        .zone-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--rust); opacity: 0.3; }
+
+        .sector-tag { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--blood); margin-bottom: 20px; display: block; border-bottom: 1px solid rgba(139, 0, 0, 0.1); padding-bottom: 10px; }
+        .zone-card h3 { font-family: 'Orbitron'; color: #fff; margin-bottom: 15px; letter-spacing: 3px; font-weight: 900; }
+        .zone-card p { font-size: 0.9rem; line-height: 1.8; opacity: 0.8; margin-bottom: 20px; }
+
+        /* --- THE MAW & EXCHANGE --- */
+        .exchange-lock {
+            margin-top: 80px; padding: 80px 40px;
+            background: linear-gradient(180deg, rgba(138, 51, 36, 0.05) 0%, rgba(0, 0, 0, 1) 100%);
+            border: 1px solid var(--rust); text-align: center; position: relative;
+        }
+        .exchange-lock::after { content: 'SECURE_UPLINK_ENCRYPTED'; position: absolute; top: 15px; right: 20px; font-family: 'Fira Code'; font-size: 0.6rem; color: var(--gold-yield); opacity: 0.5; }
+
+        .portal-btn { 
+            background: transparent; border: 2px solid var(--gold-yield); color: var(--gold-yield); 
+            padding: 20px 40px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; 
+            margin-top: 30px; transition: 0.3s; letter-spacing: 4px; text-transform: uppercase;
+        }
+        .portal-btn:hover { background: var(--gold-yield); color: #000; box-shadow: 0 0 30px var(--gold-yield); }
+
+        /* --- UNIFIED FOOTER --- */
+        footer { background: var(--bg-deep); padding: 30px 5%; text-align: center; border-top: 1px solid rgba(139, 0, 0, 0.2); margin-top: auto; }
+        .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; color: var(--text-silver); }
+
+        @media (max-width: 1100px) { .nav-group { display: none; } }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="index.html">HOME</a>
-    <a href="world.html" style="color: var(--blood);">THE WORLD</a>
-    <a href="lore.html">LORE</a>
-    <a href="community.html">COMMUNITY</a>
-    <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
-</nav>
-
-<div class="container">
-    <h1 style="font-family: 'Orbitron'; letter-spacing: 10px; color: #fff;">GEOGRAPHICAL SECTORS</h1>
-    <p style="font-family: 'Montserrat'; color: var(--stone);">EST. 2026 | MAPPING THE INDUSTRIAL CONVERGENCE</p>
-
-    <div class="map-grid">
-        <div class="zone-card">
-            <h3>THE IRON BARRENS</h3>
-            <p style="font-size: 0.9rem;">A wasteland where the "Handy Protocol" first failed. The ground is made of layered technical drafting paper, stained with rusted metallic fragments. Dangerous circuit-wraiths haunt the grid-lines.</p>
+    <header>
+        <div class="nav-group nav-group-left">
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="../handy.html" class="nav-link">Handy</a>
+            <a href="index.html" class="nav-link active">Blood-Yield</a>
         </div>
-        <div class="zone-card">
-            <h3 style="color: var(--blood);">SANGUINE FORGE</h3>
-            <p style="font-size: 0.9rem;">The industrial heart of the world. Huge gear-driven rituals refine biological essence into "Voltage." This is where the <strong>Contract</strong> is physically stamped onto new items.</p>
+        <div class="studio-logo" onclick="window.location.href='../index.html'">Harrison Interactive</div>
+        <div class="nav-group nav-group-right">
+            <a href="../about.html" class="nav-link">About</a>
+            <a href="../faq.html" class="nav-link">FAQ</a>
+            <a href="../legal.html" class="nav-link">Legal</a>
         </div>
-    </div>
+    </header>
 
-    <div class="exchange-lock">
-        <h2 style="font-family: 'Orbitron'; color: var(--gold-yield);">SECURE EXCHANGE PORTAL</h2>
-        <p style="color: var(--text-silver); margin-top: 10px;">[STATUS: ENCRYPTED // OFFLINE]</p>
-        <p style="font-size: 0.8rem; color: var(--stone); max-width: 500px; margin: 15px auto;">Access to the Real-Money Trading (RMT) layer is restricted to Alpha-Level Nodes. System uplink pending future development cycle.</p>
-        <button class="portal-btn" onclick="alert('REDIRECTING TO SECURE LOGIN...')">INITIALIZE UPLINK</button>
-    </div>
-</div>
+    <nav class="game-nav">
+        <a href="index.html">PROJECT_HOME</a>
+        <a href="world.html" class="active">bastion_world</a>
+        <a href="lore.html">lore_logs</a>
+        <a href="community.html">network_layer</a>
+    </nav>
 
-<footer>
-    <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-        <div style="text-align: left;">
-            <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
-            <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px;">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
+    <header class="hero">
+        <h1 style="font-family: 'Orbitron'; letter-spacing: 15px; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(139,0,0,0.5);">AN SAOL</h1>
+        <div style="font-family:'Fira Code'; color: var(--blood); font-size: 0.7rem; letter-spacing: 8px; margin-top: 10px;">[ GEOGRAPHICAL_CONVERGENCE ]</div>
+    </header>
+
+    <main class="container">
+        
+        <div class="map-grid">
+            <div class="zone-card" style="border-left: 4px solid var(--blood);">
+                <span class="sector-tag">[ SECTOR // HJÄRTA_CENTRAL ]</span>
+                <h3>HJÄRTA HUB</h3>
+                <p>The Brutalist Gothic core of An Saol. A sanctuary of sharp stone and heavy atmosphere, Hjärta is anchored by the <strong>Black Oily Mirror Waygates</strong>. Here, operators synchronize their gear and initiate the <strong>Guest Protocol</strong> for secure social exchange.</p>
+                <div style="font-family:'Fira Code'; font-size:0.65rem; color:var(--stone);">STATUS: NEUTRAL_ZONE // ENFORCED</div>
+            </div>
+
+            <div class="zone-card">
+                <span class="sector-tag">[ SECTOR // THE_MAW_PIT ]</span>
+                <h3>THE MAW</h3>
+                <p>The industrial salvage pit. A high-contrast abyss where failed gear is de-compiled. The Maw offers a high-stakes economy, yielding a <strong>~5% Cold Iron return</strong> for those willing to salvage their refined Bio-Armor.</p>
+                <div style="font-family:'Fira Code'; font-size:0.65rem; color:var(--stone);">YIELD_RATE: 0.05_COLD_IRON</div>
+            </div>
+
+            <div class="zone-card">
+                <span class="sector-tag">[ SECTOR // IRON_BARRENS ]</span>
+                <h3>IRON BARRENS</h3>
+                <p>A wasteland where the "Handy Protocol" first failed. The terrain is composed of layered technical drafting paper textures, crisscrossed with jagged circuit traces. Heavy atmospheric fog obscures the Soul-Blighted husks that roam the grid-lines.</p>
+                <div style="font-family:'Fira Code'; font-size:0.65rem; color:var(--stone);">BIOME: INDUSTRIAL_DECAY // LOW_VIS</div>
+            </div>
+
+            <div class="zone-card">
+                <span class="sector-tag">[ SECTOR // HALLOWED_PLOTS ]</span>
+                <h3>HALLOWED PLOTS</h3>
+                <p>Instanced residential nodes where the organic and industrial find equilibrium. Secure your plot to build refining stations and storage vats. **Guest Protocol** ensures that only authorized signatories may access your refined reserves.</p>
+                <div style="font-family:'Fira Code'; font-size:0.65rem; color:var(--stone);">PERMISSIONS: SIGNATORY_ONLY</div>
+            </div>
         </div>
-        <div style="text-align: right; font-size: 0.7rem; color: var(--stone);">
-            &copy; 2026 BloodYield.com | All Rights Decrypted.<br>
-            <a href="https://harrisoninteractive.dev" style="color: var(--rust); text-decoration: none;">Powered by Handy Ultimate</a>
+
+        <div class="exchange-lock">
+            <div style="font-family:'Fira Code'; color: var(--gold-yield); font-size: 0.7rem; margin-bottom: 20px;">[ PROTOCOL // MARKETPLACE_UPLINK ]</div>
+            <h2 style="font-family: 'Orbitron'; color: #fff; letter-spacing: 5px; font-weight: 900;">SECURE EXCHANGE PORTAL</h2>
+            <p style="color: var(--text-silver); margin-top: 15px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+                Trade <strong>Cold Iron</strong> and <strong>Refined Essence</strong> in a secure environment. The Blood-Yield RMT layer is an industrial-grade exchange verified via the Harrison Interactive Cloudflare Backbone.
+            </p>
+            <div style="margin-top: 20px; color: var(--rust); font-family: 'Fira Code'; font-size: 0.75rem;">[ STATUS: ALPHA_LOCKED // Q4_2026 ]</div>
+            <button class="portal-btn" onclick="window.location.href='index.html'">INITIATE WAITLIST UPLINK</button>
         </div>
-    </div>
-</footer>
+
+    </main>
+
+    <footer>
+        <div class="footer-text">© 2026 HARRISON INTERACTIVE LLC // AN SAOL GEOGRAPHY // UNRIVALED INNOVATION // EST. 2026</div>
+    </footer>
 
 </body>
 </html>
