@@ -141,4 +141,140 @@
 
         .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
         .dot-exec { background: var(--bp-exec); box-shadow: 0 0 5px var(--bp-exec); }
-        .dot-string { background: var(--bp-string); box-shadow: 0
+        .dot-string { background: var(--bp-string); box-shadow: 0 0 5px var(--bp-string); }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 12px 25px; font-family: 'Orbitron'; background: transparent;
+            border: 1px solid var(--accent-blue); color: var(--accent-blue);
+            cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 15px var(--accent-blue); }
+
+        footer {
+            position: relative; /* REQUIRED FOR Z-INDEX */
+            background: var(--bg-deep); padding: 40px 5%; text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Inter', sans-serif; z-index: 10; width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="studio-logo">Harrison Interactive</div>
+        <div id="menu-btn">☰</div>
+    </header>
+
+    <nav id="nav-menu">
+        <a href="index.html">Home Hub</a>
+        <a href="handy.html" style="color:var(--accent-blue); border-left: 3px solid var(--accent-blue);">Handy Editor</a>
+        <a href="Blood-Yield/">Project Blood-Yield</a>
+        <a href="faq.html">Help/Faq Terminal</a>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 10px;">[ ASSET_TYPE: EDITOR_UTILITY ] // [ VERSION: 1.0 ]</div>
+            <h1 style="font-family: 'Orbitron'; color: #fff; font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 15px var(--accent-blue); margin-bottom: 15px;">HANDY <span style="color: var(--accent-blue);">AUTOMATION</span></h1>
+            <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">Modular Unreal Engine toolkit re-architecting project management through professional Python-Blueprint bridges.</p>
+        </div>
+
+        <img src="handy_banner.png" alt="HANDY Ultimate Banner" class="handy-banner">
+
+        <div style="width: 100%; text-align: center; margin-bottom: 30px;">
+            <h2 style="font-family: 'Orbitron'; color: #fff; letter-spacing: 2px;">MARKETPLACE LICENSING</h2>
+        </div>
+
+        <div class="tier-grid">
+            <div class="tier-card">
+                <div style="font-family: 'Fira Code'; color: var(--text-silver); font-size: 0.8rem;">[ CORE_AUTOMATION ]</div>
+                <h3 style="font-family: 'Orbitron'; color: #fff; font-size: 1.5rem; margin-top: 10px;">LITE</h3>
+                <div class="tier-price">$24.99</div>
+                <ul class="tier-list">
+                    <li>Core Blueprint Utilities<span class="tier-highlight">UI Shell & Basic Automation</span></li>
+                    <li>Bulk Asset Management<span class="tier-highlight">Rename, Move, and Clean</span></li>
+                    <li>Standard Node Library<span class="tier-highlight">Pre-compiled UMG logic</span></li>
+                    <li>Indie / Solo License<span class="tier-highlight">Revenue under $100k/yr</span></li>
+                </ul>
+                <button class="btn">VIEW ON FAB</button>
+            </div>
+
+            <div class="tier-card">
+                <div style="font-family: 'Fira Code'; color: var(--text-silver); font-size: 0.8rem;">[ BYOB_LOGIC ]</div>
+                <h3 style="font-family: 'Orbitron'; color: #fff; font-size: 1.5rem; margin-top: 10px;">ELITE</h3>
+                <div class="tier-price">$59.99</div>
+                <ul class="tier-list">
+                    <li>Advanced Python Integration<span class="tier-highlight">Full logic routing access</span></li>
+                    <li>Bring Your Own Brain (LLM)<span class="tier-highlight">Input your own API key</span></li>
+                    <li>Automated Graph Cleaners<span class="tier-highlight">Format nodes instantly</span></li>
+                    <li>Custom Tool Architecture<span class="tier-highlight">Extend Handy with Python</span></li>
+                </ul>
+                <button class="btn">VIEW ON FAB</button>
+            </div>
+
+            <div class="tier-card tier-ultimate">
+                <div style="font-family: 'Fira Code'; color: var(--accent-blue); font-size: 0.8rem;">[ STUDIO_INFRASTRUCTURE ]</div>
+                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); font-size: 1.5rem; margin-top: 10px;">ULTIMATE</h3>
+                <div class="tier-price">$49.99<span> / MO</span></div>
+                <ul class="tier-list">
+                    <li>Full AI Automation Suite<span class="tier-highlight">Powered by HI Cloudflare backend</span></li>
+                    <li>Verified Studio Badge<span class="tier-highlight">Priority routing & support</span></li>
+                    <li>Commercial Studio Licensing<span class="tier-highlight">Cleared for $100k+ revenue</span></li>
+                    <li>Continuous Feature Rollouts<span class="tier-highlight">Live updates & new modules</span></li>
+                </ul>
+                <button class="btn" style="background: var(--accent-blue); color: #000;">SUBSCRIBE</button>
+            </div>
+        </div>
+
+        <div style="width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            
+            <div class="ue-panel">
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
+                    <span>MODULE // VISUAL_UI</span> <span style="color: var(--bp-exec);">[ STABLE ]</span>
+                </div>
+                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff;">BLUEPRINT INTERFACE</h3>
+                <div class="code-block" style="border-left-color: var(--bp-exec);">
+                    <div style="margin-bottom: 8px;"><span class="dot dot-exec"></span> EUW_HI_HandyMain</div>
+                    <div style="margin-bottom: 8px;"><span class="dot dot-exec"></span> EUW_HI_HandyShelf</div>
+                    <div><span class="dot dot-exec"></span> EUW_HI_HandySettings</div>
+                </div>
+            </div>
+
+            <div class="ue-panel">
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
+                    <span>MODULE // LOGIC_BRAIN</span> <span style="color: var(--bp-string);">[ ACTIVE ]</span>
+                </div>
+                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff;">PYTHON CORE</h3>
+                <div class="code-block" style="border-left-color: var(--bp-string);">
+                    <div style="margin-bottom: 8px;"><span class="dot dot-string"></span> handy_router.py</div>
+                    <div style="margin-bottom: 8px;"><span class="dot dot-string"></span> handy_core_utils.py</div>
+                    <div><span class="dot dot-string"></span> handy_validator.py</div>
+                </div>
+            </div>
+
+            <div class="ue-panel">
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
+                    <span>MODULE // UI_PREVIEW</span> <span style="color: #00FFFF;">[ ONLINE ]</span>
+                </div>
+                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff; margin-bottom: 15px;">TERMINAL VIEW</h3>
+                <div style="width: 100%; height: 150px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                    <img src="handy_terminal.png" alt="Handy Terminal Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div style="opacity: 0.8; font-size: 0.8rem;">© 2026 <span style="color: var(--accent-blue); font-weight: 600;">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div>
+        <div style="margin-top: 5px; opacity: 0.6; font-size: 0.7rem; font-family: 'Fira Code';">UNRIVALED INNOVATION // EST. 2026</div>
+        <a href="legal.html" style="display: inline-block; margin-top: 15px; font-family: 'Fira Code'; color: var(--accent-blue); text-decoration: none; font-size: 0.7rem;">[ ACCESS_LEGAL_TERMINAL ]</a>
+    </footer>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
