@@ -74,7 +74,7 @@
             flex: 1; 
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Pushes text to the bottom */
+            justify-content: flex-end; 
             align-items: center;
             padding: 40px;
             transition: flex 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -83,15 +83,15 @@
         }
 
         .split-panel:hover {
-            flex: 2.5; /* Dramatic expansion on hover */
+            flex: 2.5; 
         }
 
         /* --- LEFT: BLOOD-YIELD --- */
         .panel-blood {
-            /* Fades from clear at top to solid black at bottom */
+            /* FIXED PATH: Blood-Yield/BY-Background.jpg */
             background-image: 
                 linear-gradient(to bottom, rgba(5, 5, 5, 0.1) 0%, rgba(5, 5, 5, 0.95) 90%), 
-                url('/Blood-Yield/BY_Background.png');
+                url('Blood-Yield/BY-Background.jpg');
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
@@ -108,13 +108,13 @@
             background-repeat: no-repeat;
         }
 
-        /* --- CONTENT BOX (Anchored to Bottom) --- */
+        /* --- CONTENT BOX --- */
         .content-box {
             background: transparent;
             width: 100%;
             max-width: 600px;
             text-align: left;
-            padding-bottom: 40px; /* Space for the footer */
+            padding-bottom: 40px; 
         }
 
         .module-tag { font-family: 'Fira Code'; font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 15px; }
