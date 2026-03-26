@@ -5,37 +5,40 @@
     <title>HI_DATABASE | Heimr Geography</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Montserrat:wght@400&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --accent: #00D2FF; --blood: #8B0000; --gold: #F9D423; --stone: #4A4E69; }
-        body { background: var(--bg); color: #C0C0C0; font-family: 'Montserrat'; background-image: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.95)), url('BY-Background.png'); background-size: cover; background-position: center; background-attachment: fixed; }
-        header { width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: #000; border-bottom: 1px solid var(--accent); position: sticky; top: 0; z-index: 2000; }
-        .command-deck { background: #000; border-bottom: 2px solid var(--blood); padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .command-deck a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; color: #fff; border: 1px solid rgba(139, 0, 0, 0.4); padding: 8px 15px; }
-        .command-deck a.active { color: var(--gold); border-color: var(--gold); }
-        .container { max-width: 1400px; margin: 40px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
-        .node { background: rgba(10, 10, 10, 0.98); border-left: 5px solid var(--stone); padding: 40px; }
-        .view-specs { background: rgba(0,0,0,0.5); padding: 15px; margin-top: 20px; font-family: 'Fira Code'; font-size: 0.7rem; border: 1px solid rgba(249, 212, 35, 0.1); }
+        :root { --bg: #050505; --accent: #00D2FF; --blood: #8B0000; --gold: #F9D423; --stone: #4A4E69; --silver: #C0C0C0; }
+        body { background: var(--bg); color: var(--silver); font-family: 'Montserrat'; background-image: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.95)), url('BY-Background.png'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; }
+        header { width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid var(--accent); position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(10px); }
+        .command-deck { background: #000; border-bottom: 2px solid var(--blood); padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 20px rgba(0,0,0,1); }
+        .command-deck a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; color: #fff; border: 1px solid rgba(139,0,0,0.5); padding: 8px 15px; background: rgba(139,0,0,0.1); text-shadow: 0 0 10px var(--blood); transition: 0.3s; box-shadow: 0 0 5px var(--blood); }
+        .command-deck a.active { color: var(--gold); border-color: var(--gold); text-shadow: 0 0 12px var(--gold); box-shadow: 0 0 10px var(--gold); }
+        .container { max-width: 1600px; margin: 20px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; }
+        .node { background: rgba(10, 10, 10, 0.96); border: 1px solid rgba(255,255,255,0.05); padding: 40px; border-top: 4px solid var(--stone); }
+        .view-specs { background: rgba(0,0,0,0.5); padding: 20px; margin-top: 25px; font-family: 'Fira Code'; font-size: 0.75rem; border: 1px solid rgba(249, 212, 35, 0.1); line-height: 1.6; }
         .view-specs strong { color: var(--gold); }
+        footer { text-align: center; padding: 40px; font-family: 'Fira Code'; font-size: 0.7rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .command-deck a { flex: 1 1 40%; text-align: center; } }
     </style>
 </head>
 <body>
-    <header><a href="index.html" style="font-family:'Orbitron'; color:#fff; text-decoration:none;">HARRISON INTERACTIVE</a></header>
+    <header><a href="index.html" style="font-family:'Orbitron'; color:#fff; text-decoration:none; font-weight:900; letter-spacing:2px;">HARRISON INTERACTIVE</a></header>
     <nav class="command-deck"><a href="world.html" class="active">GEOGRAPHY</a><a href="waygates.html">WAYGATES</a><a href="plots.html">PLOTS</a><a href="maw.html">MAW</a></nav>
-    <div style="text-align:center; padding:20px;"><h1 style="font-family:'Orbitron'; font-size:3rem; color:#fff; letter-spacing:10px;">HEIMR_GEOGRAPHY</h1></div>
+    <div style="text-align:center; padding:20px 0 0;"><h1 style="font-family:'Orbitron'; font-size:clamp(2rem, 5vw, 3.5rem); color:#fff; letter-spacing:10px; margin:0;">HEIMR_GEOGRAPHY</h1><p style="font-family:'Fira Code'; color:var(--gold); font-size:0.7rem; letter-spacing:4px;">[ GEOGRAPHICAL_MAPPING // HANDY_RENDER_ENGINE ]</p></div>
     <main class="container">
-        <div class="node" style="border-left-color: var(--accent);">
-            <h2 style="font-family:'Orbitron'; color:#fff;">HJÄRTA HUB</h2>
-            <p style="font-size:0.85rem; line-height:1.7; opacity:0.8;">The BIOS core. A Brutalist sanctuary where the Handy kernel stabilizes the Black Oily Mirror Waygates.</p>
+        <div class="node" style="border-top-color: var(--accent);">
+            <h2 style="font-family:'Orbitron'; color:#fff; letter-spacing:3px;">HJÄRTA HUB</h2>
+            <p style="font-size:0.9rem; line-height:1.7; opacity:0.8;">The primary BIOS sanctuary. A Brutalist monolith constructed of wet, specular-heavy stone. Here, the <strong>Handy</strong> kernel stabilizes the Waygates.</p>
             <div class="view-specs">
-                <strong>[ISO]</strong> Strategic Monitoring<br><strong>[3P]</strong> Social Navigation<br><strong>[1P]</strong> Gear-Diagnostic Mode
+                <strong>[ISO]</strong> Kernel Monitoring: Overseeing trade-hub traffic.<br><strong>[3P]</strong> Social Navigation: Interfacing with the Mirror Waygates.<br><strong>[1P]</strong> Diagnostic: Detailed inspection of Gear-Stamping.
             </div>
         </div>
-        <div class="node" style="border-left-color: var(--blood);">
-            <h2 style="font-family:'Orbitron'; color:#fff;">IRON BARRENS</h2>
-            <p style="font-size:0.85rem; line-height:1.7; opacity:0.8;">Unallocated sectors of charred drafting paper. Circuit-traces pulse beneath the 0.8 Vignette fog.</p>
+        <div class="node" style="border-top-color: var(--blood);">
+            <h2 style="font-family:'Orbitron'; color:#fff; letter-spacing:3px;">IRON BARRENS</h2>
+            <p style="font-size:0.9rem; line-height:1.7; opacity:0.8;">Unallocated sectors of charred drafting paper. Circuit-traces pulse beneath the 0.8 Vignette fog during high-stakes combat.</p>
             <div class="view-specs">
-                <strong>[ISO]</strong> Tactical Mapping<br><strong>[3P]</strong> Kinetic Harvesting<br><strong>[1P]</strong> Survival Diagnostic
+                <strong>[ISO]</strong> Tactical Mapping: Tracking Soul-Blighted clusters.<br><strong>[3P]</strong> Kinetic Combat: High-mobility harvesting in fog.<br><strong>[1P]</strong> Survival Diagnostic: Spotting glitches in the grid.
             </div>
         </div>
     </main>
+    <footer>HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // 2026</footer>
 </body>
 </html>
