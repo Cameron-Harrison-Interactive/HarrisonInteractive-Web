@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINAL HELP | Harrison Interactive</title>
+    <title>HELP/FAQ TERMINAL | Harrison Interactive</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     
@@ -16,6 +16,7 @@
             --glass: rgba(10, 25, 47, 0.9);
         }
 
+        /* --- GLOBAL & SCROLL RESET --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
@@ -28,7 +29,7 @@
             flex-direction: column;
         }
 
-        /* --- HEADER --- */
+        /* --- FIXED CENTERED HEADER --- */
         header {
             position: fixed; top: 0; width: 100%; height: 80px;
             display: flex; justify-content: center; align-items: center;
@@ -53,8 +54,8 @@
         #nav-menu.active { right: 0; }
         #nav-menu a { display: block; padding: 20px 40px; color: #fff; text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
-        /* --- CONTENT WRAPPER --- */
-        .faq-container {
+        /* --- MAIN TERMINAL AREA --- */
+        .terminal-container {
             flex: 1;
             padding: 140px 5% 100px; 
             display: flex; flex-direction: column; align-items: center;
@@ -67,7 +68,7 @@
         .terminal-header { text-align: center; margin-bottom: 50px; }
 
         .ue-panel {
-            background: rgba(5, 5, 5, 0.92); backdrop-filter: blur(10px);
+            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 210, 255, 0.1); border-left: 4px solid var(--accent-blue);
             padding: 35px; width: 100%; max-width: 500px; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
@@ -127,92 +128,13 @@
         <a href="index.html">Home Hub</a>
         <a href="handy.html">Handy Editor</a>
         <a href="Blood-Yield/">Blood-Yield</a>
-        <a href="faq.html" style="color:var(--accent-blue)">Terminal Help</a>
+        <a href="faq.html" style="color:var(--accent-blue)">Help/Faq Terminal</a>
     </nav>
 
-    <main class="faq-container">
+    <main class="terminal-container">
         <div class="terminal-header">
-            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px;">[ SYSTEM_QUERY // ACTIVE ]</div>
-            <h1 style="font-family: 'Orbitron'; color: #fff; font-size: clamp(1.8rem, 5vw, 3.5rem); text-shadow: 0 0 15px var(--accent-blue); margin-top: 10px;">TERMINAL HELP</h1>
+            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px;">[ SYSTEM_QUERY_HUB // ACTIVE ]</div>
+            <h1 style="font-family: 'Orbitron'; color: #fff; font-size: clamp(1.8rem, 5vw, 3.2rem); text-shadow: 0 0 15px var(--accent-blue); margin-top: 10px;">HELP/FAQ TERMINAL</h1>
         </div>
 
-        <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 100%;">
-            <div class="ue-panel">
-                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); margin-bottom: 25px; font-size: 1.1rem;">ACCESS_QUERY_LOGS</h3>
-                <div style="border-left: 2px solid rgba(0, 210, 255, 0.3); padding-left: 15px; margin-bottom: 25px;">
-                    <strong style="font-family: 'Fira Code'; color: #fff;">> HANDY UE Compatibility?</strong><br>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Validated for Unreal Engine 5.4+ stable environments.</p>
-                </div>
-                <div style="border-left: 2px solid rgba(0, 210, 255, 0.3); padding-left: 15px;">
-                    <strong style="font-family: 'Fira Code'; color: #fff;">> Blood-Yield Access?</strong><br>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Project Reap deployment targeted for Q4 2026.</p>
-                </div>
-            </div>
-
-            <div class="ue-panel">
-                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); margin-bottom: 25px; font-size: 1.1rem;">TRANSMIT_SIGNAL</h3>
-                <form id="signal-form" action="https://hi-signal-terminal.bccomp97249.workers.dev/" method="POST">
-                    <input type="text" name="input_name" class="terminal-input" placeholder="> input_name" required>
-                    <input type="email" name="input_email" class="terminal-input" placeholder="> input_email" required>
-                    <textarea name="exec_message" class="terminal-input" placeholder="> exec_message" rows="4" style="resize: none;" required></textarea>
-                    <button type="submit" class="btn" id="submit-btn">EXECUTE SIGNAL</button>
-                </form>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div style="opacity: 0.8;">© 2026 <span style="color: var(--accent-blue); font-weight: 600;">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div>
-        <a href="legal.html" class="legal-link">[ ACCESS_LEGAL_TERMINAL ]</a>
-    </footer>
-
-    <div id="signal-modal" class="modal-overlay">
-        <div class="modal-box">
-            <div style="font-family: 'Fira Code'; color: var(--accent-blue); margin-bottom: 10px; font-size: 0.8rem;">[ STATUS: 200 OK ]</div>
-            <h2 style="font-family: 'Orbitron'; color: #fff; margin-bottom: 20px;">SIGNAL<br><span style="color: var(--accent-blue);">RECEIVED</span></h2>
-            <p style="font-size: 0.9rem; margin-bottom: 30px; line-height: 1.6;">Transmission encrypted and routed to Harrison Interactive secure array.</p>
-            <button class="btn" onclick="closeModal()">ACKNOWLEDGE</button>
-        </div>
-    </div>
-
-    <script>
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
-        
-        function closeModal() { 
-            document.getElementById('signal-modal').style.display = 'none'; 
-            document.getElementById('signal-form').reset(); 
-        }
-
-        const signalForm = document.getElementById('signal-form');
-        if(signalForm) {
-            signalForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const btn = document.getElementById('submit-btn');
-                const modal = document.getElementById('signal-modal');
-                
-                btn.innerText = "> TRANSMITTING...";
-                btn.disabled = true;
-
-                fetch(this.action, {
-                    method: 'POST',
-                    body: new FormData(this)
-                })
-                .then(res => {
-                    if(res.ok) {
-                        modal.style.display = 'flex';
-                    } else {
-                        alert("Signal Error: " + res.status);
-                    }
-                })
-                .catch(err => {
-                    alert("Connection Lost. Check console for terminal log.");
-                })
-                .finally(() => {
-                    btn.innerText = "EXECUTE SIGNAL";
-                    btn.disabled = false;
-                });
-            });
-        }
-    </script>
-</body>
-</html>
+        <div style="display: flex; flex-wrap: wrap; gap: 30px
