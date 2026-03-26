@@ -74,89 +74,73 @@
             flex: 1; 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-end; /* Pushes text to the bottom */
             align-items: center;
             padding: 40px;
-            /* Increased easing curve and time for a massive, dramatic sweep */
             transition: flex 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* THE MASSIVE EXPANSION: Flex 2.5 takes up ~71% of the screen */
         .split-panel:hover {
-            flex: 2.5; 
+            flex: 2.5; /* Dramatic expansion on hover */
         }
 
         /* --- LEFT: BLOOD-YIELD --- */
         .panel-blood {
+            /* Fades from clear at top to solid black at bottom */
             background-image: 
-                linear-gradient(rgba(15, 5, 5, 0.7), rgba(5, 5, 5, 0.95)), 
+                linear-gradient(to bottom, rgba(5, 5, 5, 0.1) 0%, rgba(5, 5, 5, 0.95) 90%), 
                 url('Blood-Yield/BY_Background.png');
-            background-size: cover; background-position: center;
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
             border-right: 1px solid rgba(139, 0, 0, 0.3);
-        }
-        
-        /* The Reference Logo Placeholder */
-        .by-logo {
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 25px rgba(0,0,0,0.9));
-            transition: 0.4s;
         }
 
         /* --- RIGHT: HANDY --- */
         .panel-handy {
-            background-color: #050505;
             background-image: 
-                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                radial-gradient(circle at center, #0a192f 0%, transparent 100%);
-            background-size: 50px 50px, 50px 50px, 100% 100%;
-        }
-        .handy-title { 
-            font-family: 'Orbitron'; font-size: clamp(2rem, 5vw, 4.5rem); 
-            color: var(--accent-blue); margin-bottom: 10px; 
-            text-shadow: 0 0 15px var(--accent-blue); text-align: center; 
+                linear-gradient(to bottom, rgba(5, 5, 5, 0.2) 0%, rgba(5, 5, 5, 0.98) 90%), 
+                url('handy_terminal.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        /* --- PANEL LIST STYLING (The Professional Bulletins) --- */
-        .info-panel {
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(8px);
-            padding: 25px 35px;
-            max-width: 550px;
-            margin-top: 15px;
+        /* --- CONTENT BOX (Anchored to Bottom) --- */
+        .content-box {
+            background: transparent;
+            width: 100%;
+            max-width: 600px;
             text-align: left;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            padding-bottom: 40px; /* Space for the footer */
+        }
+
+        .module-tag { font-family: 'Fira Code'; font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 15px; }
+        .tag-red { color: var(--accent-red); }
+        .tag-blue { color: var(--accent-blue); }
+
+        .panel-heading { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
+        
+        .panel-desc { font-family: 'Inter'; font-size: 0.95rem; color: var(--text-silver); line-height: 1.6; margin-bottom: 20px; }
+
+        /* Standardized Bulletins */
+        .standard-list { list-style: none; padding: 0; margin: 0 0 30px 0; }
+        .standard-list li { 
+            font-family: 'Inter'; font-size: 0.9rem; color: #fff; 
+            margin-bottom: 8px; position: relative; padding-left: 20px; 
         }
         
-        .info-panel-red { border: 1px solid rgba(139,0,0,0.2); border-left: 4px solid var(--accent-red); }
-        .info-panel-blue { border: 1px solid rgba(0,210,255,0.1); border-left: 4px solid var(--accent-blue); }
-
-        ul.tech-list { list-style: none; padding: 0; margin: 0; }
-        ul.tech-list li { 
-            margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); 
-            padding-bottom: 8px; color: #fff; font-family: 'Orbitron'; font-size: 0.95rem; letter-spacing: 1px;
-        }
-        ul.tech-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        
-        .list-red li::before { content: '>'; color: var(--accent-red); font-family: 'Fira Code'; margin-right: 10px; font-weight: bold; }
-        .list-blue li::before { content: '>'; color: var(--accent-blue); font-family: 'Fira Code'; margin-right: 10px; font-weight: bold; }
-
-        .tech-highlight { 
-            color: var(--text-silver); font-family: 'Fira Code'; 
-            font-size: 0.75rem; display: block; margin-top: 4px; opacity: 0.8; letter-spacing: 0px; text-transform: none;
-        }
+        .list-red li::before { content: '■'; color: var(--accent-red); position: absolute; left: 0; font-size: 0.8rem; top: 2px; }
+        .list-blue li::before { content: '■'; color: var(--accent-blue); position: absolute; left: 0; font-size: 0.8rem; top: 2px; }
 
         /* --- BUTTONS --- */
         .btn {
-            margin-top: 35px; padding: 15px 40px; display: inline-block;
+            padding: 15px 35px; display: inline-block;
             font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
-            background: rgba(0,0,0,0.5); border: 2px solid var(--accent-blue); color: var(--accent-blue);
-            text-decoration: none; letter-spacing: 2px; text-transform: uppercase; z-index: 20;
+            background: rgba(0,0,0,0.6); border: 1px solid var(--accent-blue); color: var(--accent-blue);
+            text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
         }
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
         
@@ -166,20 +150,20 @@
         /* --- FOOTER --- */
         footer {
             position: absolute; bottom: 0; left: 0; width: 100%;
-            background: var(--bg-deep); padding: 20px 5%; text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Inter', sans-serif; 
+            background: transparent; padding: 15px 5%; text-align: center;
+            font-family: 'Inter', sans-serif; 
             z-index: 2000;
         }
         .legal-link {
-            display: inline-block; margin-top: 10px; font-family: 'Fira Code';
-            color: var(--accent-blue); text-decoration: none; font-size: 0.7rem;
-            letter-spacing: 1px; transition: 0.3s;
+            display: inline-block; margin-top: 5px; font-family: 'Fira Code';
+            color: var(--text-silver); text-decoration: none; font-size: 0.7rem;
+            letter-spacing: 1px; transition: 0.3s; opacity: 0.6;
         }
-        .legal-link:hover { text-shadow: 0 0 8px var(--accent-blue); letter-spacing: 2px; }
+        .legal-link:hover { color: var(--accent-blue); text-shadow: 0 0 8px var(--accent-blue); opacity: 1; }
 
         @media (max-width: 900px) {
-            main { flex-direction: column; overflow-y: auto; height: auto; padding-bottom: 120px; }
-            .split-panel { padding: 60px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            main { flex-direction: column; overflow-y: auto; height: auto; padding-bottom: 60px; }
+            .split-panel { padding: 40px 20px; border-right: none; min-height: 80vh; justify-content: flex-end; }
             .split-panel:hover { flex: 1; }
             body { overflow: auto; }
         }
@@ -201,43 +185,46 @@
 
     <main>
         <div class="split-panel panel-blood">
-            <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-red); letter-spacing: 5px; margin-bottom: 20px;">[ MODULE // DARK_FANTASY_RPG ]</div>
-            
-            <img src="Blood-Yield/BY_Background.png" alt="BLOOD-YIELD" class="by-logo">
-            
-            <div class="info-panel info-panel-red">
-                <ul class="tech-list list-red">
-                    <li>RMT Symbiotic Economy<span class="tech-highlight">Secure player-to-player marketplace for artifacts and essence.</span></li>
-                    <li>Decision-Yield Consequence<span class="tech-highlight">Choices visibly alter the environment and faction states.</span></li>
-                    <li>UE5 Forged Visuals<span class="tech-highlight">Photo-realistic, physics-driven brutal combat engine.</span></li>
-                    <li>Cold Iron & Soul Essence<span class="tech-highlight">Dynamic resource decay and equipment management.</span></li>
+            <div class="content-box">
+                <div class="module-tag tag-red">[ MODULE // DARK_FANTASY_RPG ]</div>
+                <h2 class="panel-heading">BLOOD-YIELD</h2>
+                <p class="panel-desc">
+                    A visceral dark-fantasy RPG forged in UE5. Experience a world where decisions yield consequence, featuring a Symbiotic Economy driven by a secure, fully integrated RMT Marketplace.
+                </p>
+                
+                <ul class="standard-list list-red">
+                    <li>RMT Symbiotic Economy (Player-to-Player Marketplace)</li>
+                    <li>Decision-Yield Consequence Mechanics</li>
+                    <li>UE5 Forged Photo-Realistic Visuals</li>
+                    <li>Cold Iron & Soul Essence Resource Decay</li>
                 </ul>
-            </div>
 
-            <a href="Blood-Yield/" class="btn btn-red">> ACCESS_PROJECT</a>
+                <a href="Blood-Yield/" class="btn btn-red">> ACCESS_PROJECT</a>
+            </div>
         </div>
 
         <div class="split-panel panel-handy">
-            <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 20px;">[ MODULE // EDITOR_UTILITY ]</div>
-            
-            <h1 class="handy-title">HI | HANDY</h1>
-            
-            <div class="info-panel info-panel-blue">
-                <ul class="tech-list list-blue">
-                    <li>UE5 Automation Apex<span class="tech-highlight">Hybrid Python-Blueprint logic bridging architecture.</span></li>
-                    <li>Bring Your Own Brain (LLM)<span class="tech-highlight">Direct local or API-based LLM routing via Cloudflare.</span></li>
-                    <li>Industrial Architecture<span class="tech-highlight">Bulk graph cleaning, node formatting, and UI generation.</span></li>
-                    <li>Quarterly Feature Rollouts<span class="tech-highlight">Verified Badges & Studio Priority Routing for Ultimate tiers.</span></li>
+            <div class="content-box">
+                <div class="module-tag tag-blue">[ MODULE // EDITOR_UTILITY ]</div>
+                <h2 class="panel-heading">HI | HANDY</h2>
+                <p class="panel-desc">
+                    The apex of UE5 automation. A hybrid Python-Blueprint bridge built for industrial-scale project management. Equip the Ultimate tier to bring your own Brain (LLM) directly to the pipeline.
+                </p>
+                
+                <ul class="standard-list list-blue">
+                    <li>UE5 Automation Apex Architecture</li>
+                    <li>Bring Your Own Brain (Local/API LLM Routing)</li>
+                    <li>Industrial Bulk Graph Cleaning & Formatting</li>
+                    <li>Quarterly Feature Rollouts & Priority Routing</li>
                 </ul>
-            </div>
 
-            <a href="handy.html" class="btn">> VIEW_TOOLKIT</a>
+                <a href="handy.html" class="btn">> VIEW_TOOLKIT</a>
+            </div>
         </div>
     </main>
 
     <footer>
-        <div style="opacity: 0.8; font-size: 0.8rem;">© 2026 <span style="color: var(--accent-blue); font-weight: 600;">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div>
-        <div style="margin-top: 5px; opacity: 0.6; font-size: 0.7rem; font-family: 'Fira Code';">UNRIVALED INNOVATION // EST. 2026</div>
+        <div style="opacity: 0.6; font-size: 0.75rem;">© 2026 HARRISON INTERACTIVE LLC. ALL RIGHTS RESERVED.</div>
         <a href="legal.html" class="legal-link">[ ACCESS_LEGAL_TERMINAL ]</a>
     </footer>
 
