@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Blood-Yield | v1.0</title>
+    <title>Blood-Yield | v1.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -28,7 +28,7 @@
             display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* --- HARRISON INTERACTIVE HEADER (CENTERED FIX) --- */
+        /* --- HARRISON INTERACTIVE HEADER --- */
         header {
             width: 100%; min-height: 70px; display: flex; justify-content: center; align-items: center;
             padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
@@ -59,11 +59,12 @@
             filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
         }
 
-        /* --- CONSOLIDATED COMMAND DECK --- */
+        /* --- CONSOLIDATED COMMAND DECK (BOUND TO TERMINAL WIDTH) --- */
         .command-deck {
-            background: #000; border-top: 1px solid var(--stone); border-bottom: 2px solid var(--blood);
-            padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+            background: #000; border: 1px solid var(--stone); border-bottom: 2px solid var(--blood);
+            padding: 15px 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
             box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
+            max-width: 1440px; width: 90%; margin: 0 auto; /* UI BOUNDARY LOCK */
         }
         .command-deck a {
             text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; font-weight: 900;
@@ -118,7 +119,7 @@
 
         @media (max-width: 1100px) {
             .main-grid { grid-template-columns: 1fr; }
-            .command-deck { gap: 8px; padding: 10px 2%; }
+            .command-deck { gap: 8px; width: 95%; }
             .command-deck a { font-size: 0.6rem; padding: 8px 5px; flex: 1 1 30%; text-align: center; }
             .logo-by { font-size: 3rem; }
             .terminal-box, .data-panel { padding: 30px; }
@@ -177,7 +178,7 @@
 
         <div class="data-panel">
             <h3>> HI_CORE_TELEMETRY</h3>
-            <div class="data-line"><span class="data-label">PROTOCOL:</span> <span class="data-value">HANDY_v4.1</span></div>
+            <div class="data-line"><span class="data-label">PROTOCOL:</span> <span class="data-value">HANDY_v4.2</span></div>
             <div class="data-line"><span class="data-label">ENCRYPTION:</span> <span class="data-value">RUNIC_AES_256</span></div>
             <div class="data-line"><span class="data-label">TITLE_ID:</span> <span class="data-value">1FD22D</span></div>
             <div class="data-line"><span class="data-label">CORE_TEMP:</span> <span class="data-value">32°C [STABLE]</span></div>
