@@ -3,78 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HANDY | Harrison Interactive LLC</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&family=Fira+Code&display=swap" rel="stylesheet">
-</head>
-<body class="handy-window">
-
-    <nav>
-        <div class="nav-zone-left">
+    <title>HANDY EDITOR | Harrison Interactive</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-navy: #0A192F;
+            --accent-blue: #00D2FF;
+            --text-silver: #C0C0C0;
+            --glass: rgba(10, 25, 47, 0.95);
             
-        </div>
+            /* Blueprint Data Colors */
+            --bp-exec: #FFFFFF;
+            --bp-string: #FF00FF;
+            --bp-text: #00FFFF;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        <div class="nav-zone-center">
-            <div class="nav-links">
-                <a href="index.html">HOME</a><span class="nav-pipe">|</span>
-                <a href="handy.html" class="active">HANDY</a><span class="nav-pipe">|</span>
-                <a href="Blood-Yield/">BLOOD-YIELD</a><span class="nav-pipe">|</span>
-                <a href="about.html">ABOUT</a><span class="nav-pipe">|</span>
-                <a href="faq.html">FAQ</a>
-            </div>
-        </div>
+        body { 
+            background-color: var(--bg-deep);
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at top center, #0a192f 0%, transparent 80%);
+            background-size: 50px 50px, 50px 50px, 100% 100%;
+            background-attachment: fixed;
+            color: var(--text-silver); 
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            display: flex; justify-content: center; align-items: center;
+            background: var(--glass); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
+            z-index: 2000;
+        }
+
+        .studio-logo {
+            font-family: 'Orbitron'; color: var(--text-silver);
+            text-transform: uppercase; letter-spacing: 4px; font-size: 1.2rem;
+            text-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        #menu-btn { 
+            position: absolute; right: 5%; color: var(--accent-blue); font-size: 2rem; 
+            cursor: pointer; transition: 0.3s; z-index: 2100;
+        }
+        #menu-btn:hover { text-shadow: 0 0 15px var(--accent-blue); }
+
+        #nav-menu {
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
+            background: var(--bg-navy); border-left: 2px solid var(--accent-blue);
+            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            z-index: 3000; padding-top: 100px; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+        }
+        #nav-menu.active { right: 0; }
+        #nav-menu a { display: block; padding: 20px 40px; color: #fff; text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        #nav-menu a:hover { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); padding-left: 50px; }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex: 1; padding: 130px 5% 80px;
+            display: flex; flex-direction: column; align-items: center;
+            z-index: 10; width: 100%; max-width: 1200px; margin: 0 auto;
+        }
+
+        .hero { text-align: center; margin-bottom: 40px; }
         
-        <div class="nav-zone-right">
-            <div class="nav-meta-text">UE5 AI AUTO // EST. 2026</div>
-            <img src="hi_logo.png" class="nav-seal" alt="Company Seal">
-        </div>
+        .handy-banner {
+            width: 100%; max-width: 1000px; height: auto; border: 1px solid rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.1); margin-bottom: 60px;
+        }
+
+        /* --- TIER GRID --- */
+        .tier-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px; width: 100%; margin-bottom: 60px;
+        }
+
+        .tier-card {
+            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px;
+            text-align: center; display: flex; flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .tier-card:hover { border-color: rgba(0, 210, 255, 0.4); transform: translateY(-5px); }
+
+        .tier-ultimate {
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.15);
+            position: relative;
+        }
+        
+        .tier-ultimate::before {
+            content: 'FLAGSHIP'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--accent-blue); color: #000; font-family: 'Fira Code'; font-size: 0.7rem;
+            padding: 2px 10px; font-weight: bold; letter-spacing: 2px;
+        }
+
+        .tier-price { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin: 15px 0; }
+        .tier-list { text-align: left; margin: 20px 0; font-size: 0.9rem; flex: 1; }
+        .tier-list li { margin-bottom: 10px; list-style: none; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 5px; }
+        .tier-list li::before { content: '>'; color: var(--accent-blue); font-family: 'Fira Code'; margin-right: 8px; }
+
+        /* --- MODULE GRID --- */
+        .ue-panel {
+            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 210, 255, 0.1); border-left: 4px solid var(--accent-blue);
+            padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+
+        .code-block {
+            font-family: 'Fira Code'; font-size: 0.8rem; color: #fff;
+            background: rgba(0,0,0,0.6); padding: 20px; border-left: 2px solid #fff;
+            margin-top: 15px;
+        }
+
+        .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+        .dot-exec { background: var(--bp-exec); box-shadow: 0 0 5px var(--bp-exec); }
+        .dot-string { background: var(--bp-string); box-shadow: 0 0 5px var(--bp-string); }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 12px 25px; font-family: 'Orbitron'; background: transparent;
+            border: 1px solid var(--accent-blue); color: var(--accent-blue);
+            cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 15px var(--accent-blue); }
+
+        footer {
+            background: var(--bg-deep); padding: 40px 5%; text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Inter', sans-serif; z-index: 10; width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="studio-logo">Harrison Interactive</div>
+        <div id="menu-btn">☰</div>
+    </header>
+
+    <nav id="nav-menu">
+        <a href="index.html">Home Hub</a>
+        <a href="handy.html" style="color:var(--accent-blue); border-left: 3px solid var(--accent-blue);">Handy Editor</a>
+        <a href="Blood-Yield/">Project Blood-Yield</a>
+        <a href="faq.html">Help/Faq Terminal</a>
     </nav>
 
-    <main class="container">
-        <header class="hero boot-anim">
-            <div class="accent-blue" style="font-family:'Fira Code'; font-size: 0.7rem; letter-spacing: 5px;">[ ASSET_TYPE: EDITOR_UTILITY ] // [ VERSION: 1.0 ]</div>
-            <h1 class="glow-text">HANDY <span class="accent-blue">AUTOMATION</span></h1>
-            <p style="color: var(--text-dim); font-size: 1.1rem; max-width: 800px;">Modular Unreal Engine toolkit re-architecting project management through Python-Blueprint bridges.</p>
-        </header>
-
-        <div class="handy-banner-wrapper boot-anim delay-1" style="margin-bottom: 25px; width: 100%;">
-            <img src="handy_banner.png" alt="HANDY Ultimate Banner" style="width: 100%; height: 400px; display: block; border: 1px solid rgba(0, 210, 255, 0.2); box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);">
+    <main>
+        <div class="hero">
+            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 10px;">[ ASSET_TYPE: EDITOR_UTILITY ] // [ VERSION: 1.0 ]</div>
+            <h1 style="font-family: 'Orbitron'; color: #fff; font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 15px var(--accent-blue); margin-bottom: 15px;">HANDY <span style="color: var(--accent-blue);">AUTOMATION</span></h1>
+            <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">Modular Unreal Engine toolkit re-architecting project management through professional Python-Blueprint bridges.</p>
         </div>
 
-        <section class="grid">
-            
-            <div class="ue-panel boot-anim delay-2">
-                <div class="card-meta"><span>MODULE // VISUAL_UI</span><span><span class="blink"></span> STABLE</span></div>
-                <h3 class="accent-blue" style="font-family: 'Orbitron'; font-size: 1.4rem;">BLUEPRINT INTERFACE</h3>
-                <div style="font-family: 'Fira Code'; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.4); padding: 20px; border-left: 2px solid #fff;">
-                    <div style="margin-bottom: 8px;"><span class="dot white"></span> EUW_HI_HandyMain</div>
-                    <div style="margin-bottom: 8px;"><span class="dot white"></span> EUW_HI_HandyShelf</div>
-                    <div><span class="dot white"></span> EUW_HI_HandySettings</div>
-                </div>
-                <div class="status-dots"><span class="dot white"></span> <span class="dot white"></span></div>
+        <img src="handy_banner.png" alt="HANDY Ultimate Banner" class="handy-banner">
+
+        <div style="width: 100%; text-align: center; margin-bottom: 30px;">
+            <h2 style="font-family: 'Orbitron'; color: var(--text-silver); letter-spacing: 2px;">MARKETPLACE LICENSING</h2>
+        </div>
+
+        <div class="tier-grid">
+            <div class="tier-card">
+                <div style="font-family: 'Fira Code'; color: var(--text-silver); font-size: 0.8rem;">[ CORE_AUTOMATION ]</div>
+                <h3 style="font-family: 'Orbitron'; color: #fff; font-size: 1.5rem; margin-top: 10px;">LITE</h3>
+                <div class="tier-price">FAB</div>
+                <ul class="tier-list">
+                    <li>Core Blueprint Utilities</li>
+                    <li>Basic Asset Management</li>
+                    <li>Standard Node Library</li>
+                </ul>
+                <button class="btn">VIEW ON FAB</button>
             </div>
 
-            <div class="ue-panel boot-anim delay-3">
-                <div class="card-meta"><span>MODULE // LOGIC_BRAIN</span><span><span class="blink"></span> ACTIVE</span></div>
-                <h3 class="accent-blue" style="font-family: 'Orbitron'; font-size: 1.4rem;">PYTHON CORE</h3>
-                <div style="font-family: 'Fira Code'; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.4); padding: 20px; border-left: 2px solid var(--code-violet);">
-                    <div style="margin-bottom: 8px;"><span class="dot pink"></span> handy_router.py</div>
-                    <div style="margin-bottom: 8px;"><span class="dot pink"></span> handy_core_utils.py</div>
-                    <div><span class="dot pink"></span> handy_validator.py</div>
-                </div>
-                <div class="status-dots"><span class="dot pink"></span> <span class="dot pink"></span></div>
-            </div>
-            
-            <div class="ue-panel boot-anim delay-3">
-                <div class="card-meta"><span>MODULE // UI_PREVIEW</span><span><span class="blink"></span> ONLINE</span></div>
-                <h3 class="accent-blue" style="font-family: 'Orbitron'; font-size: 1.4rem;">TERMINAL VIEW</h3>
-                <div class="card-img">
-                    <img src="handy_terminal.png" alt="Handy Terminal Preview">
-                </div>
-                <div class="status-dots"><span class="dot cyan-glow"></span></div>
+            <div class="tier-card">
+                <div style="font-family: 'Fira Code'; color: var(--text-silver); font-size: 0.8rem;">[ BYOB_LOGIC ]</div>
+                <h3 style="font-family: 'Orbitron'; color: #fff; font-size: 1.5rem; margin-top: 10px;">ELITE</h3>
+                <div class="tier-price">FAB</div>
+                <ul class="tier-list">
+                    <li>Advanced Python Integration</li>
+                    <li>Build-Your-Own-Blueprint (BYOB)</li>
+                    <li>Automated Graph Cleaners</li>
+                </ul>
+                <button class="btn">VIEW ON FAB</button>
             </div>
 
-        </section>
+            <div class="tier-card tier-ultimate">
+                <div style="font-family: 'Fira Code'; color: var(--accent-blue); font-size: 0.8rem;">[ SUBSCRIPTION ]</div>
+                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); font-size: 1.5rem; margin-top: 10px;">ULTIMATE</h3>
+                <div class="tier-price">SUB</div>
+                <ul class="tier-list">
+                    <li>Full AI Automation Suite</li>
+                    <li>Verified Badges & Support</li>
+                    <li>Commercial Project Licensing</li>
+                </ul>
+                <button class="btn" style="background: var(--accent-blue); color: #000;">SUBSCRIBE</button>
+            </div>
+        </div>
+
+        <div style="width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            
+            <div class="ue-panel">
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
+                    <span>MODULE // VISUAL_UI</span> <span style="color: var(--bp-exec);">[ STABLE ]</span>
+                </div>
+                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff;">BLUEPRINT INTERFACE</h3>
+                <div class="code-block" style="border-left-color: var(--bp-exec);">
+                    <div style="margin-bottom: 8px;"><span class="dot dot-exec"></span> EUW_HI_HandyMain</div>
+                    <div style="margin-bottom: 8px;"><span class="dot dot-exec"></span> EUW_HI_HandyShelf</div>
+                    <div><span class="dot dot-exec"></span> EUW_HI_HandySettings</div>
+                </div>
+            </div>
+
+            <div class="ue-panel">
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
+                    <span>MODULE // LOGIC_BRAIN</span> <span style="color: var(--bp-string);">[ ACTIVE ]</span>
+                </div>
+                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff;">PYTHON CORE</h3>
+                <div class="code-block" style="border-left-color: var(--bp-string);">
+                    <div style="margin-bottom: 8px;"><span class="dot dot-string"></span> handy_router.py</div>
+                    <div style="margin-bottom: 8px;"><span class="dot dot-string"></span> handy_core_utils.py</div>
+                    <div><span class="dot dot-string"></span> handy_validator.py</div>
+                </div>
+            </div>
+
+            <div class="ue-panel">
+                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
+                    <span>MODULE // UI_PREVIEW</span> <span style="color: #00FFFF;">[ ONLINE ]</span>
+                </div>
+                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff; margin-bottom: 15px;">TERMINAL VIEW</h3>
+                <div style="width: 100%; height: 150px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
+                    <img src="handy_terminal.png" alt="Handy Terminal Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+
+        </div>
     </main>
+
+    <footer>
+        <div style="opacity: 0.8; font-size: 0.8rem;">© 2026 <span style="color: var(--accent-blue); font-weight: 600;">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div>
+        <div style="margin-top: 5px; opacity: 0.6; font-size: 0.7rem; font-family: 'Fira Code';">UNRIVALED INNOVATION // EST. 2026</div>
+        <a href="legal.html" style="display: inline-block; margin-top: 15px; font-family: 'Fira Code'; color: var(--accent-blue); text-decoration: none; font-size: 0.7rem;">[ ACCESS_LEGAL_TERMINAL ]</a>
+    </footer>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
