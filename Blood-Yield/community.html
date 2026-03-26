@@ -3,71 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood-Yield | Community</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <title>NETWORK_LAYER | Blood-Yield Community</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-dark: #050505; --rust: #8A3324; --blood: #8B0000; --gold: #F9D423; --stone: #4A4E69; --text-silver: #C0C0C0; }
-        body { background: linear-gradient(rgba(5,5,5,0.9), rgba(5,5,5,0.95)), url('BY-Background.png') center/cover fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; text-align: center; margin: 0; }
-        nav { background: #000; padding: 20px; display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid var(--rust); font-family: 'Orbitron'; position: sticky; top: 0; z-index: 1000; }
-        nav a { text-decoration: none; color: var(--stone); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        nav a:hover { color: var(--blood); }
-        
-        .hero-section { padding: 60px 20px; }
-        .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; }
-        .hub-link { padding: 40px; border: 1px solid var(--rust); background: rgba(138,51,36,0.05); text-decoration: none; color: var(--text-silver); transition: 0.3s; }
-        .hub-link:hover { border-color: var(--blood); transform: translateY(-5px); background: rgba(138,51,36,0.1); }
-        
-        .portal { margin: 60px auto; padding: 50px; border: 1px dashed var(--gold); max-width: 600px; background: rgba(0,0,0,0.8); }
-        .portal-btn { background: var(--gold); color: #000; padding: 15px 30px; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; margin-top: 20px; transition: 0.2s; }
-        .portal-btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px var(--gold); }
+        :root {
+            --bg-deep: #050505;
+            --accent-blue: #00D2FF; 
+            --blood: #8B0000;       
+            --rust: #8A3324;        
+            --gold-yield: #F9D423;  
+            --stone: #2A2D3E;
+            --text-silver: #C0C0C0;
+            --navy: #0A192F;
+        }
 
-        footer { margin-top: 80px; padding: 60px 20px; border-top: 1px solid rgba(138, 51, 36, 0.3); background: rgba(0,0,0,0.5); text-align: left; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-silver); 
+            font-family: 'Montserrat', sans-serif;
+            background-image: linear-gradient(rgba(10,25,47,0.9), rgba(5,5,5,0.95)), url('BY-Background.png');
+            background-size: cover; background-attachment: fixed;
+        }
+
+        /* --- STUDIO HEADER --- */
+        header {
+            width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; background: rgba(5,5,5,0.95); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(10px);
+        }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 2px; text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; margin-left: 20px; opacity: 0.6; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--accent-blue); }
+
+        .game-nav {
+            background: rgba(139, 0, 0, 0.1); border-bottom: 1px solid var(--rust);
+            padding: 15px; display: flex; justify-content: center; gap: 40px;
+        }
+        .game-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; color: var(--stone); letter-spacing: 4px; transition: 0.3s; }
+        .game-nav a.active { color: var(--accent-blue); border-bottom: 1px solid var(--accent-blue); }
+
+        /* --- NETWORK CONTENT --- */
+        .container { max-width: 1200px; margin: 60px auto; padding: 0 5%; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+
+        .net-card {
+            background: rgba(10, 25, 47, 0.8); border: 1px solid rgba(0, 210, 255, 0.1);
+            padding: 50px; position: relative; border-top: 4px solid var(--stone);
+            transition: 0.4s;
+        }
+        .net-card:hover { border-top-color: var(--accent-blue); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 210, 255, 0.1); }
+
+        .net-card h2 { font-family: 'Orbitron'; letter-spacing: 4px; color: #fff; margin-bottom: 20px; font-size: 1.2rem; }
+        .net-card p { font-size: 0.9rem; line-height: 1.8; opacity: 0.7; margin-bottom: 30px; }
+
+        .btn-link {
+            display: inline-block; padding: 15px 30px; font-family: 'Orbitron'; font-size: 0.7rem;
+            letter-spacing: 3px; text-decoration: none; color: var(--accent-blue);
+            border: 1px solid var(--accent-blue); transition: 0.3s;
+        }
+        .btn-link:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
+
+        /* --- VERIFIED BADGE MODULE --- */
+        .badge-module {
+            margin-top: 60px; padding: 60px; background: rgba(0,0,0,0.8);
+            border: 1px solid var(--gold-yield); border-left: 10px solid var(--gold-yield);
+            position: relative;
+        }
+        .badge-module h2 { font-family: 'Orbitron'; color: var(--gold-yield); letter-spacing: 5px; margin-bottom: 20px; }
+        .badge-icon { 
+            width: 80px; height: 80px; background: var(--gold-yield); 
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Orbitron'; font-weight: 900; color: #000; font-size: 1.5rem;
+            margin-bottom: 20px; box-shadow: 0 0 30px rgba(249, 212, 35, 0.4);
+        }
+
+        .meta { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--stone); margin-top: 20px; }
+
+        footer { text-align: center; padding: 60px; font-family: 'Fira Code'; font-size: 0.7rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="index.html">HOME</a>
-    <a href="world.html">THE WORLD</a>
-    <a href="lore.html">LORE</a>
-    <a href="community.html" style="color: var(--blood);">COMMUNITY</a>
-    <a href="https://harrisoninteractive.dev" target="_blank">HANDY TOOL</a>
-</nav>
-
-<div class="hero-section">
-    <h1 style="font-family: 'Orbitron'; letter-spacing: 4px;">THE NETWORK LAYER</h1>
-    <p style="font-family: 'Montserrat'; color: var(--stone); margin-top: 10px;">COMMUNICATION PROTOCOLS & SECURE UPLINKS</p>
-
-    <div class="hub-grid">
-        <a href="#" class="hub-link">
-            <h3 style="font-family: 'Orbitron'; color: var(--blood);">DISCORD HUB</h3>
-            <p style="margin-top: 10px; font-size: 0.9rem;">Join the official development frequency. Coordinate harvests and discuss the "Equilibrium Engine" with the community.</p>
-        </a>
-        <a href="https://harrisoninteractive.dev" target="_blank" class="hub-link">
-            <h3 style="font-family: 'Orbitron'; color: var(--stone);">HANDY PORTAL</h3>
-            <p style="margin-top: 10px; font-size: 0.9rem;">The technical hub for developers using the toolset that built Blood-Yield.</p>
-        </a>
-    </div>
-
-    <div class="portal">
-        <h2 style="font-family: 'Orbitron'; color: var(--gold);">PLAYFAB SECURE LOGIN</h2>
-        <p style="margin-top: 10px;">Access your Alpha character data, Yield history, and RMT marketplace credentials.</p>
-        <button class="portal-btn" onclick="alert('REDIRECTING TO PLAYFAB SECURE GATEWAY...')">INITIALIZE PORTAL</button>
-    </div>
-</div>
-
-<footer>
-    <div style="max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-        <div style="text-align: left;">
-            <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
-            <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px;">EST. 2026 | UNREAL ENGINE AI | UNRIVALED INNOVATION</p>
+    <header>
+        <a href="index.html" class="studio-logo">HARRISON INTERACTIVE</a>
+        <div class="nav-links">
+            <a href="index.html">WAITLIST</a>
+            <a href="world.html">HEIMR</a>
+            <a href="community.html" style="color:var(--accent-blue); opacity:1;">NETWORK_LAYER</a>
         </div>
-  
-        <div style="text-align: right; font-size: 0.7rem; color: var(--stone);">
-            &copy; 2026 BloodYield.com
+    </header>
+
+    <nav class="game-nav">
+        <a href="world.html">geography</a>
+        <a href="waygates.html">waygates</a>
+        <a href="plots.html">hallowed_plots</a>
+        <a href="maw.html">the_maw</a>
+    </nav>
+
+    <main class="container">
+
+        <div class="grid">
+            <div class="net-card">
+                <h2>REDDIT ARCHIVE</h2>
+                <p>Access the decentralized communications of the Harrison Interactive community. Share lore finds, trade strategies, and report Soul-Blight outbreaks in real-time.</p>
+                <a href="https://www.reddit.com/user/HarrisonInteractive/" target="_blank" class="btn-link">INITIALIZE REDDIT_UPLINK</a>
+                <div class="meta">[ REDDIT // HARRISON_INTERACTIVE ]</div>
+            </div>
+
+            <div class="net-card">
+                <h2>THE EXCHANGE</h2>
+                <p>The core industrial market of Heimr. Facilitate the trade of <strong>Cold Iron</strong>, <strong>Bio-Armor Skeletons</strong>, and <strong>Refined Essence</strong> in a secure environment.</p>
+                <a href="index.html" class="btn-link">ACCESS_MARKETPLACE</a>
+                <div class="meta">[ ECONOMY // COLD_IRON_PRIMARY ]</div>
+            </div>
         </div>
-    </div>
-</footer>
+
+        <div class="badge-module">
+            <div class="badge-icon">H</div>
+            <h2>VERIFIED_BADGE PROTOCOL</h2>
+            <p style="max-width: 800px; line-height: 1.8; opacity: 0.8;">
+                Elite Operators within the <strong>Harrison Interactive</strong> ecosystem may authorize a <strong>Verified Badge</strong>. This protocol grants priority access to the RMT Marketplace, reduces Maw de-compilation fees, and signals your status as a "Handy Ultimate" tier supporter.
+            </p>
+            <p style="font-size: 0.85rem; margin-top: 20px; color: var(--gold-yield);">
+                [ STATUS: RMT_SUBSCRIPTION_REQUIRED // AUTH_PENDING ]
+            </p>
+            <div class="meta">ENCRYPTION: HARRISON_INDUSTRIAL_STANDARD // 2026</div>
+        </div>
+
+    </main>
+
+    <footer>
+        HARRISON INTERACTIVE // HEIMR NETWORK LAYER // UNRIVALED INNOVATION // 2026
+    </footer>
 
 </body>
 </html>
