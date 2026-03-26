@@ -10,11 +10,10 @@
             --bg-deep: #050505; 
             --bg-navy: #0A192F; 
             --accent-blue: #00D2FF; 
-            --accent-red: #8B0000;
             --text-silver: #C0C0C0; 
             --glass: rgba(5, 5, 5, 0.85); 
             --bp-exec: #FFFFFF;
-            --bp-target: #00D2FF;
+            --bp-string: #FF00FF;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,7 +34,7 @@
             overflow-x: hidden;
         }
 
-        /* --- ADAPTIVE COMMAND DECK HEADER --- */
+        /* --- COMMAND DECK HEADER --- */
         @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
         @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
         @keyframes logo-pull { 0%, 100% { text-shadow: 0 0 10px var(--accent-blue); transform: scale(1); } 50% { text-shadow: 0 0 25px var(--accent-blue); transform: scale(1.02); } }
@@ -64,7 +63,6 @@
         .terminal-header h1 { font-family: 'Orbitron'; font-weight: 900; font-size: clamp(2.5rem, 8vw, 5rem); text-shadow: 0 0 30px var(--accent-blue); color: #fff; line-height: 1; }
         .terminal-meta { font-family: 'Fira Code'; color: var(--accent-blue); letter-spacing: 8px; font-size: 0.8rem; margin-top: 20px; opacity: 0.8; }
 
-        /* FAQ GRID */
         .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; width: 100%; margin-bottom: 80px; }
         
         .ue-panel { 
@@ -76,22 +74,18 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             transition: 0.3s;
         }
-        .ue-panel:hover { border-color: var(--accent-blue); background: rgba(10, 25, 47, 0.8); }
 
         .sector-tag { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); margin-bottom: 25px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 15px; }
         
-        .faq-item { margin-bottom: 35px; }
-        .faq-item:last-child { margin-bottom: 0; }
-        
-        .faq-q { font-family: 'Orbitron'; font-size: 1rem; color: #fff; margin-bottom: 12px; display: block; letter-spacing: 1px; }
+        .faq-item { margin-bottom: 40px; }
+        .faq-q { font-family: 'Orbitron'; font-size: 1rem; color: #fff; margin-bottom: 15px; display: block; letter-spacing: 1px; line-height: 1.4; }
         .faq-q::before { content: '>> '; color: var(--accent-blue); font-weight: 900; }
         
         .faq-a { font-family: 'Inter'; font-size: 0.95rem; color: var(--text-silver); line-height: 1.8; padding-left: 28px; border-left: 1px solid rgba(0, 210, 255, 0.1); }
-        .faq-a strong { color: #fff; font-weight: 600; }
-        .faq-a code { font-family: 'Fira Code'; background: rgba(0,0,0,0.4); padding: 2px 6px; color: var(--accent-blue); border-radius: 3px; }
+        .faq-a strong { color: #fff; }
 
         /* --- SIGNAL FORM --- */
-        .signal-terminal { grid-column: 1 / -1; border-left-color: var(--accent-blue); background: linear-gradient(180deg, rgba(10, 25, 47, 0.8) 0%, rgba(5, 5, 5, 1) 100%); }
+        .signal-terminal { grid-column: 1 / -1; background: linear-gradient(180deg, rgba(10, 25, 47, 0.8) 0%, rgba(5, 5, 5, 1) 100%); }
         .terminal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px; }
         .input-group { position: relative; }
         .input-group label { position: absolute; top: -10px; left: 20px; background: #050505; padding: 0 10px; font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); z-index: 5; }
@@ -100,7 +94,7 @@
             width: 100%; background: rgba(0, 210, 255, 0.02); border: 1px solid rgba(0, 210, 255, 0.2); 
             color: #fff; padding: 20px; font-family: 'Fira Code'; outline: none; transition: 0.4s; font-size: 0.95rem;
         }
-        .terminal-input:focus { border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.08); box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.1); }
+        .terminal-input:focus { border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.08); }
 
         .btn { 
             width: 100%; padding: 22px; margin-top: 30px; font-family: 'Orbitron'; font-weight: 900; 
@@ -131,63 +125,59 @@
 
     <main>
         <div class="terminal-header">
-            <div class="terminal-meta">[ KNOWLEDGE_ARRAY // SYNC_COMPLETE ]</div>
+            <div class="terminal-meta">[ SYSTEM_QUERY // STUDIO_INTELLIGENCE ]</div>
             <h1>FAQ <span style="color:var(--accent-blue)">TERMINAL</span></h1>
         </div>
 
         <div class="knowledge-grid">
             <div class="ue-panel">
-                <div class="sector-tag"><span>SECTOR // HANDY_UE5_TECH</span><span>INTEL_01</span></div>
+                <div class="sector-tag"><span>SECTOR // HANDY_UE5_LOGIC</span><span>INTEL_01</span></div>
                 
                 <div class="faq-item">
-                    <strong class="faq-q">What is the "Isolation Protocol"?</strong>
-                    <p class="faq-a">To ensure Fab Marketplace readiness and project stability, Handy logic (Python scripts and Editor Blueprints) is strictly isolated in <code>Content/Handy/</code>. It interacts with the game only by generating <strong>Data Assets</strong> or <strong>Actor Blueprints</strong>, keeping the runtime game code clean.</p>
+                    <strong class="faq-q">Is Handy compatible with existing runtime game code?</strong>
+                    <p class="faq-a">Handy is engineered for **absolute isolation**. All logic resides within <code>Content/Handy/</code> and operates exclusively within the **Unreal Editor API**. It generates Data Assets and Actors that your game reads at runtime, but no Handy Python or Editor Blueprint logic is ever included in your final game shipping build.</p>
                 </div>
 
                 <div class="faq-item">
-                    <strong class="faq-q">How does the "BYOB" bridge function?</strong>
-                    <p class="faq-a">The <strong>Elite Tier</strong> unlocks the Python-to-LLM bridge. Operators can route private API keys for models like Claude or GPT-4 directly through Handy’s <code>handy_router.py</code> to automate complex node graph generation and bulk technical validation.</p>
-                </div>
-            </div>
-
-            <div class="ue-panel" style="border-left-color: var(--accent-red);">
-                <div class="sector-tag" style="color:var(--accent-red);"><span>SECTOR // BLOOD_YIELD_MECHANICS</span><span>INTEL_02</span></div>
-                
-                <div class="faq-item">
-                    <strong class="faq-q">The "Soul-Blight" Decay Cycle?</strong>
-                    <p class="faq-a">Equipment in Blood-Yield is subject to <strong>Soul-Blight</strong>. If untreated, items suffer an <strong>80% stat penalty</strong>. You must use <strong>Refined Essence</strong> at the <strong>Hjarta Forge</strong> or mirror waygates to restore equipment integrity.</p>
+                    <strong class="faq-q">What does "Bring Your Own Brain" (BYOB) entail?</strong>
+                    <p class="faq-a">Exclusive to the **Elite and Ultimate** tiers, BYOB allows you to route your own private LLM API keys (OpenAI, Claude, etc.) through the Handy Python bridge. This enables automated node-graph generation and technical validation tailored to your specific project's coding standards.</p>
                 </div>
 
                 <div class="faq-item">
-                    <strong class="faq-q">What are the "Maw" Salvage rates?</strong>
-                    <p class="faq-a">The Maw is the Bastion’s salvage pit. Breaking down equipment yields approximately a <strong>5% return on Cold Iron</strong>, making high-end Bio-Armor refinement a high-stakes decision for <strong>Sowers</strong>.</p>
+                    <strong class="faq-q">How does Handy handle Marketplace compliance?</strong>
+                    <p class="faq-a">Handy features a built-in **Validator Module** that checks asset nomenclature and folder hierarchy against the official Fab Marketplace standards, ensuring your project is ready for submission at any time.</p>
                 </div>
             </div>
 
             <div class="ue-panel">
-                <div class="sector-tag"><span>SECTOR // STUDIO_INFRA</span><span>INTEL_03</span></div>
+                <div class="sector-tag"><span>SECTOR // HARRISON_INTERACTIVE_INFRA</span><span>INTEL_02</span></div>
                 
                 <div class="faq-item">
-                    <strong class="faq-q">Backend Connectivity (PlayFab)?</strong>
-                    <p class="faq-a">Harrison Interactive utilizes <strong>PlayFab Title ID: 1FD22D</strong> for the secure RMT Marketplace. Global data routing is handled via <strong>Cloudflare Email Workers</strong> to ensure all marketplace "Signals" are verified and anti-fraud compliant.</p>
+                    <strong class="faq-q">What is the "Omni-Network" Sync?</strong>
+                    <p class="faq-a">The Omni-Network is our studio's backbone, utilizing **Cloudflare Workers** and **PlayFab Title ID: 1FD22D**. It provides Harrison Interactive Ultimate subscribers with secure, real-time data routing for studio-wide tool synchronization and verified marketplace badges.</p>
                 </div>
 
                 <div class="faq-item">
-                    <strong class="faq-q">Are "Hallowed Plots" secure?</strong>
-                    <p class="faq-a">Yes. Hallowed Plots use <strong>Guest Protocol permissions</strong>. Only the primary account holder or verified guests can interact with the Bio-Armor refining stations within instanced housing.</p>
+                    <strong class="faq-q">How are support signals processed?</strong>
+                    <p class="faq-a">All transmissions through the **Signal Terminal** are routed via our high-speed Cloudflare email worker redirect (hi-signal-terminal). This ensures that support requests are prioritized and tracked within our industrial deployment pipeline.</p>
+                </div>
+
+                <div class="faq-item">
+                    <strong class="faq-q">Is Harrison Interactive open for consulting?</strong>
+                    <p class="faq-a">While our primary focus is the development of the Handy toolkit and Blood-Yield, we provide high-level consultation for studios looking to implement hybrid **Python-Blueprint automation** pipelines within UE5.4+.</p>
                 </div>
             </div>
 
             <div class="ue-panel signal-terminal">
                 <div class="sector-tag"><span>PROTOCOL // SECURE_UPLINK</span><span>EST. 2026</span></div>
                 <h2 style="text-align:center; font-family:'Orbitron'; letter-spacing:4px; color:#fff; margin-bottom:10px;">[ TRANSMIT_SIGNAL ]</h2>
-                <p style="text-align:center; font-size:0.85rem; margin-bottom:30px; opacity:0.6;">Direct uplink to Harrison Interactive Signal Terminal</p>
+                <p style="text-align:center; font-size:0.85rem; margin-bottom:30px; opacity:0.6;">Direct support uplink for Handy Tooling and Studio Inquiries</p>
                 
                 <form action="https://hi-signal-terminal.bccomp97249.workers.dev/" method="POST">
                     <div class="terminal-grid">
                         <div class="input-group">
-                            <label>IDENT_USER_NAME</label>
-                            <input type="text" class="terminal-input" placeholder="Operator Designation..." required>
+                            <label>IDENT_OPERATOR_NAME</label>
+                            <input type="text" class="terminal-input" placeholder="Enter Designation..." required>
                         </div>
                         <div class="input-group">
                             <label>UPLINK_RETURN_ADDR</label>
@@ -195,8 +185,8 @@
                         </div>
                     </div>
                     <div class="input-group" style="margin-top:25px;">
-                        <label>MESSAGE_PAYLOAD_STREAM</label>
-                        <textarea class="terminal-input" rows="6" placeholder="Broadcast support request or inquiry stream..." required></textarea>
+                        <label>MESSAGE_DATA_STREAM</label>
+                        <textarea class="terminal-input" rows="6" placeholder="Broadcast message stream (Technical support or licensing queries)..." required></textarea>
                     </div>
                     <button type="submit" class="btn">INITIATE BROADCAST</button>
                 </form>
@@ -207,7 +197,7 @@
     <footer>
         <div class="footer-logo">HARRISON INTERACTIVE // EST. 2026 // UNRIVALED INNOVATION</div>
         <div style="font-family:'Fira Code'; font-size: 0.65rem; opacity: 0.4; margin-top: 20px;">
-            SYSTEM_ID: HI-FAQ-2026 // PLAYFAB_ID: 1FD22D // CLOUDFLARE_SECURE
+            TERMINAL_ID: HI-FAQ-2.0 // STATUS: SYNC_STABLE // © 2026
         </div>
     </footer>
 
