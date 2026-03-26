@@ -29,158 +29,101 @@
             height: 100vh;
         }
 
-        /* --- EVENT HORIZON HEADER --- */
-        
+        /* --- COMMAND DECK HEADER (SYMMETRICAL) --- */
         @keyframes flow-left {
             0% { background-position: -200% 0; }
             100% { background-position: 0% 0; }
         }
-
         @keyframes flow-right {
             0% { background-position: 200% 0; }
             100% { background-position: 0% 0; }
         }
-
         @keyframes logo-pull {
             0%, 100% { text-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue); transform: scale(1); }
             50% { text-shadow: 0 0 25px var(--accent-blue), 0 0 40px var(--accent-blue); transform: scale(1.02); }
         }
 
         header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100px;
             display: flex; justify-content: center; align-items: center;
-            background: var(--glass); 
-            backdrop-filter: blur(15px);
+            background: var(--glass); backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
-            z-index: 2000;
-            overflow: hidden;
+            z-index: 2000; overflow: hidden;
+            padding: 0 5%;
         }
 
-        /* Left-to-Center Flow */
+        /* Neon Flow Background Layers */
         header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 50%; height: 100%;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 40px,
-                rgba(0, 210, 255, 0.08) 41px,
-                rgba(0, 210, 255, 0.08) 43px
-            );
-            background-size: 200% 100%;
-            animation: flow-left 10s linear infinite;
-            mask-image: linear-gradient(to right, black, transparent);
+            content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
+            background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px);
+            background-size: 200% 100%; animation: flow-left 10s linear infinite;
+            mask-image: linear-gradient(to right, black 70%, transparent);
+            z-index: 1;
+        }
+        header::after {
+            content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+            background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px);
+            background-size: 200% 100%; animation: flow-right 10s linear infinite;
+            mask-image: linear-gradient(to left, black 70%, transparent);
+            z-index: 1;
         }
 
-        /* Right-to-Center Flow */
-        header::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; width: 50%; height: 100%;
-            background: repeating-linear-gradient(
-                -90deg,
-                transparent,
-                transparent 40px,
-                rgba(0, 210, 255, 0.08) 41px,
-                rgba(0, 210, 255, 0.08) 43px
-            );
-            background-size: 200% 100%;
-            animation: flow-right 10s linear infinite;
-            mask-image: linear-gradient(to left, black, transparent);
+        /* Navigation Groups */
+        .nav-group {
+            display: flex; gap: 30px; z-index: 10; flex: 1;
+        }
+        .nav-group-left { justify-content: flex-end; padding-right: 40px; }
+        .nav-group-right { justify-content: flex-start; padding-left: 40px; }
+
+        .nav-link {
+            font-family: 'Orbitron'; font-size: 0.75rem; color: #fff;
+            text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
+            transition: 0.3s; position: relative; opacity: 0.7;
+        }
+        .nav-link:hover, .nav-link.active { 
+            opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue);
+        }
+        .nav-link.active::after {
+            content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px;
+            background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue);
         }
 
         .studio-logo {
-            font-family: 'Orbitron'; 
-            font-weight: 900; /* SIGNATORY WEIGHT */
-            color: #fff;
-            text-transform: uppercase; 
-            letter-spacing: 2px; /* TIGHTENED FOR BADGE LOOK */
-            font-size: 1.4rem;
-            animation: logo-pull 5s ease-in-out infinite;
-            z-index: 10;
+            font-family: 'Orbitron'; font-weight: 900; color: #fff;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem;
+            animation: logo-pull 5s ease-in-out infinite; z-index: 10;
+            text-align: center; white-space: nowrap; cursor: pointer;
         }
-
-        .logo-core-glow {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px; height: 80px;
-            background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, transparent 70%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        #menu-btn { 
-            position: absolute; right: 5%; color: var(--accent-blue); font-size: 2rem; 
-            cursor: pointer; transition: 0.3s; z-index: 2100;
-        }
-
-        /* --- NAV DRAWER --- */
-        #nav-menu {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
-            background: var(--bg-navy); border-left: 2px solid var(--accent-blue);
-            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
-            z-index: 3000; padding-top: 100px; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-        }
-        #nav-menu.active { right: 0; }
-        #nav-menu a { display: block; padding: 20px 40px; color: #fff; text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        #nav-menu a:hover { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); padding-left: 50px; }
 
         /* --- SPLIT SCREEN LAYOUT --- */
         main {
-            display: flex;
-            flex-direction: row;
-            height: calc(100vh - 80px);
-            margin-top: 80px;
-            width: 100vw;
-            z-index: 10;
+            display: flex; flex-direction: row; height: calc(100vh - 100px);
+            margin-top: 100px; width: 100vw; z-index: 10;
         }
 
         .split-panel {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; 
-            align-items: center;
-            padding: 40px;
-            transition: flex 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
+            flex: 1; display: flex; flex-direction: column; justify-content: flex-end; 
+            align-items: center; padding: 40px; transition: flex 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative; overflow: hidden;
         }
-
-        .split-panel:hover {
-            flex: 2.5; 
-        }
+        .split-panel:hover { flex: 2.5; }
 
         .panel-blood {
             background-color: var(--bg-deep);
-            background-image: 
-                linear-gradient(to bottom, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.98) 60%), 
-                url('Blood-Yield/BY-Background.png');
-            background-size: 100% auto;
-            background-position: center top;
-            background-repeat: no-repeat;
+            background-image: linear-gradient(to bottom, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.98) 60%), url('Blood-Yield/BY-Background.jpg');
+            background-size: 100% auto; background-position: center top; background-repeat: no-repeat;
             border-right: 1px solid rgba(139, 0, 0, 0.3);
         }
 
         .panel-handy {
             background-color: var(--bg-deep);
-            background-image: 
-                linear-gradient(to bottom, rgba(5, 5, 5, 0.2) 0%, rgba(5, 5, 5, 0.98) 60%), 
-                url('handy_terminal.png');
-            background-size: 100% auto;
-            background-position: center top;
-            background-repeat: no-repeat;
+            background-image: linear-gradient(to bottom, rgba(5, 5, 5, 0.2) 0%, rgba(5, 5, 5, 0.98) 60%), url('handy_terminal.png');
+            background-size: 100% auto; background-position: center top; background-repeat: no-repeat;
         }
 
         .content-box {
-            background: transparent;
-            width: 100%;
-            max-width: 600px;
-            text-align: left;
-            padding-bottom: 40px; 
-            z-index: 20; 
+            background: transparent; width: 100%; max-width: 600px;
+            text-align: left; padding-bottom: 40px; z-index: 20; 
         }
 
         .module-tag { font-family: 'Fira Code'; font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 15px; }
@@ -191,17 +134,12 @@
         .panel-desc { font-family: 'Inter'; font-size: 0.95rem; color: var(--text-silver); line-height: 1.6; margin-bottom: 20px; }
 
         .standard-list { list-style: none; padding: 0; margin: 0 0 30px 0; }
-        .standard-list li { 
-            font-family: 'Inter'; font-size: 0.9rem; color: #fff; 
-            margin-bottom: 8px; position: relative; padding-left: 20px; 
-        }
-        
+        .standard-list li { font-family: 'Inter'; font-size: 0.9rem; color: #fff; margin-bottom: 8px; position: relative; padding-left: 20px; }
         .list-red li::before { content: '■'; color: var(--accent-red); position: absolute; left: 0; font-size: 0.8rem; top: 2px; }
         .list-blue li::before { content: '■'; color: var(--accent-blue); position: absolute; left: 0; font-size: 0.8rem; top: 2px; }
 
         .btn {
-            padding: 15px 35px; display: inline-block;
-            font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
+            padding: 15px 35px; display: inline-block; font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
             background: rgba(0,0,0,0.6); border: 1px solid var(--accent-blue); color: var(--accent-blue);
             text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
         }
@@ -210,21 +148,20 @@
         .btn-red:hover { background: var(--accent-red); color: #fff; box-shadow: 0 0 20px var(--accent-red); }
 
         footer {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: transparent; padding: 15px 5%; text-align: center;
-            font-family: 'Inter', sans-serif; 
-            z-index: 2000;
+            position: absolute; bottom: 0; left: 0; width: 100%; background: transparent; 
+            padding: 15px 5%; text-align: center; font-family: 'Inter', sans-serif; z-index: 2000;
         }
-        .legal-link {
-            display: inline-block; margin-top: 5px; font-family: 'Fira Code';
-            color: var(--text-silver); text-decoration: none; font-size: 0.7rem;
-            letter-spacing: 1px; transition: 0.3s; opacity: 0.6;
+
+        @media (max-width: 1100px) {
+            header { flex-direction: column; height: auto; padding: 20px; }
+            .nav-group { width: 100%; justify-content: center; padding: 10px 0; gap: 15px; }
+            .studio-logo { margin: 10px 0; order: -1; }
+            main { margin-top: 180px; height: calc(100vh - 180px); }
         }
-        .legal-link:hover { color: var(--accent-blue); text-shadow: 0 0 8px var(--accent-blue); opacity: 1; }
 
         @media (max-width: 900px) {
-            main { flex-direction: column; overflow-y: auto; height: auto; padding-bottom: 60px; }
-            .split-panel { padding: 40px 20px; border-right: none; min-height: 80vh; justify-content: flex-end; }
+            main { flex-direction: column; overflow-y: auto; height: auto; }
+            .split-panel { min-height: 80vh; }
             .split-panel:hover { flex: 1; }
             body { overflow: auto; }
         }
@@ -233,17 +170,20 @@
 <body>
 
     <header>
-        <div class="logo-core-glow"></div>
-        <div class="studio-logo">Harrison Interactive</div>
-        <div id="menu-btn">☰</div>
-    </header>
+        <div class="nav-group nav-group-left">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="handy.html" class="nav-link">Handy</a>
+            <a href="Blood-Yield/" class="nav-link">Blood-Yield</a>
+        </div>
 
-    <nav id="nav-menu">
-        <a href="index.html" style="color:var(--accent-blue); border-left: 3px solid var(--accent-blue);">Home Hub</a>
-        <a href="handy.html">Handy Editor</a>
-        <a href="Blood-Yield/">Project Blood-Yield</a>
-        <a href="faq.html">Help/Faq Terminal</a>
-    </nav>
+        <div class="studio-logo" onclick="window.location.href='index.html'">Harrison Interactive</div>
+
+        <div class="nav-group nav-group-right">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="faq.html" class="nav-link">FAQ</a>
+            <a href="legal.html" class="nav-link">Legal</a>
+        </div>
+    </header>
 
     <main>
         <div class="split-panel panel-blood">
@@ -251,16 +191,14 @@
                 <div class="module-tag tag-red">[ MODULE // DARK_FANTASY_RPG ]</div>
                 <h2 class="panel-heading">BLOOD-YIELD</h2>
                 <p class="panel-desc">
-                    A visceral dark-fantasy RPG forged in UE5. Experience a world where decisions yield consequence, featuring a Symbiotic Economy driven by a secure, fully integrated RMT Marketplace.
+                    A visceral dark-fantasy RPG forged in UE5. Experience a world where decisions yield consequence, featuring a Symbiotic Economy driven by a secure RMT Marketplace.
                 </p>
-                
                 <ul class="standard-list list-red">
-                    <li>RMT Symbiotic Economy (Player-to-Player Marketplace)</li>
+                    <li>RMT Symbiotic Economy (P2P Marketplace)</li>
                     <li>Decision-Yield Consequence Mechanics</li>
                     <li>UE5 Forged Photo-Realistic Visuals</li>
                     <li>Cold Iron & Soul Essence Resource Decay</li>
                 </ul>
-
                 <a href="Blood-Yield/" class="btn btn-red">> ACCESS_PROJECT</a>
             </div>
         </div>
@@ -270,16 +208,14 @@
                 <div class="module-tag tag-blue">[ MODULE // EDITOR_UTILITY ]</div>
                 <h2 class="panel-heading">HI | HANDY</h2>
                 <p class="panel-desc">
-                    The apex of UE5 automation. A hybrid Python-Blueprint bridge built for industrial-scale project management. Equip the Ultimate tier to bring your own Brain (LLM) directly to the pipeline.
+                    The apex of UE5 automation. A hybrid Python-Blueprint bridge built for industrial-scale project management. Equip the Ultimate tier for cloud-routed LLM automation.
                 </p>
-                
                 <ul class="standard-list list-blue">
                     <li>UE5 Automation Apex Architecture</li>
-                    <li>Bring Your Own Brain (Local/API LLM Routing)</li>
+                    <li>Bring Your Own Brain (Local/API LLM)</li>
                     <li>Industrial Bulk Graph Cleaning & Formatting</li>
                     <li>Quarterly Feature Rollouts & Priority Routing</li>
                 </ul>
-
                 <a href="handy.html" class="btn">> VIEW_TOOLKIT</a>
             </div>
         </div>
@@ -287,13 +223,7 @@
 
     <footer>
         <div style="opacity: 0.6; font-size: 0.75rem;">© 2026 HARRISON INTERACTIVE LLC. ALL RIGHTS RESERVED.</div>
-        <a href="legal.html" class="legal-link">[ ACCESS_LEGAL_TERMINAL ]</a>
     </footer>
 
-    <script>
-        document.getElementById('menu-btn').addEventListener('click', function() {
-            document.getElementById('nav-menu').classList.toggle('active');
-        });
-    </script>
 </body>
 </html>
