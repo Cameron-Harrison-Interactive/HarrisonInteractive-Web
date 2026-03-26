@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LORE_LOGS | The Records of Heimr</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <title>HI_DATABASE | Lore_Archive_v4.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #050505;
@@ -12,9 +12,10 @@
             --blood: #8B0000;       
             --rust: #8A3324;        
             --gold-yield: #F9D423;  
-            --stone: #2A2D3E;
+            --stone: #4A4E69;
             --text-silver: #C0C0C0;
-            --emerald: #008f39;
+            --navy-grid: #0A192F;
+            --emerald: #00FF88;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,108 +24,191 @@
             background-color: var(--bg-deep); 
             color: var(--text-silver); 
             font-family: 'Montserrat', sans-serif;
-            background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('BY-Background.png');
-            background-size: cover; background-attachment: fixed;
+            background-image: linear-gradient(rgba(5,5,5,0.85), rgba(5,5,5,0.95)), url('BY-Background.png');
+            background-size: cover; background-position: center center; background-attachment: fixed;
+            display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* --- STUDIO HEADER --- */
+        /* --- HARRISON INTERACTIVE HEADER --- */
         header {
-            width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center;
-            padding: 0 5%; background: rgba(5,5,5,0.95); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
-            position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(10px);
+            width: 100%; min-height: 80px; display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px);
         }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 2px; text-decoration: none; }
-        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; margin-left: 20px; opacity: 0.6; transition: 0.3s; }
-        .nav-links a:hover { opacity: 1; color: var(--accent-blue); }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
-        .game-nav {
-            background: rgba(139, 0, 0, 0.1); border-bottom: 1px solid var(--blood);
-            padding: 15px; display: flex; justify-content: center; gap: 40px;
+        /* --- THE COMMAND DECK --- */
+        .command-deck {
+            background: #000; border-bottom: 2px solid var(--blood);
+            padding: 15px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
         }
-        .game-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; color: var(--stone); letter-spacing: 4px; transition: 0.3s; }
-        .game-nav a.active { color: var(--gold-yield); border-bottom: 1px solid var(--gold-yield); }
+        .command-deck a {
+            text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900;
+            color: #fff; letter-spacing: 3px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 1);
+            border: 1px solid rgba(139, 0, 0, 0.5); padding: 10px 20px; background: rgba(139, 0, 0, 0.1);
+        }
+        .command-deck a:hover { 
+            color: var(--gold-yield); border-color: var(--gold-yield);
+            text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
+        }
 
-        /* --- LORE TERMINAL --- */
-        .container { max-width: 1100px; margin: 60px auto; padding: 0 5%; }
+        /* --- PROJECT BANNER --- */
+        .project-banner { text-align: center; padding: 20px 0 10px; }
+        .logo-by { 
+            font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
+            background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
+        }
+
+        /* --- MAIN TERMINAL GRID --- */
+        .main-grid { max-width: 1600px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
         
-        .lore-entry {
-            background: rgba(10, 10, 10, 0.9); border: 1px solid rgba(255,255,255,0.05);
-            padding: 50px; margin-bottom: 40px; position: relative; border-left: 4px solid var(--stone);
+        /* Left: Archive Logs */
+        .archive-container { display: flex; flex-direction: column; gap: 30px; }
+        
+        .log-file { 
+            background: rgba(10, 10, 10, 0.98); border: 1px solid rgba(255,255,255,0.05); 
+            padding: 40px; position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.8); 
+            transition: 0.3s;
         }
-        .lore-entry::before {
-            content: attr(data-log); position: absolute; top: 15px; right: 20px;
-            font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); opacity: 0.5;
+        .log-file:hover { background: rgba(15, 15, 15, 1); transform: translateX(5px); }
+
+        .log-meta { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px; display: flex; justify-content: space-between; }
+        .log-file h2 { font-family: 'Orbitron'; color: #fff; letter-spacing: 5px; margin-bottom: 20px; font-size: 1.4rem; }
+        .log-file p { font-size: 0.9rem; line-height: 1.8; opacity: 0.85; margin-bottom: 15px; }
+        .log-file strong { color: var(--gold-yield); }
+
+        /* Specific Log Aesthetics */
+        .log-system { border-left: 5px solid var(--accent-blue); }
+        .log-symbiosis { border-left: 5px solid var(--emerald); }
+        .log-system .log-meta { color: var(--accent-blue); }
+        .log-symbiosis .log-meta { color: var(--emerald); }
+        .log-blight { border-left: 5px solid var(--rust); }
+        .log-blight .log-meta { color: var(--rust); }
+
+        /* Right: Decryption Telemetry */
+        .data-panel { background: rgba(0, 0, 0, 0.95); border: 1px solid var(--stone); padding: 40px; font-family: 'Fira Code'; color: var(--stone); box-shadow: 0 0 40px rgba(74, 78, 105, 0.1); height: fit-content; position: sticky; top: 180px; }
+        .data-panel h3 { color: var(--text-silver); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 25px; border-bottom: 1px solid var(--stone); padding-bottom: 15px; letter-spacing: 3px; }
+        
+        .data-line { margin-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 8px; font-size: 0.8rem; display: flex; justify-content: space-between; }
+        .data-label { color: var(--stone); text-transform: uppercase; }
+        .data-value { color: var(--accent-blue); font-weight: bold; text-align: right; }
+
+        /* Active Decryption Log */
+        .decryption-log { background: #000; border: 1px solid var(--stone); padding: 25px; font-family: 'Fira Code'; font-size: 0.7rem; margin-top: 30px; max-height: 250px; overflow-y: auto; color: var(--stone); }
+        .decryption-log h4 { color: var(--accent-blue); margin-bottom: 15px; border-bottom: 1px dashed var(--accent-blue); padding-bottom: 10px; }
+        
+        .log-entry { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
+        .log-entry.process span.time { color: var(--stone); margin-right: 10px; }
+        .log-entry.success span.amount { color: var(--accent-blue); font-weight: bold; }
+        .log-entry.corrupt span.amount { color: var(--rust); font-weight: bold; }
+
+        footer { text-align: center; padding: 50px; font-family: 'Fira Code'; font-size: 0.8rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+
+        @media (max-width: 1200px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .command-deck a { font-size: 0.65rem; padding: 8px 12px; flex: 1 1 45%; text-align: center; }
+            .data-panel { position: relative; top: 0; }
         }
-
-        .lore-entry h2 { font-family: 'Orbitron'; letter-spacing: 5px; color: #fff; margin-bottom: 25px; font-size: 1.5rem; text-transform: uppercase; }
-        .lore-entry p { line-height: 1.9; font-size: 0.95rem; margin-bottom: 20px; opacity: 0.8; }
-        .lore-entry strong { color: var(--gold-yield); }
-
-        .meta-data { 
-            font-family: 'Fira Code'; font-size: 0.75rem; color: var(--stone); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; margin-top: 20px; 
-        }
-
-        .highlight-emerald { border-left-color: var(--emerald) !important; }
-        .highlight-blood { border-left-color: var(--blood) !important; }
-        .highlight-gold { border-left-color: var(--gold-yield) !important; }
-
-        footer { text-align: center; padding: 60px; font-family: 'Fira Code'; font-size: 0.7rem; opacity: 0.4; }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="studio-logo">HARRISON INTERACTIVE</a>
+        <a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a>
         <div class="nav-links">
-            <a href="index.html">WAITLIST</a>
-            <a href="world.html">HEIMR</a>
-            <a href="lore.html" style="color:var(--accent-blue); opacity:1;">LORE_LOGS</a>
-            <a href="https://harrisoninteractive.dev">HANDY_TOOL</a>
+            <a href="index.html">DATABASE_MAIN</a>
+            <a href="world.html">HEIMR_CORE</a>
+            <a href="lore.html" class="active" style="color:var(--accent-blue); text-shadow:0 0 10px var(--accent-blue);">LORE_RECORDS</a>
         </div>
     </header>
 
-    <nav class="game-nav">
-        <a href="world.html">geography</a>
-        <a href="waygates.html">waygates</a>
-        <a href="plots.html">hallowed_plots</a>
-        <a href="maw.html">the_maw</a>
+    <nav class="command-deck">
+        <a href="world.html">GEOGRAPHY</a>
+        <a href="waygates.html">WAYGATES</a>
+        <a href="plots.html">HALLOWED_PLOTS</a>
+        <a href="maw.html">THE_MAW</a>
     </nav>
 
-    <main class="container">
+    <div class="project-banner">
+        <h1 class="logo-by">BLOOD-YIELD</h1>
+        <div style="font-family:'Fira Code'; color:var(--text-silver); font-size:0.75rem; letter-spacing:5px; margin-top:5px;">[ KERNEL: HANDY // MODULE: DECRYPTED_ARCHIVES ]</div>
+    </div>
 
-        <div class="lore-entry" data-log="LOG_REF: ORIGIN_HANDY_FAILURE">
-            <h2>The Ashen Convergence</h2>
-            <p>Heimr was not born; it was rendered. In the age of the <strong>Handy Protocol</strong>, the world existed as a perfect technical drafting paper grid. But an industrial overclocking—a desperate reach for "Unrivaled Innovation"—fractured the logic-brains of the foundation.</p>
-            <p>The grid lines bled. The drafting paper charred into the <strong>Iron Barrens</strong>. What remains is a Viking Gothic landscape where the circuitry of the old world pulses beneath the wet, sharp stone of the new.</p>
-            <div class="meta-data">DATA_STRING: DRAFTING_PAPER_TEXTURE // CIRCUIT_TRACE_SYNC</div>
+    <main class="main-grid">
+        
+        <div class="archive-container">
+            
+            <div class="log-file log-system">
+                <div class="log-meta">
+                    <span>RECORD_ID: 0x0A_CONVERGENCE</span>
+                    <span>TIMESTAMP: 2026.03.21</span>
+                </div>
+                <h2>THE ASHEN CONVERGENCE</h2>
+                <p>Heimr was not grown; it was rendered. Prior to the crash, this sector was a pristine, infinite partition running on the <strong>Handy</strong> kernel—a technical drafting grid where geometry was law and latency was zero.</p>
+                <p>In 2026, an aggressive industrial overclocking fractured the world's source code. The drafting paper textures charred. The liquid ferro-mercury of the cooling systems leaked, forming the Black Oily Mirror Waygates. The vibrant colors of the original UI were sucked into the void, leaving behind a <strong>Viking Gothic</strong> reality desaturated to <strong>Brushed Silver (#C0C0C0)</strong>.</p>
+            </div>
+
+            <div class="log-file log-symbiosis">
+                <div class="log-meta">
+                    <span>RECORD_ID: 0x0B_SYMBIOSIS</span>
+                    <span>TIMESTAMP: POST-CRASH_CYCLE_14</span>
+                </div>
+                <h2>THE SOWER & THE REAPER</h2>
+                <p>To survive the broken mainframe, Operators split into two biological protocols. The <strong>Reapers</strong> act as the kinetic security force, venturing into the unallocated fog of the Iron Barrens to harvest raw, uncompressed <strong>Vial-Bits ($vb$)</strong> from glitched Husks.</p>
+                <p>However, raw data is volatile. It must be brought to a <strong>Sower</strong>. Sowers are the architects who graft the glowing <strong>Electric Blue (#00D2FF)</strong> fiber-optics of the Yggdrasil-Link into Hallowed Plots. They provide the processing power to compress 1,024 $vb$ into a stable, industrial <strong>Kilo-Vial ($KV$)</strong>—the only currency recognized by the Hjärta hub.</p>
+            </div>
+
+            <div class="log-file log-blight">
+                <div class="log-meta">
+                    <span>RECORD_ID: 0x0C_ENTROPY</span>
+                    <span>TIMESTAMP: CONTINUOUS_MONITORING</span>
+                </div>
+                <h2>THE SOUL-BLIGHT PENALTY</h2>
+                <p>The true antagonist of Heimr is Entropy. <strong>Soul-Blight</strong> is a localized corruption of the rendering engine. As an Operator fights, their Bio-Armor and weaponry lose their high-contrast specularity. The wet stone dries, and the metal cracks into ashen fragments.</p>
+                <p>If a piece of equipment reaches critical mass, the Handy system imposes a severe <strong>80% Stat Penalty</strong>. At this stage, the Operator must expend Kilo-Vials to repair the registry, or cast the husked gear into the Maw for a 5% Cold Iron refund.</p>
+            </div>
+
         </div>
 
-        <div class="lore-entry highlight-emerald" data-log="LOG_REF: SOWER_VITALITY">
-            <h2>Parasitic Vitality</h2>
-            <p>The <strong>Sower</strong> is the architect of survival. Using <strong>Deep Emerald</strong> and <strong>Electric Blue</strong> energy, they stitch together the broken world. They don't plant life; they graft it. Thick, oily, vein-like roots snake through the Hallowed Plots, refining biological essence into the materials needed for Bio-Armor.</p>
-            <p>To be a Sower is to manage the "Plumbing" of growth, ensuring the harvest is ready before the decay sets in.</p>
-            <div class="meta-data">HEX_CODE: #00D2FF // AESTHETIC: ORGANIC_INDUSTRIAL</div>
-        </div>
+        <div>
+            <div class="data-panel">
+                <h3>> ARCHIVE_TELEMETRY</h3>
+                <div class="data-line"><span class="data-label">ENGINE:</span> <span class="data-value">HANDY_ARCHIVIST</span></div>
+                <div class="data-line"><span class="data-label">DECRYPTION:</span> <span class="data-value">AES_256_ACTIVE</span></div>
+                <div class="data-line"><span class="data-label">TOTAL_LOGS:</span> <span class="data-value">1,024_FILES</span></div>
+                <div class="data-line"><span class="data-label">RESTORED:</span> <span class="data-value" style="color:var(--emerald);">98.2%</span></div>
+                <div class="data-line"><span class="data-label">CORRUPTED:</span> <span class="data-value" style="color:var(--rust);">1.8%</span></div>
+                <div class="data-line"><span class="data-label">LORE_INDEX:</span> <span class="data-value">VIKING_GOTHIC</span></div>
+                <div class="data-line"><span class="data-label">DATA_SOURCE:</span> <span class="data-value">HARRISON_DB</span></div>
+                
+                <div style="margin-top:35px; font-size:0.7rem; color:var(--stone); line-height:1.6; border-top: 1px dashed var(--stone); padding-top: 20px;">
+                    [HI_SYSTEM_NOTICE]:<br>
+                    Further historical records regarding the "Cold Iron" anomalies are heavily fragmented. Decryption is ongoing.
+                </div>
+            </div>
 
-        <div class="lore-entry highlight-blood" data-log="LOG_REF: REAPER_HARVEST">
-            <h2>The Cold Iron Contract</h2>
-            <p>Where the Sower builds, the <strong>Reaper</strong> harvests. Armed with tools stamped at the Sanguine Forge, Reapers venture into the blighted zones to collect <strong>Soul Essence</strong> and the ultra-rare <strong>Cold Iron</strong>. Every kill is a transaction; every drop of blood is a physical currency stored in <strong>Blood Vials</strong>.</p>
-            <p>Without the Reaper, the economy of Hjärta starves. Without the Sower, the Reaper has no gear to shield them from the Blight.</p>
-            <div class="meta-data">CURRENCY: BLOOD_VIALS // DROP_RATE: COLD_IRON_RARE</div>
-        </div>
-
-        <div class="lore-entry highlight-gold" data-log="LOG_REF: ENTROPIC_DECAY">
-            <h2>The Soul-Blight Protocol</h2>
-            <p>Entropy is the only law in Heimr. As gear is used, it succumbs to <strong>Soul-Blight</strong>. The vibrant colors desaturate toward <strong>Brushed Silver (#C0C0C0)</strong>, and textures begin to crack and ash. When a piece of equipment is fully blighted, it suffers an <strong>80% stat penalty</strong>.</p>
-            <p>Operators must utilize Empty Vials and Refined Essence to restore their gear, or cast it into the <strong>Maw</strong> to reclaim a fraction of the Cold Iron within.</p>
-            <div class="meta-data">DECAY_RATE: VARIABLE // PENALTY: 0.8_EFFICIENCY_LOSS</div>
+            <div class="decryption-log">
+                <h4>> LIVE_DECRYPTION_FEED</h4>
+                <div class="log-entry process"><span class="time">[04:12:01]</span> > UNZIPPING: Block_01_Heimr.dat...</div>
+                <div class="log-entry success"><span class="time">[04:12:05]</span> > SUCCESS: <span class="amount">100% Integrity.</span></div>
+                <div class="log-entry process"><span class="time">[04:13:12]</span> > UNZIPPING: Block_02_Sower_Roots.dat...</div>
+                <div class="log-entry success"><span class="time">[04:13:15]</span> > SUCCESS: <span class="amount">100% Integrity.</span></div>
+                <div class="log-entry process"><span class="time">[04:14:50]</span> > UNZIPPING: Block_03_Old_Engine.dat...</div>
+                <div class="log-entry corrupt"><span class="time">[04:14:55]</span> > FATAL ERROR: <span class="amount">FILE_CORRUPTED (SOUL-BLIGHT).</span></div>
+                <div class="log-entry process"><span class="time">[04:15:10]</span> > RE-ROUTING TO HJÄRTA_BACKUP...</div>
+            </div>
         </div>
 
     </main>
 
-    <footer>
-        HARRISON INTERACTIVE // HEIMR LORE RECORDS // EST. 2026
-    </footer>
+    <footer>HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // EST. 2026</footer>
 
 </body>
 </html>
