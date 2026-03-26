@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANDY EDITOR | Harrison Interactive</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -13,7 +13,7 @@
             --bg-navy: #0A192F;
             --accent-blue: #00D2FF;
             --text-silver: #C0C0C0;
-            --glass: rgba(10, 25, 47, 0.95);
+            --glass: rgba(5, 5, 5, 0.85);
             
             /* Blueprint Data Colors */
             --bp-exec: #FFFFFF;
@@ -39,26 +39,70 @@
             min-height: 100vh;
         }
 
-        /* --- HEADER & NAV --- */
+        /* --- EVENT HORIZON HEADER (UNIFIED) --- */
+        @keyframes flow-left {
+            0% { background-position: -200% 0; }
+            100% { background-position: 0% 0; }
+        }
+
+        @keyframes flow-right {
+            0% { background-position: 200% 0; }
+            100% { background-position: 0% 0; }
+        }
+
+        @keyframes logo-pull {
+            0%, 100% { text-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue); transform: scale(1); }
+            50% { text-shadow: 0 0 25px var(--accent-blue), 0 0 40px var(--accent-blue); transform: scale(1.02); }
+        }
+
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             display: flex; justify-content: center; align-items: center;
-            background: var(--glass); backdrop-filter: blur(12px);
+            background: var(--glass); backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
             z-index: 2000;
+            overflow: hidden;
+        }
+
+        /* Symmetrical Flow Animation */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 50%; height: 100%;
+            background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px);
+            background-size: 200% 100%;
+            animation: flow-left 10s linear infinite;
+            mask-image: linear-gradient(to right, black, transparent);
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 50%; height: 100%;
+            background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px);
+            background-size: 200% 100%;
+            animation: flow-right 10s linear infinite;
+            mask-image: linear-gradient(to left, black, transparent);
         }
 
         .studio-logo {
-            font-family: 'Orbitron'; color: var(--text-silver);
-            text-transform: uppercase; letter-spacing: 4px; font-size: 1.2rem;
-            text-shadow: 0 0 10px var(--accent-blue);
+            font-family: 'Orbitron'; font-weight: 900; color: #fff;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 1.4rem;
+            animation: logo-pull 5s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        .logo-core-glow {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 300px; height: 80px;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.2) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
         }
 
         #menu-btn { 
             position: absolute; right: 5%; color: var(--accent-blue); font-size: 2rem; 
             cursor: pointer; transition: 0.3s; z-index: 2100;
         }
-        #menu-btn:hover { text-shadow: 0 0 15px var(--accent-blue); }
 
         #nav-menu {
             position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
@@ -72,8 +116,7 @@
 
         /* --- MAIN CONTENT --- */
         main {
-            position: relative; 
-            z-index: 10; 
+            position: relative; z-index: 10; 
             flex: 1; padding: 130px 5% 80px;
             display: flex; flex-direction: column; align-items: center;
             width: 100%; max-width: 1200px; margin: 0 auto;
@@ -113,39 +156,23 @@
             padding: 2px 10px; font-weight: bold; letter-spacing: 2px;
         }
 
-        /* PRICING STYLES OVERHAUL */
         .tier-price { 
             font-family: 'Orbitron'; font-size: 2.5rem; color: var(--accent-blue); 
-            margin: 15px 0; text-shadow: 0 0 15px rgba(0, 210, 255, 0.4); 
-            font-weight: bold;
+            margin: 15px 0; text-shadow: 0 0 15px rgba(0, 210, 255, 0.4); font-weight: bold;
         }
-        .tier-price span { font-size: 1rem; color: var(--text-silver); font-family: 'Inter'; font-weight: 300; text-shadow: none; }
+        .tier-price span { font-size: 1rem; color: var(--text-silver); font-family: 'Inter'; font-weight: 300; }
         
         .tier-list { text-align: left; margin: 20px 0; font-size: 0.85rem; flex: 1; line-height: 1.5; color: #fff; }
         .tier-list li { margin-bottom: 12px; list-style: none; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 8px; }
         .tier-list li::before { content: '>'; color: var(--accent-blue); font-family: 'Fira Code'; margin-right: 8px; font-weight: bold; }
         .tier-highlight { color: var(--text-silver); font-family: 'Fira Code'; font-size: 0.8rem; display: block; margin-top: 3px; opacity: 0.7; }
 
-        /* --- NESTED MODULE STYLING --- */
-        .module-stack {
-            margin-top: 20px;
-            text-align: left;
-            border-top: 1px solid rgba(0, 210, 255, 0.2);
-            padding-top: 20px;
-        }
-
-        .module-header {
-            display: flex; justify-content: space-between; 
-            font-family: 'Fira Code'; font-size: 0.65rem; color: var(--text-silver); margin-bottom: 8px;
-        }
-
+        /* --- MODULE STYLING --- */
+        .module-stack { margin-top: 20px; text-align: left; border-top: 1px solid rgba(0, 210, 255, 0.2); padding-top: 20px; }
+        .module-header { display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.65rem; color: var(--text-silver); margin-bottom: 8px; }
         .module-title { font-family: 'Orbitron'; font-size: 1rem; color: #fff; margin-bottom: 10px; }
 
-        .code-block {
-            font-family: 'Fira Code'; font-size: 0.75rem; color: #fff;
-            background: rgba(0,0,0,0.6); padding: 15px; margin-bottom: 15px;
-        }
-        
+        .code-block { font-family: 'Fira Code'; font-size: 0.75rem; color: #fff; background: rgba(0,0,0,0.6); padding: 15px; margin-bottom: 15px; }
         .border-exec { border-left: 2px solid var(--bp-exec); }
         .border-string { border-left: 2px solid var(--bp-string); }
 
@@ -153,7 +180,6 @@
         .dot-exec { background: var(--bp-exec); box-shadow: 0 0 5px var(--bp-exec); }
         .dot-string { background: var(--bp-string); box-shadow: 0 0 5px var(--bp-string); }
 
-        /* --- BUTTONS --- */
         .btn {
             padding: 12px 25px; font-family: 'Orbitron'; background: transparent;
             border: 1px solid var(--accent-blue); color: var(--accent-blue);
@@ -163,8 +189,7 @@
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 15px var(--accent-blue); }
 
         footer {
-            position: relative; 
-            background: var(--bg-deep); padding: 40px 5%; text-align: center;
+            position: relative; background: var(--bg-deep); padding: 40px 5%; text-align: center;
             border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Inter', sans-serif; z-index: 10; width: 100%;
         }
     </style>
@@ -172,6 +197,7 @@
 <body>
 
     <header>
+        <div class="logo-core-glow"></div>
         <div class="studio-logo">Harrison Interactive</div>
         <div id="menu-btn">☰</div>
     </header>
@@ -197,7 +223,6 @@
         </div>
 
         <div class="tier-grid">
-            
             <div class="tier-card">
                 <div style="font-family: 'Fira Code'; color: var(--text-silver); font-size: 0.8rem;">[ CORE_AUTOMATION ]</div>
                 <h3 style="font-family: 'Orbitron'; color: #fff; font-size: 1.5rem; margin-top: 10px;">LITE</h3>
@@ -207,7 +232,6 @@
                     <li>Bulk Asset Management<span class="tier-highlight">Rename, Move, and Clean</span></li>
                     <li>Standard Node Library<span class="tier-highlight">Pre-compiled UMG logic</span></li>
                 </ul>
-                
                 <div class="module-stack">
                     <div class="module-header"><span>MODULE // VISUAL_UI</span> <span style="color: var(--bp-exec);">[ STABLE ]</span></div>
                     <div class="module-title">BLUEPRINT INTERFACE</div>
@@ -216,7 +240,6 @@
                         <div><span class="dot dot-exec"></span> EUW_HI_HandySettings</div>
                     </div>
                 </div>
-                
                 <button class="btn">VIEW ON FAB</button>
             </div>
 
@@ -229,7 +252,6 @@
                     <li>Bring Your Own Brain (LLM)<span class="tier-highlight">Input your own API key</span></li>
                     <li>Automated Graph Cleaners<span class="tier-highlight">Format nodes instantly</span></li>
                 </ul>
-                
                 <div class="module-stack">
                     <div class="module-header"><span>MODULE // LOGIC_BRAIN</span> <span style="color: var(--bp-string);">[ ACTIVE ]</span></div>
                     <div class="module-title">PYTHON CORE</div>
@@ -238,7 +260,6 @@
                         <div><span class="dot dot-string"></span> handy_validator.py</div>
                     </div>
                 </div>
-
                 <button class="btn">VIEW ON FAB</button>
             </div>
 
@@ -251,7 +272,6 @@
                     <li>Verified Studio Badge<span class="tier-highlight">Priority routing & support</span></li>
                     <li>Commercial Studio Licensing<span class="tier-highlight">Cleared for $100k+ revenue</span></li>
                 </ul>
-                
                 <div class="module-stack">
                     <div class="module-header"><span>MODULE // OMNI_NETWORK</span> <span style="color: #00D2FF;">[ PENDING ]</span></div>
                     <div class="module-title">CLOUD ROUTING</div>
@@ -260,7 +280,6 @@
                         <div><span class="dot" style="background: #00D2FF;"></span> handy_router.py</div>
                     </div>
                 </div>
-
                 <button class="btn" style="background: rgba(255,255,255,0.05); color: var(--text-silver); border-color: rgba(255,255,255,0.2); pointer-events: none; letter-spacing: 4px;">COMING SOON</button>
             </div>
         </div>
