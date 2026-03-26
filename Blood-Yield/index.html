@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLOOD-YIELD | Dark Fantasy RPG</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <title>BLOOD-YIELD | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #050505;
-            --accent-blue: #00D2FF;
-            --blood: #8B0000;
-            --rust: #8A3324;
-            --gold-yield: #F9D423;
+            --accent-blue: #00D2FF; /* Global HI Accent */
+            --blood: #8B0000;       /* BY Primary */
+            --rust: #8A3324;        /* BY Secondary */
+            --gold-yield: #F9D423;  /* BY High-Value */
             --stone: #4A4E69;
             --text-silver: #C0C0C0;
             --glass: rgba(5, 5, 5, 0.9);
@@ -22,17 +22,16 @@
         body { 
             background-color: var(--bg-deep); 
             color: var(--text-silver); 
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* --- GLOBAL COMMAND DECK (SYNCED TO ROOT) --- */
+        /* --- GLOBAL COMMAND DECK --- */
         @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
         @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
-        
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 100px;
             display: flex; justify-content: center; align-items: center;
@@ -40,124 +39,68 @@
             border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
             z-index: 2000; overflow: hidden; padding: 0 5%;
         }
-
         header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
         header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
-
         .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
         .nav-group-left { justify-content: flex-end; padding-right: 40px; }
         .nav-group-right { justify-content: flex-start; padding-left: 40px; }
-
-        .nav-link {
-            font-family: 'Orbitron'; font-size: 0.75rem; color: #fff;
-            text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
-            transition: 0.3s; position: relative; opacity: 0.7;
-        }
+        .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
         .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
-        .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; z-index: 10; cursor: pointer; }
 
-        .studio-logo {
-            font-family: 'Orbitron'; font-weight: 900; color: #fff;
-            text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem;
-            z-index: 10; cursor: pointer; text-align: center;
-        }
-
-        #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
-
-        /* --- GAME-SPECIFIC SUB-NAV --- */
+        /* --- GAME NAVIGATION --- */
         .game-nav {
-            margin-top: 100px;
-            background: rgba(139, 0, 0, 0.05);
-            border-bottom: 1px solid var(--rust);
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            z-index: 1000;
+            margin-top: 100px; background: rgba(139, 0, 0, 0.05); border-bottom: 1px solid var(--rust);
+            padding: 15px; display: flex; justify-content: center; gap: 30px;
         }
-        .game-nav a {
-            text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem;
-            color: var(--stone); letter-spacing: 3px; transition: 0.3s;
-        }
+        .game-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; color: var(--stone); letter-spacing: 3px; transition: 0.3s; }
         .game-nav a:hover, .game-nav a.active { color: var(--blood); text-shadow: 0 0 10px var(--blood); }
 
         /* --- HERO SECTION --- */
         .hero {
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.2) 0%, rgba(5,5,5,1) 90%), url('BY-Background.png');
-            background-size: cover;
-            background-position: center;
-            position: relative;
+            height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            background: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,1) 90%), url('BY-Background.png');
+            background-size: cover; background-position: center; position: relative;
         }
-
         .logo-by {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-family: 'Orbitron';
-            font-weight: 900;
-            background: linear-gradient(to bottom, #FFD700 0%, #F9D423 40%, #8B0000 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(3rem, 10vw, 6rem); font-family: 'Orbitron'; font-weight: 900;
+            background: linear-gradient(to bottom, var(--gold-yield) 0%, #F9D423 40%, var(--blood) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 20px rgba(139, 0, 0, 0.6));
-            margin-bottom: 10px;
+        }
+        .coming-soon-tag {
+            font-family: 'Fira Code'; color: var(--gold-yield); font-size: 0.8rem; letter-spacing: 5px;
+            margin-top: 15px; border: 1px dashed var(--gold-yield); padding: 5px 20px;
         }
 
-        /* --- MODULE SECTION --- */
+        /* --- PLAYFAB TERMINAL (SIGNUP) --- */
         .section { max-width: 1200px; margin: 0 auto; padding: 60px 5%; width: 100%; }
-
-        .newsletter-box {
-            background: rgba(10, 25, 47, 0.4);
-            border: 1px solid var(--rust);
-            padding: 50px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        .signup-terminal {
+            background: rgba(10, 25, 47, 0.6); border: 1px solid var(--rust); border-left: 4px solid var(--blood);
+            padding: 60px; position: relative; text-align: center;
         }
-        .newsletter-box::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--blood);
-        }
+        .terminal-label { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--blood); position: absolute; top: 15px; left: 20px; letter-spacing: 2px; }
 
-        .module-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 40px 0;
-            text-align: left;
+        .input-group { position: relative; max-width: 500px; margin: 40px auto 20px; }
+        .input-group label { position: absolute; top: -10px; left: 20px; background: #0b1525; padding: 0 10px; font-family: 'Fira Code'; font-size: 0.65rem; color: var(--gold-yield); z-index: 5; }
+        
+        .terminal-input { 
+            width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--stone); 
+            color: #fff; padding: 20px; font-family: 'Fira Code'; outline: none; transition: 0.4s; font-size: 1rem;
         }
+        .terminal-input:focus { border-color: var(--gold-yield); box-shadow: inset 0 0 15px rgba(249, 212, 35, 0.1); }
 
-        .module-card {
-            border-left: 2px solid var(--blood);
-            padding-left: 20px;
-        }
-        .module-card strong { font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 1px; display: block; margin-bottom: 10px; }
-        .module-card p { font-size: 0.85rem; line-height: 1.6; color: var(--text-silver); }
-
-        input[type="email"] {
-            padding: 20px; width: 100%; max-width: 400px;
-            background: #000; border: 1px solid var(--stone);
-            color: #fff; font-family: 'Fira Code'; margin-bottom: 20px;
-            outline: none; transition: 0.3s;
-        }
-        input[type="email"]:focus { border-color: var(--gold-yield); }
-
-        .btn {
-            padding: 20px 50px; background: var(--blood);
-            color: #fff; border: 1px solid var(--rust);
-            font-family: 'Orbitron'; font-weight: 700; cursor: pointer;
-            transition: 0.3s; letter-spacing: 2px; text-transform: uppercase;
+        .btn { 
+            padding: 20px 60px; font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; 
+            cursor: pointer; background: var(--blood); border: 1px solid var(--rust); color: #fff; transition: 0.3s;
         }
         .btn:hover { box-shadow: 0 0 30px var(--blood); filter: brightness(1.2); }
 
-        /* --- FOOTER --- */
-        footer { background: #000; padding: 60px 5%; border-top: 1px solid rgba(138, 51, 36, 0.3); margin-top: auto; }
-        .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; }
+        /* --- UNIFIED FOOTER --- */
+        footer { background: var(--bg-deep); padding: 30px 5%; text-align: center; border-top: 1px solid rgba(139, 0, 0, 0.2); z-index: 10; margin-top: auto; }
+        .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; color: var(--text-silver); }
 
-        @media (max-width: 1100px) { .nav-group { display: none; } #menu-btn { display: block; } }
-        @media (max-width: 800px) { .module-grid { grid-template-columns: 1fr; } .hero { height: 50vh; } }
+        @media (max-width: 1100px) { header { height: 180px; } .nav-group { display: none; } }
     </style>
 </head>
 <body>
@@ -169,7 +112,6 @@
             <a href="index.html" class="nav-link active">Blood-Yield</a>
         </div>
         <div class="studio-logo" onclick="window.location.href='../index.html'">Harrison Interactive</div>
-        <div id="menu-btn">☰</div>
         <div class="nav-group nav-group-right">
             <a href="../about.html" class="nav-link">About</a>
             <a href="../faq.html" class="nav-link">FAQ</a>
@@ -186,49 +128,51 @@
 
     <header class="hero">
         <h1 class="logo-by">BLOOD-YIELD</h1>
-        <div style="font-family:'Fira Code'; color: var(--accent-blue); font-size: 0.75rem; letter-spacing: 5px;">[ ALPHA_DEPLOYMENT // 2026 ]</div>
+        <div class="coming-soon-tag">ALPHA DEPLOYMENT // Q4 2026</div>
     </header>
 
     <main class="section">
-        <div class="newsletter-box">
-            <h2 style="font-family: 'Orbitron'; margin-bottom: 20px; color: var(--gold-yield); letter-spacing: 4px;">INITIATE THE YIELD</h2>
-            <p style="margin-bottom: 30px; line-height: 1.8;">A Visceral Dark Fantasy RPG where ancient blood meets circuit logic. Built inside the <strong>Handy Ultimate</strong> architecture for Unreal Engine 5.</p>
-            
-            <div class="module-grid">
-                <div class="module-card">
-                    <strong>THE SYMBIOSIS PROTOCOL</strong>
-                    <p>Balance the industrial force of the <strong>Reaper</strong> with the organic terraforming logic of the <strong>Sower</strong>.</p>
-                </div>
-                <div class="module-card">
-                    <strong>THE SECURE EXCHANGE</strong>
-                    <p>A verified RMT-ready marketplace powered by the <strong>PlayFab</strong> backbone for secure asset harvesting.</p>
-                </div>
-            </div>
+        <div class="signup-terminal">
+            <span class="terminal-label">[ PLAYFAB_SECURE_UPLINK ]</span>
+            <h2 style="font-family:'Orbitron'; color:var(--gold-yield); letter-spacing:4px;">INITIATE THE YIELD</h2>
+            <p style="margin-top: 20px; font-size: 0.95rem; opacity: 0.8; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Register your operator designation to the waitlist. Verified backers receive priority character selection and early access to the Cold Iron exchange.
+            </p>
 
-            <p style="margin-bottom: 20px; color: var(--stone); font-size: 0.8rem; font-family: 'Fira Code';">[ UPLINK_REQUIRED_FOR_ALPHA_ACCESS ]</p>
-            <form>
-                <input type="email" placeholder="ENTER_OPERATOR_EMAIL" required><br>
-                <button type="submit" class="btn">INITIALIZE UPLINK</button>
+            <form id="waitlist-form">
+                <div class="input-group">
+                    <label>OPERATOR_EMAIL_ADDRESS</label>
+                    <input type="email" id="email" class="terminal-input" placeholder="Enter uplink address..." required>
+                </div>
+                <button type="submit" class="btn" id="submit-btn">INITIALIZE UPLINK</button>
             </form>
+            <p id="status-msg" style="margin-top:20px; font-family:'Fira Code'; font-size:0.8rem;"></p>
         </div>
     </main>
 
     <footer>
-        <div class="footer-inner">
-            <div style="text-align: left;">
-                <p style="font-family: 'Orbitron'; color: var(--blood); font-size: 0.9rem; letter-spacing: 2px;">HARRISON INTERACTIVE</p>
-                <p style="font-size: 0.6rem; color: var(--stone); margin-top: 5px; font-family: 'Fira Code';">UNRIVALED INNOVATION // EST. 2026</p>
-            </div>
-            <div style="text-align: right; font-size: 0.7rem; color: var(--stone); font-family: 'Fira Code';">
-                &copy; 2026 BLOOD-YIELD.COM // ALL RIGHTS DECRYPTED.<br>
-                <a href="../handy.html" style="color: var(--rust); text-decoration: none;">POWERED BY HANDY ULTIMATE</a>
-            </div>
-        </div>
+        <div class="footer-text">© 2026 HARRISON INTERACTIVE LLC // BLOOD-YIELD // EST. 2026 // UNRIVALED INNOVATION</div>
     </footer>
 
     <script>
-        const btn = document.getElementById('menu-btn');
-        // Note: Mobile nav logic would need to point to ../ links or a separate mobile container
+        // Form Logic Placeholder for PlayFab
+        const form = document.getElementById('waitlist-form');
+        const statusMsg = document.getElementById('status-msg');
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            document.getElementById('submit-btn').innerText = "> SYNCHRONIZING...";
+            
+            // Logic flow: Send to PlayFab via CloudScript or custom Worker
+            // For now, simulating the secure success pulse
+            setTimeout(() => {
+                statusMsg.style.color = "var(--gold-yield)";
+                statusMsg.innerText = "[ STATUS: 200 OK ] OPERATOR ADDED TO ALPHA QUEUE.";
+                document.getElementById('submit-btn').innerText = "UPLINK COMPLETE";
+                form.reset();
+            }, 1500);
+        };
     </script>
 </body>
 </html>
