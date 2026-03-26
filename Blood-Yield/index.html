@@ -1,178 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLOOD-YIELD | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #050505;
-            --accent-blue: #00D2FF; /* Global HI Accent */
-            --blood: #8B0000;       /* BY Primary */
-            --rust: #8A3324;        /* BY Secondary */
-            --gold-yield: #F9D423;  /* BY High-Value */
-            --stone: #4A4E69;
-            --text-silver: #C0C0C0;
-            --glass: rgba(5, 5, 5, 0.9);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background-color: var(--bg-deep); 
-            color: var(--text-silver); 
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        /* --- GLOBAL COMMAND DECK --- */
-        @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
-        @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
-        header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100px;
-            display: flex; justify-content: center; align-items: center;
-            background: var(--glass); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
-            z-index: 2000; overflow: hidden; padding: 0 5%;
-        }
-        header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
-        header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
-        .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
-        .nav-group-left { justify-content: flex-end; padding-right: 40px; }
-        .nav-group-right { justify-content: flex-start; padding-left: 40px; }
-        .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
-        .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; z-index: 10; cursor: pointer; }
-
-        /* --- GAME NAVIGATION --- */
-        .game-nav {
-            margin-top: 100px; background: rgba(139, 0, 0, 0.05); border-bottom: 1px solid var(--rust);
-            padding: 15px; display: flex; justify-content: center; gap: 30px;
-        }
-        .game-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; color: var(--stone); letter-spacing: 3px; transition: 0.3s; }
-        .game-nav a:hover, .game-nav a.active { color: var(--blood); text-shadow: 0 0 10px var(--blood); }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-            background: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,1) 90%), url('BY-Background.png');
-            background-size: cover; background-position: center; position: relative;
-        }
-        .logo-by {
-            font-size: clamp(3rem, 10vw, 6rem); font-family: 'Orbitron'; font-weight: 900;
-            background: linear-gradient(to bottom, var(--gold-yield) 0%, #F9D423 40%, var(--blood) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(139, 0, 0, 0.6));
-        }
-        .coming-soon-tag {
-            font-family: 'Fira Code'; color: var(--gold-yield); font-size: 0.8rem; letter-spacing: 5px;
-            margin-top: 15px; border: 1px dashed var(--gold-yield); padding: 5px 20px;
-        }
-
-        /* --- PLAYFAB TERMINAL (SIGNUP) --- */
-        .section { max-width: 1200px; margin: 0 auto; padding: 60px 5%; width: 100%; }
-        .signup-terminal {
-            background: rgba(10, 25, 47, 0.6); border: 1px solid var(--rust); border-left: 4px solid var(--blood);
-            padding: 60px; position: relative; text-align: center;
-        }
-        .terminal-label { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--blood); position: absolute; top: 15px; left: 20px; letter-spacing: 2px; }
-
-        .input-group { position: relative; max-width: 500px; margin: 40px auto 20px; }
-        .input-group label { position: absolute; top: -10px; left: 20px; background: #0b1525; padding: 0 10px; font-family: 'Fira Code'; font-size: 0.65rem; color: var(--gold-yield); z-index: 5; }
-        
-        .terminal-input { 
-            width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--stone); 
-            color: #fff; padding: 20px; font-family: 'Fira Code'; outline: none; transition: 0.4s; font-size: 1rem;
-        }
-        .terminal-input:focus { border-color: var(--gold-yield); box-shadow: inset 0 0 15px rgba(249, 212, 35, 0.1); }
-
-        .btn { 
-            padding: 20px 60px; font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; 
-            cursor: pointer; background: var(--blood); border: 1px solid var(--rust); color: #fff; transition: 0.3s;
-        }
-        .btn:hover { box-shadow: 0 0 30px var(--blood); filter: brightness(1.2); }
-
-        /* --- UNIFIED FOOTER --- */
-        footer { background: var(--bg-deep); padding: 30px 5%; text-align: center; border-top: 1px solid rgba(139, 0, 0, 0.2); z-index: 10; margin-top: auto; }
-        .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; color: var(--text-silver); }
-
-        @media (max-width: 1100px) { header { height: 180px; } .nav-group { display: none; } }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="nav-group nav-group-left">
-            <a href="../index.html" class="nav-link">Home</a>
-            <a href="../handy.html" class="nav-link">Handy</a>
-            <a href="index.html" class="nav-link active">Blood-Yield</a>
-        </div>
-        <div class="studio-logo" onclick="window.location.href='../index.html'">Harrison Interactive</div>
-        <div class="nav-group nav-group-right">
-            <a href="../about.html" class="nav-link">About</a>
-            <a href="../faq.html" class="nav-link">FAQ</a>
-            <a href="../legal.html" class="nav-link">Legal</a>
-        </div>
-    </header>
-
-    <nav class="game-nav">
-        <a href="index.html" class="active">PROJECT_HOME</a>
-        <a href="world.html">bastion_world</a>
-        <a href="lore.html">lore_logs</a>
-        <a href="community.html">network_layer</a>
-    </nav>
-
-    <header class="hero">
-        <h1 class="logo-by">BLOOD-YIELD</h1>
-        <div class="coming-soon-tag">ALPHA DEPLOYMENT // Q4 2026</div>
-    </header>
-
-    <main class="section">
-        <div class="signup-terminal">
-            <span class="terminal-label">[ PLAYFAB_SECURE_UPLINK ]</span>
-            <h2 style="font-family:'Orbitron'; color:var(--gold-yield); letter-spacing:4px;">INITIATE THE YIELD</h2>
-            <p style="margin-top: 20px; font-size: 0.95rem; opacity: 0.8; max-width: 700px; margin-left: auto; margin-right: auto;">
-                Register your operator designation to the waitlist. Verified backers receive priority character selection and early access to the Cold Iron exchange.
+<main class="section">
+        <div class="ancient-scroll">
+            <h2 style="font-family:'Orbitron'; color:var(--gold-yield); letter-spacing:4px; font-weight: 900;">JOIN THE COLD HARVEST</h2>
+            <p style="margin: 20px auto; font-size: 1.1rem; max-width: 600px; line-height: 1.6; font-style: italic;">
+                "The earth yields nothing but blood. Enter your mark to receive word of the coming Alpha."
             </p>
 
-            <form id="waitlist-form">
-                <div class="input-group">
-                    <label>OPERATOR_EMAIL_ADDRESS</label>
-                    <input type="email" id="email" class="terminal-input" placeholder="Enter uplink address..." required>
+            <form id="waitlist-form" style="margin-top: 40px;">
+                <div class="input-container">
+                    <input type="email" id="email" class="gothic-input" placeholder="MARK YOUR EMAIL" required>
                 </div>
-                <button type="submit" class="btn" id="submit-btn">INITIALIZE UPLINK</button>
+                <button type="submit" class="btn" id="submit-btn">INITIATE UPLINK</button>
             </form>
-            <p id="status-msg" style="margin-top:20px; font-family:'Fira Code'; font-size:0.8rem;"></p>
+            <p id="status-msg" style="margin-top:25px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;"></p>
         </div>
     </main>
 
-    <footer>
-        <div class="footer-text">© 2026 HARRISON INTERACTIVE LLC // BLOOD-YIELD // EST. 2026 // UNRIVALED INNOVATION</div>
-    </footer>
+    <style>
+        /* New Aesthetic Overrides */
+        .ancient-scroll {
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid var(--rust);
+            padding: 80px 40px;
+            box-shadow: 0 0 50px rgba(139, 0, 0, 0.2), inset 0 0 100px rgba(0,0,0,1);
+            position: relative;
+        }
+        /* Adding a "Gothic Spike" corner effect */
+        .ancient-scroll::after {
+            content: ''; position: absolute; top: -10px; left: -10px; width: 30px; height: 30px;
+            border-top: 3px solid var(--blood); border-left: 3px solid var(--blood);
+        }
+        .ancient-scroll::before {
+            content: ''; position: absolute; bottom: -10px; right: -10px; width: 30px; height: 30px;
+            border-bottom: 3px solid var(--blood); border-right: 3px solid var(--blood);
+        }
 
-    <script>
-        // Form Logic Placeholder for PlayFab
-        const form = document.getElementById('waitlist-form');
-        const statusMsg = document.getElementById('status-msg');
-
-        form.onsubmit = async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            document.getElementById('submit-btn').innerText = "> SYNCHRONIZING...";
-            
-            // Logic flow: Send to PlayFab via CloudScript or custom Worker
-            // For now, simulating the secure success pulse
-            setTimeout(() => {
-                statusMsg.style.color = "var(--gold-yield)";
-                statusMsg.innerText = "[ STATUS: 200 OK ] OPERATOR ADDED TO ALPHA QUEUE.";
-                document.getElementById('submit-btn').innerText = "UPLINK COMPLETE";
-                form.reset();
-            }, 1500);
-        };
-    </script>
-</body>
-</html>
+        .gothic-input {
+            width: 100%; max-width: 450px; padding: 20px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--stone);
+            color: #fff; font-family: 'Orbitron'; text-align: center;
+            letter-spacing: 2px; outline: none; transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        .gothic-input:focus {
+            border-color: var(--blood);
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+        }
+    </style>
