@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><title>THE MAW | Industrial Salvage</title>
+    <meta charset="UTF-8"><title>THE MAW | Heimr Salvage</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Montserrat:wght@300;700&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #050505; --blood: #8B0000; --gold: #F9D423; --silver: #C0C0C0; --rust: #8A3324; }
@@ -11,29 +11,21 @@
         .sub-nav { background: rgba(139, 0, 0, 0.1); border-bottom: 1px solid var(--blood); padding: 15px; display: flex; justify-content: center; gap: 40px; }
         .sub-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; color: #4A4E69; letter-spacing: 4px; transition: 0.3s; }
         .sub-nav a.active { color: var(--blood); border-bottom: 1px solid var(--blood); }
-
-        .container { max-width: 1200px; margin: 60px auto; padding: 0 5%; text-align: center; }
-        .maw-pit { background: linear-gradient(180deg, #000 0%, #050505 100%); border: 1px solid var(--rust); padding: 80px 40px; position: relative; }
-        .maw-pit::before { content: 'SYSTEM_DECOMPILATION_ACTIVE'; position: absolute; top: 10px; left: 20px; font-family: 'Fira Code'; font-size: 0.6rem; color: var(--rust); opacity: 0.7; }
-        
-        h1 { font-family: 'Orbitron'; font-size: 4rem; letter-spacing: 20px; color: var(--blood); text-shadow: 0 0 30px rgba(139,0,0,0.5); }
-        .yield-stat { font-family: 'Orbitron'; font-size: 3rem; color: var(--gold); margin: 30px 0; border: 1px solid var(--gold); display: inline-block; padding: 20px 40px; background: rgba(249, 212, 35, 0.05); }
+        .container { max-width: 1000px; margin: 80px auto; padding: 0 5%; text-align: center; }
+        .pit-terminal { border: 1px solid var(--rust); padding: 80px 40px; background: linear-gradient(180deg, #000, #050505); }
+        h1 { font-family: 'Orbitron'; font-size: 3.5rem; letter-spacing: 20px; color: var(--blood); }
+        .return-box { font-family: 'Orbitron'; font-size: 3rem; color: var(--gold); border: 2px solid var(--gold); padding: 20px; display: inline-block; margin: 30px 0; }
     </style>
 </head>
 <body>
     <header><a href="index.html" class="studio-logo">HARRISON INTERACTIVE</a></header>
-    <nav class="sub-nav">
-        <a href="world.html">GEOGRAPHY</a>
-        <a href="waygates.html">WAYGATES</a>
-        <a href="plots.html">HALLOWED_PLOTS</a>
-        <a href="maw.html" class="active">THE_MAW</a>
-    </nav>
+    <nav class="sub-nav"><a href="world.html">GEOGRAPHY</a><a href="waygates.html">WAYGATES</a><a href="plots.html">PLOTS</a><a href="maw.html" class="active">MAW</a></nav>
     <main class="container">
-        <div class="maw-pit">
+        <div class="pit-terminal">
             <h1>THE MAW</h1>
-            <p style="opacity: 0.7; max-width: 600px; margin: 20px auto; line-height: 1.8;">The vertical salvage abyss. De-compile your Soul-Blighted gear to reclaim raw industrial materials.</p>
-            <div class="yield-stat">5% RETURN</div>
-            <p style="font-family: 'Fira Code'; color: var(--rust); font-size: 0.8rem; letter-spacing: 5px;">[ CURRENCY_EXTRACTED: COLD_IRON ]</p>
+            <p style="opacity:0.7;">Industrial de-compilation terminal of <strong>Heimr</strong>.</p>
+            <div class="return-box">5% YIELD</div>
+            <div style="font-family:'Fira Code'; color:var(--rust);">[ EXTRACTING: COLD_IRON ]</div>
         </div>
     </main>
 </body>
