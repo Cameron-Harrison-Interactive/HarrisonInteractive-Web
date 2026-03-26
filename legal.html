@@ -3,39 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGAL | Harrison Interactive LLC</title>
+    <title>LEGAL TERMINAL | Harrison Interactive LLC</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-deep: #050505; --bg-navy: #0A192F; --accent-blue: #00D2FF; --accent-red: #8B0000; --text-silver: #C0C0C0; --glass: rgba(5, 5, 5, 0.85); }
+        :root { 
+            --bg-deep: #050505; 
+            --bg-navy: #0A192F; 
+            --accent-blue: #00D2FF; 
+            --accent-red: #8B0000; 
+            --text-silver: #C0C0C0; 
+            --glass: rgba(5, 5, 5, 0.85); 
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg-deep); background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px), radial-gradient(circle at top center, #0a192f 0%, transparent 80%); background-size: 50px 50px, 50px 50px, 100% 100%; background-attachment: fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* HEADER LOGIC */
+        body { 
+            background-color: var(--bg-deep); 
+            background-image: radial-gradient(circle at top center, #0a192f 0%, transparent 80%); 
+            background-attachment: fixed; 
+            color: var(--text-silver); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* --- ADAPTIVE COMMAND DECK --- */
         @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
         @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
         @keyframes logo-pull { 0%, 100% { text-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue); transform: scale(1); } 50% { text-shadow: 0 0 25px var(--accent-blue), 0 0 40px var(--accent-blue); transform: scale(1.02); } }
+        
         header { position: fixed; top: 0; left: 0; width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 210, 255, 0.2); z-index: 2000; overflow: hidden; padding: 0 5%; }
         header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
         header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
+        
         .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
         .nav-group-left { justify-content: flex-end; padding-right: 40px; }
         .nav-group-right { justify-content: flex-start; padding-left: 40px; }
         .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; position: relative; opacity: 0.7; }
         .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
-        .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
+        .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
         .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; animation: logo-pull 5s ease-in-out infinite; z-index: 10; text-align: center; white-space: nowrap; cursor: pointer; }
 
-        /* CONTENT STYLES */
+        #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
+        #mobile-nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5,5,5,0.98); z-index: 3000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; transition: 0.4s; }
+        #mobile-nav.active { right: 0; }
+        #mobile-nav a { font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; text-decoration: none; }
+
+        /* --- CONTENT --- */
         main { flex: 1; padding: 140px 5% 80px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1200px; margin: 0 auto; }
-        @keyframes boot-up { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-        .hero { text-align: center; margin-bottom: 60px; animation: boot-up 0.8s ease-out; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; width: 100%; }
-        .ue-panel { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(0, 210, 255, 0.1); border-left: 4px solid var(--accent-blue); padding: 35px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); animation: boot-up 1s ease-out both; }
-        .meta-tag { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 3px; margin-bottom: 15px; display: block; }
-        .panel-h { font-family: 'Orbitron'; font-size: 1.2rem; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
-        .panel-p { font-family: 'Inter'; font-size: 0.85rem; line-height: 1.6; color: var(--text-silver); }
-        footer { background: var(--bg-deep); padding: 40px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Inter', sans-serif; z-index: 10; width: 100%; }
-        @media (max-width: 1100px) { header { flex-direction: column; height: auto; padding: 20px; } .nav-group { width: 100%; justify-content: center; padding: 10px 0; gap: 15px; } .studio-logo { margin: 10px 0; order: -1; } main { padding-top: 200px; } }
+        
+        .legal-hero { text-align: center; margin-bottom: 60px; }
+        .legal-hero h1 { font-family: 'Orbitron'; font-weight: 900; color: #fff; font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 20px var(--accent-blue); }
+
+        .legal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; width: 100%; }
+        
+        .ue-panel { 
+            background: rgba(5, 5, 5, 0.9); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(0, 210, 255, 0.1); 
+            border-left: 4px solid var(--accent-blue); 
+            padding: 40px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
+        }
+
+        .meta-tag { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); margin-bottom: 20px; display: block; border-bottom: 1px solid rgba(0, 210, 255, 0.1); padding-bottom: 10px; }
+        .panel-h { font-family: 'Orbitron'; font-size: 1.2rem; color: #fff; margin-bottom: 20px; letter-spacing: 1px; }
+        .panel-p { font-family: 'Inter'; font-size: 0.85rem; color: var(--text-silver); line-height: 1.8; margin-bottom: 15px; }
+        .panel-p strong { color: #fff; }
+
+        @media (max-width: 1100px) { .nav-group { display: none; } #menu-btn { display: block; } }
+        @media (max-width: 800px) { .legal-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -46,24 +85,79 @@
             <a href="Blood-Yield/" class="nav-link">Blood-Yield</a>
         </div>
         <div class="studio-logo" onclick="window.location.href='index.html'">Harrison Interactive</div>
+        <div id="menu-btn">☰</div>
         <div class="nav-group nav-group-right">
             <a href="about.html" class="nav-link">About</a>
             <a href="faq.html" class="nav-link">FAQ</a>
             <a href="legal.html" class="nav-link active">Legal</a>
         </div>
     </header>
+
+    <nav id="mobile-nav">
+        <a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a>
+    </nav>
+
     <main>
-        <header class="hero">
-            <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-blue); letter-spacing: 5px;">[ PROTOCOL: COMPLIANCE_ENFORCED ]</div>
-            <h1 style="font-family: 'Orbitron'; font-weight: 900; color: #fff; font-size: clamp(2rem, 6vw, 3.5rem); text-shadow: 0 0 20px var(--accent-blue); margin: 15px 0;">LEGAL <span style="color: var(--accent-blue);">TERMINAL</span></h1>
-        </header>
-        <section class="grid">
-            <div class="ue-panel" style="animation-delay: 0.1s;"><span class="meta-tag">[ SECTOR // DATA_PROTECTION ]</span><h3 class="panel-h">PRIVACY POLICY</h3><p class="panel-p">We collect minimal telemetry strictly for infrastructure security.</p></div>
-            <div class="ue-panel" style="animation-delay: 0.2s;"><span class="meta-tag">[ SECTOR // USAGE_RIGHTS ]</span><h3 class="panel-h">TERMS OF SERVICE</h3><p class="panel-p">Handy toolkit logic and Blood-Yield assets are exclusive intellectual property of Harrison Interactive LLC.</p></div>
-            <div class="ue-panel" style="animation-delay: 0.3s;"><span class="meta-tag">[ SECTOR // TRADEMARKS ]</span><h3 class="panel-h">TRADEMARK NOTICE</h3><p class="panel-p">Unreal® Engine is a registered trademark of Epic Games, Inc.</p></div>
-            <div class="ue-panel" style="animation-delay: 0.4s;"><span class="meta-tag">[ SECTOR // ECONOMY_FINANCIALS ]</span><h3 class="panel-h">ECONOMY COMPLIANCE</h3><p class="panel-p">All high-value RMT transactions are logged for security verification.</p></div>
-        </section>
+        <div class="legal-hero">
+            <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-blue); letter-spacing: 5px;">[ PROTOCOL // COMPLIANCE_TERMINAL ]</div>
+            <h1>LEGAL <span style="color: var(--accent-blue);">TERMS</span></h1>
+        </div>
+
+        <div class="legal-grid">
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // HANDY_LICENSING ]</span>
+                <h3 class="panel-h">SOFTWARE USAGE RIGHTS</h3>
+                <p class="panel-p">
+                    The <strong>HANDY</strong> Editor Utility is licensed, not sold. Harrison Interactive LLC retains full ownership of the hybrid Python-Blueprint architecture. 
+                </p>
+                <p class="panel-p">
+                    <strong>Usage:</strong> You are granted a non-exclusive license to use Handy to build game assets and levels. You may sell the <em>results</em> (Data Assets, Levels, Blueprints) on the Fab Marketplace, but you are strictly prohibited from redistributing the core Handy <code>Content/Handy/</code> logic or Python scripts.
+                </p>
+            </div>
+
+            <div class="ue-panel" style="border-left-color: var(--accent-red);">
+                <span class="meta-tag" style="color: var(--accent-red);">[ SECTOR // BLOOD_YIELD_ECONOMY ]</span>
+                <h3 class="panel-h">RMT & MARKETPLACE SECURITY</h3>
+                <p class="panel-p">
+                    <strong>Symbiotic Economy:</strong> All Real Money Trading (RMT) involving Cold Iron or Soul Essence must be conducted via the integrated secure marketplace. 
+                </p>
+                <p class="panel-p">
+                    <strong>Verification:</strong> Harrison Interactive reserves the right to revoke "Verified Signatory Badges" or suspend accounts suspected of exploiting Soul-Blight decay cycles or using unauthorized Handy-driven automation to gain an unfair harvest advantage.
+                </p>
+            </div>
+
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // DATA_PROTECTION ]</span>
+                <h3 class="panel-h">PRIVACY & TELEMETRY</h3>
+                <p class="panel-p">
+                    <strong>Data Collection:</strong> We do not store localized financial data. All transactions are handled by the <strong>Fab Marketplace</strong> or authorized processors. 
+                </p>
+                <p class="panel-p">
+                    <strong>Handy Ultimate:</strong> When using the "Bring Your Own Brain" feature, your API keys for third-party LLMs are processed locally and never stored on Harrison Interactive servers. You are responsible for the data sent via the Python logic bridge to your chosen LLM provider.
+                </p>
+            </div>
+
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // ENGINE_STABILITY ]</span>
+                <h3 class="panel-h" style="color: var(--accent-red);">LIABILITY DISCLAIMER</h3>
+                <p class="panel-p">
+                    <strong>"AS IS" Clause:</strong> All software provided by HI is delivered "AS IS." Unreal Engine is a developing platform. We are not liable for project corruption or data loss resulting from the use of Handy on <strong>experimental</strong> or <strong>beta</strong> versions of Unreal Engine.
+                </p>
+                <p class="panel-p">
+                    <strong>Engine Updates:</strong> We strive to maintain Handy for 5.4 stable, but cannot guarantee immediate compatibility with "Day 0" engine updates.
+                </p>
+            </div>
+        </div>
     </main>
-    <footer><div style="opacity: 0.8; font-size: 0.8rem;">© 2026 <span style="color: var(--accent-blue); font-weight: 600;">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div></footer>
+
+    <footer>
+        <div style="opacity: 0.8; font-size: 0.8rem;">© 2026 <span style="color: var(--accent-blue); font-weight: 600;">HARRISON INTERACTIVE LLC</span>. ALL RIGHTS RESERVED.</div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const nav = document.getElementById('mobile-nav');
+        btn.onclick = () => { nav.classList.toggle('active'); btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; };
+    </script>
 </body>
 </html>
