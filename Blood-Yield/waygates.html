@@ -1,31 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><title>WAYGATES | Heimr Travel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Montserrat:wght@300;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI_DATABASE | Waygate_Uplink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --accent: #00D2FF; --blood: #8B0000; --gold: #F9D423; --silver: #C0C0C0; }
-        body { background: var(--bg); color: var(--silver); font-family: 'Montserrat'; margin: 0; }
-        header { width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: rgba(5,5,5,0.95); border-bottom: 1px solid rgba(0,210,255,0.2); position: sticky; top: 0; z-index: 2000; }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 2px; text-decoration: none; }
-        .sub-nav { background: rgba(139, 0, 0, 0.1); border-bottom: 1px solid var(--blood); padding: 15px; display: flex; justify-content: center; gap: 40px; }
-        .sub-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; color: #4A4E69; letter-spacing: 4px; transition: 0.3s; }
-        .sub-nav a.active { color: var(--gold); border-bottom: 1px solid var(--gold); }
-        .container { max-width: 1000px; margin: 80px auto; padding: 0 5%; text-align: center; }
-        .terminal { background: rgba(10,10,10,0.9); border: 1px solid var(--accent); padding: 60px; box-shadow: inset 0 0 50px rgba(0, 210, 255, 0.1); }
-        h1 { font-family: 'Orbitron'; font-size: 3rem; letter-spacing: 15px; color: #fff; margin-bottom: 25px; }
-        .data-line { font-family: 'Fira Code'; font-size: 0.8rem; color: var(--accent); margin-top: 40px; border-top: 1px solid rgba(0,210,255,0.2); padding-top: 20px; }
+        :root {
+            --bg-deep: #050505;
+            --accent-blue: #00D2FF; 
+            --blood: #8B0000;       
+            --rust: #8A3324;        
+            --gold-yield: #F9D423;  
+            --stone: #4A4E69;
+            --text-silver: #C0C0C0;
+            --mirror-black: #0a0a0a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-silver); 
+            font-family: 'Montserrat', sans-serif;
+            background-image: linear-gradient(rgba(5,5,5,0.92), rgba(5,5,5,0.95)), url('BY-Background.png');
+            background-size: cover; background-position: center center; background-attachment: fixed;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        /* --- STUDIO HEADER --- */
+        header {
+            width: 100%; min-height: 70px; display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(10px);
+        }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 2px; text-decoration: none; font-size: 1rem; }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.65rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
+        .nav-links a:hover { opacity: 1; color: var(--accent-blue); }
+
+        /* --- COMMAND DECK (HUD GLOW) --- */
+        .command-deck {
+            background: #000; border-bottom: 2px solid var(--blood);
+            padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+            box-shadow: 0 5px 20px rgba(0,0,0,1); position: relative; z-index: 1000;
+        }
+        .command-deck a {
+            text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;
+            color: #fff; letter-spacing: 2px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.8);
+            border: 1px solid rgba(139, 0, 0, 0.4); padding: 8px 15px; background: rgba(139, 0, 0, 0.1);
+        }
+        .command-deck a.active { color: var(--gold-yield); border-color: var(--gold-yield); text-shadow: 0 0 12px var(--gold-yield); }
+
+        /* --- COMPACT TITLE --- */
+        .project-banner { text-align: center; padding: 20px 0 5px; }
+        .logo-by { 
+            font-size: clamp(2rem, 8vw, 4rem); font-family: 'Orbitron'; font-weight: 900; 
+            background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.6));
+        }
+
+        /* --- WAYGATE INTERFACE --- */
+        .main-container { max-width: 1400px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
+        
+        /* The "Mirror" Terminal */
+        .mirror-vessel {
+            background: #000; border: 1px solid var(--accent-blue);
+            height: 600px; position: relative; overflow: hidden;
+            box-shadow: inset 0 0 100px rgba(0, 210, 255, 0.2), 0 0 40px rgba(0,0,0,1);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .mirror-surface {
+            width: 85%; height: 90%; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border: 4px solid #111; position: relative;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);
+        }
+        .mirror-surface::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 210, 255, 0.03) 3px);
+            pointer-events: none;
+        }
+
+        /* Technical Content */
+        .tech-panel { background: rgba(10, 10, 10, 0.98); border: 1px solid var(--rust); padding: 50px; }
+        .tech-panel h2 { font-family: 'Orbitron'; letter-spacing: 5px; color: #fff; border-bottom: 2px solid var(--blood); padding-bottom: 15px; margin-bottom: 25px; }
+        
+        .lore-block { font-size: 0.9rem; line-height: 1.8; margin-bottom: 30px; border-left: 3px solid var(--accent-blue); padding-left: 20px; }
+        
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-family: 'Fira Code'; font-size: 0.75rem; color: var(--stone); }
+        .stat-item { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; display: flex; justify-content: space-between; }
+        .stat-item span { color: var(--accent-blue); }
+
+        .warning-box { margin-top: 30px; padding: 20px; border: 1px dashed var(--blood); background: rgba(139, 0, 0, 0.05); color: var(--blood); font-family: 'Fira Code'; font-size: 0.7rem; }
+
+        footer { text-align: center; padding: 50px; font-family: 'Fira Code'; font-size: 0.75rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+
+        @media (max-width: 1100px) {
+            .main-container { grid-template-columns: 1fr; }
+            .mirror-vessel { height: 400px; }
+            .command-deck a { font-size: 0.6rem; padding: 8px 10px; flex: 1 1 40%; text-align: center; }
+        }
     </style>
 </head>
 <body>
-    <header><a href="index.html" class="studio-logo">HARRISON INTERACTIVE</a></header>
-    <nav class="sub-nav"><a href="world.html">GEOGRAPHY</a><a href="waygates.html" class="active">WAYGATES</a><a href="plots.html">PLOTS</a><a href="maw.html">MAW</a></nav>
-    <main class="container">
-        <div class="terminal">
-            <h1>WAYGATE SYSTEM</h1>
-            <p style="line-height:1.8; opacity:0.8;">"Travel across the sectors of <strong>Heimr</strong> is facilitated via the Black Oily Mirror Waygates. Requires Operator Handshake."</p>
-            <div class="data-line">[ TARGET_SECTOR: HEIMR_CENTRAL ] [ SYNC_STATUS: ACTIVE ]</div>
+
+    <header>
+        <a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a>
+        <div class="nav-links">
+            <a href="index.html">DB_UPLINK</a>
+            <a href="world.html">HEIMR_CORE</a>
+            <a href="lore.html">LORE_LOGS</a>
         </div>
+    </header>
+
+    <nav class="command-deck">
+        <a href="world.html">GEOGRAPHY</a>
+        <a href="waygates.html" class="active">WAYGATES</a>
+        <a href="plots.html">PLOTS</a>
+        <a href="maw.html">MAW</a>
+    </nav>
+
+    <div class="project-banner">
+        <h1 class="logo-by">BLOOD-YIELD</h1>
+        <div style="font-family:'Fira Code'; color:var(--gold-yield); font-size:0.7rem; letter-spacing:4px;">[ SUBSYSTEM: BIFROST_PROTOCOL_v2 ]</div>
+    </div>
+
+    <main class="main-container">
+        
+        <div class="mirror-vessel">
+            <div class="mirror-surface">
+                <div style="position:absolute; bottom:20px; left:20px; font-family:'Fira Code'; font-size:0.6rem; color:var(--accent-blue);">
+                    [ MIRROR_REFRACTIVE_INDEX: 1.45 ]<br>
+                    [ SURFACE_TENSION: OPTIMAL ]
+                </div>
+                <div style="position:absolute; top:20px; right:20px; font-family:'Orbitron'; font-size:0.6rem; color:var(--blood); letter-spacing:2px;">
+                    SIGNATURE_REQUIRED
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-panel">
+            <h2>WAYGATE_MECHANICS</h2>
+            <div class="lore-block">
+                Travel in Heimr is handled by the <strong>Bifrost Data Bridge</strong>. These aren't just gates; they are frequency-shifting mirrors. To traverse, the operator must match their <strong>Soul-Frequency</strong> to the destination node. The "Black Oily" substance is actually a ferrofluid-based conductor that translates physical matter into raw <strong>Handy</strong> data-streams for near-instant relocation.
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-item">LATENCY: <span>0.0004ms</span></div>
+                <div class="stat-item">PROTOCOL: <span>BIFROST_SYNC</span></div>
+                <div class="stat-item">ENCRYPTION: <span>RUNIC_AES_256</span></div>
+                <div class="stat-item">SYNC_ENGINE: <span>HANDY_OS</span></div>
+                <div class="stat-item">FLUID_TYPE: <span>FERRO_MERCURY</span></div>
+                <div class="stat-item">GATE_STATE: <span>STABLE</span></div>
+            </div>
+
+            <div class="warning-box">
+                [!] CRITICAL_NOTICE:<br>
+                Attempting to cross a Waygate with a <strong>Soul-Blight</strong> index higher than 75% will result in "Ashen Desync." Your equipment stats will be permanently locked at 20% until a Sower re-authorizes your frequency at a Hallowed Plot.
+            </div>
+
+            <p style="margin-top:30px; font-size:0.8rem; font-style:italic; opacity:0.6;">
+                "The mirror doesn't show you where you're going. It shows you what you're willing to sacrifice to get there."
+            </p>
+        </div>
+
     </main>
+
+    <footer>HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // 2026</footer>
+
 </body>
 </html>
