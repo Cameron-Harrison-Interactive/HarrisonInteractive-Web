@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CORE BRANDING VARIABLES --- */
         :root {
             --bg-deep: #050505;
             --bg-navy: #0A192F;
@@ -16,7 +15,7 @@
             --accent-red: #8B0000;
             --text-silver: #C0C0C0;
             --gold-wood: #8A7335;
-            --glass: rgba(10, 25, 47, 0.9);
+            --glass: rgba(10, 25, 47, 0.95);
         }
 
         /* --- GLOBAL & SCROLL SNAPPING --- */
@@ -32,47 +31,39 @@
             color: var(--text-silver); 
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            margin: 0;
         }
 
-        /* --- CENTERED HEADER --- */
+        /* --- HEADER & NAV (LAYER PLUMBING) --- */
         header {
-            position: fixed;
-            top: 0; width: 100%; height: 80px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             display: flex; justify-content: center; align-items: center;
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
-            z-index: 1000;
+            background: var(--glass); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
+            z-index: 2000;
         }
 
         .studio-logo {
-            font-family: 'Orbitron';
-            color: var(--text-silver);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 1.3rem;
+            font-family: 'Orbitron'; color: var(--text-silver);
+            text-transform: uppercase; letter-spacing: 4px; font-size: 1.2rem;
             text-shadow: 0 0 10px var(--accent-blue);
         }
 
-        .menu-trigger {
-            position: absolute; right: 5%;
-            color: var(--accent-blue); font-size: 2rem; cursor: pointer;
+        #menu-btn { 
+            position: absolute; right: 5%; color: var(--accent-blue); font-size: 2rem; 
+            cursor: pointer; transition: 0.3s; z-index: 2100;
         }
+        #menu-btn:hover { text-shadow: 0 0 15px var(--accent-blue); }
 
-        /* --- NAVIGATION DRAWER --- */
         #nav-menu {
-            position: fixed; top: 0; right: -320px;
-            width: 300px; height: 100%;
-            background: var(--bg-navy);
-            border-left: 2px solid var(--accent-blue);
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            z-index: 999; padding-top: 100px;
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
+            background: var(--bg-navy); border-left: 2px solid var(--accent-blue);
+            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            z-index: 3000; padding-top: 100px; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
         }
         #nav-menu.active { right: 0; }
-        #nav-menu a {
-            display: block; padding: 20px 40px; color: #fff;
-            text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        #nav-menu a { display: block; padding: 20px 40px; color: #fff; text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        #nav-menu a:hover { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); padding-left: 50px; }
 
         /* --- SECTION BASE --- */
         section { 
@@ -85,9 +76,10 @@
             scroll-snap-align: start; 
             position: relative;
             padding: 20px;
+            z-index: 10;
         }
 
-        /* --- 1. BLOOD-YIELD (LOGO MATCH) --- */
+        /* --- 1. BLOOD-YIELD (DARK FANTASY) --- */
         .hero-blood {
             background: radial-gradient(circle at center, #1a0505 0%, #050505 100%);
             text-align: center;
@@ -98,28 +90,30 @@
 
         /* --- 2. HANDY (BLUEPRINT GRID) --- */
         .hero-handy {
-            background: radial-gradient(circle at center, #0a192f 0%, #050505 100%);
-            background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-color: #050505;
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at center, #0a192f 0%, transparent 100%);
+            background-size: 50px 50px, 50px 50px, 100% 100%;
             border-top: 1px solid var(--accent-blue);
         }
 
-        .handy-title { font-family: 'Orbitron'; font-size: clamp(2rem, 8vw, 5rem); color: var(--accent-blue); margin-bottom: 10px; }
+        .handy-title { font-family: 'Orbitron'; font-size: clamp(2rem, 8vw, 5rem); color: var(--accent-blue); margin-bottom: 10px; text-shadow: 0 0 15px var(--accent-blue); }
 
         /* --- BUTTONS --- */
         .btn {
-            margin-top: 30px; padding: 15px 40px;
+            margin-top: 30px; padding: 15px 40px; display: inline-block;
             font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
             background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue);
-            text-decoration: none; letter-spacing: 2px;
+            text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
         }
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
         
         .btn-red { border-color: var(--accent-red); color: var(--accent-red); }
         .btn-red:hover { background: var(--accent-red); color: #fff; box-shadow: 0 0 20px var(--accent-red); }
 
-        /* --- PANEL STYLING (For Card Details) --- */
+        /* --- PANEL STYLING --- */
         .info-panel {
             background: rgba(5, 5, 5, 0.8);
             backdrop-filter: blur(5px);
@@ -128,69 +122,88 @@
             max-width: 600px;
             margin-top: 20px;
             font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
             border-left: 3px solid var(--accent-blue);
+            text-align: center;
         }
 
         .info-panel.red-border { border-left-color: var(--accent-red); }
 
-        footer {
-            position: absolute; bottom: 20px; width: 100%; text-align: center;
-            font-family: 'Fira Code'; font-size: 0.6rem; opacity: 0.5;
+        /* --- SECTION FOOTERS --- */
+        .section-footer {
+            position: absolute; bottom: 30px; width: 100%; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
+        
+        .footer-text { font-family: 'Fira Code'; font-size: 0.7rem; opacity: 0.6; }
+        
+        .legal-link {
+            font-family: 'Fira Code'; color: var(--text-silver); text-decoration: none; 
+            font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.8;
+        }
+        .legal-link:hover { color: var(--accent-blue); text-shadow: 0 0 8px var(--accent-blue); opacity: 1; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="studio-logo">Harrison Interactive</div>
-        <div class="menu-trigger" onclick="toggleMenu()">☰</div>
+        <div id="menu-btn">☰</div>
     </header>
 
     <nav id="nav-menu">
-        <a href="index.html" style="color:var(--accent-blue)">Home Hub</a>
+        <a href="index.html" style="color:var(--accent-blue); border-left: 3px solid var(--accent-blue);">Home Hub</a>
         <a href="handy.html">Handy Editor</a>
-        <a href="Blood-Yield/">Blood-Yield</a>
-        <a href="about.html">About</a>
-        <a href="faq.html">FAQ</a>
+        <a href="Blood-Yield/">Project Blood-Yield</a>
+        <a href="faq.html">Help/Faq Terminal</a>
     </nav>
 
     <main>
         <section id="page1" class="hero-blood">
-            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-red); letter-spacing: 5px; margin-bottom: 20px;">[ MODULE // DARK_FANTASY_RPG ]</div>
+            <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-red); letter-spacing: 5px; margin-bottom: 20px; opacity: 0.9;">[ MODULE // DARK_FANTASY_RPG ]</div>
             
             <h1 class="logo-text">
                 <span class="blood">BLOOD</span>-<span class="yield">YIELD</span>
             </h1>
             
             <div class="info-panel red-border">
-                A visceral dark-fantasy RPG forged in UE5. Experience a world where decisions yield consequence in cold iron.
+                A visceral dark-fantasy RPG forged in Unreal Engine 5. Experience a world where your decisions yield consequence, measured in cold iron and soul essence.
             </div>
 
-            <a href="Blood-Yield/" class="btn btn-red">> ACCESS_PROJECT_REAP</a>
+            <a href="Blood-Yield/" class="btn btn-red">> ACCESS_PROJECT_BLOOD_YIELD</a>
             
-            <footer>UNRIVALED INNOVATION // EST. 2026</footer>
+            <div class="section-footer">
+                <div class="footer-text">UNRIVALED INNOVATION // EST. 2026</div>
+                <a href="legal.html" class="legal-link">[ ACCESS_LEGAL_TERMINAL ]</a>
+            </div>
         </section>
 
         <section id="page2" class="hero-handy">
-            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 20px;">[ MODULE // EDITOR_UTILITY ]</div>
+            <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-blue); letter-spacing: 5px; margin-bottom: 20px; opacity: 0.9;">[ MODULE // EDITOR_UTILITY ]</div>
             
             <h1 class="handy-title">HI | HANDY</h1>
             
             <div class="info-panel">
-                The apex of UE5 automation. A hybrid Python-UMG bridge built for industrial-scale project management.
+                The apex of UE5 automation. A hybrid Python-Blueprint bridge built for industrial-scale project management. Equip the Ultimate tier to bring your own LLM to the pipeline.
             </div>
 
             <a href="handy.html" class="btn">> VIEW_DEVELOPMENT_LOGS</a>
             
-            <footer>UE5 AI AUTO // INTEGRATING DIGITAL PULSE</footer>
+            <div class="section-footer">
+                <div class="footer-text">UE5 AI AUTO // INTEGRATING DIGITAL PULSE</div>
+                <a href="legal.html" class="legal-link">[ ACCESS_LEGAL_TERMINAL ]</a>
+            </div>
         </section>
     </main>
 
     <script>
-        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
+        // Menu Toggle Logic
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
         
-        // Close menu on link click
+        // Auto-Close menu on link click
         document.querySelectorAll('#nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('nav-menu').classList.remove('active');
