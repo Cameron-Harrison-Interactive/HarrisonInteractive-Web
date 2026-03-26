@@ -6,69 +6,205 @@
     <title>ABOUT | Harrison Interactive</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-deep: #050505; --accent-blue: #00D2FF; --text-silver: #C0C0C0; --glass: rgba(5, 5, 5, 0.85); }
+        :root { 
+            --bg-deep: #050505; 
+            --bg-navy: #0A192F; 
+            --accent-blue: #00D2FF; 
+            --accent-red: #8B0000;
+            --text-silver: #C0C0C0; 
+            --glass: rgba(5, 5, 5, 0.85); 
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg-deep); background-image: radial-gradient(circle at top center, #0a192f 0%, transparent 80%); background-attachment: fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* ADAPTIVE HEADER */
+        body { 
+            background-color: var(--bg-deep); 
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+                radial-gradient(circle at top center, #0a192f 0%, transparent 80%); 
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            background-attachment: fixed; 
+            color: var(--text-silver); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* --- ADAPTIVE COMMAND DECK --- */
         @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
         @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
+        @keyframes logo-pull { 0%, 100% { text-shadow: 0 0 10px var(--accent-blue); transform: scale(1); } 50% { text-shadow: 0 0 25px var(--accent-blue); transform: scale(1.02); } }
+        
         header { position: fixed; top: 0; left: 0; width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 210, 255, 0.2); z-index: 2000; overflow: hidden; padding: 0 5%; }
         header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
         header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
+        
         .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
         .nav-group-left { justify-content: flex-end; padding-right: 40px; }
         .nav-group-right { justify-content: flex-start; padding-left: 40px; }
         .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; position: relative; opacity: 0.7; }
         .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
         .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; z-index: 10; cursor: pointer; text-align: center; }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; animation: logo-pull 5s ease-in-out infinite; z-index: 10; text-align: center; white-space: nowrap; cursor: pointer; }
+
         #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
         #mobile-nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5,5,5,0.98); z-index: 3000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; transition: 0.4s; }
         #mobile-nav.active { right: 0; }
         #mobile-nav a { font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; text-decoration: none; }
 
-        /* ABOUT CONTENT */
-        main { flex: 1; padding: 140px 5% 80px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1200px; margin: 0 auto; }
-        .hero { text-align: center; margin-bottom: 60px; }
-        .ue-panel { background: rgba(5, 5, 5, 0.9); border-left: 4px solid var(--accent-blue); padding: 40px; margin-bottom: 30px; width: 100%; }
-        .panel-h { font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; margin-bottom: 20px; }
-        .panel-p { font-family: 'Inter'; font-size: 1rem; line-height: 1.8; color: var(--text-silver); }
+        /* --- CONTENT --- */
+        main { flex: 1; padding: 160px 5% 100px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1200px; margin: 0 auto; }
+        
+        .manifesto-header { text-align: center; margin-bottom: 80px; }
+        .manifesto-header h1 { font-family: 'Orbitron'; font-weight: 900; color: #fff; font-size: clamp(2.5rem, 8vw, 5rem); text-shadow: 0 0 30px var(--accent-blue); line-height: 1; }
+        .manifesto-tagline { font-family: 'Fira Code'; color: var(--accent-blue); letter-spacing: 8px; font-size: 0.8rem; margin-top: 20px; opacity: 0.8; }
 
-        @media (max-width: 1100px) { .nav-group { display: none; } #menu-btn { display: block; } }
+        /* STATISTICS BAR */
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; margin-bottom: 60px; }
+        .stat-card { background: rgba(10, 25, 47, 0.4); border: 1px solid rgba(0, 210, 255, 0.1); padding: 20px; text-align: center; border-radius: 4px; }
+        .stat-val { font-family: 'Fira Code'; font-size: 1.5rem; color: #fff; display: block; }
+        .stat-label { font-family: 'Orbitron'; font-size: 0.6rem; color: var(--accent-blue); letter-spacing: 2px; }
+
+        /* SECTOR BLOCKS */
+        .sector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; width: 100%; }
+        
+        .ue-panel { 
+            background: rgba(5, 5, 5, 0.9); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(0, 210, 255, 0.1); 
+            border-left: 4px solid var(--accent-blue); 
+            padding: 45px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .meta-tag { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); margin-bottom: 25px; display: block; border-bottom: 1px solid rgba(0, 210, 255, 0.1); padding-bottom: 10px; }
+        .panel-h { font-family: 'Orbitron'; font-size: 1.4rem; color: #fff; margin-bottom: 20px; letter-spacing: 2px; }
+        .panel-p { font-family: 'Inter'; font-size: 0.95rem; color: var(--text-silver); line-height: 1.8; margin-bottom: 15px; }
+
+        /* THE PIPELINE SECTION */
+        .pipeline-strip { background: var(--bg-navy); width: 100vw; padding: 60px 5%; margin: 80px 0; border-top: 1px solid rgba(0, 210, 255, 0.2); border-bottom: 1px solid rgba(0, 210, 255, 0.2); }
+        .pipeline-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 40px; align-items: center; }
+        .pipeline-text h2 { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin-bottom: 20px; }
+        
+        footer { background: var(--bg-deep); padding: 60px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        @media (max-width: 1100px) { .nav-group { display: none; } #menu-btn { display: block; } .stat-grid { grid-template-columns: 1fr 1fr; } .pipeline-inner { flex-direction: column; text-align: center; } }
+        @media (max-width: 600px) { .stat-grid { grid-template-columns: 1fr; } .manifesto-header h1 { font-size: 2.5rem; } }
     </style>
 </head>
 <body>
     <header>
-        <div class="nav-group nav-group-left"><a href="index.html" class="nav-link">Home</a><a href="handy.html" class="nav-link">Handy</a><a href="Blood-Yield/" class="nav-link">Blood-Yield</a></div>
+        <div class="nav-group nav-group-left">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="handy.html" class="nav-link">Handy</a>
+            <a href="Blood-Yield/" class="nav-link">Blood-Yield</a>
+        </div>
         <div class="studio-logo" onclick="window.location.href='index.html'">Harrison Interactive</div>
         <div id="menu-btn">☰</div>
-        <div class="nav-group nav-group-right"><a href="about.html" class="nav-link active">About</a><a href="faq.html" class="nav-link">FAQ</a><a href="legal.html" class="nav-link">Legal</a></div>
+        <div class="nav-group nav-group-right">
+            <a href="about.html" class="nav-link active">About</a>
+            <a href="faq.html" class="nav-link">FAQ</a>
+            <a href="legal.html" class="nav-link">Legal</a>
+        </div>
     </header>
 
-    <nav id="mobile-nav"><a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a></nav>
+    <nav id="mobile-nav">
+        <a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a>
+    </nav>
 
     <main>
-        <div class="hero">
-            <h1 style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:clamp(2rem, 6vw, 4rem);">STUDIO <span style="color:var(--accent-blue);">MANIFESTO</span></h1>
+        <div class="manifesto-header">
+            <div class="manifesto-tagline">[ ARCHITECTING // THE_FUTURE_OF_UE5 ]</div>
+            <h1>STUDIO <span style="color:var(--accent-blue);">MANIFESTO</span></h1>
         </div>
-        <div class="ue-panel">
-            <h3 class="panel-h">SYSTEM PLUMBING</h3>
-            <p class="panel-p">Our "Plumbing First" philosophy ensures every script is optimized for industrial performance. Flawless data flow is the path to AAA quality. If the logic doesn't scale, the game doesn't ship.</p>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <span class="stat-val">2026</span>
+                <span class="stat-label">ESTABLISHED</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val">STABLE</span>
+                <span class="stat-label">PIPELINE_SYNC</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val">3-TIER</span>
+                <span class="stat-label">HANDY_ARCHITECTURE</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val">ACTIVE</span>
+                <span class="stat-label">BLOOD_YIELD_DEV</span>
+            </div>
         </div>
-        <div class="ue-panel">
-            <h3 class="panel-h">INDUSTRIAL POWER</h3>
-            <p class="panel-p">From solo devs to enterprise studios, our architecture provides the foundation needed to scale without compromising integrity. We treat game dev as high-performance engineering.</p>
+
+        <div class="sector-grid">
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // SYSTEM_PLUMBING ]</span>
+                <h3 class="panel-h">DATA-DRIVEN DESIGN</h3>
+                <p class="panel-p">
+                    At Harrison Interactive, we believe that **Plumbing comes First**. Visuals draw players in, but logic keeps them there. Our development philosophy is rooted in industrial-grade performance. 
+                </p>
+                <p class="panel-p">
+                    We don't just build games; we engineer ecosystems. Every module we deploy is optimized for the **Unreal Engine 5** stable environment, ensuring that from solo indie project to AAA studio deployment, the data flow remains flawless.
+                </p>
+            </div>
+
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // HYBRID_AUTOMATION ]</span>
+                <h3 class="panel-h">UNRIVALED INNOVATION</h3>
+                <p class="panel-p">
+                    The gap between **UMG Blueprints** and **Python logic** is where our studio thrives. By bridging these two powerful domains, we create tools like **Handy**—designed to handle the heavy lifting of project management.
+                </p>
+                <p class="panel-p">
+                    Our "Bring Your Own Brain" (BYOB) architecture in the Elite and Ultimate tiers allows for real-time AI logic routing, effectively allowing studios to automate the most tedious parts of the game development lifecycle.
+                </p>
+            </div>
         </div>
-        <div class="ue-panel" style="text-align:center;">
-            <h3 class="panel-h" style="color:var(--accent-blue);">HYBRID AUTOMATION</h3>
-            <p class="panel-p">Merging <strong>UMG Blueprints</strong> with <strong>Python automation</strong>. We allow AI-driven pipelines to handle the plumbing, so you can focus on the art.</p>
+
+        <div class="pipeline-strip">
+            <div class="pipeline-inner">
+                <div class="pipeline-text">
+                    <h2>THE INDUSTRIAL PIPELINE</h2>
+                    <p class="panel-p" style="font-size: 1.1rem; color: #fff;">
+                        We are currently utilizing our own **Handy Ultimate** toolset to construct the dark fantasy world of **Blood-Yield**. This closed-loop development cycle ensures that our tools are battle-tested in a production environment before they ever hit the Fab Marketplace.
+                    </p>
+                    <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); margin-top: 20px;">
+                        > Content/Handy/Logic/Router.py [ACTIVE]<br>
+                        > Content/BloodYield/World/Bastion [LOADING]
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ue-panel" style="width:100%; border-left-color: var(--accent-red); text-align: center;">
+            <span class="meta-tag" style="color: var(--accent-red);">[ SECTOR // MISSION_OBJECTIVE ]</span>
+            <h3 class="panel-h">BEYOND DEVELOPMENT</h3>
+            <p class="panel-p" style="max-width: 800px; margin: 0 auto;">
+                Our goal is to redefine the symbiosis between player and developer. Through the **Blood-Yield RMT Economy**, we are establishing a marketplace where player time is valued and verified. We are Harrison Interactive. We build the logic that yields consequences.
+            </p>
         </div>
     </main>
+
+    <footer>
+        <div style="opacity: 0.8; font-size: 0.85rem; font-family: 'Orbitron'; letter-spacing: 2px;">
+            HARRISON INTERACTIVE EST. 2026 // UNRIVALED INNOVATION
+        </div>
+        <div style="margin-top: 20px; opacity: 0.4; font-size: 0.7rem;">
+            © 2026 HARRISON INTERACTIVE LLC. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
     <script>
         const btn = document.getElementById('menu-btn');
         const nav = document.getElementById('mobile-nav');
-        btn.onclick = () => { nav.classList.toggle('active'); btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; };
+        btn.onclick = () => { 
+            nav.classList.toggle('active'); 
+            btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; 
+        };
     </script>
 </body>
 </html>
