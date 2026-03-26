@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HI_DATABASE | Terminal_Uplink_v4.1</title>
+    <title> Blood-Yield | Terminal_Uplink_v1.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -28,16 +28,25 @@
             display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* --- HARRISON INTERACTIVE HEADER --- */
+        /* --- HARRISON INTERACTIVE HEADER (CENTERED FIX) --- */
         header {
-            width: 100%; min-height: 70px; display: flex; justify-content: space-between; align-items: center;
+            width: 100%; min-height: 70px; display: flex; justify-content: center; align-items: center;
             padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
             position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px);
         }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; font-size: 1.1rem; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Fira Code'; font-size: 0.7rem; letter-spacing: 2px; transition: 0.3s; opacity: 0.6; }
-        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+        .header-core {
+            display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center;
+        }
+        .return-link { 
+            font-family: 'Fira Code'; font-size: 0.75rem; color: var(--stone); 
+            text-decoration: none; transition: 0.3s; letter-spacing: 2px; 
+            border: 1px solid transparent; padding: 5px 10px;
+        }
+        .return-link:hover { color: var(--accent-blue); border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.05); }
+        
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 4px; text-decoration: none; font-size: 1.2rem; }
+        
+        .active-tag { font-family: 'Fira Code'; font-size: 0.75rem; color: var(--accent-blue); letter-spacing: 2px; text-decoration: none; text-shadow: 0 0 10px var(--accent-blue); }
 
         /* --- CLICKABLE PROJECT BANNER --- */
         .project-banner { text-align: center; padding: 25px 0 15px; }
@@ -50,7 +59,7 @@
             filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
         }
 
-        /* --- CONSOLIDATED COMMAND DECK (6 MODULES) --- */
+        /* --- CONSOLIDATED COMMAND DECK --- */
         .command-deck {
             background: #000; border-top: 1px solid var(--stone); border-bottom: 2px solid var(--blood);
             padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
@@ -83,6 +92,15 @@
         .btn { width: 100%; padding: 25px; background: var(--blood); color: #fff; border: none; font-family: 'Orbitron'; font-weight: 900; letter-spacing: 6px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
         .btn:hover { background: #b00000; box-shadow: 0 0 35px var(--blood); letter-spacing: 8px; }
 
+        /* The Plain-English Translation Box */
+        .translation-box {
+            margin-top: 20px; padding: 20px; border: 1px dashed var(--stone);
+            background: rgba(0, 0, 0, 0.6); font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem; color: var(--text-silver); line-height: 1.7; text-align: left;
+        }
+        .translation-box span { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--gold-yield); display: block; margin-bottom: 10px; letter-spacing: 2px; }
+        .translation-box strong { color: #fff; font-family: 'Orbitron'; letter-spacing: 1px; }
+
         /* Right: Dense Telemetry */
         .data-panel { background: rgba(0, 0, 0, 0.95); border: 1px solid var(--navy-grid); padding: 40px; font-family: 'Fira Code'; color: var(--accent-blue); box-shadow: 0 0 40px rgba(0, 210, 255, 0.05); }
         .data-panel h3 { color: var(--gold-yield); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 25px; border-bottom: 1px solid var(--gold-yield); padding-bottom: 15px; letter-spacing: 3px; }
@@ -104,15 +122,17 @@
             .command-deck a { font-size: 0.6rem; padding: 8px 5px; flex: 1 1 30%; text-align: center; }
             .logo-by { font-size: 3rem; }
             .terminal-box, .data-panel { padding: 30px; }
+            .header-core { gap: 15px; flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="studio-logo">HARRISON INTERACTIVE</a>
-        <div class="nav-links">
-            <a href="index.html" class="active">[ DB_UPLINK ]</a>
+        <div class="header-core">
+            <a href="../index.html" class="return-link">< RETURN_TO_ROOT</a>
+            <a href="#" class="studio-logo">HARRISON INTERACTIVE</a>
+            <span class="active-tag">[ DB_UPLINK ]</span>
         </div>
     </header>
 
@@ -146,6 +166,12 @@
                 <input type="email" id="email" name="operator_name" class="gothic-input" placeholder="ENTER_UPLINK_EMAIL" required>
                 <button type="submit" class="btn" id="submit-btn">INITIATE_HANDSHAKE</button>
             </form>
+
+            <div class="translation-box">
+                <span>> DECRYPTING_LORE_JARGON...</span>
+                <strong>What is this?</strong> Enter your email above to join the official Blood-Yield Alpha Waitlist. We will only use this email to securely send your game-access key when testing begins. No spam, just access.
+            </div>
+
             <p id="status-msg" style="margin-top:30px; font-family:'Fira Code'; font-size:0.85rem; text-align:center; letter-spacing:2px;"></p>
         </div>
 
