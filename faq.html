@@ -20,7 +20,7 @@
         .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; position: relative; opacity: 0.7; }
         .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
         .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; z-index: 10; text-align: center; white-space: nowrap; cursor: pointer; }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; animation: logo-pull 5s ease-in-out infinite; z-index: 10; text-align: center; white-space: nowrap; cursor: pointer; }
         #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
         #mobile-nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5,5,5,0.98); z-index: 3000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; transition: 0.4s; }
         #mobile-nav.active { right: 0; }
@@ -28,15 +28,17 @@
 
         main { flex: 1; padding: 140px 5% 80px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1200px; margin: 0 auto; }
         .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; width: 100%; margin-bottom: 60px; }
-        .ue-panel { background: rgba(5, 5, 5, 0.9); border-left: 4px solid var(--accent-blue); padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-        .faq-item { margin-bottom: 25px; }
-        .faq-q { font-family: 'Orbitron'; color: #fff; font-size: 0.85rem; display: block; margin-bottom: 8px; letter-spacing: 1px; }
-        .faq-q::before { content: '>'; color: var(--accent-blue); margin-right: 10px; }
-        .faq-a { font-family: 'Inter'; font-size: 0.85rem; color: var(--text-silver); line-height: 1.6; padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.05); }
+        .ue-panel { background: rgba(5, 5, 5, 0.9); border-left: 4px solid var(--accent-blue); padding: 45px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+        .panel-meta { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); margin-bottom: 25px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 15px; }
+        
+        .faq-item { margin-bottom: 30px; }
+        .faq-q { font-family: 'Orbitron'; color: #fff; font-size: 0.9rem; display: block; margin-bottom: 10px; letter-spacing: 1px; }
+        .faq-q::before { content: '>'; color: var(--accent-blue); margin-right: 12px; }
+        .faq-a { font-family: 'Inter'; font-size: 0.9rem; color: var(--text-silver); line-height: 1.8; padding-left: 24px; border-left: 1px solid rgba(255,255,255,0.05); }
 
-        .terminal-input { width: 100%; background: rgba(0, 210, 255, 0.02); border: 1px solid rgba(0, 210, 255, 0.2); color: #fff; padding: 18px; font-family: 'Fira Code'; outline: none; margin-bottom: 20px; transition: 0.3s; }
+        .terminal-input { width: 100%; background: rgba(0, 210, 255, 0.02); border: 1px solid rgba(0, 210, 255, 0.2); color: #fff; padding: 20px; font-family: 'Fira Code'; outline: none; margin-bottom: 20px; transition: 0.3s; font-size: 0.9rem; }
         .terminal-input:focus { border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.07); }
-        .btn { padding: 20px; font-family: 'Orbitron'; border: 2px solid var(--accent-blue); color: var(--accent-blue); cursor: pointer; background: transparent; width: 100%; transition: 0.3s; letter-spacing: 3px; font-weight: 700; }
+        .btn { padding: 22px; font-family: 'Orbitron'; border: 2px solid var(--accent-blue); color: var(--accent-blue); cursor: pointer; background: transparent; width: 100%; transition: 0.3s; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 30px var(--accent-blue); }
 
         footer { background: var(--bg-deep); padding: 40px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
@@ -53,26 +55,36 @@
     </header>
     <nav id="mobile-nav"><a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a></nav>
     <main>
-        <div style="text-align:center; margin-bottom:60px;"><h1 style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:clamp(2rem, 5vw, 3.5rem);">HELP/FAQ <span style="color:var(--accent-blue);">TERMINAL</span></h1></div>
+        <div style="text-align:center; margin-bottom:60px;">
+            <div style="font-family:'Fira Code'; font-size: 0.8rem; color: var(--accent-blue); letter-spacing: 8px;">[ SYSTEM_QUERY // KNOWLEDGE_ARRAY ]</div>
+            <h1 style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:clamp(2.5rem, 6vw, 4.5rem);">HELP/FAQ <span style="color:var(--accent-blue);">TERMINAL</span></h1>
+        </div>
         <div class="faq-grid">
-            <div class="ue-panel" style="border-left-color:var(--accent-red);"><h3 style="color:var(--accent-red); margin-bottom:20px;">[ BLOOD_YIELD_INTEL ]</h3>
-                <div class="faq-item"><strong class="faq-q">What is "Soul-Blight"?</strong><p class="faq-a">A progressive equipment decay mechanic causing an 80% stat penalty if untreated. Restore at the Hjarta forge using Refined Essence.</p></div>
-                <div class="faq-item"><strong class="faq-q">Role Dynamics?</strong><p class="faq-a">Reapers harvest Soul Essence and Cold Iron; Sowers refine these into Bio-Armor via Bastion waygates.</p></div>
+            <div class="ue-panel" style="border-left-color:var(--accent-red);">
+                <div class="panel-meta"><span>SECTOR // BLOOD_YIELD</span><span>INTEL_01</span></div>
+                <div class="faq-item"><strong class="faq-q">What is the "Soul-Blight" mechanic?</strong><p class="faq-a">Soul-Blight is a progressive decay affecting all refined equipment. If left untreated at the <strong>Hjarta Forge</strong>, items suffer a massive 80% stat penalty. Restoration requires <strong>Empty Vials</strong> and <strong>Refined Essence</strong>.</p></div>
+                <div class="faq-item"><strong class="faq-q">How does the "Symbiotic Economy" work?</strong><p class="faq-a"><strong>Reapers</strong> harvest raw materials (Soul Essence/Cold Iron) from the field. <strong>Sowers</strong> refine these into Bio-Armor. Both roles depend on the P2P Marketplace for survival and profit.</p></div>
             </div>
-            <div class="ue-panel"><h3 style="color:var(--accent-blue); margin-bottom:20px;">[ HANDY_INTEL ]</h3>
-                <div class="faq-item"><strong class="faq-q">Isolation Protocol?</strong><p class="faq-a">Handy logic is strictly isolated in <code>Content/Handy/</code>. It never suggesting mixing logic with Blood-Yield runtime game classes.</p></div>
-                <div class="faq-item"><strong class="faq-q">Elite Tier "BYOB"?</strong><p class="faq-a">Allows operators to route private LLM API keys through the Python bridge for automated node generation.</p></div>
+            <div class="ue-panel">
+                <div class="panel-meta"><span>SECTOR // HANDY_TECH</span><span>INTEL_02</span></div>
+                <div class="faq-item"><strong class="faq-q">Is Handy part of my game code?</strong><p class="faq-a">No. Per the <strong>Isolation Protocol</strong>, all Handy logic stays in <code>Content/Handy/</code>. It is an Editor-only tool and will not increase your final game's build size or affect runtime performance.</p></div>
+                <div class="faq-item"><strong class="faq-q">What LLMs does Elite support?</strong><p class="faq-a">Elite supports all major API-driven models (OpenAI, Claude, etc.) via the <strong>BYOB (Bring Your Own Brain)</strong> routing bridge. You provide the API key; Handy provides the Unreal connectivity.</p></div>
             </div>
-            <div class="ue-panel" style="grid-column: 1 / -1;"><h3 style="text-align:center; margin-bottom:30px;">[ TRANSMIT_SIGNAL ]</h3>
+            <div class="ue-panel" style="grid-column: 1 / -1;">
+                <div class="panel-meta"><span>PROTOCOL // SECURE_UPLINK</span><span>EST. 2026</span></div>
+                <h3 style="text-align:center; margin-bottom:35px; font-family:'Orbitron'; letter-spacing:4px;">[ TRANSMIT_SIGNAL ]</h3>
                 <form action="https://hi-signal-terminal.bccomp97249.workers.dev/" method="POST">
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;"><input type="text" class="terminal-input" placeholder="Operator Name" required><input type="email" class="terminal-input" placeholder="Return Address" required></div>
-                    <textarea class="terminal-input" rows="5" placeholder="Inquiry Payload..." required></textarea>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:25px;">
+                        <input type="text" class="terminal-input" placeholder="Operator Designation" required>
+                        <input type="email" class="terminal-input" placeholder="Return Address" required>
+                    </div>
+                    <textarea class="terminal-input" rows="6" placeholder="Broadcast message stream (Support or Inquiries)..." required></textarea>
                     <button type="submit" class="btn">INITIATE BROADCAST</button>
                 </form>
             </div>
         </div>
     </main>
-    <footer><div class="footer-text">© 2026 HARRISON INTERACTIVE LLC // UNRIVALED INNOVATION // EST. 2026</div></footer>
+    <footer><div class="footer-text">HARRISON INTERACTIVE // SYSTEM QUERY COMPLETE // EST. 2026</div></footer>
     <script>const btn=document.getElementById('menu-btn'); const nav=document.getElementById('mobile-nav'); btn.onclick=()=>{ nav.classList.toggle('active'); btn.innerText=nav.classList.contains('active')?'✕':'☰'; };</script>
 </body>
 </html>
