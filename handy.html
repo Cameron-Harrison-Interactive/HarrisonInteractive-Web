@@ -6,64 +6,127 @@
     <title>HANDY EDITOR | Harrison Interactive</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-deep: #050505; --bg-navy: #0A192F; --accent-blue: #00D2FF; --text-silver: #C0C0C0; --glass: rgba(5, 5, 5, 0.85); --bp-exec: #FFFFFF; --bp-string: #FF00FF; --bp-cyan: #00FFFF; }
+        :root { 
+            --bg-deep: #050505; 
+            --bg-navy: #0A192F; 
+            --accent-blue: #00D2FF; 
+            --text-silver: #C0C0C0; 
+            --glass: rgba(5, 5, 5, 0.85); 
+            --bp-exec: #FFFFFF; /* White: Exec */
+            --bp-target: #00D2FF; /* Blue: Target */
+            --bp-string: #FF00FF; /* Pink: String */
+            --bp-text: #00FFFF; /* Cyan: Text */
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg-deep); background-image: radial-gradient(circle at top center, #0a192f 0%, transparent 80%); background-attachment: fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        /* ADAPTIVE COMMAND DECK */
+        body { 
+            background-color: var(--bg-deep); 
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+                radial-gradient(circle at top center, #0a192f 0%, transparent 80%); 
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            background-attachment: fixed; 
+            color: var(--text-silver); 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-x: hidden;
+        }
+
+        /* --- COMMAND DECK HEADER --- */
         @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
         @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
         @keyframes logo-pull { 0%, 100% { text-shadow: 0 0 10px var(--accent-blue); transform: scale(1); } 50% { text-shadow: 0 0 25px var(--accent-blue); transform: scale(1.02); } }
+        
         header { position: fixed; top: 0; left: 0; width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 210, 255, 0.2); z-index: 2000; overflow: hidden; padding: 0 5%; }
         header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
         header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
+        
         .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
         .nav-group-left { justify-content: flex-end; padding-right: 40px; }
         .nav-group-right { justify-content: flex-start; padding-left: 40px; }
         .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; position: relative; opacity: 0.7; }
         .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
         .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
+        
         .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; animation: logo-pull 5s ease-in-out infinite; z-index: 10; text-align: center; white-space: nowrap; cursor: pointer; }
         #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
         #mobile-nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5,5,5,0.98); z-index: 3000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; transition: 0.4s; }
         #mobile-nav.active { right: 0; }
         #mobile-nav a { font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; text-decoration: none; }
 
-        /* CONTENT */
-        main { flex: 1; padding: 140px 5% 80px; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; z-index: 10; }
-        .handy-banner { width: 100%; max-width: 1000px; height: auto; border: 1px solid rgba(0, 210, 255, 0.2); box-shadow: 0 0 20px rgba(0, 210, 255, 0.1); margin-bottom: 60px; }
+        /* --- MAIN CONTENT --- */
+        main { flex: 1; padding: 160px 5% 100px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1400px; margin: 0 auto; }
         
-        .section-header { text-align: center; margin-bottom: 50px; }
-        .section-header h2 { font-family: 'Orbitron'; color: #fff; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
-        .section-header p { max-width: 700px; margin: 0 auto; line-height: 1.6; opacity: 0.8; }
+        .hero-banner { width: 100%; max-width: 1100px; margin-bottom: 80px; text-align: center; }
+        .hero-banner h1 { font-family: 'Orbitron'; font-weight: 900; font-size: clamp(2rem, 6vw, 4.5rem); text-shadow: 0 0 20px var(--accent-blue); color: #fff; line-height: 1; }
+        .meta-line { font-family: 'Fira Code'; font-size: 0.8rem; color: var(--accent-blue); letter-spacing: 5px; margin-top: 20px; }
 
-        .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; width: 100%; margin-bottom: 80px; }
-        .tier-card { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; text-align: center; display: flex; flex-direction: column; transition: 0.3s; position: relative; }
-        .tier-card:hover { border-color: var(--accent-blue); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1); }
-        
-        .tier-ultimate { border: 1px solid var(--accent-blue); box-shadow: 0 10px 30px rgba(0, 210, 255, 0.15); }
-        .tier-ultimate::before { content: 'FLAGSHIP'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent-blue); color: #000; font-family: 'Fira Code'; font-size: 0.7rem; padding: 2px 10px; font-weight: bold; letter-spacing: 2px; }
-        
-        .tier-price { font-family: 'Orbitron'; font-size: 2.5rem; color: var(--accent-blue); margin: 20px 0; font-weight: bold; }
-        .tier-price span { font-size: 1rem; color: var(--text-silver); font-family: 'Inter'; font-weight: 300; }
-        
-        .tier-list { text-align: left; margin: 20px 0; font-size: 0.85rem; flex: 1; line-height: 1.6; color: #fff; list-style: none; }
-        .tier-list li { margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 10px; }
-        .tier-list li::before { content: '■'; color: var(--accent-blue); margin-right: 12px; font-size: 0.7rem; }
-        
-        /* TECHNICAL STACK BLOCKS */
-        .tech-stack-label { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); margin-bottom: 15px; display: block; text-align: left; }
-        .code-block { font-family: 'Fira Code'; font-size: 0.75rem; color: #fff; background: rgba(0,0,0,0.6); padding: 15px; margin-bottom: 20px; border-left: 3px solid var(--accent-blue); text-align: left; line-height: 1.5; }
-        .code-block div { margin-bottom: 4px; }
-        .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; }
+        /* --- THE 3-TIER GRID --- */
+        .tier-row { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px; 
+            width: 100%; 
+            align-items: stretch;
+        }
 
-        .btn { padding: 18px; font-family: 'Orbitron'; border: 2px solid var(--accent-blue); color: var(--accent-blue); cursor: pointer; background: transparent; width: 100%; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
-        .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
+        .tier-card { 
+            background: rgba(10, 25, 47, 0.6); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
 
-        footer { background: var(--bg-deep); padding: 40px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
-        .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; }
+        .tier-card:hover { 
+            background: rgba(10, 25, 47, 0.8); 
+            border-color: var(--accent-blue); 
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
 
-        @media (max-width: 1100px) { .nav-group { display: none; } #menu-btn { display: block; } main { padding-top: 180px; } }
+        .tier-card.featured { border: 1px solid var(--accent-blue); box-shadow: 0 0 20px rgba(0, 210, 255, 0.1); }
+        .featured-tag { position: absolute; top: 0; right: 0; background: var(--accent-blue); color: #000; font-family: 'Fira Code'; font-size: 0.6rem; padding: 5px 15px; font-weight: bold; }
+
+        .tier-label { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); margin-bottom: 10px; display: block; }
+        .tier-title { font-family: 'Orbitron'; font-size: 1.8rem; color: #fff; margin-bottom: 15px; letter-spacing: 2px; }
+        .tier-price { font-family: 'Orbitron'; font-size: 2.2rem; color: #fff; margin-bottom: 30px; font-weight: 700; }
+        .tier-price span { font-size: 0.9rem; opacity: 0.5; font-family: 'Inter'; }
+
+        .tier-desc { font-size: 0.9rem; line-height: 1.7; color: var(--text-silver); margin-bottom: 30px; flex-grow: 1; }
+        
+        .feature-list { list-style: none; margin-bottom: 40px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; }
+        .feature-list li { font-size: 0.85rem; margin-bottom: 15px; display: flex; align-items: flex-start; color: #fff; }
+        .feature-list li::before { content: '■'; color: var(--accent-blue); font-size: 0.7rem; margin-right: 12px; margin-top: 4px; }
+
+        /* --- THE PLUMBING (TECHNICAL STACKS) --- */
+        .stack-box { background: #000; border-left: 3px solid var(--accent-blue); padding: 15px; font-family: 'Fira Code'; font-size: 0.75rem; margin-top: auto; }
+        .stack-item { display: flex; align-items: center; margin-bottom: 5px; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; }
+
+        .btn { 
+            display: block; width: 100%; padding: 20px; text-align: center; 
+            font-family: 'Orbitron'; text-decoration: none; color: var(--accent-blue); 
+            border: 2px solid var(--accent-blue); transition: 0.3s; margin-top: 30px;
+            letter-spacing: 2px; font-weight: bold; text-transform: uppercase;
+        }
+        .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 30px var(--accent-blue); }
+
+        footer { background: var(--bg-deep); padding: 60px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-logo { font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 4px; color: #fff; opacity: 0.8; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1100px) { 
+            .nav-group { display: none; } #menu-btn { display: block; } 
+            .tier-row { grid-template-columns: 1fr; max-width: 600px; }
+        }
     </style>
 </head>
 <body>
@@ -77,73 +140,83 @@
     <nav id="mobile-nav"><a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a></nav>
 
     <main>
-        <div class="section-header">
-            <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-blue); letter-spacing: 6px; margin-bottom: 15px;">[ SYSTEM // EDITOR_UTILITY_PIPELINE ]</div>
-            <h1 style="font-family: 'Orbitron'; font-weight:900; color: #fff; font-size: clamp(2.5rem, 6vw, 4.5rem); text-shadow: 0 0 20px var(--accent-blue); line-height: 1;">HANDY <span style="color: var(--accent-blue);">AUTOMATION</span></h1>
-            <p style="margin-top: 25px; font-size: 1.1rem;">A hybrid Python-Blueprint bridge engineered to de-clutter the Unreal Engine 5 workflow. Battle-tested on the frontlines of Blood-Yield development.</p>
+        <div class="hero-banner">
+            <div class="meta-line">[ HI_HANDY // EDITOR_UTILITY_SUITE ]</div>
+            <h1>HANDY <span style="color:var(--accent-blue)">ULTIMATE</span></h1>
+            <p style="margin-top:30px; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                The professional Unreal Engine 5 automation apex. A modular, marketplace-ready framework designed to bridge the gap between Blueprint visual accessibility and Python industrial power.
+            </p>
         </div>
 
-        <img src="handy_banner.jpg" alt="HANDY Banner" class="handy-banner">
-
-        <div class="tier-grid">
+        <div class="tier-row">
             <div class="tier-card">
-                <span class="tech-stack-label">[ MODULE // CORE_INTERFACE ]</span>
-                <h3 style="font-family:'Orbitron'; font-size: 1.6rem;">LITE</h3>
+                <span class="tier-label">[ SECTOR // CORE_UTILITY ]</span>
+                <h2 class="tier-title">LITE</h2>
                 <div class="tier-price">$24.99</div>
-                <ul class="tier-list">
-                    <li><strong>Editor Utility Widgets:</strong> High-performance UMG shells for rapid asset searching and bulk renaming.</li>
-                    <li><strong>Standard Logic Library:</strong> Pre-compiled Blueprint nodes for basic world-building automation.</li>
-                    <li><strong>Indie Support:</strong> Optimized for solo developers and projects with under $100k annual revenue.</li>
+                <p class="tier-desc">The essential foundation for solo developers. Automate the "boring stuff" and maintain project cleanliness without leaving the UMG interface.</p>
+                <ul class="feature-list">
+                    <li><strong>Isolation Protocol:</strong> Optimized `Content/Handy/` structure.</li>
+                    <li><strong>Handy Shelf:</strong> Rapid-access UI for all active project assets.</li>
+                    <li><strong>Standard Renamer:</strong> Bulk rename logic for marketplace compliance.</li>
                 </ul>
-                <div class="code-block" style="border-left-color: var(--bp-exec);">
-                    <div><span class="dot" style="background:var(--bp-exec);"></span> EUW_HI_HandyShelf.uasset</div>
-                    <div><span class="dot" style="background:var(--bp-exec);"></span> EUW_HI_HandyMain.uasset</div>
+                <div class="stack-box">
+                    <div class="stack-item"><span class="dot" style="background:var(--bp-exec)"></span> EUW_HI_HandyShelf</div>
+                    <div class="stack-item"><span class="dot" style="background:var(--bp-exec)"></span> EUW_HI_HandyMain</div>
                 </div>
-                <button class="btn">ACCESS ON FAB</button>
+                <a href="#" class="btn">VIEW ON FAB</a>
+            </div>
+
+            <div class="tier-card featured">
+                <div class="featured-tag">MOST POPULAR</div>
+                <span class="tier-label">[ SECTOR // LOGIC_BRIDGE ]</span>
+                <h2 class="tier-title">ELITE</h2>
+                <div class="tier-price">$59.99</div>
+                <p class="tier-desc">The Architect’s choice. Unlocks the hybrid bridge allowing local Python scripts to manipulate Blueprint data assets in real-time.</p>
+                <ul class="feature-list">
+                    <li><strong>BYOB (Bring Your Own Brain):</strong> Local routing for private LLM API logic.</li>
+                    <li><strong>Graph Cleaner:</strong> Industrial-scale node alignment and cleaning scripts.</li>
+                    <li><strong>Advanced Validators:</strong> Action scripts to verify asset stability.</li>
+                </ul>
+                <div class="stack-box">
+                    <div class="stack-item"><span class="dot" style="background:var(--bp-string)"></span> handy_core_utils.py</div>
+                    <div class="stack-item"><span class="dot" style="background:var(--bp-string)"></span> action_graph_cleaner.py</div>
+                </div>
+                <a href="#" class="btn">VIEW ON FAB</a>
             </div>
 
             <div class="tier-card">
-                <span class="tech-stack-label">[ MODULE // LOGIC_ROUTING ]</span>
-                <h3 style="font-family:'Orbitron'; font-size: 1.6rem;">ELITE</h3>
-                <div class="tier-price">$59.99</div>
-                <ul class="tier-list">
-                    <li><strong>Python Logic Bridge:</strong> Direct access to the Handy core Python API for custom tool creation.</li>
-                    <li><strong>BYOB Integration:</strong> "Bring Your Own Brain" — Route your own private LLM API keys for local logic generation.</li>
-                    <li><strong>Graph Cleaners:</strong> One-click industrial formatting for messy Blueprint spaghetti logic.</li>
+                <span class="tier-label">[ SECTOR // OMNI_NETWORK ]</span>
+                <h2 class="tier-title">ULTIMATE</h2>
+                <div class="tier-price">$49.99 <span>/ MO</span></div>
+                <p class="tier-desc">The studio infrastructure. Full synchronization with Harrison Interactive cloud routing for enterprise-scale AI automation.</p>
+                <ul class="feature-list">
+                    <li><strong>Full AI Suite:</strong> Powered by HI Cloudflare backend redirects.</li>
+                    <li><strong>Verified Studio Badge:</strong> RMT Marketplace authority & priority support.</li>
+                    <li><strong>Commercial License:</strong> Authorized for multi-seat studio environments.</li>
                 </ul>
-                <div class="code-block" style="border-left-color: var(--bp-string);">
-                    <div><span class="dot" style="background:var(--bp-string);"></span> handy_core_utils.py [ACTIVE]</div>
-                    <div><span class="dot" style="background:var(--bp-string);"></span> action_graph_cleaner.py [STABLE]</div>
+                <div class="stack-box">
+                    <div class="stack-item"><span class="dot" style="background:var(--bp-target)"></span> handy_omni_network.py</div>
+                    <div class="stack-item"><span class="dot" style="background:var(--bp-target)"></span> hi-signal-terminal.dev</div>
                 </div>
-                <button class="btn">ACCESS ON FAB</button>
-            </div>
-
-            <div class="tier-card tier-ultimate">
-                <span class="tech-stack-label" style="color:var(--accent-blue);">[ MODULE // OMNI_NETWORK ]</span>
-                <h3 style="font-family:'Orbitron'; font-size: 1.6rem; color:var(--accent-blue);">ULTIMATE</h3>
-                <div class="tier-price">$49.99<span> / MO</span></div>
-                <ul class="tier-list">
-                    <li><strong>Omni-Network Sync:</strong> Live data-routing via Harrison Interactive Cloudflare Workers for studio-wide tool sync.</li>
-                    <li><strong>Verified Studio Badge:</strong> Immediate marketplace authority and priority support routing.</li>
-                    <li><strong>Enterprise Licensing:</strong> Fully cleared for multi-seat studio deployment and AAA-scale projects.</li>
-                </ul>
-                <div class="code-block" style="border-left-color: var(--bp-cyan);">
-                    <div><span class="dot" style="background:var(--bp-cyan);"></span> handy_omni_network.py [SYNC]</div>
-                    <div><span class="dot" style="background:var(--bp-cyan);"></span> hi-signal-terminal.workers.dev</div>
-                </div>
-                <button class="btn" style="opacity:0.3; pointer-events:none;">COMING SOON</button>
+                <a href="#" class="btn" style="opacity:0.4; pointer-events:none;">COMING SOON</a>
             </div>
         </div>
     </main>
 
     <footer>
-        <div class="footer-text">HARRISON INTERACTIVE // EST. 2026 // UNRIVALED INNOVATION // © ALL RIGHTS RESERVED</div>
+        <div class="footer-logo">HARRISON INTERACTIVE // EST. 2026 // UNRIVALED INNOVATION</div>
+        <div style="font-family:'Fira Code'; font-size: 0.65rem; opacity: 0.4; margin-top: 20px;">
+            UE AI AUTHORITY // FAB MARKETPLACE // CONTENT/HANDY/
+        </div>
     </footer>
 
     <script>
         const btn = document.getElementById('menu-btn');
         const nav = document.getElementById('mobile-nav');
-        btn.onclick = () => { nav.classList.toggle('active'); btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; };
+        btn.onclick = () => { 
+            nav.classList.toggle('active'); 
+            btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; 
+        };
     </script>
 </body>
 </html>
