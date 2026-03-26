@@ -1,32 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><title>THE MAW | Heimr Salvage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Montserrat:wght@300;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI_DATABASE | The_Maw_v4.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --blood: #8B0000; --gold: #F9D423; --silver: #C0C0C0; --rust: #8A3324; }
-        body { background: var(--bg); color: var(--silver); font-family: 'Montserrat'; margin: 0; }
-        header { width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; background: rgba(5,5,5,0.95); border-bottom: 1px solid rgba(139,0,0,0.2); position: sticky; top: 0; z-index: 2000; }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 2px; text-decoration: none; }
-        .sub-nav { background: rgba(139, 0, 0, 0.1); border-bottom: 1px solid var(--blood); padding: 15px; display: flex; justify-content: center; gap: 40px; }
-        .sub-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; color: #4A4E69; letter-spacing: 4px; transition: 0.3s; }
-        .sub-nav a.active { color: var(--blood); border-bottom: 1px solid var(--blood); }
-        .container { max-width: 1000px; margin: 80px auto; padding: 0 5%; text-align: center; }
-        .pit-terminal { border: 1px solid var(--rust); padding: 80px 40px; background: linear-gradient(180deg, #000, #050505); }
-        h1 { font-family: 'Orbitron'; font-size: 3.5rem; letter-spacing: 20px; color: var(--blood); }
-        .return-box { font-family: 'Orbitron'; font-size: 3rem; color: var(--gold); border: 2px solid var(--gold); padding: 20px; display: inline-block; margin: 30px 0; }
+        :root {
+            --bg-deep: #050505;
+            --accent-blue: #00D2FF; 
+            --blood: #8B0000;       
+            --rust: #8A3324;        
+            --gold-yield: #F9D423;  
+            --stone: #4A4E69;
+            --text-silver: #C0C0C0;
+            --navy-grid: #0A192F;
+            --hazard: #d32f2f;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-silver); 
+            font-family: 'Montserrat', sans-serif;
+            background-image: linear-gradient(rgba(10,5,5,0.9), rgba(5,5,5,0.98)), url('BY-Background.png');
+            background-size: cover; background-position: center center; background-attachment: fixed;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        /* --- HARRISON INTERACTIVE HEADER --- */
+        header {
+            width: 100%; min-height: 80px; display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px);
+        }
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+
+        /* --- THE COMMAND DECK (HAZARD GLOW) --- */
+        .command-deck {
+            background: #000; border-bottom: 2px solid var(--blood);
+            padding: 15px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
+        }
+        .command-deck a {
+            text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900;
+            color: #fff; letter-spacing: 3px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 1);
+            border: 1px solid rgba(139, 0, 0, 0.5); padding: 10px 20px; background: rgba(139, 0, 0, 0.1);
+        }
+        .command-deck a:hover { 
+            color: var(--gold-yield); border-color: var(--gold-yield);
+            text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
+        }
+        .command-deck a.active {
+            color: var(--hazard); border-color: var(--hazard);
+            text-shadow: 0 0 15px var(--hazard); background: rgba(139, 0, 0, 0.2);
+        }
+
+        /* --- PROJECT BANNER --- */
+        .project-banner { text-align: center; padding: 20px 0 10px; }
+        .logo-by { 
+            font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
+            background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
+        }
+
+        /* --- MAIN TERMINAL GRID --- */
+        .main-grid { max-width: 1600px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        
+        /* Left: De-Compiler Module */
+        .shredder-box { 
+            background: linear-gradient(180deg, rgba(10,10,10,0.98) 0%, rgba(5,5,5,1) 100%);
+            border: 2px dashed var(--rust); padding: 50px; position: relative; 
+            box-shadow: inset 0 0 80px rgba(138, 51, 36, 0.1), 0 0 50px rgba(0,0,0,0.9); 
+        }
+        .shredder-box h2 { font-family: 'Orbitron'; color: var(--hazard); letter-spacing: 8px; margin-bottom: 25px; font-size: 1.8rem; border-bottom: 2px solid var(--rust); padding-bottom: 15px; text-shadow: 0 0 10px rgba(211, 47, 47, 0.5); }
+
+        .hazard-directive { font-family: 'Fira Code'; font-size: 0.85rem; line-height: 1.8; color: var(--text-silver); border-left: 4px solid var(--hazard); padding-left: 30px; margin: 30px 0; background: rgba(139, 0, 0, 0.05); padding-top: 15px; padding-bottom: 15px; }
+        .hazard-directive strong { color: var(--gold-yield); }
+
+        /* The Yield Display */
+        .yield-display { text-align: center; margin: 40px 0; padding: 30px; border: 1px solid var(--gold-yield); background: rgba(249, 212, 35, 0.05); }
+        .yield-number { font-family: 'Orbitron'; font-size: 4rem; font-weight: 900; color: var(--gold-yield); text-shadow: 0 0 20px rgba(249, 212, 35, 0.4); margin-bottom: 10px; }
+        .yield-sub { font-family: 'Fira Code'; font-size: 0.8rem; color: var(--stone); letter-spacing: 4px; }
+
+        .btn-shred { width: 100%; padding: 25px; background: transparent; color: var(--hazard); border: 2px solid var(--hazard); font-family: 'Orbitron'; font-weight: 900; letter-spacing: 6px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
+        .btn-shred:hover { background: var(--hazard); color: #fff; box-shadow: 0 0 35px var(--hazard); }
+
+        /* Right: Dense Telemetry & Salvage Log */
+        .data-panel { background: rgba(0, 0, 0, 0.95); border: 1px solid var(--rust); padding: 40px; font-family: 'Fira Code'; color: var(--rust); box-shadow: 0 0 40px rgba(138, 51, 36, 0.05); height: fit-content; position: sticky; top: 180px; }
+        .data-panel h3 { color: var(--hazard); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 25px; border-bottom: 1px solid var(--hazard); padding-bottom: 15px; letter-spacing: 3px; }
+        
+        .data-line { margin-bottom: 12px; border-bottom: 1px solid rgba(138, 51, 36, 0.2); padding-bottom: 8px; font-size: 0.8rem; display: flex; justify-content: space-between; }
+        .data-label { color: var(--stone); text-transform: uppercase; }
+        .data-value { color: var(--text-silver); font-weight: bold; text-align: right; }
+
+        /* Active Salvage Log */
+        .salvage-log { background: #000; border: 1px solid var(--stone); padding: 25px; font-family: 'Fira Code'; font-size: 0.7rem; margin-top: 30px; height: 250px; overflow-y: hidden; color: var(--stone); position: relative; }
+        .salvage-log::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; background: linear-gradient(transparent, #000); }
+        .salvage-log h4 { color: var(--gold-yield); margin-bottom: 15px; border-bottom: 1px dashed var(--gold-yield); padding-bottom: 10px; }
+        
+        .log-entry { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
+        .log-entry.shred span.time { color: var(--rust); margin-right: 10px; }
+        .log-entry.yield span.amount { color: var(--gold-yield); font-weight: bold; }
+        .log-entry.iron span.amount { color: var(--accent-blue); font-weight: bold; }
+
+        footer { text-align: center; padding: 50px; font-family: 'Fira Code'; font-size: 0.8rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+
+        @media (max-width: 1200px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .command-deck a { font-size: 0.65rem; padding: 8px 12px; flex: 1 1 45%; text-align: center; }
+            .data-panel { position: relative; top: 0; }
+        }
     </style>
 </head>
 <body>
-    <header><a href="index.html" class="studio-logo">HARRISON INTERACTIVE</a></header>
-    <nav class="sub-nav"><a href="world.html">GEOGRAPHY</a><a href="waygates.html">WAYGATES</a><a href="plots.html">PLOTS</a><a href="maw.html" class="active">MAW</a></nav>
-    <main class="container">
-        <div class="pit-terminal">
-            <h1>THE MAW</h1>
-            <p style="opacity:0.7;">Industrial de-compilation terminal of <strong>Heimr</strong>.</p>
-            <div class="return-box">5% YIELD</div>
-            <div style="font-family:'Fira Code'; color:var(--rust);">[ EXTRACTING: COLD_IRON ]</div>
+
+    <header>
+        <a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a>
+        <div class="nav-links">
+            <a href="index.html">DATABASE_MAIN</a>
+            <a href="world.html" class="active">HEIMR_CORE</a>
+            <a href="lore.html">LORE_RECORDS</a>
         </div>
+    </header>
+
+    <nav class="command-deck">
+        <a href="world.html">GEOGRAPHY</a>
+        <a href="waygates.html">WAYGATES</a>
+        <a href="plots.html">HALLOWED_PLOTS</a>
+        <a href="maw.html" class="active">THE_MAW</a>
+    </nav>
+
+    <div class="project-banner">
+        <h1 class="logo-by">BLOOD-YIELD</h1>
+        <div style="font-family:'Fira Code'; color:var(--rust); font-size:0.75rem; letter-spacing:5px; margin-top:5px;">[ KERNEL: HANDY // MODULE: SALVAGE_ABYSS ]</div>
+    </div>
+
+    <main class="main-grid">
+        
+        <div class="shredder-box">
+            <h2>DE-COMPILATION_PIT</h2>
+            <p style="font-size: 0.95rem; opacity: 0.8; line-height: 1.7; margin-bottom: 20px;">The Maw is the industrial recycle bin of Heimr. When your Bio-Armor succumbs entirely to the 80% Soul-Blight penalty, it must be sacrificed here to prevent total data loss.</p>
+            
+            <div class="hazard-directive">
+                > WARNING: FATAL_DELETION_EVENT<br>
+                "Items cast into the Maw are permanently shredded by the <strong>Handy</strong> kernel. The system executes a violent data-scavenge, extracting the uncorrupted base code. You will receive a strict <strong>5% return</strong> of the item's original <strong>Kilo-Vial ($KV$)</strong> value."
+            </div>
+
+            <div class="yield-display">
+                <div class="yield-number">5.0%</div>
+                <div class="yield-sub">[ GUARANTEED_KILO-VIAL_YIELD ]</div>
+                <div style="margin-top: 15px; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue);">+ 0.01% CHANCE: COLD_IRON_SHARD</div>
+            </div>
+
+            <button class="btn-shred" onclick="alert('ERROR: NO BLIGHTED GEAR DETECTED IN INVENTORY.')">AUTHORIZE_SACRIFICE</button>
+        </div>
+
+        <div>
+            <div class="data-panel">
+                <h3>> MAW_TELEMETRY</h3>
+                <div class="data-line"><span class="data-label">ENGINE:</span> <span class="data-value">HANDY_SHREDDER_v2</span></div>
+                <div class="data-line"><span class="data-label">BLIGHT_TOLERANCE:</span> <span class="data-value">100%_DECAY</span></div>
+                <div class="data-line"><span class="data-label">PIT_DEPTH:</span> <span class="data-value">UNMEASURABLE</span></div>
+                <div class="data-line"><span class="data-label">BASE_RETURN:</span> <span class="data-value" style="color:var(--gold-yield);">5%_KV_VOLUME</span></div>
+                <div class="data-line"><span class="data-label">ANOMALY_RATE:</span> <span class="data-value" style="color:var(--accent-blue);">0.01%_COLD_IRON</span></div>
+                <div class="data-line"><span class="data-label">QUEUE_STATUS:</span> <span class="data-value">ACTIVE_PROCESSING</span></div>
+                <div class="data-line"><span class="data-label">MARKET_LINK:</span> <span class="data-value">HJÄRTA_EXCHANGE</span></div>
+                
+                <div style="margin-top:35px; font-size:0.7rem; color:var(--stone); line-height:1.6; border-top: 1px dashed var(--rust); padding-top: 20px;">
+                    [HI_SYSTEM_NOTICE]:<br>
+                    "Verified" Operators receive a localized tax reduction, increasing Maw de-compilation yields by 1.2%.
+                </div>
+            </div>
+
+            <div class="salvage-log">
+                <h4>> LIVE_DE-COMPILATION_FEED</h4>
+                <div class="log-entry shred"><span class="time">[22:14:01]</span> > SHREDDING: Bio-Skeleton [Tier 2]...</div>
+                <div class="log-entry yield"><span class="time">[22:14:03]</span> > SUCCESS: Yielded <span class="amount">+12.4 $KV$</span></div>
+                <div class="log-entry shred"><span class="time">[22:15:22]</span> > SHREDDING: Blighted Scythe [Tier 1]...</div>
+                <div class="log-entry yield"><span class="time">[22:15:24]</span> > SUCCESS: Yielded <span class="amount">+3.1 $KV$</span></div>
+                <div class="log-entry shred"><span class="time">[22:18:05]</span> > SHREDDING: Sower Generator_Core...</div>
+                <div class="log-entry iron"><span class="time">[22:18:10]</span> > ANOMALY DETECTED: Yielded <span class="amount">+1 COLD_IRON</span></div>
+                <div class="log-entry shred"><span class="time">[22:19:40]</span> > SHREDDING: Ashen Chestplate...</div>
+            </div>
+        </div>
+
     </main>
+
+    <footer>HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // EST. 2026</footer>
+
 </body>
 </html>
