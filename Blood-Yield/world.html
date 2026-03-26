@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HI_DATABASE | Heimr_Geography_v4.0</title>
+    <title>Blood-Yield | v1.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -29,36 +29,30 @@
             display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* --- HARRISON INTERACTIVE HEADER --- */
+        /* --- HARRISON INTERACTIVE HEADER (CENTERED FIX) --- */
         header {
-            width: 100%; min-height: 80px; display: flex; justify-content: space-between; align-items: center;
+            width: 100%; min-height: 70px; display: flex; justify-content: center; align-items: center;
             padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
             position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px);
         }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; font-size: 1.1rem; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
-        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+        .header-core {
+            display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center;
+        }
+        .return-link { 
+            font-family: 'Fira Code'; font-size: 0.75rem; color: var(--stone); 
+            text-decoration: none; transition: 0.3s; letter-spacing: 2px; 
+            border: 1px solid transparent; padding: 5px 10px;
+        }
+        .return-link:hover { color: var(--accent-blue); border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.05); }
+        
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 4px; text-decoration: none; font-size: 1.2rem; }
+        
+        .active-tag { font-family: 'Fira Code'; font-size: 0.75rem; color: var(--gold-yield); letter-spacing: 2px; text-decoration: none; text-shadow: 0 0 10px var(--gold-yield); }
 
-        /* --- THE COMMAND DECK (HUD GLOW) --- */
-        .command-deck {
-            background: #000; border-bottom: 2px solid var(--blood);
-            padding: 15px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-            box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
-        }
-        .command-deck a {
-            text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900;
-            color: #fff; letter-spacing: 3px; transition: 0.3s;
-            text-shadow: 0 0 10px rgba(139, 0, 0, 1);
-            border: 1px solid rgba(139, 0, 0, 0.5); padding: 10px 20px; background: rgba(139, 0, 0, 0.1);
-        }
-        .command-deck a:hover, .command-deck a.active { 
-            color: var(--gold-yield); border-color: var(--gold-yield);
-            text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
-        }
-
-        /* --- PROJECT BANNER --- */
-        .project-banner { text-align: center; padding: 20px 0 10px; }
+        /* --- CLICKABLE PROJECT BANNER --- */
+        .project-banner { text-align: center; padding: 25px 0 15px; }
+        .logo-link { text-decoration: none; display: inline-block; transition: 0.3s; }
+        .logo-link:hover { transform: scale(1.02); filter: brightness(1.2); }
         .logo-by { 
             font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
             background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
@@ -66,8 +60,26 @@
             filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
         }
 
+        /* --- CONSOLIDATED COMMAND DECK (BOUND TO TERMINAL WIDTH) --- */
+        .command-deck {
+            background: #000; border: 1px solid var(--stone); border-bottom: 2px solid var(--blood);
+            padding: 15px 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
+            max-width: 1440px; width: 90%; margin: 0 auto;
+        }
+        .command-deck a {
+            text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; font-weight: 900;
+            color: #fff; letter-spacing: 2px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 1);
+            border: 1px solid rgba(139, 0, 0, 0.5); padding: 8px 12px; background: rgba(139, 0, 0, 0.1);
+        }
+        .command-deck a:hover, .command-deck a.active { 
+            color: var(--gold-yield); border-color: var(--gold-yield);
+            text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
+        }
+
         /* --- MAIN TERMINAL GRID --- */
-        .main-grid { max-width: 1600px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        .main-grid { max-width: 1600px; margin: 0 auto; padding: 30px 5%; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
         
         /* Left: Sector Nodes */
         .sector-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
@@ -83,7 +95,16 @@
         .sector-header h2 { font-family: 'Orbitron'; color: #fff; letter-spacing: 4px; font-size: 1.2rem; }
         .sector-id { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--text-silver); opacity: 0.6; text-align: right; }
 
-        .sector-desc { font-size: 0.85rem; line-height: 1.7; opacity: 0.8; margin-bottom: 20px; flex-grow: 1; }
+        .sector-desc { font-size: 0.85rem; line-height: 1.7; opacity: 0.8; margin-bottom: 15px; }
+
+        /* The Plain-English Translation Box */
+        .translation-box {
+            margin-top: auto; margin-bottom: 20px; padding: 15px; border: 1px dashed var(--stone);
+            background: rgba(0, 0, 0, 0.6); font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem; color: var(--text-silver); line-height: 1.6; text-align: left;
+        }
+        .translation-box span { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--gold-yield); display: block; margin-bottom: 8px; letter-spacing: 2px; }
+        .translation-box strong { color: #fff; font-family: 'Orbitron'; letter-spacing: 1px; }
 
         /* View Protocol Box */
         .view-protocols { 
@@ -101,7 +122,7 @@
         .data-value { color: var(--accent-blue); font-weight: bold; text-align: right; }
 
         /* Global Status Log */
-        .status-log { background: #000; border: 1px solid var(--stone); padding: 25px; font-family: 'Fira Code'; font-size: 0.7rem; margin-top: 30px; color: var(--stone); }
+        .status-log { background: #000; border: 1px solid var(--stone); padding: 25px; font-family: 'Fira Code'; font-size: 0.7rem; margin-top: 10px; color: var(--stone); max-height: 250px; overflow-y: auto; }
         .log-entry { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
         .log-entry span { color: var(--gold-yield); margin-right: 10px; }
 
@@ -110,7 +131,9 @@
         @media (max-width: 1200px) {
             .main-grid { grid-template-columns: 1fr; }
             .sector-container { grid-template-columns: 1fr; }
-            .command-deck a { font-size: 0.65rem; padding: 8px 12px; flex: 1 1 45%; text-align: center; }
+            .command-deck { gap: 8px; width: 95%; }
+            .command-deck a { font-size: 0.6rem; padding: 8px 5px; flex: 1 1 30%; text-align: center; }
+            .header-core { gap: 15px; flex-direction: column; text-align: center; }
             .data-panel { position: relative; top: 0; }
         }
     </style>
@@ -118,25 +141,28 @@
 <body>
 
     <header>
-        <a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a>
-        <div class="nav-links">
-            <a href="index.html">DATABASE_MAIN</a>
-            <a href="world.html" class="active">HEIMR_CORE</a>
-            <a href="lore.html">LORE_RECORDS</a>
+        <div class="header-core">
+            <a href="../index.html" class="return-link">< RETURN_TO_ROOT</a>
+            <a href="#" class="studio-logo">HARRISON INTERACTIVE</a>
+            <span class="active-tag">[ HEIMR_CORE ]</span>
         </div>
     </header>
 
+    <div class="project-banner">
+        <a href="index.html" class="logo-link">
+            <h1 class="logo-by">BLOOD-YIELD</h1>
+        </a>
+        <div style="font-family:'Fira Code'; color:var(--gold-yield); font-size:0.75rem; letter-spacing:5px; margin-top:10px;">[ KERNEL: HANDY // MODULE: SECTOR_MAPPING ]</div>
+    </div>
+
     <nav class="command-deck">
-        <a href="world.html" class="active">GEOGRAPHY</a>
+        <a href="world.html" class="active">HEIMR_GEOGRAPHY</a>
         <a href="waygates.html">WAYGATES</a>
         <a href="plots.html">HALLOWED_PLOTS</a>
         <a href="maw.html">THE_MAW</a>
+        <a href="lore.html">LORE_ARCHIVE</a>
+        <a href="community.html">COMMUNITY_NETWORK</a>
     </nav>
-
-    <div class="project-banner">
-        <h1 class="logo-by">BLOOD-YIELD</h1>
-        <div style="font-family:'Fira Code'; color:var(--gold-yield); font-size:0.75rem; letter-spacing:5px; margin-top:5px;">[ KERNEL: HANDY // MODULE: SECTOR_MAPPING ]</div>
-    </div>
 
     <main class="main-grid">
         
@@ -150,6 +176,12 @@
                 <div class="sector-desc">
                     The central BIOS of Heimr. A Brutalist monolith of wet, high-specularity stone. Here, the <strong>Handy</strong> kernel stabilizes the Black Oily Waygates, preventing data-leakage into the void. This is the only neutral ground for exchanging Kilo-Vials ($KV$).
                 </div>
+                
+                <div class="translation-box">
+                    <span>> DECRYPTING_LORE_JARGON...</span>
+                    <strong>What is this?</strong> Hjärta is the main social hub and safe zone. Players come here to meet up, access the marketplace, trade items, and party up before heading out into the combat zones.
+                </div>
+
                 <div class="view-protocols" style="border-left-color: var(--accent-blue);">
                     <div><strong>[ISO]</strong> Kernel Overview: Macro-monitoring Waygate handshakes.</div>
                     <div style="margin: 8px 0;"><strong>[3P]</strong> Social Nav: Interfacing with terminals and other signatories.</div>
@@ -165,6 +197,12 @@
                 <div class="sector-desc">
                     The unallocated sector. The terrain is raw <strong>Technical Drafting Paper</strong>, charred by the Ashen Convergence. Glowing circuit-traces pulse beneath 0.8 Vignette fog. Reapers deploy here to scavenge loose Vial-Bits ($vb$).
                 </div>
+
+                <div class="translation-box">
+                    <span>> DECRYPTING_LORE_JARGON...</span>
+                    <strong>What is this?</strong> The Iron Barrens is the primary PvE combat zone. This is where you fight enemies, farm for basic currency ($vb$), and gather loot drops while surviving the hazardous fog environment.
+                </div>
+
                 <div class="view-protocols" style="border-left-color: var(--blood);">
                     <div><strong>[ISO]</strong> Tactical Mapping: Tracking Husk clusters via grid lines.</div>
                     <div style="margin: 8px 0;"><strong>[3P]</strong> Kinetic Combat: High-mobility Reaper harvesting.</div>
@@ -180,6 +218,12 @@
                 <div class="sector-desc">
                     The world's hardware shredder. A vertical abyss where Soul-Blighted gear is sacrificed. The de-compiler shreds the item's skeleton, yielding a 5% return to keep the industrial economy churning.
                 </div>
+
+                <div class="translation-box">
+                    <span>> DECRYPTING_LORE_JARGON...</span>
+                    <strong>What is this?</strong> The Maw is the game's salvage system. When your equipment breaks down from the durability system (Soul-Blight), you permanently destroy the item here to get raw crafting materials back.
+                </div>
+
                 <div class="view-protocols" style="border-left-color: var(--rust);">
                     <div><strong>[ISO]</strong> Logistics: Calculating yield-rates for bulk sacrifices.</div>
                     <div style="margin: 8px 0;"><strong>[3P]</strong> Positioning: Aligning operators over the de-compilation pit.</div>
@@ -195,6 +239,12 @@
                 <div class="sector-desc">
                     Sovereign user-partitions. Sowers use <strong>Handy</strong> editor tools to graft Yggdrasil-Link fiber-optics into the soil, creating refining stations. Protected strictly by the Guest Protocol firewall.
                 </div>
+
+                <div class="translation-box">
+                    <span>> DECRYPTING_LORE_JARGON...</span>
+                    <strong>What is this?</strong> Hallowed Plots are instanced player housing and base-building zones. You can claim land, build crafting stations, and invite your friends to your private instance.
+                </div>
+
                 <div class="view-protocols" style="border-left-color: var(--emerald);">
                     <div><strong>[ISO]</strong> Architect Mode: Placing roots and routing power cables.</div>
                     <div style="margin: 8px 0;"><strong>[3P]</strong> Verification: Perimeter checks and signatory validation.</div>
