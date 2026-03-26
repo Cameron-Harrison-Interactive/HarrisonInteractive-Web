@@ -13,7 +13,7 @@
             --bg-navy: #0A192F;
             --accent-blue: #00D2FF;
             --text-silver: #C0C0C0;
-            --glass: rgba(10, 25, 47, 0.95);
+            --glass: rgba(10, 25, 47, 0.92);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,18 +23,27 @@
             color: var(--text-silver); 
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* --- FIXED HEADER --- */
+        /* --- 1. THE BULLETPROOF BACKGROUND --- */
+        .bg-blueprint {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background: radial-gradient(circle at center, #0a192f 0%, #050505 100%);
+            background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* --- 2. HEADER & MENU TRIGGERS (LAYER 1000) --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             display: flex; justify-content: center; align-items: center;
             background: var(--glass); backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
-            z-index: 2000; /* Higher than content */
+            z-index: 1000;
         }
 
         .studio-logo {
@@ -43,102 +52,69 @@
             text-shadow: 0 0 10px var(--accent-blue);
         }
 
-        /* The Blue Pin: The target for the click */
-        .menu-trigger { 
+        #menu-btn { 
             position: absolute; right: 5%; 
-            color: var(--accent-blue); font-size: 1.8rem; 
-            cursor: pointer; z-index: 2100; 
+            color: var(--accent-blue); font-size: 2rem; 
+            cursor: pointer; transition: 0.3s; 
         }
+        #menu-btn:hover { text-shadow: 0 0 15px var(--accent-blue); }
 
-        /* --- NAV DRAWER --- */
+        /* --- 3. SLIDE MENU (LAYER 900 - SLIDES UNDER HEADER) --- */
         #nav-menu {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
             background: var(--bg-navy); border-left: 2px solid var(--accent-blue);
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
-            z-index: 3000; /* Highest layer */
-            padding-top: 100px;
+            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            z-index: 900; padding-top: 100px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
         }
         #nav-menu.active { right: 0; }
-        #nav-menu a { display: block; padding: 20px 40px; color: #fff; text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        #nav-menu a:hover { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); }
+        #nav-menu a { 
+            display: block; padding: 20px 40px; color: #fff; 
+            text-decoration: none; font-family: 'Orbitron'; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+        }
+        #nav-menu a:hover { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); padding-left: 50px; }
 
-        /* --- MAIN TERMINAL AREA --- */
-        .terminal-container {
+        /* --- 4. MAIN CONTENT (LAYER 10) --- */
+        main {
             flex: 1;
-            padding: 140px 5% 100px; 
+            position: relative; z-index: 10;
+            padding: 130px 5% 80px;
             display: flex; flex-direction: column; align-items: center;
-            background: radial-gradient(circle at center, #0a192f 0%, #050505 100%);
-            background-image: linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 1;
         }
 
         .terminal-header { text-align: center; margin-bottom: 50px; }
 
         .ue-panel {
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px);
+            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 210, 255, 0.1); border-left: 4px solid var(--accent-blue);
             padding: 35px; width: 100%; max-width: 500px; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            margin-bottom: 20px;
         }
 
         .terminal-input {
             width: 100%; background: rgba(0, 210, 255, 0.03); border: 1px solid rgba(0, 210, 255, 0.2);
             color: #fff; padding: 15px; margin-bottom: 15px; font-family: 'Fira Code', monospace; outline: none;
+            transition: 0.3s;
         }
+        .terminal-input:focus { border-color: var(--accent-blue); box-shadow: 0 0 10px rgba(0, 210, 255, 0.15); background: rgba(0, 210, 255, 0.08); }
 
         .btn {
             padding: 15px 30px; font-family: 'Orbitron'; background: transparent;
             border: 2px solid var(--accent-blue); color: var(--accent-blue);
-            cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase;
+            cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;
         }
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
 
+        /* --- 5. FOOTER --- */
         footer {
-            background: var(--bg-deep);
-            padding: 40px 5%;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            z-index: 10;
+            position: relative; z-index: 10;
+            background: var(--bg-deep); padding: 40px 5%; text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Inter', sans-serif;
         }
 
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); backdrop-filter: blur(10px);
-            z-index: 4000; justify-content: center; align-items: center;
+        .legal-link {
+            display: inline-block; margin-top: 15px; font-family: 'Fira Code';
+            color: var(--accent-blue); text-decoration: none; font-size: 0.7rem;
+            letter-spacing: 1px; transition: 0.3s;
         }
-        .modal-box { background: var(--bg-navy); border: 1px solid var(--accent-blue); padding: 40px; text-align: center; max-width: 420px; width: 90%; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="studio-logo">Harrison Interactive</div>
-        <div class="menu-trigger" onclick="toggleMenu()">☰</div>
-    </header>
-
-    <nav id="nav-menu">
-        <a href="index.html">Home Hub</a>
-        <a href="handy.html">Handy Editor</a>
-        <a href="Blood-Yield/">Blood-Yield</a>
-        <a href="faq.html" style="color:var(--accent-blue)">Help/Faq Terminal</a>
-    </nav>
-
-    <main class="terminal-container">
-        <div class="terminal-header">
-            <div style="font-family:'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); letter-spacing: 5px;">[ SYSTEM_QUERY_HUB // ACTIVE ]</div>
-            <h1 style="font-family: 'Orbitron'; color: #fff; font-size: clamp(1.8rem, 5vw, 3.2rem); text-shadow: 0 0 15px var(--accent-blue); margin-top: 10px;">HELP/FAQ TERMINAL</h1>
-        </div>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 100%;">
-            <div class="ue-panel">
-                <h3 style="font-family: 'Orbitron'; color: var(--accent-blue); margin-bottom: 25px; font-size: 1.1rem;">KNOWLEDGE_MODULE</h3>
-                <div style="border-left: 2px solid rgba(0, 210, 255, 0.3); padding-left: 15px; margin-bottom: 25px;">
-                    <strong style="font-family: 'Fira Code'; color: #fff;">> HANDY UE Compatibility?</strong><br>
-                    <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-silver);">Validated for Unreal Engine 5.4+ environments.</p>
-                </div>
-                <div style="border-left: 2px solid rgba(0, 210, 255, 0.3); padding-left: 15px;">
-                    <strong style="font-family: 'Fira Code'; color: #fff;">> Blood-Yield
+        .legal-link:hover
