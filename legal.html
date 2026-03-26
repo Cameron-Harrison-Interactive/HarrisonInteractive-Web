@@ -6,10 +6,10 @@
     <title>LEGAL TERMINAL | Harrison Interactive LLC</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        /* HEADER CSS REMAINS THE SAME - UNIFIED BRANDING */
         :root { --bg-deep: #050505; --bg-navy: #0A192F; --accent-blue: #00D2FF; --accent-red: #8B0000; --text-silver: #C0C0C0; --glass: rgba(5, 5, 5, 0.85); }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: var(--bg-deep); background-image: radial-gradient(circle at top center, #0a192f 0%, transparent 80%); background-attachment: fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
         @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
         @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
         header { position: fixed; top: 0; left: 0; width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 210, 255, 0.2); z-index: 2000; overflow: hidden; padding: 0 5%; }
@@ -29,10 +29,11 @@
 
         main { flex: 1; padding: 160px 5% 100px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1200px; margin: 0 auto; }
         .legal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; width: 100%; }
-        .ue-panel { background: rgba(5, 5, 5, 0.9); border-left: 4px solid var(--accent-blue); padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-        .meta-tag { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); margin-bottom: 20px; display: block; border-bottom: 1px solid rgba(0, 210, 255, 0.1); padding-bottom: 10px; }
-        .panel-h { font-family: 'Orbitron'; font-size: 1.2rem; color: #fff; margin-bottom: 20px; letter-spacing: 1px; }
-        .panel-p { font-family: 'Inter'; font-size: 0.85rem; color: var(--text-silver); line-height: 1.8; margin-bottom: 15px; }
+        .ue-panel { background: rgba(5, 5, 5, 0.9); border-left: 4px solid var(--accent-blue); padding: 45px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+        .meta-tag { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); margin-bottom: 25px; display: block; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 15px; }
+        .panel-h { font-family: 'Orbitron'; font-size: 1.3rem; color: #fff; margin-bottom: 20px; letter-spacing: 2px; }
+        .panel-p { font-family: 'Inter'; font-size: 0.9rem; color: var(--text-silver); line-height: 1.8; margin-bottom: 20px; }
+        .panel-p strong { color: #fff; }
         
         footer { background: var(--bg-deep); padding: 40px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
         .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; }
@@ -48,15 +49,38 @@
     </header>
     <nav id="mobile-nav"><a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a></nav>
     <main>
-        <div style="text-align:center; margin-bottom:60px;"><h1 style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:clamp(2rem, 5vw, 4rem);">LEGAL <span style="color:var(--accent-blue);">TERMS</span></h1></div>
+        <div style="text-align:center; margin-bottom:60px;">
+            <div style="font-family:'Fira Code'; font-size: 0.8rem; color: var(--accent-blue); letter-spacing: 8px;">[ PROTOCOL // COMPLIANCE_TERMINAL ]</div>
+            <h1 style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:clamp(2.5rem, 6vw, 4.5rem);">LEGAL <span style="color:var(--accent-blue);">TERMS</span></h1>
+        </div>
         <div class="legal-grid">
-            <div class="ue-panel"><span class="meta-tag">[ SECTOR // HANDY_LICENSING ]</span><h3 class="panel-h">SOFTWARE USAGE RIGHTS</h3><p class="panel-p">The <strong>HANDY</strong> Editor Utility is licensed, not sold. Harrison Interactive LLC retains full ownership of the hybrid Python-Blueprint architecture. Usage for asset building is authorized; redistribution of the <code>Content/Handy/</code> logic core is prohibited.</p></div>
-            <div class="ue-panel" style="border-left-color: var(--accent-red);"><span class="meta-tag" style="color:var(--accent-red);">[ SECTOR // BLOOD_YIELD_ECONOMY ]</span><h3 class="panel-h">RMT & MARKETPLACE SECURITY</h3><p class="panel-p">All RMT involving Cold Iron or Soul Essence must be conducted via the secure marketplace. HI reserves the right to revoke Verified Signatory Badges if fraud or unauthorized Handy-driven automation is detected.</p></div>
-            <div class="ue-panel"><span class="meta-tag">[ SECTOR // DATA_PROTECTION ]</span><h3 class="panel-h">PRIVACY & TELEMETRY</h3><p class="panel-p">Minimal telemetry is collected for infrastructure security. Handy Ultimate "BYOB" API keys are processed locally and never stored on HI servers. Operators remain responsible for data sent via the Python logic bridge.</p></div>
-            <div class="ue-panel"><span class="meta-tag">[ SECTOR // ENGINE_STABILITY ]</span><h3 class="panel-h">LIABILITY DISCLAIMER</h3><p class="panel-p">Software is provided "AS IS." Harrison Interactive is not liable for project corruption resulting from usage on experimental or beta versions of Unreal Engine. 5.4 Stable is the only supported target.</p></div>
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // HANDY_PROPRIETARY ]</span>
+                <h3 class="panel-h">SOFTWARE USAGE RIGHTS</h3>
+                <p class="panel-p">The <strong>HANDY</strong> Editor Utility (Lite, Elite, and Ultimate tiers) is licensed, not sold. Harrison Interactive LLC retains absolute ownership of the hybrid Python-Blueprint bridge architecture.</p>
+                <p class="panel-p"><strong>Authorized Use:</strong> Licensed operators may use Handy to generate data assets, levels, and BP logic for commercial projects. However, redistribution, reverse-engineering, or mirroring of the <code>Content/Handy/</code> logic core or its associated Python scripts is strictly prohibited.</p>
+            </div>
+            <div class="ue-panel" style="border-left-color: var(--accent-red);">
+                <span class="meta-tag" style="color:var(--accent-red);">[ SECTOR // BLOOD_YIELD_RMT ]</span>
+                <h3 class="panel-h">MARKETPLACE SECURITY PROTOCOLS</h3>
+                <p class="panel-p">The <strong>Blood-Yield Symbiotic Economy</strong> relies on a secure RMT marketplace. All high-value transactions involving <strong>Cold Iron</strong> or <strong>Soul Essence</strong> are logged for anti-fraud verification.</p>
+                <p class="panel-p">Harrison Interactive reserves the right to revoke "Verified Signatory Badges" or suspend accounts suspected of exploiting Soul-Blight decay cycles via unauthorized automation tools or third-party exploits.</p>
+            </div>
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // DATA_TELEMETRY ]</span>
+                <h3 class="panel-h">PRIVACY & API COMPLIANCE</h3>
+                <p class="panel-p">Harrison Interactive stores minimal telemetry strictly for license verification. All financial processing is conducted via the <strong>Fab Marketplace</strong> or <strong>Cloudflare Worker</strong> routing.</p>
+                <p class="panel-p"><strong>Ultimate Tier BYOB:</strong> Operators using third-party LLM APIs acknowledge that Harrison Interactive does not store or see the data streams processed via your private API keys. Your data remains on your local machine and your chosen AI provider's network.</p>
+            </div>
+            <div class="ue-panel">
+                <span class="meta-tag">[ SECTOR // ENGINE_LIABILITY ]</span>
+                <h3 class="panel-h">LIABILITY & STABILITY DISCLAIMER</h3>
+                <p class="panel-p">Harrison Interactive software is provided <strong>"AS IS"</strong> without warranty of any kind. Unreal Engine 5 is a developing ecosystem; we are not liable for data corruption or project loss resulting from usage on unstable engine branches.</p>
+                <p class="panel-p">Support is strictly limited to <strong>UE 5.4 Stable</strong> builds. Usage on experimental versions is at the operator's own risk.</p>
+            </div>
         </div>
     </main>
-    <footer><div class="footer-text">© 2026 HARRISON INTERACTIVE LLC // UNRIVALED INNOVATION // EST. 2026</div></footer>
+    <footer><div class="footer-text">HARRISON INTERACTIVE // SECURE LEGAL ARRAY // © 2026 ALL RIGHTS RESERVED</div></footer>
     <script>const btn=document.getElementById('menu-btn'); const nav=document.getElementById('mobile-nav'); btn.onclick=()=>{ nav.classList.toggle('active'); btn.innerText=nav.classList.contains('active')?'✕':'☰'; };</script>
 </body>
 </html>
