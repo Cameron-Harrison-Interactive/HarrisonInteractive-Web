@@ -16,27 +16,30 @@
         }
 
         /* --- STUDIO HEADER --- */
-        header { width: 100%; min-height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2); position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(10px); }
+        header { width: 100%; min-height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2); position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px); }
         .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 2px; text-decoration: none; font-size: 1rem; }
         .nav-links a { text-decoration: none; color: var(--silver); font-family: 'Orbitron'; font-size: 0.65rem; letter-spacing: 1px; margin-left: 15px; opacity: 0.6; }
         .nav-links a.active { opacity: 1; color: var(--accent); text-shadow: 0 0 10px var(--accent); }
 
         /* --- COMMAND DECK (HUD GLOW) --- */
         .command-deck { background: #000; border-bottom: 2px solid var(--blood); padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 20px rgba(0,0,0,1); position: relative; z-index: 1000; }
-        .command-deck a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900; color: #fff; letter-spacing: 2px; border: 1px solid rgba(139, 0, 0, 0.5); padding: 8px 15px; background: rgba(139, 0, 0, 0.1); text-shadow: 0 0 10px var(--blood); transition: 0.3s; }
-        .command-deck a:hover { color: var(--gold); border-color: var(--gold); text-shadow: 0 0 15px var(--gold); }
+        .command-deck a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900; color: #fff; letter-spacing: 2px; border: 1px solid rgba(139, 0, 0, 0.5); padding: 8px 15px; background: rgba(139, 0, 0, 0.1); text-shadow: 0 0 10px var(--blood); transition: 0.3s; box-shadow: 0 0 5px var(--blood); }
+        .command-deck a:hover { color: var(--gold); border-color: var(--gold); text-shadow: 0 0 15px var(--gold); box-shadow: 0 0 10px var(--gold); }
 
-        /* --- PROJECT BANNER (NO SCROLL) --- */
+        /* --- PROJECT BANNER --- */
         .project-banner { text-align: center; padding: 15px 0 5px; }
         .logo-by { font-size: clamp(2rem, 8vw, 4rem); font-family: 'Orbitron'; font-weight: 900; background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.6)); margin: 0; }
 
-        .main-grid { max-width: 1400px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
-        .terminal-box { background: rgba(10, 10, 10, 0.98); border: 2px solid var(--rust); padding: 40px; }
+        .main-grid { max-width: 1400px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 1.4fr 1fr; gap: 30px; }
+        .terminal-box { background: rgba(10, 10, 10, 0.98); border: 2px solid var(--rust); padding: 40px; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
         .data-panel { background: rgba(0, 0, 0, 0.95); border: 1px solid #0A192F; padding: 30px; font-family: 'Fira Code'; color: var(--accent); }
 
-        .contract-text { font-family: 'Fira Code'; font-size: 0.8rem; line-height: 1.6; color: var(--stone); border-left: 3px solid var(--blood); padding-left: 20px; margin: 20px 0; }
-        .gothic-input { width: 100%; padding: 20px; background: #000; border: 1px solid var(--stone); color: #fff; font-family: 'Orbitron'; margin-bottom: 15px; }
-        .btn { width: 100%; padding: 20px; background: var(--blood); color: #fff; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; letter-spacing: 4px; }
+        .contract-text { font-family: 'Fira Code'; font-size: 0.8rem; line-height: 1.6; color: var(--stone); border-left: 3px solid var(--blood); padding-left: 20px; margin: 25px 0; }
+        .gothic-input { width: 100%; padding: 20px; background: #000; border: 1px solid var(--stone); color: #fff; font-family: 'Orbitron'; margin-bottom: 15px; outline: none; }
+        .btn { width: 100%; padding: 20px; background: var(--blood); color: #fff; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; letter-spacing: 4px; transition: 0.3s; }
+        .btn:hover { background: #b00000; box-shadow: 0 0 25px var(--blood); }
+
+        .data-line { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0, 210, 255, 0.1); padding: 8px 0; font-size: 0.75rem; }
 
         @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } .command-deck a { flex: 1 1 40%; text-align: center; font-size: 0.6rem; } }
     </style>
@@ -44,23 +47,28 @@
 <body>
     <header><a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a><div class="nav-links"><a href="index.html" class="active">DB_UPLINK</a><a href="world.html">HEIMR_CORE</a><a href="lore.html">LORE_LOGS</a></div></header>
     <nav class="command-deck"><a href="world.html">GEOGRAPHY</a><a href="waygates.html">WAYGATES</a><a href="plots.html">PLOTS</a><a href="maw.html">MAW</a></nav>
-    <div class="project-banner"><h1 class="logo-by">BLOOD-YIELD</h1><div style="font-family:'Fira Code'; color:var(--gold); font-size:0.7rem; letter-spacing:4px;">[ SUBSYSTEM: ALPHA_HARVEST_INIT ]</div></div>
+    <div class="project-banner"><h1 class="logo-by">BLOOD-YIELD</h1><div style="font-family:'Fira Code'; color:var(--gold); font-size:0.7rem; letter-spacing:4px;">[ DATA_SUBSYSTEM // RECRUITMENT_PHASE ]</div></div>
     <main class="main-grid">
         <div class="terminal-box">
-            <h2 style="font-family:'Orbitron'; color:#fff; letter-spacing:4px; margin-bottom:15px;">AUTHORIZE SIGNATURE</h2>
-            <p style="font-size:0.85rem; line-height:1.6; opacity:0.8;">Initialize your unique record in the <strong>HI_HANDY_CORE</strong>. This is mandatory for deployment into Heimr's industrial sectors.</p>
+            <h2 style="font-family:'Orbitron'; color:#fff; letter-spacing:4px; margin-bottom:15px; font-size: 1.2rem;">AUTHORIZE OPERATOR SIGNATURE</h2>
+            <p style="font-size:0.85rem; line-height:1.6; opacity:0.8;">Initialize your unique signatory record in the <strong>HI_HANDY_CORE</strong>. Required for Alpha access to Heimr's industrial sectors.</p>
             <div class="contract-text">> HI_PROTOCOL_HARVEST_01:<br>"The Operator accepts the <strong>Soul-Blight</strong> entropic decay. Total de-compilation in the <strong>Maw</strong> is permanent."</div>
             <form id="waitlist-form"><input type="email" id="email" name="operator_name" class="gothic-input" placeholder="OPERATOR_EMAIL" required><button type="submit" class="btn" id="submit-btn">INITIATE_UPLINK</button></form>
-            <p id="status-msg" style="margin-top:15px; font-family:'Fira Code'; font-size:0.75rem; text-align:center;"></p>
+            <p id="status-msg" style="margin-top:20px; font-family:'Fira Code'; font-size:0.75rem; text-align:center;"></p>
         </div>
         <div class="data-panel">
             <h3 style="color:var(--gold); font-family:'Orbitron'; font-size:0.9rem; margin-bottom:20px; border-bottom:1px solid var(--gold); padding-bottom:10px;">> HI_DATABASE_STATUS</h3>
-            <div style="font-size:0.75rem; line-height:2;">
-                [SYSTEM]: HANDY_CORE_v4<br>[ENCRYPTION]: RUNIC_AES_256<br>[CURRENCY]: VIAL_BITS ($vb$)<br>[MAW_FLUX]: 0.05%_YIELD<br>[PING]: 14ms_STABLE<br><span style="color:var(--blood)">[BLIGHT]: CRITICAL_DECAY</span><br><span style="color:var(--gold)">[ECONOMY]: RMT_VERIFIED</span>
-            </div>
+            <div class="data-line"><span>SYSTEM:</span> <span>HANDY_CORE_v4</span></div>
+            <div class="data-line"><span>ENCRYPTION:</span> <span>RUNIC_AES_256</span></div>
+            <div class="data-line"><span>CURRENCY:</span> <span>VIAL_BITS ($vb$)</span></div>
+            <div class="data-line"><span>EXCHANGE:</span> <span>1024vb : 1KV</span></div>
+            <div class="data-line"><span>MAW_FLUX:</span> <span>0.05%_YIELD</span></div>
+            <div class="data-line"><span>PING:</span> <span>14ms_STABLE</span></div>
+            <div class="data-line" style="color:var(--blood)"><span>BLIGHT:</span> <span>CRITICAL_DECAY</span></div>
+            <div class="data-line" style="color:var(--gold)"><span>ECONOMY:</span> <span>RMT_VERIFIED</span></div>
         </div>
     </main>
-    <footer style="text-align:center; padding:40px; font-family:'Fira Code'; font-size:0.7rem; opacity:0.4;">HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // 2026</footer>
+    <footer>HARRISON INTERACTIVE // HANDY // BLOOD-YIELD // 2026</footer>
     <script>
         const form = document.getElementById('waitlist-form');
         const statusMsg = document.getElementById('status-msg');
@@ -71,9 +79,9 @@
             submitBtn.innerText = "> UPLINKING...";
             try {
                 const response = await fetch("https://hi-signal-terminal.bccomp97249.workers.dev/", { method: 'POST', body: new FormData(form) });
-                if (response.ok) { statusMsg.style.color = "var(--gold)"; statusMsg.innerText = "[ 200 OK ] SIGNATURE_LOCKED."; submitBtn.innerText = "COMPLETE"; form.reset(); }
+                if (response.ok) { statusMsg.style.color = "var(--gold)"; statusMsg.innerText = "[ 200 OK ] UPLINK_SUCCESS. OPERATOR_ID_CREATED."; submitBtn.innerText = "COMPLETE"; form.reset(); }
                 else { throw new Error(); }
-            } catch (err) { statusMsg.style.color = "var(--blood)"; statusMsg.innerText = "[ ERROR ] SIGNAL_LOST."; submitBtn.disabled = false; submitBtn.innerText = "RETRY"; }
+            } catch (err) { statusMsg.style.color = "var(--blood)"; statusMsg.innerText = "[ ERROR ] SIGNAL_INTERRUPTED."; submitBtn.disabled = false; submitBtn.innerText = "RETRY"; }
         };
     </script>
 </body>
