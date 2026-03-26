@@ -39,7 +39,7 @@
         .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
         .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
-        /* --- THE COMMAND DECK (HUD GLOW & VISIBILITY) --- */
+        /* --- THE COMMAND DECK --- */
         .command-deck {
             background: #000; border-bottom: 2px solid var(--blood);
             padding: 15px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
@@ -51,12 +51,12 @@
             text-shadow: 0 0 10px rgba(139, 0, 0, 1);
             border: 1px solid rgba(139, 0, 0, 0.5); padding: 10px 20px; background: rgba(139, 0, 0, 0.1);
         }
-        .command-deck a:hover { 
+        .command-deck a:hover, .command-deck a.active { 
             color: var(--gold-yield); border-color: var(--gold-yield);
             text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
         }
 
-        /* --- PROJECT BANNER (COMPACT) --- */
+        /* --- PROJECT BANNER --- */
         .project-banner { text-align: center; padding: 20px 0 10px; }
         .logo-by { 
             font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
@@ -68,7 +68,6 @@
         /* --- MAIN TERMINAL GRID --- */
         .main-grid { max-width: 1600px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
         
-        /* Left: Auth Module */
         .terminal-box { background: rgba(10, 10, 10, 0.98); border: 2px solid var(--rust); padding: 50px; position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.9); }
         .terminal-box h2 { font-family: 'Orbitron'; color: #fff; letter-spacing: 6px; margin-bottom: 30px; font-size: 1.4rem; border-bottom: 2px solid var(--rust); padding-bottom: 15px; }
 
@@ -81,7 +80,7 @@
         .btn { width: 100%; padding: 25px; background: var(--blood); color: #fff; border: none; font-family: 'Orbitron'; font-weight: 900; letter-spacing: 6px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
         .btn:hover { background: #b00000; box-shadow: 0 0 35px var(--blood); letter-spacing: 8px; }
 
-        /* Right: Dense Telemetry */
+        /* Dense Telemetry */
         .data-panel { background: rgba(0, 0, 0, 0.95); border: 1px solid var(--navy-grid); padding: 40px; font-family: 'Fira Code'; color: var(--accent-blue); box-shadow: 0 0 40px rgba(0, 210, 255, 0.05); }
         .data-panel h3 { color: var(--gold-yield); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 25px; border-bottom: 1px solid var(--gold-yield); padding-bottom: 15px; letter-spacing: 3px; }
         
@@ -89,7 +88,7 @@
         .data-label { color: var(--stone); text-transform: uppercase; }
         .data-value { color: var(--accent-blue); font-weight: bold; }
 
-        /* Global Status Log (NEW DENSITY SECTION) */
+        /* Global Status Log */
         .status-log { grid-column: 1 / -1; background: #000; border: 1px solid var(--stone); padding: 30px; font-family: 'Fira Code'; font-size: 0.75rem; margin-top: 20px; max-height: 250px; overflow-y: auto; color: var(--stone); }
         .log-entry { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
         .log-entry span { color: var(--blood); margin-right: 15px; }
@@ -107,7 +106,7 @@
 <body>
 
     <header>
-        <a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a>
+        <a href="#" class="studio-logo">HARRISON INTERACTIVE</a>
         <div class="nav-links">
             <a href="index.html" class="active">DATABASE_MAIN</a>
             <a href="world.html">HEIMR_CORE</a>
