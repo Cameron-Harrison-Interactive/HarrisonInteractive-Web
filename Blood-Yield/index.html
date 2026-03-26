@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HI_DATABASE | Terminal_Uplink_v4.0.2</title>
+    <title>HI_DATABASE | Terminal_Uplink_v4.1</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -30,34 +30,19 @@
 
         /* --- HARRISON INTERACTIVE HEADER --- */
         header {
-            width: 100%; min-height: 80px; display: flex; justify-content: space-between; align-items: center;
+            width: 100%; min-height: 70px; display: flex; justify-content: space-between; align-items: center;
             padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
             position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px);
         }
         .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; font-size: 1.1rem; }
         .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
+        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Fira Code'; font-size: 0.7rem; letter-spacing: 2px; transition: 0.3s; opacity: 0.6; }
         .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
 
-        /* --- THE COMMAND DECK --- */
-        .command-deck {
-            background: #000; border-bottom: 2px solid var(--blood);
-            padding: 15px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-            box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
-        }
-        .command-deck a {
-            text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900;
-            color: #fff; letter-spacing: 3px; transition: 0.3s;
-            text-shadow: 0 0 10px rgba(139, 0, 0, 1);
-            border: 1px solid rgba(139, 0, 0, 0.5); padding: 10px 20px; background: rgba(139, 0, 0, 0.1);
-        }
-        .command-deck a:hover, .command-deck a.active { 
-            color: var(--gold-yield); border-color: var(--gold-yield);
-            text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
-        }
-
-        /* --- PROJECT BANNER --- */
-        .project-banner { text-align: center; padding: 20px 0 10px; }
+        /* --- CLICKABLE PROJECT BANNER --- */
+        .project-banner { text-align: center; padding: 25px 0 15px; }
+        .logo-link { text-decoration: none; display: inline-block; transition: 0.3s; }
+        .logo-link:hover { transform: scale(1.02); filter: brightness(1.2); }
         .logo-by { 
             font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
             background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
@@ -65,13 +50,31 @@
             filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
         }
 
+        /* --- CONSOLIDATED COMMAND DECK (6 MODULES) --- */
+        .command-deck {
+            background: #000; border-top: 1px solid var(--stone); border-bottom: 2px solid var(--blood);
+            padding: 15px 5%; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
+        }
+        .command-deck a {
+            text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; font-weight: 900;
+            color: #fff; letter-spacing: 2px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 1);
+            border: 1px solid rgba(139, 0, 0, 0.5); padding: 8px 12px; background: rgba(139, 0, 0, 0.1);
+        }
+        .command-deck a:hover, .command-deck a.active { 
+            color: var(--gold-yield); border-color: var(--gold-yield);
+            text-shadow: 0 0 15px var(--gold-yield); background: rgba(249, 212, 35, 0.15);
+        }
+
         /* --- MAIN TERMINAL GRID --- */
-        .main-grid { max-width: 1600px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        .main-grid { max-width: 1600px; margin: 0 auto; padding: 30px 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
         
+        /* Left: Auth Module */
         .terminal-box { background: rgba(10, 10, 10, 0.98); border: 2px solid var(--rust); padding: 50px; position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.9); }
         .terminal-box h2 { font-family: 'Orbitron'; color: #fff; letter-spacing: 6px; margin-bottom: 30px; font-size: 1.4rem; border-bottom: 2px solid var(--rust); padding-bottom: 15px; }
 
-        .contract-text { font-family: 'Fira Code'; font-size: 0.9rem; line-height: 1.8; color: var(--stone); border-left: 4px solid var(--blood); padding-left: 30px; margin: 30px 0; }
+        .contract-text { font-family: 'Fira Code'; font-size: 0.85rem; line-height: 1.8; color: var(--stone); border-left: 4px solid var(--blood); padding-left: 30px; margin: 30px 0; }
         .contract-text strong { color: var(--gold-yield); }
 
         .gothic-input { width: 100%; padding: 25px; background: #000; border: 1px solid var(--stone); color: #fff; font-family: 'Orbitron'; letter-spacing: 3px; margin-bottom: 20px; outline: none; font-size: 1rem; }
@@ -80,7 +83,7 @@
         .btn { width: 100%; padding: 25px; background: var(--blood); color: #fff; border: none; font-family: 'Orbitron'; font-weight: 900; letter-spacing: 6px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
         .btn:hover { background: #b00000; box-shadow: 0 0 35px var(--blood); letter-spacing: 8px; }
 
-        /* Dense Telemetry */
+        /* Right: Dense Telemetry */
         .data-panel { background: rgba(0, 0, 0, 0.95); border: 1px solid var(--navy-grid); padding: 40px; font-family: 'Fira Code'; color: var(--accent-blue); box-shadow: 0 0 40px rgba(0, 210, 255, 0.05); }
         .data-panel h3 { color: var(--gold-yield); font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 25px; border-bottom: 1px solid var(--gold-yield); padding-bottom: 15px; letter-spacing: 3px; }
         
@@ -89,7 +92,7 @@
         .data-value { color: var(--accent-blue); font-weight: bold; }
 
         /* Global Status Log */
-        .status-log { grid-column: 1 / -1; background: #000; border: 1px solid var(--stone); padding: 30px; font-family: 'Fira Code'; font-size: 0.75rem; margin-top: 20px; max-height: 250px; overflow-y: auto; color: var(--stone); }
+        .status-log { grid-column: 1 / -1; background: #000; border: 1px solid var(--stone); padding: 30px; font-family: 'Fira Code'; font-size: 0.75rem; margin-top: 10px; max-height: 250px; overflow-y: auto; color: var(--stone); }
         .log-entry { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
         .log-entry span { color: var(--blood); margin-right: 15px; }
 
@@ -97,9 +100,10 @@
 
         @media (max-width: 1100px) {
             .main-grid { grid-template-columns: 1fr; }
-            .command-deck a { font-size: 0.65rem; padding: 8px 12px; flex: 1 1 45%; text-align: center; }
+            .command-deck { gap: 8px; padding: 10px 2%; }
+            .command-deck a { font-size: 0.6rem; padding: 8px 5px; flex: 1 1 30%; text-align: center; }
             .logo-by { font-size: 3rem; }
-            .terminal-box, .data-panel { padding: 35px; }
+            .terminal-box, .data-panel { padding: 30px; }
         }
     </style>
 </head>
@@ -108,23 +112,25 @@
     <header>
         <a href="#" class="studio-logo">HARRISON INTERACTIVE</a>
         <div class="nav-links">
-            <a href="index.html" class="active">DATABASE_MAIN</a>
-            <a href="world.html">HEIMR_CORE</a>
-            <a href="lore.html">LORE_RECORDS</a>
+            <a href="index.html" class="active">[ DB_UPLINK ]</a>
         </div>
     </header>
 
+    <div class="project-banner">
+        <a href="index.html" class="logo-link">
+            <h1 class="logo-by">BLOOD-YIELD</h1>
+        </a>
+        <div style="font-family:'Fira Code'; color:var(--gold-yield); font-size:0.75rem; letter-spacing:5px; margin-top:10px;">[ KERNEL: HANDY // SUBSYSTEM: ALPHA_HARVEST_INIT ]</div>
+    </div>
+
     <nav class="command-deck">
-        <a href="world.html">GEOGRAPHY</a>
+        <a href="world.html">HEIMR_GEOGRAPHY</a>
         <a href="waygates.html">WAYGATES</a>
         <a href="plots.html">HALLOWED_PLOTS</a>
         <a href="maw.html">THE_MAW</a>
+        <a href="lore.html">LORE_ARCHIVE</a>
+        <a href="community.html">COMMUNITY_NETWORK</a>
     </nav>
-
-    <div class="project-banner">
-        <h1 class="logo-by">BLOOD-YIELD</h1>
-        <div style="font-family:'Fira Code'; color:var(--gold-yield); font-size:0.75rem; letter-spacing:5px; margin-top:5px;">[ KERNEL: HANDY_v4.0.2 // SUBSYSTEM: ALPHA_HARVEST_INIT ]</div>
-    </div>
 
     <main class="main-grid">
         <div class="terminal-box">
@@ -145,7 +151,7 @@
 
         <div class="data-panel">
             <h3>> HI_CORE_TELEMETRY</h3>
-            <div class="data-line"><span class="data-label">PROTOCOL:</span> <span class="data-value">HANDY_v4.0.2</span></div>
+            <div class="data-line"><span class="data-label">PROTOCOL:</span> <span class="data-value">HANDY_v4.1</span></div>
             <div class="data-line"><span class="data-label">ENCRYPTION:</span> <span class="data-value">RUNIC_AES_256</span></div>
             <div class="data-line"><span class="data-label">TITLE_ID:</span> <span class="data-value">1FD22D</span></div>
             <div class="data-line"><span class="data-label">CORE_TEMP:</span> <span class="data-value">32°C [STABLE]</span></div>
