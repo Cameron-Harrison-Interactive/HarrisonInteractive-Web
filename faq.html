@@ -6,14 +6,44 @@
     <title>FAQ TERMINAL | Harrison Interactive</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-deep: #050505; --bg-navy: #0A192F; --accent-blue: #00D2FF; --accent-red: #8B0000; --text-silver: #C0C0C0; --glass: rgba(5, 5, 5, 0.85); }
+        :root { 
+            --bg-deep: #050505; 
+            --bg-navy: #0A192F; 
+            --accent-blue: #00D2FF; 
+            --accent-red: #8B0000;
+            --text-silver: #C0C0C0; 
+            --glass: rgba(5, 5, 5, 0.85); 
+            --bp-exec: #FFFFFF;
+            --bp-target: #00D2FF;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg-deep); background-image: radial-gradient(circle at top center, #0a192f 0%, transparent 80%); background-attachment: fixed; color: var(--text-silver); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+                radial-gradient(circle at top center, #0a192f 0%, transparent 80%); 
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            background-attachment: fixed; 
+            color: var(--text-silver); 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-x: hidden;
+        }
+
+        /* --- ADAPTIVE COMMAND DECK HEADER --- */
         @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
         @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
+        @keyframes logo-pull { 0%, 100% { text-shadow: 0 0 10px var(--accent-blue); transform: scale(1); } 50% { text-shadow: 0 0 25px var(--accent-blue); transform: scale(1.02); } }
+        
         header { position: fixed; top: 0; left: 0; width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 210, 255, 0.2); z-index: 2000; overflow: hidden; padding: 0 5%; }
         header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
         header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
+        
         .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
         .nav-group-left { justify-content: flex-end; padding-right: 40px; }
         .nav-group-right { justify-content: flex-start; padding-left: 40px; }
@@ -21,29 +51,72 @@
         .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
         .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
         .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; animation: logo-pull 5s ease-in-out infinite; z-index: 10; text-align: center; white-space: nowrap; cursor: pointer; }
+        
         #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
         #mobile-nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5,5,5,0.98); z-index: 3000; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; transition: 0.4s; }
         #mobile-nav.active { right: 0; }
         #mobile-nav a { font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; text-decoration: none; }
 
-        main { flex: 1; padding: 140px 5% 80px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1200px; margin: 0 auto; }
-        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; width: 100%; margin-bottom: 60px; }
-        .ue-panel { background: rgba(5, 5, 5, 0.9); border-left: 4px solid var(--accent-blue); padding: 45px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-        .panel-meta { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--accent-blue); margin-bottom: 25px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 15px; }
+        /* --- CONTENT ARRAY --- */
+        main { flex: 1; padding: 160px 5% 100px; display: flex; flex-direction: column; align-items: center; z-index: 10; max-width: 1400px; margin: 0 auto; }
         
-        .faq-item { margin-bottom: 30px; }
-        .faq-q { font-family: 'Orbitron'; color: #fff; font-size: 0.9rem; display: block; margin-bottom: 10px; letter-spacing: 1px; }
-        .faq-q::before { content: '>'; color: var(--accent-blue); margin-right: 12px; }
-        .faq-a { font-family: 'Inter'; font-size: 0.9rem; color: var(--text-silver); line-height: 1.8; padding-left: 24px; border-left: 1px solid rgba(255,255,255,0.05); }
+        .terminal-header { text-align: center; margin-bottom: 80px; }
+        .terminal-header h1 { font-family: 'Orbitron'; font-weight: 900; font-size: clamp(2.5rem, 8vw, 5rem); text-shadow: 0 0 30px var(--accent-blue); color: #fff; line-height: 1; }
+        .terminal-meta { font-family: 'Fira Code'; color: var(--accent-blue); letter-spacing: 8px; font-size: 0.8rem; margin-top: 20px; opacity: 0.8; }
 
-        .terminal-input { width: 100%; background: rgba(0, 210, 255, 0.02); border: 1px solid rgba(0, 210, 255, 0.2); color: #fff; padding: 20px; font-family: 'Fira Code'; outline: none; margin-bottom: 20px; transition: 0.3s; font-size: 0.9rem; }
-        .terminal-input:focus { border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.07); }
-        .btn { padding: 22px; font-family: 'Orbitron'; border: 2px solid var(--accent-blue); color: var(--accent-blue); cursor: pointer; background: transparent; width: 100%; transition: 0.3s; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
+        /* FAQ GRID */
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; width: 100%; margin-bottom: 80px; }
+        
+        .ue-panel { 
+            background: rgba(10, 25, 47, 0.6); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            border-left: 4px solid var(--accent-blue); 
+            padding: 45px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transition: 0.3s;
+        }
+        .ue-panel:hover { border-color: var(--accent-blue); background: rgba(10, 25, 47, 0.8); }
+
+        .sector-tag { font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); margin-bottom: 25px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 15px; }
+        
+        .faq-item { margin-bottom: 35px; }
+        .faq-item:last-child { margin-bottom: 0; }
+        
+        .faq-q { font-family: 'Orbitron'; font-size: 1rem; color: #fff; margin-bottom: 12px; display: block; letter-spacing: 1px; }
+        .faq-q::before { content: '>> '; color: var(--accent-blue); font-weight: 900; }
+        
+        .faq-a { font-family: 'Inter'; font-size: 0.95rem; color: var(--text-silver); line-height: 1.8; padding-left: 28px; border-left: 1px solid rgba(0, 210, 255, 0.1); }
+        .faq-a strong { color: #fff; font-weight: 600; }
+        .faq-a code { font-family: 'Fira Code'; background: rgba(0,0,0,0.4); padding: 2px 6px; color: var(--accent-blue); border-radius: 3px; }
+
+        /* --- SIGNAL FORM --- */
+        .signal-terminal { grid-column: 1 / -1; border-left-color: var(--accent-blue); background: linear-gradient(180deg, rgba(10, 25, 47, 0.8) 0%, rgba(5, 5, 5, 1) 100%); }
+        .terminal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px; }
+        .input-group { position: relative; }
+        .input-group label { position: absolute; top: -10px; left: 20px; background: #050505; padding: 0 10px; font-family: 'Fira Code'; font-size: 0.65rem; color: var(--accent-blue); z-index: 5; }
+        
+        .terminal-input { 
+            width: 100%; background: rgba(0, 210, 255, 0.02); border: 1px solid rgba(0, 210, 255, 0.2); 
+            color: #fff; padding: 20px; font-family: 'Fira Code'; outline: none; transition: 0.4s; font-size: 0.95rem;
+        }
+        .terminal-input:focus { border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.08); box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.1); }
+
+        .btn { 
+            width: 100%; padding: 22px; margin-top: 30px; font-family: 'Orbitron'; font-weight: 900; 
+            letter-spacing: 4px; text-transform: uppercase; cursor: pointer; background: transparent; 
+            border: 2px solid var(--accent-blue); color: var(--accent-blue); transition: 0.3s;
+        }
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 30px var(--accent-blue); }
 
-        footer { background: var(--bg-deep); padding: 40px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
-        .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; }
-        @media (max-width: 1100px) { .nav-group { display: none; } #menu-btn { display: block; } main { padding-top: 200px; } .faq-grid { grid-template-columns: 1fr; } }
+        footer { background: var(--bg-deep); padding: 60px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+        .footer-logo { font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 4px; color: #fff; opacity: 0.8; }
+
+        @media (max-width: 1100px) { 
+            .nav-group { display: none; } #menu-btn { display: block; } 
+            main { padding-top: 180px; }
+            .terminal-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -53,38 +126,98 @@
         <div id="menu-btn">☰</div>
         <div class="nav-group nav-group-right"><a href="about.html" class="nav-link">About</a><a href="faq.html" class="nav-link active">FAQ</a><a href="legal.html" class="nav-link">Legal</a></div>
     </header>
+
     <nav id="mobile-nav"><a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a></nav>
+
     <main>
-        <div style="text-align:center; margin-bottom:60px;">
-            <div style="font-family:'Fira Code'; font-size: 0.8rem; color: var(--accent-blue); letter-spacing: 8px;">[ SYSTEM_QUERY // KNOWLEDGE_ARRAY ]</div>
-            <h1 style="font-family:'Orbitron'; font-weight:900; color:#fff; font-size:clamp(2.5rem, 6vw, 4.5rem);">HELP/FAQ <span style="color:var(--accent-blue);">TERMINAL</span></h1>
+        <div class="terminal-header">
+            <div class="terminal-meta">[ KNOWLEDGE_ARRAY // SYNC_COMPLETE ]</div>
+            <h1>FAQ <span style="color:var(--accent-blue)">TERMINAL</span></h1>
         </div>
-        <div class="faq-grid">
-            <div class="ue-panel" style="border-left-color:var(--accent-red);">
-                <div class="panel-meta"><span>SECTOR // BLOOD_YIELD</span><span>INTEL_01</span></div>
-                <div class="faq-item"><strong class="faq-q">What is the "Soul-Blight" mechanic?</strong><p class="faq-a">Soul-Blight is a progressive decay affecting all refined equipment. If left untreated at the <strong>Hjarta Forge</strong>, items suffer a massive 80% stat penalty. Restoration requires <strong>Empty Vials</strong> and <strong>Refined Essence</strong>.</p></div>
-                <div class="faq-item"><strong class="faq-q">How does the "Symbiotic Economy" work?</strong><p class="faq-a"><strong>Reapers</strong> harvest raw materials (Soul Essence/Cold Iron) from the field. <strong>Sowers</strong> refine these into Bio-Armor. Both roles depend on the P2P Marketplace for survival and profit.</p></div>
-            </div>
+
+        <div class="knowledge-grid">
             <div class="ue-panel">
-                <div class="panel-meta"><span>SECTOR // HANDY_TECH</span><span>INTEL_02</span></div>
-                <div class="faq-item"><strong class="faq-q">Is Handy part of my game code?</strong><p class="faq-a">No. Per the <strong>Isolation Protocol</strong>, all Handy logic stays in <code>Content/Handy/</code>. It is an Editor-only tool and will not increase your final game's build size or affect runtime performance.</p></div>
-                <div class="faq-item"><strong class="faq-q">What LLMs does Elite support?</strong><p class="faq-a">Elite supports all major API-driven models (OpenAI, Claude, etc.) via the <strong>BYOB (Bring Your Own Brain)</strong> routing bridge. You provide the API key; Handy provides the Unreal connectivity.</p></div>
+                <div class="sector-tag"><span>SECTOR // HANDY_UE5_TECH</span><span>INTEL_01</span></div>
+                
+                <div class="faq-item">
+                    <strong class="faq-q">What is the "Isolation Protocol"?</strong>
+                    <p class="faq-a">To ensure Fab Marketplace readiness and project stability, Handy logic (Python scripts and Editor Blueprints) is strictly isolated in <code>Content/Handy/</code>. It interacts with the game only by generating <strong>Data Assets</strong> or <strong>Actor Blueprints</strong>, keeping the runtime game code clean.</p>
+                </div>
+
+                <div class="faq-item">
+                    <strong class="faq-q">How does the "BYOB" bridge function?</strong>
+                    <p class="faq-a">The <strong>Elite Tier</strong> unlocks the Python-to-LLM bridge. Operators can route private API keys for models like Claude or GPT-4 directly through Handy’s <code>handy_router.py</code> to automate complex node graph generation and bulk technical validation.</p>
+                </div>
             </div>
-            <div class="ue-panel" style="grid-column: 1 / -1;">
-                <div class="panel-meta"><span>PROTOCOL // SECURE_UPLINK</span><span>EST. 2026</span></div>
-                <h3 style="text-align:center; margin-bottom:35px; font-family:'Orbitron'; letter-spacing:4px;">[ TRANSMIT_SIGNAL ]</h3>
+
+            <div class="ue-panel" style="border-left-color: var(--accent-red);">
+                <div class="sector-tag" style="color:var(--accent-red);"><span>SECTOR // BLOOD_YIELD_MECHANICS</span><span>INTEL_02</span></div>
+                
+                <div class="faq-item">
+                    <strong class="faq-q">The "Soul-Blight" Decay Cycle?</strong>
+                    <p class="faq-a">Equipment in Blood-Yield is subject to <strong>Soul-Blight</strong>. If untreated, items suffer an <strong>80% stat penalty</strong>. You must use <strong>Refined Essence</strong> at the <strong>Hjarta Forge</strong> or mirror waygates to restore equipment integrity.</p>
+                </div>
+
+                <div class="faq-item">
+                    <strong class="faq-q">What are the "Maw" Salvage rates?</strong>
+                    <p class="faq-a">The Maw is the Bastion’s salvage pit. Breaking down equipment yields approximately a <strong>5% return on Cold Iron</strong>, making high-end Bio-Armor refinement a high-stakes decision for <strong>Sowers</strong>.</p>
+                </div>
+            </div>
+
+            <div class="ue-panel">
+                <div class="sector-tag"><span>SECTOR // STUDIO_INFRA</span><span>INTEL_03</span></div>
+                
+                <div class="faq-item">
+                    <strong class="faq-q">Backend Connectivity (PlayFab)?</strong>
+                    <p class="faq-a">Harrison Interactive utilizes <strong>PlayFab Title ID: 1FD22D</strong> for the secure RMT Marketplace. Global data routing is handled via <strong>Cloudflare Email Workers</strong> to ensure all marketplace "Signals" are verified and anti-fraud compliant.</p>
+                </div>
+
+                <div class="faq-item">
+                    <strong class="faq-q">Are "Hallowed Plots" secure?</strong>
+                    <p class="faq-a">Yes. Hallowed Plots use <strong>Guest Protocol permissions</strong>. Only the primary account holder or verified guests can interact with the Bio-Armor refining stations within instanced housing.</p>
+                </div>
+            </div>
+
+            <div class="ue-panel signal-terminal">
+                <div class="sector-tag"><span>PROTOCOL // SECURE_UPLINK</span><span>EST. 2026</span></div>
+                <h2 style="text-align:center; font-family:'Orbitron'; letter-spacing:4px; color:#fff; margin-bottom:10px;">[ TRANSMIT_SIGNAL ]</h2>
+                <p style="text-align:center; font-size:0.85rem; margin-bottom:30px; opacity:0.6;">Direct uplink to Harrison Interactive Signal Terminal</p>
+                
                 <form action="https://hi-signal-terminal.bccomp97249.workers.dev/" method="POST">
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:25px;">
-                        <input type="text" class="terminal-input" placeholder="Operator Designation" required>
-                        <input type="email" class="terminal-input" placeholder="Return Address" required>
+                    <div class="terminal-grid">
+                        <div class="input-group">
+                            <label>IDENT_USER_NAME</label>
+                            <input type="text" class="terminal-input" placeholder="Operator Designation..." required>
+                        </div>
+                        <div class="input-group">
+                            <label>UPLINK_RETURN_ADDR</label>
+                            <input type="email" class="terminal-input" placeholder="Email@Network.Node..." required>
+                        </div>
                     </div>
-                    <textarea class="terminal-input" rows="6" placeholder="Broadcast message stream (Support or Inquiries)..." required></textarea>
+                    <div class="input-group" style="margin-top:25px;">
+                        <label>MESSAGE_PAYLOAD_STREAM</label>
+                        <textarea class="terminal-input" rows="6" placeholder="Broadcast support request or inquiry stream..." required></textarea>
+                    </div>
                     <button type="submit" class="btn">INITIATE BROADCAST</button>
                 </form>
             </div>
         </div>
     </main>
-    <footer><div class="footer-text">HARRISON INTERACTIVE // SYSTEM QUERY COMPLETE // EST. 2026</div></footer>
-    <script>const btn=document.getElementById('menu-btn'); const nav=document.getElementById('mobile-nav'); btn.onclick=()=>{ nav.classList.toggle('active'); btn.innerText=nav.classList.contains('active')?'✕':'☰'; };</script>
+
+    <footer>
+        <div class="footer-logo">HARRISON INTERACTIVE // EST. 2026 // UNRIVALED INNOVATION</div>
+        <div style="font-family:'Fira Code'; font-size: 0.65rem; opacity: 0.4; margin-top: 20px;">
+            SYSTEM_ID: HI-FAQ-2026 // PLAYFAB_ID: 1FD22D // CLOUDFLARE_SECURE
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const nav = document.getElementById('mobile-nav');
+        btn.onclick = () => { 
+            nav.classList.toggle('active'); 
+            btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; 
+        };
+    </script>
 </body>
 </html>
