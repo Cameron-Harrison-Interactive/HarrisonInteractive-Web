@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HI_DATABASE | Waygate_Uplink_v4.0</title>
+    <title>Blood-Yield | v1.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -28,28 +28,49 @@
             display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* --- HARRISON INTERACTIVE HEADER --- */
+        /* --- HARRISON INTERACTIVE HEADER (CENTERED FIX) --- */
         header {
-            width: 100%; min-height: 80px; display: flex; justify-content: space-between; align-items: center;
+            width: 100%; min-height: 70px; display: flex; justify-content: center; align-items: center;
             padding: 10px 5%; background: rgba(5,5,5,0.98); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
             position: sticky; top: 0; z-index: 2000; backdrop-filter: blur(15px);
         }
-        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 3px; text-decoration: none; font-size: 1.1rem; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: var(--text-silver); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.6; }
-        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+        .header-core {
+            display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center;
+        }
+        .return-link { 
+            font-family: 'Fira Code'; font-size: 0.75rem; color: var(--stone); 
+            text-decoration: none; transition: 0.3s; letter-spacing: 2px; 
+            border: 1px solid transparent; padding: 5px 10px;
+        }
+        .return-link:hover { color: var(--accent-blue); border-color: var(--accent-blue); background: rgba(0, 210, 255, 0.05); }
+        
+        .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; letter-spacing: 4px; text-decoration: none; font-size: 1.2rem; }
+        
+        .active-tag { font-family: 'Fira Code'; font-size: 0.75rem; color: var(--accent-blue); letter-spacing: 2px; text-decoration: none; text-shadow: 0 0 10px var(--accent-blue); }
 
-        /* --- THE COMMAND DECK (WAYGATE GLOW) --- */
+        /* --- CLICKABLE PROJECT BANNER --- */
+        .project-banner { text-align: center; padding: 25px 0 15px; }
+        .logo-link { text-decoration: none; display: inline-block; transition: 0.3s; }
+        .logo-link:hover { transform: scale(1.02); filter: brightness(1.2); }
+        .logo-by { 
+            font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
+            background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
+        }
+
+        /* --- CONSOLIDATED COMMAND DECK (BOUND TO TERMINAL WIDTH) --- */
         .command-deck {
-            background: #000; border-bottom: 2px solid var(--blood);
-            padding: 15px 5%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+            background: #000; border: 1px solid var(--stone); border-bottom: 2px solid var(--blood);
+            padding: 15px 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
             box-shadow: 0 8px 30px rgba(0,0,0,1); position: relative; z-index: 1000;
+            max-width: 1440px; width: 90%; margin: 0 auto;
         }
         .command-deck a {
-            text-decoration: none; font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 900;
-            color: #fff; letter-spacing: 3px; transition: 0.3s;
+            text-decoration: none; font-family: 'Orbitron'; font-size: 0.65rem; font-weight: 900;
+            color: #fff; letter-spacing: 2px; transition: 0.3s;
             text-shadow: 0 0 10px rgba(139, 0, 0, 1);
-            border: 1px solid rgba(139, 0, 0, 0.5); padding: 10px 20px; background: rgba(139, 0, 0, 0.1);
+            border: 1px solid rgba(139, 0, 0, 0.5); padding: 8px 12px; background: rgba(139, 0, 0, 0.1);
         }
         .command-deck a:hover { 
             color: var(--gold-yield); border-color: var(--gold-yield);
@@ -60,31 +81,31 @@
             text-shadow: 0 0 15px var(--accent-blue); background: rgba(0, 210, 255, 0.1);
         }
 
-        /* --- PROJECT BANNER --- */
-        .project-banner { text-align: center; padding: 20px 0 10px; }
-        .logo-by { 
-            font-size: clamp(2.5rem, 10vw, 5rem); font-family: 'Orbitron'; font-weight: 900; 
-            background: linear-gradient(to bottom, #fff 0%, var(--blood) 100%); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.7)); margin: 0;
-        }
-
         /* --- MAIN TERMINAL GRID --- */
-        .main-grid { max-width: 1600px; margin: 0 auto; padding: 20px 5%; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; }
+        .main-grid { max-width: 1600px; margin: 0 auto; padding: 30px 5%; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; }
         
         /* Left: Waygate Terminal & Mirror */
-        .waygate-box { background: rgba(10, 10, 10, 0.98); border: 2px solid var(--accent-blue); padding: 50px; position: relative; box-shadow: 0 0 60px rgba(0, 210, 255, 0.05); }
+        .waygate-box { background: rgba(10, 10, 10, 0.98); border: 2px solid var(--accent-blue); padding: 50px; position: relative; box-shadow: 0 0 60px rgba(0, 210, 255, 0.05); display: flex; flex-direction: column; }
         .waygate-box h2 { font-family: 'Orbitron'; color: #fff; letter-spacing: 6px; margin-bottom: 25px; font-size: 1.4rem; border-bottom: 2px solid var(--accent-blue); padding-bottom: 15px; text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
 
-        .sys-directive { font-family: 'Fira Code'; font-size: 0.9rem; line-height: 1.8; color: var(--text-silver); border-left: 4px solid var(--accent-blue); padding-left: 30px; margin: 30px 0; background: rgba(0, 210, 255, 0.05); padding-top: 15px; padding-bottom: 15px; }
+        .sys-directive { font-family: 'Fira Code'; font-size: 0.9rem; line-height: 1.8; color: var(--text-silver); border-left: 4px solid var(--accent-blue); padding-left: 30px; margin: 20px 0; background: rgba(0, 210, 255, 0.05); padding-top: 15px; padding-bottom: 15px; }
         .sys-directive strong { color: var(--accent-blue); }
+
+        /* The Plain-English Translation Box */
+        .translation-box {
+            margin-top: 20px; margin-bottom: 30px; padding: 20px; border: 1px dashed var(--stone);
+            background: rgba(0, 0, 0, 0.6); font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem; color: var(--text-silver); line-height: 1.7; text-align: left;
+        }
+        .translation-box span { font-family: 'Fira Code'; font-size: 0.7rem; color: var(--gold-yield); display: block; margin-bottom: 10px; letter-spacing: 2px; }
+        .translation-box strong { color: #fff; font-family: 'Orbitron'; letter-spacing: 1px; }
 
         /* The Black Oily Mirror CSS Assembly */
         .mirror-vessel {
             width: 100%; height: 250px; background: linear-gradient(135deg, #050505 0%, #111 50%, #050505 100%);
             border: 2px solid var(--stone); position: relative; overflow: hidden;
             box-shadow: inset 0 0 50px rgba(0,0,0,1), 0 0 20px rgba(0, 210, 255, 0.2);
-            display: flex; align-items: center; justify-content: center; margin-bottom: 30px;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 30px; margin-top: auto;
         }
         .mirror-vessel::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -93,7 +114,7 @@
         }
         @keyframes phaseShift { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        .mirror-status { font-family: 'Orbitron'; font-size: 1.5rem; color: var(--accent-blue); letter-spacing: 8px; font-weight: 900; z-index: 10; text-shadow: 0 0 20px var(--accent-blue); }
+        .mirror-status { font-family: 'Orbitron'; font-size: 1.5rem; color: var(--accent-blue); letter-spacing: 8px; font-weight: 900; z-index: 10; text-shadow: 0 0 20px var(--accent-blue); text-align: center; }
 
         .btn-sync { width: 100%; padding: 25px; background: transparent; color: var(--accent-blue); border: 2px solid var(--accent-blue); font-family: 'Orbitron'; font-weight: 900; letter-spacing: 6px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
         .btn-sync:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 35px var(--accent-blue); }
@@ -107,19 +128,21 @@
         .data-value { color: var(--text-silver); font-weight: bold; text-align: right; }
 
         /* Active Transit Log */
-        .transit-log { background: #000; border: 1px solid var(--stone); padding: 25px; font-family: 'Fira Code'; font-size: 0.7rem; margin-top: 30px; max-height: 250px; overflow-y: auto; color: var(--stone); }
+        .transit-log { background: #000; border: 1px solid var(--stone); padding: 25px; font-family: 'Fira Code'; font-size: 0.7rem; margin-top: 10px; max-height: 250px; overflow-y: auto; color: var(--stone); }
         .transit-log h4 { color: var(--accent-blue); margin-bottom: 15px; border-bottom: 1px dashed var(--accent-blue); padding-bottom: 10px; }
         
         .log-entry { margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
         .log-entry.transit span.time { color: var(--accent-blue); margin-right: 10px; }
-        .log-entry.success span.amount { color: var(--emerald); font-weight: bold; }
+        .log-entry.success span.amount { color: var(--gold-yield); font-weight: bold; }
         .log-entry.fail span.amount { color: var(--blood); font-weight: bold; }
 
         footer { text-align: center; padding: 50px; font-family: 'Fira Code'; font-size: 0.8rem; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
 
         @media (max-width: 1200px) {
             .main-grid { grid-template-columns: 1fr; }
-            .command-deck a { font-size: 0.65rem; padding: 8px 12px; flex: 1 1 45%; text-align: center; }
+            .command-deck { gap: 8px; width: 95%; }
+            .command-deck a { font-size: 0.6rem; padding: 8px 5px; flex: 1 1 30%; text-align: center; }
+            .header-core { gap: 15px; flex-direction: column; text-align: center; }
             .data-panel { position: relative; top: 0; }
         }
     </style>
@@ -127,35 +150,43 @@
 <body>
 
     <header>
-        <a href="../index.html" class="studio-logo">HARRISON INTERACTIVE</a>
-        <div class="nav-links">
-            <a href="index.html">DATABASE_MAIN</a>
-            <a href="world.html">HEIMR_CORE</a>
-            <a href="lore.html">LORE_RECORDS</a>
+        <div class="header-core">
+            <a href="../index.html" class="return-link">< RETURN_TO_ROOT</a>
+            <a href="#" class="studio-logo">HARRISON INTERACTIVE</a>
+            <span class="active-tag">[ BIFROST_PROTOCOL ]</span>
         </div>
     </header>
 
+    <div class="project-banner">
+        <a href="index.html" class="logo-link">
+            <h1 class="logo-by">BLOOD-YIELD</h1>
+        </a>
+        <div style="font-family:'Fira Code'; color:var(--accent-blue); font-size:0.75rem; letter-spacing:5px; margin-top:10px;">[ KERNEL: HANDY // MODULE: WAYGATE_UPLINK ]</div>
+    </div>
+
     <nav class="command-deck">
-        <a href="world.html">GEOGRAPHY</a>
+        <a href="world.html">HEIMR_GEOGRAPHY</a>
         <a href="waygates.html" class="active">WAYGATES</a>
         <a href="plots.html">HALLOWED_PLOTS</a>
         <a href="maw.html">THE_MAW</a>
+        <a href="lore.html">LORE_ARCHIVE</a>
+        <a href="community.html">COMMUNITY_NETWORK</a>
     </nav>
-
-    <div class="project-banner">
-        <h1 class="logo-by">BLOOD-YIELD</h1>
-        <div style="font-family:'Fira Code'; color:var(--accent-blue); font-size:0.75rem; letter-spacing:5px; margin-top:5px;">[ KERNEL: HANDY // MODULE: BIFROST_PROTOCOL ]</div>
-    </div>
 
     <main class="main-grid">
         
         <div class="waygate-box">
             <h2>BIFROST_DATA_BRIDGE</h2>
-            <p style="font-size: 0.95rem; opacity: 0.8; line-height: 1.7; margin-bottom: 20px;">Travel across Heimr's sectors is facilitated via Phase-Shifting. The Black Oily Mirrors are non-Newtonian ferrofluid conductors that translate physical Operator geometry into raw data-streams through the <strong>Handy</strong> kernel.</p>
+            <p style="font-size: 0.95rem; opacity: 0.8; line-height: 1.7; margin-bottom: 10px;">Travel across Heimr's sectors is facilitated via Phase-Shifting. The Black Oily Mirrors are non-Newtonian ferrofluid conductors that translate physical Operator geometry into raw data-streams through the <strong>Handy</strong> kernel.</p>
             
             <div class="sys-directive">
                 > PROTOCOL_WARNING:<br>
-                "The Gate checks your Registry prior to transit. If your <strong>Soul-Blight</strong> index exceeds <strong>75%</strong>, your data cannot be safely compiled. Attempting to cross will result in <strong>Ashen Desync</strong>, permanently locking your gear stats at 20% until a Sower re-authorizes your frequency."
+                "The Gate checks your Registry prior to transit. If your <strong>Soul-Blight</strong> index exceeds <strong>75%</strong>, your data cannot be safely compiled. Attempting to cross will result in <strong>Ashen Desync</strong>, locking your gear stats at 20% until re-authorized."
+            </div>
+
+            <div class="translation-box">
+                <span>> DECRYPTING_LORE_JARGON...</span>
+                <strong>What is this?</strong> Waygates are the game's Fast Travel system. However, travel is directly tied to your equipment's durability (Soul-Blight). If your gear is heavily broken, the game prevents you from fast-traveling. You must repair your items before you can teleport to safety or another combat zone.
             </div>
 
             <div class="mirror-vessel">
@@ -170,7 +201,7 @@
         <div>
             <div class="data-panel">
                 <h3>> PHASE_SHIFT_TELEMETRY</h3>
-                <div class="data-line"><span class="data-label">ENGINE_SYNC:</span> <span class="data-value">HANDY_OS_v4.0</span></div>
+                <div class="data-line"><span class="data-label">ENGINE_SYNC:</span> <span class="data-value">HANDY_OS_v4.1</span></div>
                 <div class="data-line"><span class="data-label">LATENCY:</span> <span class="data-value">0.0004ms</span></div>
                 <div class="data-line"><span class="data-label">ENCRYPTION:</span> <span class="data-value">RUNIC_AES_256</span></div>
                 <div class="data-line"><span class="data-label">FLUID_TYPE:</span> <span class="data-value">FERRO_MERCURY</span></div>
