@@ -14,7 +14,7 @@
             --accent-blue: #00D2FF;
             --accent-red: #8B0000;
             --text-silver: #C0C0C0;
-            --glass: rgba(10, 25, 47, 0.95);
+            --glass: rgba(5, 5, 5, 0.8);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,19 +29,80 @@
             height: 100vh;
         }
 
-        /* --- HEADER & NAV --- */
+        /* --- ANIMATED TUNNEL HEADER --- */
+        @keyframes tunnel-flow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 0%; }
+        }
+
+        @keyframes core-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        @keyframes scanline {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             display: flex; justify-content: center; align-items: center;
-            background: var(--glass); backdrop-filter: blur(12px);
+            background: var(--glass); 
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
             z-index: 2000;
+            overflow: hidden;
+        }
+
+        /* The Neon Tunnel Effect Layer */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(0, 210, 255, 0.03) 51px,
+                rgba(0, 210, 255, 0.03) 55px
+            );
+            background-size: 200% 100%;
+            animation: tunnel-flow 15s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Moving Scanline on bottom border */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: -100%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+            animation: scanline 4s linear infinite;
         }
 
         .studio-logo {
             font-family: 'Orbitron'; color: var(--text-silver);
             text-transform: uppercase; letter-spacing: 4px; font-size: 1.2rem;
             text-shadow: 0 0 10px var(--accent-blue);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* The Blackhole "Core" behind the logo */
+        .logo-core-glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px; height: 60px;
+            background: radial-gradient(ellipse, rgba(0, 210, 255, 0.15) 0%, transparent 75%);
+            animation: core-pulse 4s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
         }
 
         #menu-btn { 
@@ -50,6 +111,7 @@
         }
         #menu-btn:hover { text-shadow: 0 0 15px var(--accent-blue); }
 
+        /* --- NAV DRAWER --- */
         #nav-menu {
             position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
             background: var(--bg-navy); border-left: 2px solid var(--accent-blue);
@@ -88,12 +150,12 @@
 
         /* --- LEFT: BLOOD-YIELD --- */
         .panel-blood {
-            background-color: var(--bg-deep); /* Fallback to seamless black */
+            background-color: var(--bg-deep);
             background-image: 
                 linear-gradient(to bottom, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.98) 60%), 
-                url('Blood-Yield/BY-Background.png');
-            background-size: 100% auto; /* Forces the width to fit perfectly */
-            background-position: center top; /* Anchors it to the ceiling */
+                url('Blood-Yield/BY-Background.jpg');
+            background-size: 100% auto;
+            background-position: center top;
             background-repeat: no-repeat;
             border-right: 1px solid rgba(139, 0, 0, 0.3);
         }
@@ -104,7 +166,7 @@
             background-image: 
                 linear-gradient(to bottom, rgba(5, 5, 5, 0.2) 0%, rgba(5, 5, 5, 0.98) 60%), 
                 url('handy_terminal.png');
-            background-size: 100% auto; /* Keeps UI screenshot proportional */
+            background-size: 100% auto;
             background-position: center top;
             background-repeat: no-repeat;
         }
@@ -116,7 +178,7 @@
             max-width: 600px;
             text-align: left;
             padding-bottom: 40px; 
-            z-index: 20; /* Keeps text above the gradient fade */
+            z-index: 20; 
         }
 
         .module-tag { font-family: 'Fira Code'; font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 15px; }
@@ -124,7 +186,6 @@
         .tag-blue { color: var(--accent-blue); }
 
         .panel-heading { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
-        
         .panel-desc { font-family: 'Inter'; font-size: 0.95rem; color: var(--text-silver); line-height: 1.6; margin-bottom: 20px; }
 
         /* Standardized Bulletins */
@@ -174,6 +235,7 @@
 <body>
 
     <header>
+        <div class="logo-core-glow"></div>
         <div class="studio-logo">Harrison Interactive</div>
         <div id="menu-btn">☰</div>
     </header>
