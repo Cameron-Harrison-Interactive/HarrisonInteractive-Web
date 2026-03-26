@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harrison Interactive | Omni-Network Hub</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --bg-deep: #050505;
-            --bg-navy: #0A192F;
             --accent-blue: #00D2FF;
             --accent-red: #8B0000;
             --text-silver: #C0C0C0;
@@ -23,55 +20,28 @@
             background-color: var(--bg-deep); 
             color: var(--text-silver); 
             font-family: 'Inter', sans-serif;
-            overflow: hidden; 
+            overflow-x: hidden; 
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
         }
 
-        /* --- COMMAND DECK HEADER (SYMMETRICAL) --- */
-        @keyframes flow-left {
-            0% { background-position: -200% 0; }
-            100% { background-position: 0% 0; }
-        }
-        @keyframes flow-right {
-            0% { background-position: 200% 0; }
-            100% { background-position: 0% 0; }
-        }
-        @keyframes logo-pull {
-            0%, 100% { text-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue); transform: scale(1); }
-            50% { text-shadow: 0 0 25px var(--accent-blue), 0 0 40px var(--accent-blue); transform: scale(1.02); }
-        }
-
+        /* --- ADAPTIVE COMMAND DECK --- */
+        @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
+        @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
+        
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 100px;
             display: flex; justify-content: center; align-items: center;
             background: var(--glass); backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
-            z-index: 2000; overflow: hidden;
-            padding: 0 5%;
+            z-index: 2000; overflow: hidden; padding: 0 5%;
         }
 
-        /* Neon Flow Background Layers */
-        header::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
-            background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px);
-            background-size: 200% 100%; animation: flow-left 10s linear infinite;
-            mask-image: linear-gradient(to right, black 70%, transparent);
-            z-index: 1;
-        }
-        header::after {
-            content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
-            background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px);
-            background-size: 200% 100%; animation: flow-right 10s linear infinite;
-            mask-image: linear-gradient(to left, black 70%, transparent);
-            z-index: 1;
-        }
+        header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
+        header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
 
-        /* Navigation Groups */
-        .nav-group {
-            display: flex; gap: 30px; z-index: 10; flex: 1;
-        }
+        .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
         .nav-group-left { justify-content: flex-end; padding-right: 40px; }
         .nav-group-right { justify-content: flex-start; padding-left: 40px; }
 
@@ -80,90 +50,62 @@
             text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
             transition: 0.3s; position: relative; opacity: 0.7;
         }
-        .nav-link:hover, .nav-link.active { 
-            opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue);
-        }
-        .nav-link.active::after {
-            content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px;
-            background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue);
-        }
+        .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
+        .nav-link.active::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background: var(--accent-blue); }
 
         .studio-logo {
             font-family: 'Orbitron'; font-weight: 900; color: #fff;
             text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem;
-            animation: logo-pull 5s ease-in-out infinite; z-index: 10;
-            text-align: center; white-space: nowrap; cursor: pointer;
+            z-index: 10; cursor: pointer; text-align: center;
         }
 
-        /* --- SPLIT SCREEN LAYOUT --- */
-        main {
-            display: flex; flex-direction: row; height: calc(100vh - 100px);
-            margin-top: 100px; width: 100vw; z-index: 10;
+        /* Mobile Menu Trigger (Hidden on PC) */
+        #menu-btn { display: none; position: absolute; right: 5%; color: var(--accent-blue); font-size: 1.8rem; cursor: pointer; z-index: 2100; }
+
+        /* Full Mobile Menu (Hidden on PC) */
+        #mobile-nav {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background: rgba(5,5,5,0.98); z-index: 3000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; gap: 30px; transition: 0.4s;
         }
+        #mobile-nav.active { right: 0; }
+        #mobile-nav a { font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; text-decoration: none; }
+
+        /* --- LAYOUT LOGIC --- */
+        main { display: flex; flex-direction: row; height: calc(100vh - 100px); margin-top: 100px; }
 
         .split-panel {
             flex: 1; display: flex; flex-direction: column; justify-content: flex-end; 
-            align-items: center; padding: 40px; transition: flex 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+            align-items: center; padding: 40px; transition: flex 0.7s ease;
             position: relative; overflow: hidden;
         }
         .split-panel:hover { flex: 2.5; }
 
         .panel-blood {
-            background-color: var(--bg-deep);
-            background-image: linear-gradient(to bottom, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.98) 60%), url('Blood-Yield/BY-Background.png');
-            background-size: 100% auto; background-position: center top; background-repeat: no-repeat;
-            border-right: 1px solid rgba(139, 0, 0, 0.3);
+            background-image: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,1) 80%), url('Blood-Yield/BY-Background.jpg');
+            background-size: cover; background-position: center; border-right: 1px solid rgba(139,0,0,0.3);
         }
-
         .panel-handy {
-            background-color: var(--bg-deep);
-            background-image: linear-gradient(to bottom, rgba(5, 5, 5, 0.2) 0%, rgba(5, 5, 5, 0.98) 60%), url('handy_terminal.png');
-            background-size: 100% auto; background-position: center top; background-repeat: no-repeat;
+            background-image: linear-gradient(to bottom, rgba(5,5,5,0.2) 0%, rgba(5,5,5,1) 80%), url('handy_terminal.png');
+            background-size: cover; background-position: center;
         }
 
-        .content-box {
-            background: transparent; width: 100%; max-width: 600px;
-            text-align: left; padding-bottom: 40px; z-index: 20; 
-        }
+        .content-box { max-width: 500px; z-index: 20; text-align: left; width: 100%; }
+        .module-tag { font-family: 'Fira Code'; font-size: 0.7rem; letter-spacing: 4px; margin-bottom: 10px; }
+        .panel-heading { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin-bottom: 15px; }
+        .btn { padding: 15px 30px; font-family: 'Orbitron'; cursor: pointer; border: 1px solid var(--accent-blue); color: var(--accent-blue); text-decoration: none; display: inline-block; background: rgba(0,0,0,0.5); }
 
-        .module-tag { font-family: 'Fira Code'; font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 15px; }
-        .tag-red { color: var(--accent-red); }
-        .tag-blue { color: var(--accent-blue); }
-
-        .panel-heading { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
-        .panel-desc { font-family: 'Inter'; font-size: 0.95rem; color: var(--text-silver); line-height: 1.6; margin-bottom: 20px; }
-
-        .standard-list { list-style: none; padding: 0; margin: 0 0 30px 0; }
-        .standard-list li { font-family: 'Inter'; font-size: 0.9rem; color: #fff; margin-bottom: 8px; position: relative; padding-left: 20px; }
-        .list-red li::before { content: '■'; color: var(--accent-red); position: absolute; left: 0; font-size: 0.8rem; top: 2px; }
-        .list-blue li::before { content: '■'; color: var(--accent-blue); position: absolute; left: 0; font-size: 0.8rem; top: 2px; }
-
-        .btn {
-            padding: 15px 35px; display: inline-block; font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
-            background: rgba(0,0,0,0.6); border: 1px solid var(--accent-blue); color: var(--accent-blue);
-            text-decoration: none; letter-spacing: 2px; text-transform: uppercase;
-        }
-        .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 20px var(--accent-blue); }
-        .btn-red { border-color: var(--accent-red); color: var(--accent-red); }
-        .btn-red:hover { background: var(--accent-red); color: #fff; box-shadow: 0 0 20px var(--accent-red); }
-
-        footer {
-            position: absolute; bottom: 0; left: 0; width: 100%; background: transparent; 
-            padding: 15px 5%; text-align: center; font-family: 'Inter', sans-serif; z-index: 2000;
-        }
-
+        /* --- THE RESPONSIVE BREAKPOINTS --- */
         @media (max-width: 1100px) {
-            header { flex-direction: column; height: auto; padding: 20px; }
-            .nav-group { width: 100%; justify-content: center; padding: 10px 0; gap: 15px; }
-            .studio-logo { margin: 10px 0; order: -1; }
-            main { margin-top: 180px; height: calc(100vh - 180px); }
+            .nav-group { display: none; } /* Hide PC nav */
+            #menu-btn { display: block; }  /* Show Menu Toggle */
         }
 
-        @media (max-width: 900px) {
-            main { flex-direction: column; overflow-y: auto; height: auto; }
-            .split-panel { min-height: 80vh; }
+        @media (max-width: 800px) {
+            main { flex-direction: column; height: auto; overflow-y: visible; }
+            .split-panel { width: 100%; min-height: 90vh; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
             .split-panel:hover { flex: 1; }
-            body { overflow: auto; }
+            body { overflow-y: auto; }
         }
     </style>
 </head>
@@ -175,9 +117,8 @@
             <a href="handy.html" class="nav-link">Handy</a>
             <a href="Blood-Yield/" class="nav-link">Blood-Yield</a>
         </div>
-
         <div class="studio-logo" onclick="window.location.href='index.html'">Harrison Interactive</div>
-
+        <div id="menu-btn">☰</div>
         <div class="nav-group nav-group-right">
             <a href="about.html" class="nav-link">About</a>
             <a href="faq.html" class="nav-link">FAQ</a>
@@ -185,45 +126,36 @@
         </div>
     </header>
 
+    <nav id="mobile-nav">
+        <a href="index.html">Home</a>
+        <a href="handy.html">Handy</a>
+        <a href="Blood-Yield/">Blood-Yield</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="legal.html">Legal</a>
+    </nav>
+
     <main>
         <div class="split-panel panel-blood">
             <div class="content-box">
-                <div class="module-tag tag-red">[ MODULE // DARK_FANTASY_RPG ]</div>
+                <div class="module-tag" style="color:var(--accent-red)">[ DARK_FANTASY_RPG ]</div>
                 <h2 class="panel-heading">BLOOD-YIELD</h2>
-                <p class="panel-desc">
-                    A visceral dark-fantasy RPG forged in UE5. Experience a world where decisions yield consequence, featuring a Symbiotic Economy driven by a secure RMT Marketplace.
-                </p>
-                <ul class="standard-list list-red">
-                    <li>RMT Symbiotic Economy (P2P Marketplace)</li>
-                    <li>Decision-Yield Consequence Mechanics</li>
-                    <li>UE5 Forged Photo-Realistic Visuals</li>
-                    <li>Cold Iron & Soul Essence Resource Decay</li>
-                </ul>
-                <a href="Blood-Yield/" class="btn btn-red">> ACCESS_PROJECT</a>
+                <a href="Blood-Yield/" class="btn" style="border-color:var(--accent-red); color:var(--accent-red)">> ACCESS_PROJECT</a>
             </div>
         </div>
-
         <div class="split-panel panel-handy">
             <div class="content-box">
-                <div class="module-tag tag-blue">[ MODULE // EDITOR_UTILITY ]</div>
+                <div class="module-tag" style="color:var(--accent-blue)">[ EDITOR_UTILITY ]</div>
                 <h2 class="panel-heading">HI | HANDY</h2>
-                <p class="panel-desc">
-                    The apex of UE5 automation. A hybrid Python-Blueprint bridge built for industrial-scale project management. Equip the Ultimate tier for cloud-routed LLM automation.
-                </p>
-                <ul class="standard-list list-blue">
-                    <li>UE5 Automation Apex Architecture</li>
-                    <li>Bring Your Own Brain (Local/API LLM)</li>
-                    <li>Industrial Bulk Graph Cleaning & Formatting</li>
-                    <li>Quarterly Feature Rollouts & Priority Routing</li>
-                </ul>
                 <a href="handy.html" class="btn">> VIEW_TOOLKIT</a>
             </div>
         </div>
     </main>
 
-    <footer>
-        <div style="opacity: 0.6; font-size: 0.75rem;">© 2026 HARRISON INTERACTIVE LLC. ALL RIGHTS RESERVED.</div>
-    </footer>
-
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const nav = document.getElementById('mobile-nav');
+        btn.onclick = () => { nav.classList.toggle('active'); btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; };
+    </script>
 </body>
 </html>
