@@ -14,7 +14,6 @@
             --accent-blue: #00D2FF;
             --accent-red: #8B0000;
             --text-silver: #C0C0C0;
-            --gold-wood: #8A7335;
             --glass: rgba(10, 25, 47, 0.95);
         }
 
@@ -78,30 +77,35 @@
             justify-content: center;
             align-items: center;
             padding: 40px;
-            transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* Increased easing curve and time for a massive, dramatic sweep */
+            transition: flex 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
+        /* THE MASSIVE EXPANSION: Flex 2.5 takes up ~71% of the screen */
         .split-panel:hover {
-            flex: 1.3; 
+            flex: 2.5; 
         }
 
-        /* --- LEFT: BLOOD-YIELD (WITH IMAGE INTEGRATION) --- */
+        /* --- LEFT: BLOOD-YIELD --- */
         .panel-blood {
-            /* The image path targets the subfolder, with a dark-crimson overlay to preserve text readability */
             background-image: 
                 linear-gradient(rgba(15, 5, 5, 0.7), rgba(5, 5, 5, 0.95)), 
                 url('Blood-Yield/BY_Background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-size: cover; background-position: center;
             border-right: 1px solid rgba(139, 0, 0, 0.3);
         }
-        .logo-text { font-family: 'Orbitron'; font-size: clamp(2rem, 5vw, 4.5rem); letter-spacing: -2px; margin-bottom: 10px; text-align: center; line-height: 1.1; }
-        .blood { color: #808080; text-shadow: 0 0 20px var(--accent-red); } 
-        .yield { color: var(--gold-wood); } 
+        
+        /* The Reference Logo Placeholder */
+        .by-logo {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 25px rgba(0,0,0,0.9));
+            transition: 0.4s;
+        }
 
         /* --- RIGHT: HANDY --- */
         .panel-handy {
@@ -112,27 +116,44 @@
                 radial-gradient(circle at center, #0a192f 0%, transparent 100%);
             background-size: 50px 50px, 50px 50px, 100% 100%;
         }
-        .handy-title { font-family: 'Orbitron'; font-size: clamp(2rem, 5vw, 4.5rem); color: var(--accent-blue); margin-bottom: 10px; text-shadow: 0 0 15px var(--accent-blue); text-align: center; }
+        .handy-title { 
+            font-family: 'Orbitron'; font-size: clamp(2rem, 5vw, 4.5rem); 
+            color: var(--accent-blue); margin-bottom: 10px; 
+            text-shadow: 0 0 15px var(--accent-blue); text-align: center; 
+        }
 
-        /* --- PANEL CONTENT STYLING --- */
+        /* --- PANEL LIST STYLING (The Professional Bulletins) --- */
         .info-panel {
             background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 25px;
-            max-width: 500px;
-            margin-top: 20px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            border-left: 3px solid var(--accent-blue);
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            padding: 25px 35px;
+            max-width: 550px;
+            margin-top: 15px;
+            text-align: left;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
         }
-        .info-panel.red-border { border-left-color: var(--accent-red); }
+        
+        .info-panel-red { border: 1px solid rgba(139,0,0,0.2); border-left: 4px solid var(--accent-red); }
+        .info-panel-blue { border: 1px solid rgba(0,210,255,0.1); border-left: 4px solid var(--accent-blue); }
 
+        ul.tech-list { list-style: none; padding: 0; margin: 0; }
+        ul.tech-list li { 
+            margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); 
+            padding-bottom: 8px; color: #fff; font-family: 'Orbitron'; font-size: 0.95rem; letter-spacing: 1px;
+        }
+        ul.tech-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        
+        .list-red li::before { content: '>'; color: var(--accent-red); font-family: 'Fira Code'; margin-right: 10px; font-weight: bold; }
+        .list-blue li::before { content: '>'; color: var(--accent-blue); font-family: 'Fira Code'; margin-right: 10px; font-weight: bold; }
+
+        .tech-highlight { 
+            color: var(--text-silver); font-family: 'Fira Code'; 
+            font-size: 0.75rem; display: block; margin-top: 4px; opacity: 0.8; letter-spacing: 0px; text-transform: none;
+        }
+
+        /* --- BUTTONS --- */
         .btn {
-            margin-top: 30px; padding: 15px 40px; display: inline-block;
+            margin-top: 35px; padding: 15px 40px; display: inline-block;
             font-family: 'Orbitron'; cursor: pointer; transition: 0.3s;
             background: rgba(0,0,0,0.5); border: 2px solid var(--accent-blue); color: var(--accent-blue);
             text-decoration: none; letter-spacing: 2px; text-transform: uppercase; z-index: 20;
@@ -182,12 +203,15 @@
         <div class="split-panel panel-blood">
             <div style="font-family:'Fira Code'; font-size: 0.75rem; color: var(--accent-red); letter-spacing: 5px; margin-bottom: 20px;">[ MODULE // DARK_FANTASY_RPG ]</div>
             
-            <h1 class="logo-text">
-                <span class="blood">BLOOD</span>-<span class="yield">YIELD</span>
-            </h1>
+            <img src="Blood-Yield/BY_Background.png" alt="BLOOD-YIELD" class="by-logo">
             
-            <div class="info-panel red-border">
-                A visceral dark-fantasy RPG forged in UE5. Experience a world where decisions yield consequence, featuring a Symbiotic Economy driven by a secure, fully integrated <strong>RMT (Real Money Trading)</strong> Marketplace.
+            <div class="info-panel info-panel-red">
+                <ul class="tech-list list-red">
+                    <li>RMT Symbiotic Economy<span class="tech-highlight">Secure player-to-player marketplace for artifacts and essence.</span></li>
+                    <li>Decision-Yield Consequence<span class="tech-highlight">Choices visibly alter the environment and faction states.</span></li>
+                    <li>UE5 Forged Visuals<span class="tech-highlight">Photo-realistic, physics-driven brutal combat engine.</span></li>
+                    <li>Cold Iron & Soul Essence<span class="tech-highlight">Dynamic resource decay and equipment management.</span></li>
+                </ul>
             </div>
 
             <a href="Blood-Yield/" class="btn btn-red">> ACCESS_PROJECT</a>
@@ -198,8 +222,13 @@
             
             <h1 class="handy-title">HI | HANDY</h1>
             
-            <div class="info-panel">
-                The apex of UE5 automation. A hybrid Python-Blueprint bridge built for industrial-scale project management. Equip the Ultimate tier to bring your own Brain (LLM) directly to the pipeline.
+            <div class="info-panel info-panel-blue">
+                <ul class="tech-list list-blue">
+                    <li>UE5 Automation Apex<span class="tech-highlight">Hybrid Python-Blueprint logic bridging architecture.</span></li>
+                    <li>Bring Your Own Brain (LLM)<span class="tech-highlight">Direct local or API-based LLM routing via Cloudflare.</span></li>
+                    <li>Industrial Architecture<span class="tech-highlight">Bulk graph cleaning, node formatting, and UI generation.</span></li>
+                    <li>Quarterly Feature Rollouts<span class="tech-highlight">Verified Badges & Studio Priority Routing for Ultimate tiers.</span></li>
+                </ul>
             </div>
 
             <a href="handy.html" class="btn">> VIEW_TOOLKIT</a>
