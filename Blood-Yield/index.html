@@ -3,175 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLOOD-YIELD | The Harvest Begins</title>
+    <title>BLOOD-YIELD | The Harvest of Heimr</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-deep: #050505;
-            --accent-blue: #00D2FF; 
-            --blood: #8B0000;       
-            --rust: #8A3324;        
-            --gold-yield: #F9D423;  
-            --stone: #4A4E69;
-            --text-silver: #C0C0C0;
-            --glass: rgba(5, 5, 5, 0.9);
-        }
-
+        :root { --bg-deep: #050505; --accent-blue: #00D2FF; --blood: #8B0000; --rust: #8A3324; --gold-yield: #F9D423; --stone: #4A4E69; --text-silver: #C0C0C0; --glass: rgba(5, 5, 5, 0.95); }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background-color: var(--bg-deep); 
-            color: var(--text-silver); 
-            font-family: 'Montserrat', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+        body { background-color: var(--bg-deep); color: var(--text-silver); font-family: 'Montserrat', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
-        /* --- GLOBAL COMMAND DECK (SYNCED) --- */
-        @keyframes flow-left { 0% { background-position: -200% 0; } 100% { background-position: 0% 0; } }
-        @keyframes flow-right { 0% { background-position: 200% 0; } 100% { background-position: 0% 0; } }
-        header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100px;
-            display: flex; justify-content: center; align-items: center;
-            background: var(--glass); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2); 
-            z-index: 2000; overflow: hidden; padding: 0 5%;
-        }
-        header::before { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-left 10s linear infinite; mask-image: linear-gradient(to right, black 70%, transparent); z-index: 1; }
-        header::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: repeating-linear-gradient(-90deg, transparent, transparent 40px, rgba(0, 210, 255, 0.08) 41px, rgba(0, 210, 255, 0.08) 43px); background-size: 200% 100%; animation: flow-right 10s linear infinite; mask-image: linear-gradient(to left, black 70%, transparent); z-index: 1; }
-        
-        .nav-group { display: flex; gap: 30px; z-index: 10; flex: 1; }
+        header { width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 210, 255, 0.2); position: fixed; top: 0; z-index: 2000; padding: 0 5%; }
+        .nav-group { display: flex; gap: 30px; flex: 1; }
         .nav-group-left { justify-content: flex-end; padding-right: 40px; }
         .nav-group-right { justify-content: flex-start; padding-left: 40px; }
         .nav-link { font-family: 'Orbitron'; font-size: 0.75rem; color: #fff; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
         .nav-link:hover, .nav-link.active { opacity: 1; color: var(--accent-blue); text-shadow: 0 0 10px var(--accent-blue); }
         .studio-logo { font-family: 'Orbitron'; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 1.3rem; z-index: 10; cursor: pointer; }
 
-        /* --- GAME NAVIGATION --- */
-        .game-nav {
-            margin-top: 100px; background: rgba(139, 0, 0, 0.05); border-bottom: 1px solid var(--rust);
-            padding: 15px; display: flex; justify-content: center; gap: 30px; z-index: 1000;
-        }
+        .game-nav { margin-top: 100px; background: rgba(139, 0, 0, 0.05); border-bottom: 1px solid var(--rust); padding: 15px; display: flex; justify-content: center; gap: 30px; z-index: 1000; }
         .game-nav a { text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; color: var(--stone); letter-spacing: 3px; transition: 0.3s; }
         .game-nav a:hover, .game-nav a.active { color: var(--blood); text-shadow: 0 0 10px var(--blood); }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.1) 0%, rgba(5,5,5,1) 95%), url('BY-Background.png');
-            background-size: cover; background-position: center; position: relative;
-        }
-        .logo-by {
-            font-size: clamp(3rem, 12vw, 7rem); font-family: 'Orbitron'; font-weight: 900;
-            background: linear-gradient(to bottom, var(--gold-yield) 0%, #F9D423 40%, var(--blood) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(139, 0, 0, 0.7));
-            margin-bottom: 10px;
-        }
-        .coming-soon-tag {
-            font-family: 'Fira Code'; color: var(--gold-yield); font-size: 0.8rem; letter-spacing: 6px;
-            margin-top: 15px; border: 1px solid var(--gold-yield); padding: 8px 25px; background: rgba(0,0,0,0.4);
-        }
-
-        /* --- CONTENT MODULES --- */
-        .section { max-width: 1200px; margin: 0 auto; padding: 80px 5%; width: 100%; }
+        .hero { height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: linear-gradient(to bottom, rgba(5,5,5,0.1) 0%, rgba(5,5,5,1) 95%), url('BY-Background.png'); background-size: cover; background-position: center; }
+        .logo-by { font-size: clamp(3rem, 10vw, 6rem); font-family: 'Orbitron'; font-weight: 900; background: linear-gradient(to bottom, var(--gold-yield) 0%, #F9D423 40%, var(--blood) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 30px rgba(139, 0, 0, 0.7)); }
         
-        .ancient-scroll {
-            background: rgba(10, 10, 10, 0.95); border: 2px solid var(--rust);
-            padding: 80px 40px; box-shadow: 0 0 50px rgba(139, 0, 0, 0.2), inset 0 0 100px rgba(0,0,0,1);
-            position: relative; text-align: center;
-        }
-        .ancient-scroll::after { content: ''; position: absolute; top: -10px; left: -10px; width: 30px; height: 30px; border-top: 3px solid var(--blood); border-left: 3px solid var(--blood); }
-        .ancient-scroll::before { content: ''; position: absolute; bottom: -10px; right: -10px; width: 30px; height: 30px; border-bottom: 3px solid var(--blood); border-right: 3px solid var(--blood); }
-
-        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 50px 0; text-align: left; }
-        .feature-card { border-left: 3px solid var(--blood); padding-left: 25px; }
-        .feature-card h3 { font-family: 'Orbitron'; color: var(--blood); margin-bottom: 10px; font-size: 1rem; letter-spacing: 2px; }
-        .feature-card p { font-size: 0.9rem; line-height: 1.7; opacity: 0.8; }
-
-        .gothic-input {
-            width: 100%; max-width: 450px; padding: 22px;
-            background: rgba(0, 0, 0, 0.6); border: 1px solid var(--stone);
-            color: #fff; font-family: 'Orbitron'; text-align: center;
-            letter-spacing: 3px; outline: none; transition: 0.4s; margin-bottom: 25px;
-        }
+        .main-content { max-width: 1100px; margin: 0 auto; padding: 60px 5%; width: 100%; text-align: center; }
+        .ancient-scroll { background: rgba(10, 10, 10, 0.95); border: 2px solid var(--rust); padding: 60px 40px; box-shadow: 0 0 50px rgba(139, 0, 0, 0.2), inset 0 0 100px rgba(0,0,0,1); position: relative; }
+        
+        .gothic-input { width: 100%; max-width: 400px; padding: 20px; background: rgba(0, 0, 0, 0.6); border: 1px solid var(--stone); color: #fff; font-family: 'Orbitron'; text-align: center; letter-spacing: 3px; outline: none; transition: 0.4s; margin-bottom: 20px; }
         .gothic-input:focus { border-color: var(--gold-yield); box-shadow: 0 0 20px rgba(249, 212, 35, 0.2); }
+        .btn { padding: 20px 50px; font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; background: var(--blood); border: 1px solid var(--rust); color: #fff; transition: 0.3s; }
+        .btn:hover:not(:disabled) { box-shadow: 0 0 30px var(--blood); filter: brightness(1.2); }
 
-        .btn { 
-            padding: 22px 60px; font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; 
-            cursor: pointer; background: var(--blood); border: 1px solid var(--rust); color: #fff; transition: 0.3s;
-        }
-        .btn:hover:not(:disabled) { box-shadow: 0 0 40px var(--blood); filter: brightness(1.2); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        /* --- UNIFIED FOOTER --- */
-        footer { background: var(--bg-deep); padding: 30px 5%; text-align: center; border-top: 1px solid rgba(139, 0, 0, 0.2); z-index: 10; margin-top: auto; }
-        .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; color: var(--text-silver); }
-
-        @media (max-width: 1100px) { .nav-group { display: none; } }
-        @media (max-width: 800px) { .feature-grid { grid-template-columns: 1fr; } .hero { height: 50vh; } }
+        footer { background: var(--bg-deep); padding: 30px; text-align: center; border-top: 1px solid rgba(139, 0, 0, 0.2); font-family: 'Fira Code'; font-size: 0.7rem; opacity: 0.5; margin-top: auto; }
     </style>
 </head>
 <body>
-
     <header>
-        <div class="nav-group nav-group-left">
-            <a href="../index.html" class="nav-link">Home</a>
-            <a href="../handy.html" class="nav-link">Handy</a>
-            <a href="index.html" class="nav-link active">Blood-Yield</a>
-        </div>
+        <div class="nav-group nav-group-left"><a href="../index.html" class="nav-link">Home</a><a href="../handy.html" class="nav-link">Handy</a><a href="index.html" class="nav-link active">Blood-Yield</a></div>
         <div class="studio-logo" onclick="window.location.href='../index.html'">Harrison Interactive</div>
-        <div class="nav-group nav-group-right">
-            <a href="../about.html" class="nav-link">About</a>
-            <a href="../faq.html" class="nav-link">FAQ</a>
-            <a href="../legal.html" class="nav-link">Legal</a>
-        </div>
+        <div class="nav-group nav-group-right"><a href="../about.html" class="nav-link">About</a><a href="../faq.html" class="nav-link">FAQ</a><a href="../legal.html" class="nav-link">Legal</a></div>
     </header>
 
     <nav class="game-nav">
         <a href="index.html" class="active">PROJECT_HOME</a>
-        <a href="world.html">bastion_world</a>
-        <a href="lore.html">lore_logs</a>
-        <a href="community.html">network_layer</a>
+        <a href="world.html">heimr_geography</a>
+        <a href="waygates.html">waygate_uplink</a>
+        <a href="plots.html">hallowed_plots</a>
+        <a href="maw.html">the_maw</a>
     </nav>
 
-    <section class="hero">
-        <h1 class="logo-by">BLOOD-YIELD</h1>
-        <div class="coming-soon-tag">ALPHA DEPLOYMENT // Q4 2026</div>
-    </section>
+    <div class="hero"><h1 class="logo-by">BLOOD-YIELD</h1><div style="font-family:'Fira Code'; color:var(--gold-yield); letter-spacing:5px;">[ HEIMR_ALPHA_ACCESS ]</div></div>
 
-    <main class="section">
+    <main class="main-content">
         <div class="ancient-scroll">
-            <h2 style="font-family:'Orbitron'; color:var(--gold-yield); letter-spacing:4px; font-weight: 900;">JOIN THE COLD HARVEST</h2>
-            <p style="margin: 25px auto; font-size: 1.1rem; max-width: 700px; line-height: 1.6; font-style: italic; opacity: 0.9;">
-                "The earth yields nothing but blood. Enter your mark below to receive word of the coming Alpha and secure your place in the Bastion."
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>THE SYMBIOSIS PROTOCOL</h3>
-                    <p>Balance the industrial overclocking of the <strong>Reaper</strong> against the organic logic-stitching of the <strong>Sower</strong>.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>SECURE EXCHANGE</h3>
-                    <p>Harvest rare materials like <strong>Cold Iron</strong> and trade in a secure, RMT-ready ecosystem powered by Harrison Interactive.</p>
-                </div>
-            </div>
-
+            <h2 style="font-family:'Orbitron'; letter-spacing:5px; margin-bottom:20px;">AUTHORIZE YOUR SIGNATURE</h2>
+            <p style="margin-bottom:40px; line-height:1.6;">"Heimr demands a sacrifice of data. Secure your Alpha credentials today."</p>
             <form id="waitlist-form">
-                <input type="email" id="email" name="operator_name" class="gothic-input" placeholder="MARK YOUR EMAIL" required>
-                <br>
+                <input type="email" id="email" name="operator_name" class="gothic-input" placeholder="MARK YOUR EMAIL" required><br>
                 <button type="submit" class="btn" id="submit-btn">INITIATE UPLINK</button>
             </form>
-            <p id="status-msg" style="margin-top:30px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-family: 'Fira Code'; font-size: 0.85rem;"></p>
+            <p id="status-msg" style="margin-top:30px; font-family:'Fira Code'; font-size:0.8rem; letter-spacing:2px;"></p>
         </div>
     </main>
 
-    <footer>
-        <div class="footer-text">© 2026 HARRISON INTERACTIVE LLC // BLOOD-YIELD // UNRIVALED INNOVATION // EST. 2026</div>
-    </footer>
+    <footer>HARRISON INTERACTIVE // BLOOD-YIELD // UNRIVALED INNOVATION // 2026</footer>
 
     <script>
         const form = document.getElementById('waitlist-form');
@@ -186,23 +80,19 @@
             statusMsg.innerText = "SYNCHRONIZING WITH HARRISON INTERACTIVE ARRAY...";
 
             try {
-                // THE LIVE HYBRID WORKER ROUTE
                 const response = await fetch("https://hi-signal-terminal.bccomp97249.workers.dev/", {
                     method: 'POST',
                     body: new FormData(form)
                 });
-
                 if (response.ok) {
                     statusMsg.style.color = "var(--gold-yield)";
                     statusMsg.innerText = "[ STATUS: 200 OK ] THE YIELD HAS BEGUN. OPERATOR REGISTERED.";
                     submitBtn.innerText = "UPLINK COMPLETE";
                     form.reset();
-                } else {
-                    throw new Error("Signal Interrupted");
-                }
+                } else { throw new Error(); }
             } catch (err) {
                 statusMsg.style.color = "var(--blood)";
-                statusMsg.innerText = "[ ERROR: 404 ] UPLINK FAILED. CHECK LOCAL LOGS.";
+                statusMsg.innerText = "[ ERROR: 404 ] UPLINK FAILED. RETRY SIGNAL.";
                 submitBtn.disabled = false;
                 submitBtn.innerText = "RETRY UPLINK";
             }
