@@ -70,9 +70,9 @@
         #nav-menu a { display: block; padding: 20px 40px; color: #fff; text-decoration: none; font-family: 'Orbitron'; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
         #nav-menu a:hover { background: rgba(0, 210, 255, 0.1); color: var(--accent-blue); padding-left: 50px; }
 
-        /* --- MAIN CONTENT (FIXED Z-INDEX PLUMBING) --- */
+        /* --- MAIN CONTENT --- */
         main {
-            position: relative; /* REQUIRED FOR Z-INDEX */
+            position: relative; 
             z-index: 10; 
             flex: 1; padding: 130px 5% 80px;
             display: flex; flex-direction: column; align-items: center;
@@ -88,8 +88,8 @@
 
         /* --- TIER GRID --- */
         .tier-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px; width: 100%; margin-bottom: 60px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px; width: 100%; margin-bottom: 60px;
         }
 
         .tier-card {
@@ -126,20 +126,30 @@
         .tier-list li::before { content: '>'; color: var(--accent-blue); font-family: 'Fira Code'; margin-right: 8px; font-weight: bold; }
         .tier-highlight { color: var(--text-silver); font-family: 'Fira Code'; font-size: 0.8rem; display: block; margin-top: 3px; opacity: 0.7; }
 
-        /* --- MODULE GRID --- */
-        .ue-panel {
-            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 210, 255, 0.1); border-left: 4px solid var(--accent-blue);
-            padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        /* --- NESTED MODULE STYLING --- */
+        .module-stack {
+            margin-top: 20px;
+            text-align: left;
+            border-top: 1px solid rgba(0, 210, 255, 0.2);
+            padding-top: 20px;
         }
+
+        .module-header {
+            display: flex; justify-content: space-between; 
+            font-family: 'Fira Code'; font-size: 0.65rem; color: var(--text-silver); margin-bottom: 8px;
+        }
+
+        .module-title { font-family: 'Orbitron'; font-size: 1rem; color: #fff; margin-bottom: 10px; }
 
         .code-block {
-            font-family: 'Fira Code'; font-size: 0.8rem; color: #fff;
-            background: rgba(0,0,0,0.6); padding: 20px; border-left: 2px solid #fff;
-            margin-top: 15px;
+            font-family: 'Fira Code'; font-size: 0.75rem; color: #fff;
+            background: rgba(0,0,0,0.6); padding: 15px; margin-bottom: 15px;
         }
+        
+        .border-exec { border-left: 2px solid var(--bp-exec); }
+        .border-string { border-left: 2px solid var(--bp-string); }
 
-        .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+        .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; }
         .dot-exec { background: var(--bp-exec); box-shadow: 0 0 5px var(--bp-exec); }
         .dot-string { background: var(--bp-string); box-shadow: 0 0 5px var(--bp-string); }
 
@@ -148,11 +158,12 @@
             padding: 12px 25px; font-family: 'Orbitron'; background: transparent;
             border: 1px solid var(--accent-blue); color: var(--accent-blue);
             cursor: pointer; width: 100%; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            margin-top: 15px;
         }
         .btn:hover { background: var(--accent-blue); color: #000; box-shadow: 0 0 15px var(--accent-blue); }
 
         footer {
-            position: relative; /* REQUIRED FOR Z-INDEX */
+            position: relative; 
             background: var(--bg-deep); padding: 40px 5%; text-align: center;
             border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Inter', sans-serif; z-index: 10; width: 100%;
         }
@@ -186,6 +197,7 @@
         </div>
 
         <div class="tier-grid">
+            
             <div class="tier-card">
                 <div style="font-family: 'Fira Code'; color: var(--text-silver); font-size: 0.8rem;">[ CORE_AUTOMATION ]</div>
                 <h3 style="font-family: 'Orbitron'; color: #fff; font-size: 1.5rem; margin-top: 10px;">LITE</h3>
@@ -194,8 +206,17 @@
                     <li>Core Blueprint Utilities<span class="tier-highlight">UI Shell & Basic Automation</span></li>
                     <li>Bulk Asset Management<span class="tier-highlight">Rename, Move, and Clean</span></li>
                     <li>Standard Node Library<span class="tier-highlight">Pre-compiled UMG logic</span></li>
-                    <li>Indie / Solo License<span class="tier-highlight">Revenue under $100k/yr</span></li>
                 </ul>
+                
+                <div class="module-stack">
+                    <div class="module-header"><span>MODULE // VISUAL_UI</span> <span style="color: var(--bp-exec);">[ STABLE ]</span></div>
+                    <div class="module-title">BLUEPRINT INTERFACE</div>
+                    <div class="code-block border-exec">
+                        <div style="margin-bottom: 6px;"><span class="dot dot-exec"></span> EUW_HI_HandyMain</div>
+                        <div><span class="dot dot-exec"></span> EUW_HI_HandySettings</div>
+                    </div>
+                </div>
+                
                 <button class="btn">VIEW ON FAB</button>
             </div>
 
@@ -207,8 +228,17 @@
                     <li>Advanced Python Integration<span class="tier-highlight">Full logic routing access</span></li>
                     <li>Bring Your Own Brain (LLM)<span class="tier-highlight">Input your own API key</span></li>
                     <li>Automated Graph Cleaners<span class="tier-highlight">Format nodes instantly</span></li>
-                    <li>Custom Tool Architecture<span class="tier-highlight">Extend Handy with Python</span></li>
                 </ul>
+                
+                <div class="module-stack">
+                    <div class="module-header"><span>MODULE // LOGIC_BRAIN</span> <span style="color: var(--bp-string);">[ ACTIVE ]</span></div>
+                    <div class="module-title">PYTHON CORE</div>
+                    <div class="code-block border-string">
+                        <div style="margin-bottom: 6px;"><span class="dot dot-string"></span> handy_core_utils.py</div>
+                        <div><span class="dot dot-string"></span> handy_validator.py</div>
+                    </div>
+                </div>
+
                 <button class="btn">VIEW ON FAB</button>
             </div>
 
@@ -220,48 +250,19 @@
                     <li>Full AI Automation Suite<span class="tier-highlight">Powered by HI Cloudflare backend</span></li>
                     <li>Verified Studio Badge<span class="tier-highlight">Priority routing & support</span></li>
                     <li>Commercial Studio Licensing<span class="tier-highlight">Cleared for $100k+ revenue</span></li>
-                    <li>Continuous Feature Rollouts<span class="tier-highlight">Live updates & new modules</span></li>
                 </ul>
-                <button class="btn" style="background: var(--accent-blue); color: #000;">SUBSCRIBE</button>
-            </div>
-        </div>
+                
+                <div class="module-stack">
+                    <div class="module-header"><span>MODULE // OMNI_NETWORK</span> <span style="color: #00D2FF;">[ PENDING ]</span></div>
+                    <div class="module-title">CLOUD ROUTING</div>
+                    <div class="code-block" style="border-left: 2px solid #00D2FF;">
+                        <div style="margin-bottom: 6px;"><span class="dot" style="background: #00D2FF;"></span> handy_omni_network.py</div>
+                        <div><span class="dot" style="background: #00D2FF;"></span> handy_router.py</div>
+                    </div>
+                </div>
 
-        <div style="width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-            
-            <div class="ue-panel">
-                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
-                    <span>MODULE // VISUAL_UI</span> <span style="color: var(--bp-exec);">[ STABLE ]</span>
-                </div>
-                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff;">BLUEPRINT INTERFACE</h3>
-                <div class="code-block" style="border-left-color: var(--bp-exec);">
-                    <div style="margin-bottom: 8px;"><span class="dot dot-exec"></span> EUW_HI_HandyMain</div>
-                    <div style="margin-bottom: 8px;"><span class="dot dot-exec"></span> EUW_HI_HandyShelf</div>
-                    <div><span class="dot dot-exec"></span> EUW_HI_HandySettings</div>
-                </div>
+                <button class="btn" style="background: rgba(255,255,255,0.05); color: var(--text-silver); border-color: rgba(255,255,255,0.2); pointer-events: none; letter-spacing: 4px;">COMING SOON</button>
             </div>
-
-            <div class="ue-panel">
-                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
-                    <span>MODULE // LOGIC_BRAIN</span> <span style="color: var(--bp-string);">[ ACTIVE ]</span>
-                </div>
-                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff;">PYTHON CORE</h3>
-                <div class="code-block" style="border-left-color: var(--bp-string);">
-                    <div style="margin-bottom: 8px;"><span class="dot dot-string"></span> handy_router.py</div>
-                    <div style="margin-bottom: 8px;"><span class="dot dot-string"></span> handy_core_utils.py</div>
-                    <div><span class="dot dot-string"></span> handy_validator.py</div>
-                </div>
-            </div>
-
-            <div class="ue-panel">
-                <div style="display: flex; justify-content: space-between; font-family: 'Fira Code'; font-size: 0.7rem; color: var(--text-silver); margin-bottom: 15px;">
-                    <span>MODULE // UI_PREVIEW</span> <span style="color: #00FFFF;">[ ONLINE ]</span>
-                </div>
-                <h3 style="font-family: 'Orbitron'; font-size: 1.2rem; color: #fff; margin-bottom: 15px;">TERMINAL VIEW</h3>
-                <div style="width: 100%; height: 150px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">
-                    <img src="handy_terminal.png" alt="Handy Terminal Preview" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-            </div>
-
         </div>
     </main>
 
