@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harrison Interactive | FAQ & Contact</title>
+    <title>Harrison Interactive | Omni-Network Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
         :root { --bg-deep: #050505; --accent-blue: #00D2FF; --accent-red: #8B0000; --text-silver: #C0C0C0; --glass: rgba(5, 5, 5, 0.85); }
@@ -36,165 +36,55 @@
         #mobile-nav.active { right: 0; }
         #mobile-nav a { font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; text-decoration: none; }
 
-        /* --- FAQ / CONTACT LAYOUT --- */
-        main { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            margin-top: 120px; 
-            padding: 40px 5%;
-            flex: 1;
-        }
+        /* --- LAYOUT --- */
+        main { display: flex; flex: 1; flex-direction: row; margin-top: 100px; height: calc(100vh - 180px); }
+        .split-panel { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 40px; transition: flex 0.7s ease; position: relative; overflow: hidden; background-color: var(--bg-deep); }
+        .split-panel:hover { flex: 2.5; }
 
-        .content-container {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(10, 25, 47, 0.3);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            padding: 40px;
-            border-radius: 4px;
-        }
+        .panel-blood { background-image: linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.95) 70%), url('Blood-Yield/BY-Background.png'); background-size: 100% auto; background-position: center top; background-repeat: no-repeat; border-right: 1px solid rgba(139,0,0,0.3); }
+        .panel-handy { background-image: linear-gradient(to bottom, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.95) 75%), url('handy_terminal.png'); background-size: 100% auto; background-position: center top; background-repeat: no-repeat; }
 
-        .panel-heading { 
-            font-family: 'Orbitron'; 
-            font-size: 2rem; 
-            color: #fff; 
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
-            padding-bottom: 10px;
-        }
-
-        .faq-item {
-            margin-bottom: 25px;
-        }
-
-        .faq-q {
-            font-family: 'Orbitron';
-            color: var(--accent-blue);
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .faq-a {
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* --- CONTACT FORM --- */
-        .form-container {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(0, 210, 255, 0.2);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-family: 'Fira Code';
-            font-size: 0.8rem;
-            color: var(--accent-blue);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .form-group input, .form-group textarea {
-            background: rgba(5, 5, 5, 0.8);
-            border: 1px solid rgba(192, 192, 192, 0.3);
-            color: #fff;
-            padding: 12px;
-            font-family: 'Inter', sans-serif;
-            transition: 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
-        }
-
-        .btn { 
-            padding: 15px 30px; 
-            font-family: 'Orbitron'; 
-            cursor: pointer; 
-            border: 1px solid var(--accent-blue); 
-            color: var(--accent-blue); 
-            text-decoration: none; 
-            display: inline-block; 
-            background: rgba(0,0,0,0.5); 
-            transition: 0.3s;
-            width: 100%;
-            text-align: center;
-            font-size: 1rem;
-            margin-top: 10px;
-        }
-
-        .btn:hover { 
-            background: var(--accent-blue); 
-            color: #000; 
-        }
-
-        #statusMessage {
-            margin-top: 15px;
-            text-align: center;
-            font-family: 'Fira Code';
-            font-size: 0.9rem;
-            display: none;
-        }
+        .content-box { max-width: 500px; z-index: 20; text-align: left; width: 100%; }
+        .module-tag { font-family: 'Fira Code'; font-size: 0.7rem; letter-spacing: 4px; margin-bottom: 10px; }
+        .panel-heading { font-family: 'Orbitron'; font-size: 2rem; color: #fff; margin-bottom: 15px; }
+        .btn { padding: 15px 30px; font-family: 'Orbitron'; cursor: pointer; border: 1px solid var(--accent-blue); color: var(--accent-blue); text-decoration: none; display: inline-block; background: rgba(0,0,0,0.5); transition: 0.3s; }
+        .btn:hover { background: var(--accent-blue); color: #000; }
 
         /* --- UNIFIED FOOTER --- */
-        footer { background: var(--bg-deep); padding: 30px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); z-index: 10; margin-top: auto;}
+        footer { background: var(--bg-deep); padding: 30px 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); z-index: 10; }
         .footer-text { opacity: 0.6; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Fira Code'; }
 
         @media (max-width: 1100px) { .nav-group { display: none; } #menu-btn { display: block; } }
+        @media (max-width: 800px) {
+            main { flex-direction: column; height: auto; }
+            .split-panel { width: 100%; min-height: 80vh; border-right: none; background-size: cover; background-position: center; }
+            .split-panel:hover { flex: 1; }
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="nav-group nav-group-left"><a href="index.html" class="nav-link">Home</a><a href="handy.html" class="nav-link">Handy</a><a href="Blood-Yield/" class="nav-link">Blood-Yield</a></div>
+        <div class="nav-group nav-group-left"><a href="index.html" class="nav-link active">Home</a><a href="handy.html" class="nav-link">Handy</a><a href="Blood-Yield/" class="nav-link">Blood-Yield</a></div>
         <div class="studio-logo" onclick="window.location.href='index.html'">Harrison Interactive</div>
         <div id="menu-btn">☰</div>
-        <div class="nav-group nav-group-right"><a href="about.html" class="nav-link">About</a><a href="faq.html" class="nav-link active">FAQ</a><a href="legal.html" class="nav-link">Legal</a></div>
+        <div class="nav-group nav-group-right"><a href="about.html" class="nav-link">About</a><a href="faq.html" class="nav-link">FAQ</a><a href="legal.html" class="nav-link">Legal</a></div>
     </header>
 
     <nav id="mobile-nav"><a href="index.html">Home</a><a href="handy.html">Handy</a><a href="Blood-Yield/">Blood-Yield</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="legal.html">Legal</a></nav>
 
     <main>
-        <div class="content-container">
-            <h2 class="panel-heading">FREQUENTLY ASKED QUESTIONS</h2>
-            
-            <div class="faq-item">
-                <div class="faq-q">> WHAT IS HANDY?</div>
-                <div class="faq-a">Handy is a professional-grade Game Builder Tool (Editor Utility) designed for the Fab Marketplace. It streamlines the development process by generating and modifying Data Assets, Blueprints, and Level data without injecting code into runtime game classes.</div>
+        <div class="split-panel panel-blood">
+            <div class="content-box">
+                <div class="module-tag" style="color:var(--accent-red)">[ DARK_FANTASY_RPG ]</div>
+                <h2 class="panel-heading">BLOOD-YIELD</h2>
+                <a href="Blood-Yield/" class="btn" style="border-color:var(--accent-red); color:var(--accent-red)">> ACCESS_PROJECT</a>
             </div>
-
-            <div class="faq-item">
-                <div class="faq-q">> WHAT IS BLOOD-YIELD?</div>
-                <div class="faq-a">Blood-Yield is an upcoming dark fantasy RPG built using Unreal Engine 5. It features a unique "Life-Death-Trade" core loop involving Reapers (harvesters) and Sowers (architects), and utilizes a gritty, non-cartoonish visual style.</div>
-            </div>
-
-            <div class="form-container">
-                <h2 class="panel-heading" style="font-size: 1.5rem;">DIRECT UPLINK</h2>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">OPERATOR NAME</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter designation...">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">REPLY EMAIL</label>
-                        <input type="email" id="email" name="email" required placeholder="Enter comm-link...">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">PAYLOAD / INQUIRY</label>
-                        <textarea id="message" name="message" rows="5" required placeholder="Enter transmission..."></textarea>
-                    </div>
-                    <button type="submit" class="btn">> TRANSMIT SIGNAL</button>
-                    <div id="statusMessage"></div>
-                </form>
+        </div>
+        <div class="split-panel panel-handy">
+            <div class="content-box">
+                <div class="module-tag" style="color:var(--accent-blue)">[ EDITOR_UTILITY ]</div>
+                <h2 class="panel-heading">HI | HANDY</h2>
+                <a href="handy.html" class="btn">> VIEW_TOOLKIT</a>
             </div>
         </div>
     </main>
@@ -204,56 +94,9 @@
     </footer>
 
     <script>
-        // Mobile Menu Logic
         const btn = document.getElementById('menu-btn');
         const nav = document.getElementById('mobile-nav');
         btn.onclick = () => { nav.classList.toggle('active'); btn.innerText = nav.classList.contains('active') ? '✕' : '☰'; };
-
-        // Signal Transmission Logic
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop page reload
-
-            const statusDiv = document.getElementById('statusMessage');
-            const submitBtn = document.querySelector('.btn');
-            
-            // Visual feedback during transmission
-            submitBtn.innerText = "> TRANSMITTING...";
-            submitBtn.style.opacity = "0.5";
-            submitBtn.style.pointerEvents = "none";
-            
-            statusDiv.style.display = "block";
-            statusDiv.style.color = "var(--text-silver)";
-            statusDiv.innerText = "[ESTABLISHING SECURE UPLINK...]";
-
-            const formData = new FormData(this);
-
-            // POST to the Cloudflare Worker
-            fetch('https://hi-signal-terminal.bccomp97249.workers.dev', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if(response.ok) {
-                    statusDiv.style.color = "var(--accent-blue)";
-                    statusDiv.innerText = "[SIGNAL_SUCCESS: TRANSMISSION RECEIVED]";
-                    this.reset(); // Clear form
-                } else {
-                    statusDiv.style.color = "var(--accent-red)";
-                    statusDiv.innerText = "[UPLINK_FAILURE: SERVER REJECTED SIGNAL]";
-                }
-            })
-            .catch(error => {
-                statusDiv.style.color = "var(--accent-red)";
-                statusDiv.innerText = "[UPLINK_FAILURE: CONNECTION LOST]";
-                console.error('Error:', error);
-            })
-            .finally(() => {
-                // Reset button state
-                submitBtn.innerText = "> TRANSMIT SIGNAL";
-                submitBtn.style.opacity = "1";
-                submitBtn.style.pointerEvents = "auto";
-            });
-        });
     </script>
 </body>
 </html>
