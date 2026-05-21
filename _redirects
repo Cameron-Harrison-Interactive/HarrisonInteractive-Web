@@ -1,3 +1,0 @@
-# This will catch anyone hitting the project and send them to the subfolder
-/blood-yield/* /Blood-Yield/:splat  301
-/bloodyield/* /Blood-Yield/:splat  301

@@ -1,0 +1,13 @@
+﻿services:
+  web-matrix:
+    image: node:24-slim
+    container_name: harrison-web-dev
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    environment:
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    command: bash -c "rm -rf .next && npm run dev"

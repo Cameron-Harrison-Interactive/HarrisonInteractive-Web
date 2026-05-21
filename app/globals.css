@@ -1,0 +1,101 @@
+/* --- START OF FILE app/globals.css --- */
+
+@import "tailwindcss";
+
+@theme {
+  /* =========================================================
+     HARRISON INTERACTIVE | CORE NEURAL PALETTE
+     ========================================================= */
+  
+  /* Core Backgrounds */
+  --color-background-dark: #010409;
+  --color-background-panel: rgba(13, 17, 23, 0.7);
+  
+  /* JARVIS Intent Colors (As per System Directives) */
+  --color-jarvis-core: #00BFFF;
+  --color-intent-cyan: #00FFFF;    /* Chat / Info */
+  --color-intent-emerald: #50C878; /* World / Success */
+  --color-intent-amber: #FFBF00;   /* Settings / Warning */
+  --color-intent-fuchsia: #FF00FF; /* Waygate / Heavy Rendering */
+  --color-intent-crimson: #DC143C; /* Error / Purge (Blood-Yield) */
+
+  /* Typography Variables */
+  --font-orbitron: var(--font-orbitron), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+}
+
+/* Base Font Definitions */
+:root {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* Global Body Reset & Holographic Grid */
+body {
+  background-color: var(--color-background-dark);
+  color: #E6EDF3;
+  /* AAA Holographic Blueprint Grid */
+  background-image: 
+    linear-gradient(rgba(0, 191, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 191, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   PROPRIETARY UI COMPONENTS
+   ========================================================= */
+
+/* 1. Glass Panel - For standard data containers */
+.glass-panel {
+  background: var(--color-background-panel);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 191, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 2. Clip Angled - For Sci-Fi chamfered corners */
+.clip-angled {
+  clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+}
+
+/* 3. Holographic Card - Interactive elements with glow states */
+.holographic-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(0, 191, 255, 0.05) 0%, rgba(1, 4, 9, 0.9) 100%);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 191, 255, 0.02), 0 0 10px rgba(0, 191, 255, 0.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.holographic-card:hover {
+  border-color: rgba(0, 255, 255, 0.8);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.15), 0 0 25px rgba(0, 191, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 4. Global Scanline Overlay (Hardware Accelerated) */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0.15)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* --- END OF FILE app/globals.css --- */
