@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function BillingMatrix() {
   // --- STATE MATRIX ---
@@ -10,19 +10,42 @@ export default function BillingMatrix() {
   const [licenseKey, setLicenseKey] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<"elite" | "ultimate" | null>(null);
   const [terminalLogs, setTerminalLogs] = useState<string[]>([
-    "[SYS] Awaiting secure handshake with Stripe API...",
-    "[SYS] No recent transactions detected."
+    "[SYS] Awaiting secure handshake with Payment Gateway...",
+    "[SYS] No recent transactions detected in local cache."
   ]);
 
+  // --- RETURN FROM GATEWAY DETECTOR ---
+  useEffect(() => {
+    // Detects if the user just returned from a successful purchase
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get("status");
+    const tier = urlParams.get("tier");
+
+    if (status === "success") {
+      setTerminalLogs(prev => [
+        ...prev,
+        `[SUCCESS] 200 OK - Payment Clearance Confirmed.`,
+        `[SYS] Cloudflare Edge is currently minting your new Neural Key.`,
+        `[SYS] An email containing your permanent License Key has been dispatched.`
+      ]);
+      if (tier) setActiveTier(tier.toUpperCase());
+    } else if (status === "cancelled") {
+      setTerminalLogs(prev => [
+        ...prev,
+        `[WARN] Transaction aborted by user. Gateway closed.`
+      ]);
+    }
+  }, []);
+
   // --- API PAYLOAD INJECTOR ---
-  const handleStripeCheckout = async (targetTier: "elite" | "ultimate") => {
+  const handleCheckout = async (targetTier: "elite" | "ultimate") => {
     setIsLoading(targetTier);
     
     // Append starting log
     setTerminalLogs(prev => [
       ...prev, 
       `[SYS] Initializing secure payload for ${targetTier.toUpperCase()} tier...`,
-      `[NET] Dispatching POST request to /api/stripe/checkout...`
+      `[NET] Dispatching encrypted POST request to billing router...`
     ]);
 
     try {
@@ -36,31 +59,28 @@ export default function BillingMatrix() {
 
       const data = await response.json();
 
-      if (response.ok) {
-        // Success: Update the UI with the Skeleton Key
-        setLicenseKey(data.skeletonKey);
-        setActiveTier(targetTier.toUpperCase());
-        
+      if (response.ok && data.checkoutUrl) {
         setTerminalLogs(prev => [
           ...prev, 
-          `[SUCCESS] 200 OK - Stripe Checkout Simulation Complete.`,
-          `[SYS] Cryptographic Skeleton Key generated: ${data.skeletonKey}`,
-          `[SYS] Neural Access Level upgraded to ${targetTier.toUpperCase()}.`
+          `[SUCCESS] Gateway resolved. Teleporting to secure payment portal...`
         ]);
+        
+        // PHYSICAL BROWSER REDIRECT TO STRIPE HOSTED CHECKOUT
+        window.location.href = data.checkoutUrl;
       } else {
         // Handle API Error Response
         setTerminalLogs(prev => [
           ...prev, 
           `[ERR] ${response.status} - ${data.error || "Matrix Collision"}`
         ]);
+        setIsLoading(null);
       }
     } catch (error) {
       // Handle Catastrophic Network Failure
       setTerminalLogs(prev => [
         ...prev, 
-        `[FATAL] Network payload failed to dispatch. Check Docker internal routing.`
+        `[FATAL] Network payload failed to dispatch. Check Edge internal routing.`
       ]);
-    } finally {
       setIsLoading(null);
     }
   };
@@ -75,7 +95,7 @@ export default function BillingMatrix() {
             Billing & License Management
           </h1>
           <span className="px-3 py-1 bg-[#FFBF00]/20 border border-[#FFBF00]/50 text-[#FFBF00] text-[10px] font-orbitron uppercase tracking-widest rounded animate-pulse">
-            Stripe Secured
+            256-bit Encrypted Gateway
           </span>
         </div>
         <p className="font-inter text-xs text-[#8B949E] uppercase tracking-widest mt-2">
@@ -132,7 +152,7 @@ export default function BillingMatrix() {
         </div>
 
         {/* =========================================================
-            RIGHT COLUMN: UPGRADE & STRIPE MATRIX
+            RIGHT COLUMN: UPGRADE MATRIX
             ========================================================= */}
         <div className="w-full lg:w-2/3 flex flex-col gap-6">
           
@@ -157,11 +177,11 @@ export default function BillingMatrix() {
               <span className="font-orbitron text-3xl text-[#E6EDF3] font-light mb-1">$49<span className="text-sm text-[#8B949E]">/mo</span></span>
               
               <button 
-                onClick={() => handleStripeCheckout("elite")}
+                onClick={() => handleCheckout("elite")}
                 disabled={isLoading !== null}
                 className="w-full md:w-48 font-orbitron text-[10px] py-3 mt-4 border border-[#50C878] text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_10px_rgba(80,200,120,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading === "elite" ? "NEGOTIATING..." : "Initialize Stripe"}
+                {isLoading === "elite" ? "NEGOTIATING..." : "Initialize Purchase"}
               </button>
             </div>
           </div>
@@ -183,19 +203,19 @@ export default function BillingMatrix() {
               <span className="font-orbitron text-3xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
               
               <button 
-                onClick={() => handleStripeCheckout("ultimate")}
+                onClick={() => handleCheckout("ultimate")}
                 disabled={isLoading !== null}
                 className="w-full md:w-48 font-orbitron text-[10px] py-3 mt-4 border border-[#FF00FF] text-[#FF00FF] hover:bg-[#FF00FF] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_10px_rgba(255,0,255,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading === "ultimate" ? "NEGOTIATING..." : "Initialize Stripe"}
+                {isLoading === "ultimate" ? "NEGOTIATING..." : "Initialize Purchase"}
               </button>
             </div>
           </div>
 
-          {/* Transaction Terminal - Dynamically maps the terminalLogs array */}
+          {/* Transaction Terminal */}
           <div className="glass-panel flex flex-col p-6 mt-4 relative overflow-hidden min-h-[150px]">
             <h3 className="font-orbitron text-[#E6EDF3] text-xs font-bold tracking-widest uppercase mb-4">
-              Terminal Logs: Stripe Events
+              Terminal Logs: Transaction Events
             </h3>
             <div className="font-mono text-[10px] text-[#8B949E] flex flex-col gap-1 overflow-y-auto max-h-48">
               {terminalLogs.map((log, index) => (
