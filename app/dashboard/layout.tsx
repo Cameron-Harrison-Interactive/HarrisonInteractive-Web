@@ -48,9 +48,10 @@ export default function DashboardLayout({
               Downloads & Tiers
             </Link>
 
+            {/* IMMERSION FIX: Replaced "License / Stripe" with "License & Billing" */}
             <Link href="/dashboard/billing" className="font-orbitron text-sm text-[#E6EDF3] hover:text-[#FFBF00] hover:bg-[#FFBF00]/10 p-3 rounded transition-all uppercase tracking-widest border border-transparent hover:border-[#FFBF00]/30 flex flex-row items-center gap-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FFBF00] shadow-[0_0_8px_#FFBF00]"></span>
-              License / Stripe
+              License & Billing
             </Link>
 
             {/* HARRISON INTERACTIVE GAMES */}
@@ -63,7 +64,7 @@ export default function DashboardLayout({
               Blood-Yield Game
             </Link>
 
-            {/* NEW: INFORMATION & SUPPORT (Restoring GitHub features) */}
+            {/* INFORMATION & SUPPORT */}
             <div className="mt-4 mb-1 px-3 border-b border-[#00BFFF]/20 pb-2">
               <p className="text-[10px] text-[#00FFFF]/70 uppercase tracking-[0.2em] font-orbitron">Info & Support</p>
             </div>
