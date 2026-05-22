@@ -2,6 +2,13 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
+// =========================================================================
+// CRITICAL CLOUDFLARE DIRECTIVE:
+// This explicitly tells the compiler to use the Cloudflare V8 Edge Network
+// instead of a standard Node.js server. Without this, the build will fail!
+// =========================================================================
+export const runtime = "edge";
+
 /**
  * =========================================================================
  * HARRISON INTERACTIVE | SECURE STRIPE CHECKOUT ROUTE
@@ -36,6 +43,7 @@ export async function POST(request: NextRequest) {
     // =========================================================
     
     // Simulate API Network Latency (800ms) to test UI loading states
+    // (Using standard Promise as setTimeout is supported on Edge)
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     // Generate a cryptographic mock License Key to unlock the UE5 Plugin
@@ -50,7 +58,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         message: "Stripe Session Created Successfully",
-        // In production, this would be session.url from Stripe
         checkoutUrl: `/dashboard/billing?status=success&key=${mockLicenseKey}&tier=${tier}`, 
         skeletonKey: mockLicenseKey
       },
