@@ -1,6 +1,14 @@
 /* --- START OF FILE app/globals.css --- */
 
+/* [CACHE BUST: FORCING MATRIX RECOMPILATION 001] */
+
 @import "tailwindcss";
+
+/* 
+  CRITICAL TAILWIND V4 DIRECTIVE:
+  Explicitly forces the compiler to scan the entire app directory.
+*/
+@source "../app";
 
 @theme {
   /* =========================================================
@@ -11,7 +19,7 @@
   --color-background-dark: #010409;
   --color-background-panel: rgba(13, 17, 23, 0.7);
   
-  /* JARVIS Intent Colors (As per System Directives) */
+  /* JARVIS Intent Colors */
   --color-jarvis-core: #00BFFF;
   --color-intent-cyan: #00FFFF;    /* Chat / Info */
   --color-intent-emerald: #50C878; /* World / Success */
