@@ -1,0 +1,28 @@
+# --- START OF FILE wrangler.toml ---
+
+# =========================================================================
+# HARRISON INTERACTIVE | CLOUDFLARE EDGE MATRIX BLUEPRINT
+# =========================================================================
+
+# The exact name of your Cloudflare Pages project
+name = "harrisoninteractive-web"
+
+# The Next.js Edge compiler output directory
+pages_build_output_dir = ".vercel/output/static"
+
+# Locks the Cloudflare runtime API to a specific stable date
+compatibility_date = "2024-03-21"
+
+# Enable Node.js compatibility mode for Next.js APIs
+compatibility_flags = ["nodejs_compat"]
+
+# =========================================================================
+# RUNTIME ENVIRONMENT VARIABLES (THE SECURE VAULT)
+# =========================================================================
+[vars]
+# We will inject your Stripe keys and database endpoints here later.
+# Example: 
+# STRIPE_PUBLIC_KEY = "pk_live_xxxxxxxxx"
+# NEXT_PUBLIC_ENVIRONMENT = "production"
+
+# --- END OF FILE wrangler.toml ---
