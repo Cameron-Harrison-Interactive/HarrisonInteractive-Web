@@ -47,13 +47,11 @@ export async function POST(request: NextRequest) {
 
     // 4. Initialize Stripe with Edge-Compatible Fetch Client
     const stripe = new Stripe(stripeKey, {
-      apiVersion: "2024-04-10", 
+      apiVersion: "2026-04-22.dahlia", // UPDATED: Matched to the bleeding-edge Stripe SDK
       httpClient: Stripe.createFetchHttpClient(), // CRITICAL for Cloudflare Edge compatibility
     });
 
     // 5. Resolve the Stripe Price ID
-    // Director: You must create these Products in your Stripe Dashboard 
-    // and add the Price IDs to Cloudflare Variables and Secrets!
     const priceId = tier === "ultimate" 
       ? (process.env.STRIPE_PRICE_ULTIMATE || "price_dummy_ultimate_replace_me")
       : (process.env.STRIPE_PRICE_ELITE || "price_dummy_elite_replace_me");
@@ -72,11 +70,11 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
-      mode: "subscription", // Assuming recurring monthly based on the $49/mo UI
+      mode: "subscription", 
       success_url: `${origin}/dashboard/billing?status=success&session_id={CHECKOUT_SESSION_ID}&tier=${tier}`,
       cancel_url: `${origin}/dashboard/billing?status=cancelled`,
       metadata: {
-        tier: tier, // CRITICAL: Tells our Webhook which tier to unlock when payment clears!
+        tier: tier, 
       },
     });
 
