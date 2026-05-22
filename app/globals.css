@@ -1,64 +1,54 @@
 /* --- START OF FILE app/globals.css --- */
 
-/* [CACHE BUST: FORCING MATRIX RECOMPILATION 001] */
-
 @import "tailwindcss";
 
 /* 
-  CRITICAL TAILWIND V4 DIRECTIVE:
-  Explicitly forces the compiler to scan the entire app directory.
+  =========================================================
+  HARDCODED NATIVE VARIABLES (IMMUNE TO CLOUDFLARE COMPILER)
+  ========================================================= 
 */
-@source "../app";
-
-@theme {
-  /* =========================================================
-     HARRISON INTERACTIVE | CORE NEURAL PALETTE
-     ========================================================= */
-  
-  /* Core Backgrounds */
+:root {
   --color-background-dark: #010409;
   --color-background-panel: rgba(13, 17, 23, 0.7);
   
-  /* JARVIS Intent Colors */
   --color-jarvis-core: #00BFFF;
-  --color-intent-cyan: #00FFFF;    /* Chat / Info */
-  --color-intent-emerald: #50C878; /* World / Success */
-  --color-intent-amber: #FFBF00;   /* Settings / Warning */
-  --color-intent-fuchsia: #FF00FF; /* Waygate / Heavy Rendering */
-  --color-intent-crimson: #DC143C; /* Error / Purge (Blood-Yield) */
+  --color-intent-cyan: #00FFFF;    
+  --color-intent-emerald: #50C878; 
+  --color-intent-amber: #FFBF00;   
+  --color-intent-fuchsia: #FF00FF; 
+  --color-intent-crimson: #DC143C; 
 
-  /* Typography Variables */
-  --font-orbitron: var(--font-orbitron), sans-serif;
-  --font-inter: var(--font-inter), sans-serif;
-}
-
-/* Base Font Definitions */
-:root {
   --font-orbitron: 'Orbitron', sans-serif;
   --font-inter: 'Inter', sans-serif;
 }
 
-/* Global Body Reset & Holographic Grid */
-body {
-  background-color: var(--color-background-dark);
-  color: #E6EDF3;
-  /* AAA Holographic Blueprint Grid */
-  background-image: 
-    linear-gradient(rgba(0, 191, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 191, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center center;
+/* 
+  =========================================================
+  ABSOLUTE DARK MODE OVERRIDE
+  ========================================================= 
+*/
+html, body {
+  background-color: #010409 !important;
+  color: #E6EDF3 !important;
   min-height: 100vh;
   margin: 0;
   font-family: var(--font-inter);
   overflow-x: hidden;
 }
 
+body {
+  /* AAA Holographic Blueprint Grid */
+  background-image: 
+    linear-gradient(rgba(0, 191, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 191, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+}
+
 /* =========================================================
    PROPRIETARY UI COMPONENTS
    ========================================================= */
 
-/* 1. Glass Panel - For standard data containers */
 .glass-panel {
   background: var(--color-background-panel);
   backdrop-filter: blur(12px);
@@ -67,12 +57,10 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* 2. Clip Angled - For Sci-Fi chamfered corners */
 .clip-angled {
   clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
 }
 
-/* 3. Holographic Card - Interactive elements with glow states */
 .holographic-card {
   position: relative;
   background: linear-gradient(135deg, rgba(0, 191, 255, 0.05) 0%, rgba(1, 4, 9, 0.9) 100%);
@@ -87,7 +75,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* 4. Global Scanline Overlay (Hardware Accelerated) */
 .scanlines {
   position: fixed;
   top: 0;
