@@ -1,7 +1,6 @@
 /* --- START OF FILE app/api/stripe/checkout/route.ts --- */
 
 import { NextRequest, NextResponse } from "next/server";
-import Stripe from "stripe";
 
 // =========================================================================
 // CRITICAL CLOUDFLARE DIRECTIVE:
@@ -11,11 +10,10 @@ export const runtime = "edge";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | LIVE STRIPE CHECKOUT ROUTE
+ * HARRISON INTERACTIVE | ZERO-DEPENDENCY STRIPE CHECKOUT
  * =========================================================================
- * This endpoint initiates a secure session with Stripe's backend.
- * It dynamically creates a checkout link based on the requested tier
- * and passes the tier metadata through to the webhook for final key minting.
+ * Bypasses the bulky Stripe Node.js SDK completely to prevent Cloudflare 
+ * Edge crashes. Utilizes native, blazing-fast fetch requests.
  */
 
 export async function POST(request: NextRequest) {
@@ -24,11 +22,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { tier } = body;
 
-    console.log(`[SYS] Processing Live Stripe Checkout for Tier: [${tier ? tier.toUpperCase() : 'UNKNOWN'}]`);
+    console.log(`[SYS] Processing Native Edge Checkout for Tier: [${tier ? tier.toUpperCase() : 'UNKNOWN'}]`);
 
     // 2. Validate the Payload Request
     if (!tier || (tier !== "elite" && tier !== "ultimate")) {
-      console.error("[ERR] Invalid Tier Request. Rejecting payload.");
       return NextResponse.json(
         { error: "Invalid neural tier requested. Access Denied." },
         { status: 400 }
@@ -40,65 +37,82 @@ export async function POST(request: NextRequest) {
     if (!stripeKey) {
       console.error("[FATAL ERR] STRIPE_SECRET_KEY is missing from the Edge Vault.");
       return NextResponse.json(
-        { error: "Payment Gateway Offline. Missing Authentication Matrix." },
+        { error: "Payment Gateway Offline. Missing Secret Key." },
         { status: 500 }
       );
     }
 
-    // 4. Initialize Stripe with Edge-Compatible Fetch Client
-    const stripe = new Stripe(stripeKey, {
-      apiVersion: "2026-04-22.dahlia", // UPDATED: Matched to the bleeding-edge Stripe SDK
-      httpClient: Stripe.createFetchHttpClient(), // CRITICAL for Cloudflare Edge compatibility
-    });
-
-    // 5. Resolve the Stripe Price ID
+    // 4. Resolve the Stripe Price ID
     const priceId = tier === "ultimate" 
-      ? (process.env.STRIPE_PRICE_ULTIMATE || "price_dummy_ultimate_replace_me")
-      : (process.env.STRIPE_PRICE_ELITE || "price_dummy_elite_replace_me");
+      ? process.env.STRIPE_PRICE_ULTIMATE 
+      : process.env.STRIPE_PRICE_ELITE;
+
+    if (!priceId) {
+      console.error("[FATAL ERR] Stripe Price ID is missing from the Edge Vault.");
+      return NextResponse.json(
+        { error: "Payment Gateway Offline. Missing Price ID Matrix." },
+        { status: 500 }
+      );
+    }
 
     // Capture the origin URL so Stripe knows where to send the user back to
     const origin = request.headers.get("origin") || "https://harrisoninteractive.dev";
 
-    console.log(`[SYS] Initiating Stripe Session generation for Price ID: ${priceId}`);
+    // =========================================================
+    // 5. CONSTRUCT STRIPE URL-ENCODED PAYLOAD
+    // Stripe's raw API requires x-www-form-urlencoded data, not JSON.
+    // =========================================================
+    const formData = new URLSearchParams();
+    formData.append("payment_method_types[0]", "card");
+    formData.append("line_items[0][price]", priceId);
+    formData.append("line_items[0][quantity]", "1");
+    formData.append("mode", "subscription"); // Adjust to "payment" if it's a one-time fee
+    formData.append("success_url", `${origin}/dashboard/billing?status=success&session_id={CHECKOUT_SESSION_ID}&tier=${tier}`);
+    formData.append("cancel_url", `${origin}/dashboard/billing?status=cancelled`);
+    formData.append("metadata[tier]", tier);
 
-    // 6. Generate the Secure Checkout Session
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      mode: "subscription", 
-      success_url: `${origin}/dashboard/billing?status=success&session_id={CHECKOUT_SESSION_ID}&tier=${tier}`,
-      cancel_url: `${origin}/dashboard/billing?status=cancelled`,
-      metadata: {
-        tier: tier, 
+    console.log(`[SYS] Firing direct secure payload to Stripe API for Price ID: ${priceId}`);
+
+    // =========================================================
+    // 6. NATIVE EDGE FETCH (ZERO DEPENDENCIES)
+    // =========================================================
+    const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${stripeKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
       },
+      body: formData.toString(),
     });
 
-    if (!session.url) {
-      throw new Error("Stripe failed to generate a secure checkout URL.");
+    const stripeData = await stripeResponse.json();
+
+    // Catch specific Stripe-side errors (e.g., Invalid API keys, deleted prices)
+    if (!stripeResponse.ok) {
+      console.error("[ERR] Stripe API Rejected Payload:", stripeData);
+      return NextResponse.json(
+        { error: stripeData.error?.message || "Stripe API Handshake Failed." },
+        { status: 500 }
+      );
     }
 
-    console.log(`[SUCCESS] Stripe Session Created. Routing user to gateway...`);
+    console.log(`[SUCCESS] Edge Session Created. Routing user to secure gateway...`);
 
     // 7. Return the live Stripe URL to the frontend
     return NextResponse.json(
       { 
         message: "Stripe Session Created Successfully",
-        checkoutUrl: session.url
+        checkoutUrl: stripeData.url
       },
       { status: 200 }
     );
 
   } catch (error: any) {
-    // Catch catastrophic network or parsing failures
-    console.error(`[FATAL ERR] Stripe API Route Fractured:`, error.message);
+    // Catch catastrophic network failures
+    console.error(`[FATAL ERR] Edge API Route Fractured:`, error.message);
     
     return NextResponse.json(
-      { error: "Internal Server Matrix Error. Payment Gateway Offline." },
+      { error: `Matrix Error: ${error.message}` },
       { status: 500 }
     );
   }
