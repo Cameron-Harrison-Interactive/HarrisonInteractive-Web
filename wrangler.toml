@@ -33,7 +33,7 @@ id = "ae7cd7bd892b4754801ba66de4766a87"
 
 # --- OAUTH PUBLIC ROUTING ---
 AUTH_URL = "https://harrisoninteractive.dev"
-AUTH_GITHUB_ID = "PASTE_YOUR_GITHUB_CLIENT_ID_HERE"
-AUTH_GOOGLE_ID = "PASTE_YOUR_GOOGLE_CLIENT_ID_HERE"
+AUTH_GITHUB_ID = "Ov23liMI4wp98yfeYoro"
+AUTH_GOOGLE_ID = "1016965048895-3ekj472ka43s21r2i3ffkbckkqbbc48h.apps.googleusercontent.com"
 
 # --- END OF FILE wrangler.toml ---
