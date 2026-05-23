@@ -2,26 +2,27 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
+// =========================================================================
+// CRITICAL CLOUDFLARE DIRECTIVE:
+// The Next-on-Pages compiler STRICTLY requires this line to build the API.
+// =========================================================================
+export const runtime = "edge";
+
 /**
  * =========================================================================
  * HARRISON INTERACTIVE | ZERO-DEPENDENCY STRIPE CHECKOUT
  * =========================================================================
- * Bypasses the bulky Stripe Node.js SDK completely to prevent Cloudflare 
- * Edge crashes. Utilizes native, blazing-fast fetch requests.
- * 
- * [ARCHITECT NOTE]: 'export const runtime = "edge"' has been intentionally 
- * purged to prevent Vercel async_hooks polyfill collisions on Cloudflare.
+ * We DO NOT import the 'stripe' NPM package here. It causes async_hooks 
+ * collisions on the Edge. We use a pure native fetch to Stripe's REST API.
  */
 
 export async function POST(request: NextRequest) {
   try {
-    // 1. Intercept the JSON payload from the frontend Matrix
     const body = await request.json();
     const { tier } = body;
 
     console.log(`[SYS] Processing Native Edge Checkout for Tier: [${tier ? tier.toUpperCase() : 'UNKNOWN'}]`);
 
-    // 2. Validate the Payload Request
     if (!tier || (tier !== "elite" && tier !== "ultimate")) {
       return NextResponse.json(
         { error: "Invalid neural tier requested. Access Denied." },
@@ -29,7 +30,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 3. Authenticate with the Cloudflare Secret Vault
     const stripeKey = process.env.STRIPE_SECRET_KEY;
     if (!stripeKey) {
       console.error("[FATAL ERR] STRIPE_SECRET_KEY is missing from the Edge Vault.");
@@ -39,7 +39,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 4. Resolve the Stripe Price ID
     const priceId = tier === "ultimate" 
       ? process.env.STRIPE_PRICE_ULTIMATE 
       : process.env.STRIPE_PRICE_ELITE;
@@ -52,26 +51,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Capture the origin URL so Stripe knows where to send the user back to
     const origin = request.headers.get("origin") || "https://harrisoninteractive.dev";
 
     // =========================================================
-    // 5. CONSTRUCT STRIPE URL-ENCODED PAYLOAD
-    // Stripe's raw API requires x-www-form-urlencoded data, not JSON.
+    // CONSTRUCT STRIPE URL-ENCODED PAYLOAD
     // =========================================================
     const formData = new URLSearchParams();
     formData.append("payment_method_types[0]", "card");
     formData.append("line_items[0][price]", priceId);
     formData.append("line_items[0][quantity]", "1");
-    formData.append("mode", "subscription"); // Adjust to "payment" if it's a one-time fee
+    formData.append("mode", "subscription"); 
     formData.append("success_url", `${origin}/dashboard/billing?status=success&session_id={CHECKOUT_SESSION_ID}&tier=${tier}`);
     formData.append("cancel_url", `${origin}/dashboard/billing?status=cancelled`);
     formData.append("metadata[tier]", tier);
 
-    console.log(`[SYS] Firing direct secure payload to Stripe API for Price ID: ${priceId}`);
-
     // =========================================================
-    // 6. NATIVE EDGE FETCH (ZERO DEPENDENCIES)
+    // NATIVE EDGE FETCH (ZERO DEPENDENCIES)
     // =========================================================
     const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
       method: "POST",
@@ -84,7 +79,6 @@ export async function POST(request: NextRequest) {
 
     const stripeData = await stripeResponse.json();
 
-    // Catch specific Stripe-side errors (e.g., Invalid API keys, deleted prices)
     if (!stripeResponse.ok) {
       console.error("[ERR] Stripe API Rejected Payload:", stripeData);
       return NextResponse.json(
@@ -93,9 +87,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`[SUCCESS] Edge Session Created. Routing user to secure gateway...`);
-
-    // 7. Return the live Stripe URL to the frontend
     return NextResponse.json(
       { 
         message: "Stripe Session Created Successfully",
@@ -105,7 +96,6 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error: any) {
-    // Catch catastrophic network failures
     console.error(`[FATAL ERR] Edge API Route Fractured:`, error.message);
     
     return NextResponse.json(
