@@ -1,7 +1,7 @@
 /* --- START OF FILE app/dashboard/layout.tsx --- */
 
 import React from "react";
-import { auth } from "@/auth";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 // =========================================================================
@@ -16,12 +16,19 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   // =========================================================================
-  // THE SHIELD GENERATOR (Bypasses Next.js 16 Middleware)
-  // Securely checks the encrypted JWT session on the Edge before rendering.
+  // THE ULTRA-LIGHTWEIGHT SHIELD GENERATOR
+  // Bypasses the 3 MiB Cloudflare limit by manually checking for the 
+  // encrypted Auth.js session cookie instead of importing the massive Auth engine.
   // =========================================================================
-  const session = await auth();
+  const cookieStore = await cookies();
   
-  if (!session) {
+  // In production, the cookie is prefixed with __Secure-
+  // We use .some() to check if any cookie name contains our target signature.
+  const isAuthenticated = cookieStore.getAll().some(cookie => 
+    cookie.name.includes("authjs.session-token")
+  );
+  
+  if (!isAuthenticated) {
     console.log("[SEC] Unauthenticated breach detected. Rerouting to gateway.");
     redirect("/login");
   }
@@ -103,19 +110,14 @@ export default async function DashboardLayout({
 
       {/* 
         MAIN CONTENT VIEWPORT
-        Uses flex-col to force the Global Footer to the absolute bottom.
       */}
       <main className="flex-1 w-full h-full min-h-full flex flex-col overflow-y-auto relative z-10">
         
-        {/* Page Content Viewport */}
         <div className="flex-1 p-6 lg:p-12">
           {children}
         </div>
 
-        {/* 
-          GLOBAL LEGAL FOOTER 
-          Persists across all dashboard internal pages.
-        */}
+        {/* GLOBAL LEGAL FOOTER */}
         <footer className="w-full border-t border-[#00BFFF]/20 bg-[#010409]/90 backdrop-blur-md p-6 mt-auto relative z-20">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="font-mono text-[10px] text-[#8B949E] tracking-widest uppercase text-center md:text-left">
