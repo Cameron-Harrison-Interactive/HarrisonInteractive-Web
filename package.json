@@ -9,15 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@auth/core": "^0.41.2",
-    "@tailwindcss/postcss": "^4",
     "next": "16.2.6",
-    "next-auth": "^5.0.0-beta.31",
-    "postcss": "^8.4.31",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "stripe": "^22.1.1",
-    "tailwindcss": "^4"
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
+    "postcss": "^8.4.31",
+    "next-auth": "beta",
+    "@auth/core": "latest",
+    "@auth/d1-adapter": "latest"
   },
   "devDependencies": {
     "@types/node": "^20",
