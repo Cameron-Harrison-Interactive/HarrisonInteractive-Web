@@ -10,8 +10,12 @@ name = "harrisoninteractive-web"
 # The Next.js Edge compiler output directory
 pages_build_output_dir = ".vercel/output/static"
 
-# Locks the Cloudflare runtime API to a specific stable date
-compatibility_date = "2024-03-21"
+# =========================================================================
+# CRITICAL FIX: FUTURE-PROOF ENGINE UPGRADE
+# Advancing this to 2026-05-23 permanently unlocks native async_hooks 
+# support and the latest V8 Edge Engine optimizations!
+# =========================================================================
+compatibility_date = "2026-05-23"
 
 # Enable Node.js compatibility mode for Next.js APIs
 compatibility_flags = ["nodejs_compat"]
