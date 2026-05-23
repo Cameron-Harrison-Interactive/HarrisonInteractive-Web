@@ -29,6 +29,15 @@ binding = "LICENSE_MATRIX"
 id = "ae7cd7bd892b4754801ba66de4766a87"
 
 # =========================================================================
+# CLOUDFLARE D1 SQL DATABASE (MASTER LEDGER)
+# =========================================================================
+# This binds the Edge Network to our persistent User and Auth SQL Ledger.
+[[d1_databases]]
+binding = "DB"
+database_name = "harrison-matrix-db"
+database_id = "caf3266e-db39-48cf-abc8-4b605b66cfcc"
+
+# =========================================================================
 # RUNTIME ENVIRONMENT VARIABLES (THE PUBLIC CONFIG MATRIX)
 # =========================================================================
 [vars]

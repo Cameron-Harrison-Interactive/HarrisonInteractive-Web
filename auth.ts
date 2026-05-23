@@ -3,17 +3,24 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import { D1Adapter } from "@auth/d1-adapter";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | NEXTAUTH V5 EDGE CONFIGURATION
+ * HARRISON INTERACTIVE | NEXTAUTH V5 (STATEFUL D1 EDGE MATRIX)
  * =========================================================================
- * This is the central brain of the Auth Matrix. 
- * NextAuth v5 is fully compatible with Cloudflare Workers/Pages.
+ * The central brain of the Auth Matrix. Now permanently bound to the 
+ * Cloudflare D1 SQL Ledger for persistent user account tracking.
  */
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  // 1. OAUTH PROVIDERS
+  
+  // 1. THE CLOUDFLARE D1 ADAPTER
+  // We conditionally load it so your local Docker (which doesn't have the live DB) 
+  // doesn't crash during development, but the Edge Network binds it seamlessly!
+  adapter: process.env.DB ? D1Adapter(process.env.DB as any) : undefined,
+
+  // 2. OAUTH PROVIDERS
   providers: [
     GitHub({
       clientId: process.env.AUTH_GITHUB_ID,
@@ -25,34 +32,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 
-  // 2. SESSION STRATEGY
-  // We use JWT (JSON Web Tokens) because they are stateless and 
-  // incredibly fast on the Edge Network.
+  // 3. SESSION STRATEGY
+  // We explicitly override the database default to keep using JWTs.
+  // This gives us the speed of Stateless tokens, with the permanence of a Stateful Database!
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 Days
   },
 
-  // 3. CUSTOM UI ROUTES
-  // Instead of NextAuth's default white login page, we tell it to use 
-  // our custom AAA JARVIS gateway when a user is unauthenticated.
+  // 4. CUSTOM UI ROUTES
   pages: {
     signIn: "/login",
-    error: "/login", // Redirect matrix collisions back to the portal
+    error: "/login", 
   },
 
-  // 4. EDGE CALLBACKS
-  // Intercepts the handshake to inject custom data into the user session
+  // 5. EDGE CALLBACKS
   callbacks: {
     async jwt({ token, user }) {
-      // If the user just logged in, bind their ID to the token
+      // Upon successful login/registration, bind the new Database ID to the token
       if (user) {
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      // Pass the ID from the token into the active frontend session
+      // Pass the Database ID from the encrypted token into the active frontend session
       if (session.user && token.id) {
         session.user.id = token.id as string;
       }
@@ -60,7 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   
-  // 5. DEBUG MODE (Enable for terminal logging during Edge deployment)
+  // 6. DEBUG MODE
   debug: process.env.NODE_ENV === "development",
 });
 
