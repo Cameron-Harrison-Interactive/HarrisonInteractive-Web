@@ -8,16 +8,29 @@ import { D1Adapter } from "@auth/d1-adapter";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | NEXTAUTH V5 (STATEFUL D1 + HANDSHAKE CORE)
+ * HARRISON INTERACTIVE | NEXTAUTH V5 (REAL-TIME D1 HANDSHAKE CORE)
  * =========================================================================
  * The central brain of the Auth Matrix. Permanently bound to the D1 SQL Ledger.
- * Uses native process.env.DB mapping to bypass build-time dependency crashes.
+ * Queries the database on every single session check to guarantee real-time
+ * synchronization of license_tier, neural_key, and billing parameters.
  */
+
+// Helper to resolve the active D1 instance natively on the Cloudflare Edge
+const getD1Database = (): any => {
+  try {
+    // In next-on-pages, process.env.DB is populated at runtime during requests
+    if ((process.env as any)?.DB) {
+      return (process.env as any).DB;
+    }
+  } catch (error) {
+    // Fail silently on local dev
+  }
+  return undefined;
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   
   // THE CLOUDFLARE D1 ADAPTER
-  // Automatically resolves the database natively at runtime via process.env
   adapter: process.env.DB ? D1Adapter(process.env.DB as any) : undefined,
 
   // OAUTH & MAGIC LINK PROVIDERS
@@ -48,43 +61,47 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: "/login", 
   },
 
-  // EDGE CALLBACKS (THE HANDSHAKE BINDINGS)
+  // EDGE CALLBACKS (THE LIVE SYNC ENGINE)
   callbacks: {
     async jwt({ token, user }) {
-      // 1. Initial Login/Registration Pass
+      // Keep track of the internal user ID in the token
       if (user) {
         token.id = user.id;
-        token.tier = (user as any).license_tier || "LITE";
-        token.key = (user as any).neural_key || "";
-      } 
-      // 2. Real-Time Database Sync (Subsequent Session Checks)
-      // We read your database natively using process.env.DB to grab
-      // any newly granted ranks or keys!
-      else if (token.email && process.env.DB) {
-        try {
-          const db = process.env.DB as any;
-          const { results } = await db
-            .prepare("SELECT license_tier, neural_key FROM users WHERE email = ?")
-            .bind(token.email)
-            .all();
-          
-          if (results && results[0]) {
-            token.tier = results[0].license_tier;
-            token.key = results[0].neural_key;
-          }
-        } catch (error: any) {
-          console.error("[SYS ERR] D1 Session Sync Failed: ", error.message);
-        }
       }
       return token;
     },
 
     async session({ session, token }) {
-      // Inject the database parameters safely into the frontend session
       if (session.user) {
+        // 1. Inject the default baseline session variables
         (session.user as any).id = token.id as string;
-        (session.user as any).tier = (token.tier as string) || "LITE";
-        (session.user as any).key = (token.key as string) || "";
+        (session.user as any).tier = "LITE";
+        (session.user as any).key = "";
+        (session.user as any).billingDate = "";
+        (session.user as any).newsletterSubscribed = 1;
+
+        // 2. Real-Time D1 Handshake
+        // Since the 'session' callback executes on every single page load,
+        // we query D1 here to bypass JWT cookie caching. Your UI is now 
+        // 100% stateful and reactive!
+        const db = getD1Database();
+        if (db && token.email) {
+          try {
+            const { results } = await db
+              .prepare("SELECT license_tier, neural_key, billing_date, newsletter_subscribed FROM users WHERE email = ?")
+              .bind(token.email)
+              .all();
+            
+            if (results && results[0]) {
+              (session.user as any).tier = results[0].license_tier || "LITE";
+              (session.user as any).key = results[0].neural_key || "";
+              (session.user as any).billingDate = results[0].billing_date || "";
+              (session.user as any).newsletterSubscribed = results[0].newsletter_subscribed !== undefined ? results[0].newsletter_subscribed : 1;
+            }
+          } catch (error: any) {
+            console.error("[SYS ERR] D1 Session Sync Failed: ", error.message);
+          }
+        }
       }
       return session;
     },
