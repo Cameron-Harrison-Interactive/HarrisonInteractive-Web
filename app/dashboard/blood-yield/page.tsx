@@ -1,150 +1,226 @@
 /* --- START OF FILE app/dashboard/blood-yield/page.tsx --- */
 
-import React from "react";
+"use client";
 
-export default function BloodYieldMatrix() {
+import React, { useState, useEffect } from "react";
+
+/**
+ * =========================================================================
+ * HARRISON INTERACTIVE | BLOOD-YIELD DEV HUB (UNLEASHED)
+ * =========================================================================
+ * Thematic override. Shifts the JARVIS Blue/Cyan matrix into the 
+ * Viking Gothic Crimson/Gold aesthetic of the Blood-Yield project.
+ */
+export default function BloodYieldHub() {
+  const [isSyncing, setIsSyncing] = useState<string | null>(null);
+  const [mawYield, setMawYield] = useState<string>("5.00%");
+
+  // Simulated live economy fluctuation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const fluctuation = (5.00 + (Math.random() * 0.04 - 0.02)).toFixed(2);
+      setMawYield(`${fluctuation}%`);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const triggerPhaseShift = (node: string) => {
+    setIsSyncing(node);
+    setTimeout(() => {
+      setIsSyncing(null);
+    }, 1500);
+  };
+
   return (
-    <div className="w-full h-full flex flex-col relative z-10 max-w-6xl mx-auto">
+    <div className="w-full flex flex-col relative z-10">
       
-      {/* Page Header - Crimson Intent for Heavy/Game Dev */}
-      <div className="w-full flex flex-col mb-10 border-b border-[#DC143C]/30 pb-4">
+      {/* 
+        =========================================================
+        THEMATIC HEADER (CRIMSON & GOLD)
+        =========================================================
+      */}
+      <div className="w-full flex flex-col mb-10 border-b border-[#8B0000]/50 pb-4">
         <div className="flex flex-row items-center gap-4">
-          <h1 className="font-orbitron text-2xl md:text-3xl text-[#DC143C] font-bold uppercase tracking-[0.15em] drop-shadow-[0_0_8px_rgba(220,20,60,0.6)]">
+          <h1 className="font-orbitron text-3xl md:text-4xl text-[#F9D423] font-black uppercase tracking-[0.15em] drop-shadow-[0_0_15px_rgba(249,212,35,0.6)]">
             Blood-Yield
           </h1>
-          <span className="px-3 py-1 bg-[#DC143C]/20 border border-[#DC143C]/50 text-[#DC143C] text-[10px] font-orbitron uppercase tracking-widest rounded animate-pulse">
-            Internal Dev Hub
+          <span className="px-3 py-1 bg-[#8B0000]/20 border border-[#8B0000] text-[#8B0000] text-[10px] font-orbitron uppercase tracking-widest rounded animate-pulse hidden sm:block shadow-[0_0_10px_rgba(139,0,0,0.5)]">
+            VIKING GOTHIC MATRIX
           </span>
         </div>
-        <p className="font-inter text-xs text-[#8B949E] uppercase tracking-widest mt-2">
-          Build Distribution, Server Status, and Commit Logs
+        <p className="font-inter text-xs text-[#C0C0C0] uppercase tracking-widest mt-2">
+          Project Designation: Dark Fantasy RPG / RMT Economy Simulator
         </p>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="w-full flex flex-col lg:flex-row gap-8">
+      {/* UNLEASHED GRID LAYOUT */}
+      <div className="w-full flex flex-col xl:flex-row gap-10">
         
         {/* =========================================================
-            LEFT COLUMN: BUILD STATUS & SERVERS
+            LEFT COLUMN: THE LORE & ECONOMY (THE MAW)
             ========================================================= */}
-        <div className="w-full lg:w-1/3 flex flex-col gap-6">
+        <div className="w-full xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
           
-          {/* Active Build Card */}
-          <div className="holographic-card clip-angled flex flex-col p-8 border-t-2 border-t-[#DC143C] shadow-[0_0_15px_rgba(220,20,60,0.15)]">
-            <h2 className="font-orbitron text-[#DC143C] text-sm font-bold tracking-widest uppercase mb-6 flex items-center justify-between">
-              Current Playtest Build
-              <span className="w-2 h-2 rounded-full bg-[#DC143C] shadow-[0_0_8px_#DC143C] animate-pulse"></span>
-            </h2>
+          {/* The Ashen Convergence (Context) */}
+          <div className="holographic-card clip-angled flex flex-col p-8 border-t-4 border-t-[#8B0000] shadow-[0_0_20px_rgba(139,0,0,0.2)] relative overflow-hidden group bg-[#050505]/95">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#8B0000]/10 to-transparent blur-[30px] opacity-40 group-hover:opacity-60 transition-opacity z-0 pointer-events-none"></div>
             
-            <p className="font-orbitron text-4xl text-[#E6EDF3] font-light tracking-wider mb-1">
-              v0.4<span className="text-[#DC143C] font-bold">a</span>
+            <h2 className="font-orbitron text-lg font-bold tracking-[0.2em] uppercase text-[#F9D423] relative z-10 mb-2 border-b border-[#F9D423]/20 pb-2">
+              The Ashen Convergence
+            </h2>
+            <p className="font-mono text-[11px] text-[#C0C0C0] leading-relaxed mb-4 relative z-10">
+              Heimr was not grown; it was rendered. Prior to the crash, this sector was a pristine partition running on the <strong className="text-[#00D2FF]">Handy</strong> kernel.
             </p>
-            <p className="font-inter text-xs text-[#DC143C]/80 uppercase tracking-widest mb-6">
-              Branch: Mainline / Nightly
+            <p className="font-mono text-[11px] text-[#C0C0C0] leading-relaxed mb-4 relative z-10">
+              An aggressive industrial overclocking fractured the world's source code. The vibrant UI colors were sucked into the void, leaving behind a reality desaturated to <strong className="text-[#C0C0C0]">Brushed Silver</strong>.
             </p>
 
-            <button className="w-full font-orbitron text-xs py-4 border border-[#DC143C] bg-[#DC143C]/10 text-[#DC143C] hover:bg-[#DC143C] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_10px_rgba(220,20,60,0.2)] mb-4">
-              Download Client (.PAK)
-            </button>
-
-            <div className="flex flex-col gap-2 mt-2 border-t border-[#DC143C]/20 pt-4">
-              <div className="flex justify-between items-center text-[10px] font-mono text-[#8B949E]">
-                <span>Engine Version:</span>
-                <span className="text-[#E6EDF3]">UE 5.4.2</span>
+            <div className="flex flex-col gap-2 relative z-10 border-l-2 border-[#8A3324] pl-3 bg-[#8A3324]/10 py-3">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[10px] text-[#8B949E] tracking-widest uppercase">Soul-Blight Limit</span>
+                <span className="font-orbitron text-xs text-[#8B0000] font-bold">80% PENALTY</span>
               </div>
-              <div className="flex justify-between items-center text-[10px] font-mono text-[#8B949E]">
-                <span>Compiled:</span>
-                <span className="text-[#E6EDF3]">04:00 AM (Automated)</span>
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[10px] text-[#8B949E] tracking-widest uppercase">Data Conversion</span>
+                <span className="font-orbitron text-xs text-[#F9D423] font-bold">1,024 $vb$ : 1 $KV$</span>
               </div>
             </div>
           </div>
 
-          {/* Infrastructure Server Status */}
-          <div className="glass-panel clip-angled flex flex-col p-6 border-l-2 border-l-[#8B949E] opacity-90">
-            <h3 className="font-orbitron text-[#E6EDF3] text-xs font-bold tracking-widest uppercase mb-4">
-              Infrastructure Status
-            </h3>
-            
-            <div className="flex flex-col gap-3">
-              <div className="flex flex-row justify-between items-center">
-                <span className="font-inter text-[10px] text-[#8B949E] uppercase tracking-widest">Master Auth Server</span>
-                <span className="w-2 h-2 rounded-full bg-[#50C878] shadow-[0_0_5px_#50C878]"></span>
-              </div>
-              <div className="flex flex-row justify-between items-center">
-                <span className="font-inter text-[10px] text-[#8B949E] uppercase tracking-widest">Matchmaking API</span>
-                <span className="w-2 h-2 rounded-full bg-[#50C878] shadow-[0_0_5px_#50C878]"></span>
-              </div>
-              <div className="flex flex-row justify-between items-center">
-                <span className="font-inter text-[10px] text-[#8B949E] uppercase tracking-widest">Dedicated Instance #01</span>
-                <span className="w-2 h-2 rounded-full bg-[#FFBF00] shadow-[0_0_5px_#FFBF00] animate-pulse"></span>
-              </div>
+          {/* The Maw (De-Compilation Pit) */}
+          <div className="glass-panel clip-angled p-8 relative overflow-hidden flex flex-col shadow-[inset_0_0_40px_rgba(138,51,36,0.15)] bg-[#050505] border-2 border-dashed border-[#8A3324]">
+            <div className="flex justify-between items-center mb-6 border-b border-[#8A3324] pb-3 relative z-20">
+              <h3 className="font-orbitron text-[#d32f2f] text-lg font-black tracking-[0.2em] uppercase drop-shadow-[0_0_8px_rgba(211,47,47,0.6)]">
+                The Maw
+              </h3>
+              <span className="font-mono text-[9px] text-[#F9D423] animate-pulse border border-[#F9D423]/50 px-2 py-0.5">RECYCLE_BIN</span>
             </div>
+
+            <p className="font-mono text-[10px] text-[#C0C0C0] opacity-80 mb-6 leading-relaxed">
+              When Bio-Armor succumbs to the Soul-Blight penalty, it must be sacrificed. The Handy kernel executes a violent data-scavenge, extracting uncorrupted base code.
+            </p>
+
+            <div className="flex flex-col items-center justify-center p-6 border border-[#F9D423]/50 bg-[#F9D423]/5 mb-6">
+              <span className="font-orbitron text-5xl font-black text-[#F9D423] drop-shadow-[0_0_15px_rgba(249,212,35,0.4)] mb-2">
+                {mawYield}
+              </span>
+              <span className="font-mono text-[10px] text-[#C0C0C0] tracking-[0.2em] uppercase">Guaranteed Kilo-Vial Yield</span>
+              <span className="font-mono text-[9px] text-[#00D2FF] tracking-[0.2em] uppercase mt-3">+ 0.01% CHANCE: COLD_IRON</span>
+            </div>
+
+            <button 
+              onClick={() => triggerPhaseShift("maw")}
+              disabled={isSyncing !== null}
+              className="clip-angled-button w-full py-4 transition-all font-futura font-black tracking-[0.3em] uppercase text-[12px] relative z-10 shrink-0 border-2 border-[#d32f2f] text-[#d32f2f] hover:bg-[#d32f2f] hover:text-[#fff] hover:shadow-[0_0_20px_rgba(211,47,47,0.6)] disabled:opacity-50"
+            >
+              {isSyncing === "maw" ? "DE-COMPILING..." : "AUTHORIZE SACRIFICE"}
+            </button>
           </div>
 
         </div>
 
         {/* =========================================================
-            RIGHT COLUMN: DEV LOGS & PIPELINE
+            RIGHT COLUMN: SECTOR NODES & BIFROST COMMS
             ========================================================= */}
-        <div className="w-full lg:w-2/3 flex flex-col gap-6">
+        <div className="w-full flex-1 flex flex-col gap-8">
           
-          <h2 className="font-orbitron text-[#E6EDF3] text-lg font-bold tracking-widest uppercase border-b border-[#E6EDF3]/10 pb-2">
-            Latest Commits & Pipeline
-          </h2>
-
-          {/* Commit Log Matrix */}
-          <div className="glass-panel rounded-lg overflow-hidden border border-[#DC143C]/20 flex flex-col">
-            
-            {/* Header */}
-            <div className="grid grid-cols-12 bg-[#010409]/80 border-b border-[#DC143C]/20 p-4">
-              <div className="col-span-2 font-orbitron text-[10px] text-[#DC143C] uppercase tracking-widest">Hash</div>
-              <div className="col-span-8 font-orbitron text-[10px] text-[#8B949E] uppercase tracking-widest">Commit Message</div>
-              <div className="col-span-2 font-orbitron text-[10px] text-[#E6EDF3] text-right uppercase tracking-widest">Author</div>
-            </div>
-
-            {/* Rows */}
-            <div className="flex flex-col">
-              
-              <div className="grid grid-cols-12 p-4 border-b border-[#E6EDF3]/5 hover:bg-[#DC143C]/5 transition-colors items-center">
-                <div className="col-span-2 font-mono text-[10px] text-[#DC143C]">f8a91b2</div>
-                <div className="col-span-8 font-inter text-xs text-[#E6EDF3]">Fixed Hi Handy UI overlapping with inventory screen widgets.</div>
-                <div className="col-span-2 font-mono text-[10px] text-[#8B949E] text-right">Harrison</div>
-              </div>
-
-              <div className="grid grid-cols-12 p-4 border-b border-[#E6EDF3]/5 hover:bg-[#DC143C]/5 transition-colors items-center">
-                <div className="col-span-2 font-mono text-[10px] text-[#DC143C]">c3d4e5f</div>
-                <div className="col-span-8 font-inter text-xs text-[#E6EDF3]">Re-baked Lumen lighting on Sector 4 map geometry.</div>
-                <div className="col-span-2 font-mono text-[10px] text-[#8B949E] text-right">Harrison</div>
-              </div>
-
-              <div className="grid grid-cols-12 p-4 border-b border-[#E6EDF3]/5 hover:bg-[#DC143C]/5 transition-colors items-center">
-                <div className="col-span-2 font-mono text-[10px] text-[#DC143C]">a1b2c3d</div>
-                <div className="col-span-8 font-inter text-xs text-[#E6EDF3]">Weapon recoil curve adjustments for assault rifle.</div>
-                <div className="col-span-2 font-mono text-[10px] text-[#8B949E] text-right">Harrison</div>
-              </div>
-
-              <div className="grid grid-cols-12 p-4 hover:bg-[#DC143C]/5 transition-colors items-center">
-                <div className="col-span-2 font-mono text-[10px] text-[#DC143C] opacity-50">9z8y7x6</div>
-                <div className="col-span-8 font-inter text-xs text-[#8B949E]">Implemented basic multiplayer session finding.</div>
-                <div className="col-span-2 font-mono text-[10px] text-[#8B949E] text-right">Harrison</div>
-              </div>
-
-            </div>
+          <div className="flex flex-row justify-between items-end border-b border-[#8A3324]/30 pb-2">
+            <h2 className="font-orbitron text-[#C0C0C0] text-xl font-bold tracking-[0.2em] uppercase">
+              Heimr Geography
+            </h2>
+            <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest hidden sm:block">
+              Select Sector to Initiate Phase-Shift
+            </span>
           </div>
 
-          {/* Render Queue Stub */}
-          <div className="holographic-card clip-angled flex flex-col p-6 border-l-4 border-l-[#FFBF00] mt-2">
-             <div className="flex flex-row justify-between items-center mb-2">
-                <h3 className="font-orbitron text-[#FFBF00] text-xs font-bold tracking-widest uppercase">
-                  Asset Render Queue
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+
+            {/* Hjärta Hub */}
+            <div className="holographic-card clip-angled flex flex-col p-6 group border-t-4 border-l-0 border-[#00D2FF] hover:bg-[#00D2FF]/5 transition-colors bg-[#0A0A0A]">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-orbitron text-lg text-[#fff] font-bold tracking-widest uppercase">
+                  HJÄRTA HUB
                 </h3>
-                <span className="font-mono text-[10px] text-[#FFBF00] animate-pulse">PROCESSING (1)</span>
-             </div>
-             
-             <div className="w-full bg-[#010409] h-2 mt-2 rounded overflow-hidden">
-                <div className="bg-[#FFBF00] h-full w-[65%] shadow-[0_0_8px_#FFBF00]"></div>
-             </div>
-             <p className="font-mono text-[10px] text-[#8B949E] mt-2">Compiling Shaders (4,032 / 6,200)...</p>
+                <span className="font-mono text-[8px] text-[#C0C0C0] opacity-60 text-right">NODE: 0x001<br/>BIOS_CORE</span>
+              </div>
+              <p className="font-mono text-[11px] text-[#C0C0C0] leading-relaxed opacity-80 mb-4 flex-1">
+                The central BIOS. Neutral ground for exchanging Kilo-Vials ($KV$). The <strong className="text-[#00D2FF]">Handy</strong> kernel stabilizes the Black Oily Waygates here.
+              </p>
+              <button 
+                onClick={() => triggerPhaseShift("hjarta")}
+                className="w-full py-2 border border-[#00D2FF]/30 text-[9px] font-orbitron tracking-[0.2em] uppercase text-[#00D2FF] hover:bg-[#00D2FF] hover:text-[#000] transition-colors"
+              >
+                {isSyncing === "hjarta" ? "PHASE-SHIFTING..." : "WAYGATE UPLINK"}
+              </button>
+            </div>
+
+            {/* Iron Barrens */}
+            <div className="holographic-card clip-angled flex flex-col p-6 group border-t-4 border-l-0 border-[#8B0000] hover:bg-[#8B0000]/5 transition-colors bg-[#0A0A0A]">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-orbitron text-lg text-[#fff] font-bold tracking-widest uppercase">
+                  IRON BARRENS
+                </h3>
+                <span className="font-mono text-[8px] text-[#C0C0C0] opacity-60 text-right">NODE: 0x002<br/>UNALLOCATED</span>
+              </div>
+              <p className="font-mono text-[11px] text-[#C0C0C0] leading-relaxed opacity-80 mb-4 flex-1">
+                The unallocated PvE sector. Terrain is raw Technical Drafting Paper. Reapers deploy here to scavenge loose Vial-Bits ($vb$) from Husks.
+              </p>
+              <button 
+                onClick={() => triggerPhaseShift("iron")}
+                className="w-full py-2 border border-[#8B0000]/30 text-[9px] font-orbitron tracking-[0.2em] uppercase text-[#8B0000] hover:bg-[#8B0000] hover:text-[#fff] transition-colors"
+              >
+                {isSyncing === "iron" ? "PHASE-SHIFTING..." : "WAYGATE UPLINK"}
+              </button>
+            </div>
+
+            {/* Hallowed Plots */}
+            <div className="holographic-card clip-angled flex flex-col p-6 group border-t-4 border-l-0 border-[#00FF88] hover:bg-[#00FF88]/5 transition-colors bg-[#0A0A0A] xl:col-span-2">
+              <div className="flex justify-between items-start mb-2">
+                <h3 className="font-orbitron text-lg text-[#fff] font-bold tracking-widest uppercase">
+                  HALLOWED PLOTS
+                </h3>
+                <span className="font-mono text-[8px] text-[#C0C0C0] opacity-60 text-right">NODE: 0x004<br/>PARTITION</span>
+              </div>
+              <p className="font-mono text-[11px] text-[#C0C0C0] leading-relaxed opacity-80 mb-4">
+                Sovereign user-partitions. Sowers use Handy editor tools to graft Yggdrasil-Link fiber-optics into the soil, creating refining stations. Protected strictly by the Guest Protocol firewall.
+              </p>
+              <button 
+                onClick={() => triggerPhaseShift("plots")}
+                className="w-full py-2 border border-[#00FF88]/30 text-[9px] font-orbitron tracking-[0.2em] uppercase text-[#00FF88] hover:bg-[#00FF88] hover:text-[#000] transition-colors"
+              >
+                {isSyncing === "plots" ? "PHASE-SHIFTING..." : "WAYGATE UPLINK"}
+              </button>
+            </div>
+
+          </div>
+
+          {/* --- BIFROST COMMS TERMINAL --- */}
+          <div className="mt-4 relative overflow-hidden bg-[#000] border border-[#4A4E69] p-6 shadow-[0_8px_30px_rgba(0,0,0,1)]">
+            <div className="flex justify-between items-center mb-4 border-b border-[#00D2FF] pb-2 relative z-20">
+              <h3 className="font-orbitron text-[#00D2FF] text-xs font-bold tracking-[0.2em] uppercase">
+                BIFROST_COMMS_FEED
+              </h3>
+              <span className="font-mono text-[9px] text-[#F9D423] animate-pulse">LIVE UPLINK</span>
+            </div>
+
+            <div className="font-mono text-[11px] text-[#4A4E69] flex flex-col gap-3 overflow-y-auto max-h-48 relative z-20">
+              <div className="border-b border-white/5 pb-1">
+                <span className="text-[#F9D423]">[LFG]</span> <span className="text-[#C0C0C0]">Reaper_77: "Need two for Iron Barrens deep dive. High $vb$ yield."</span>
+              </div>
+              <div className="border-b border-white/5 pb-1">
+                <span className="text-[#00FF88]">[TRADE]</span> <span className="text-[#C0C0C0]">Sower_0x: "Selling Tier 3 Compression. 50 $KV$ per stack. Meet at Hjärta Gate."</span>
+              </div>
+              <div className="border-b border-white/5 pb-1">
+                <span className="text-[#8B0000]">[SYS]</span> <span className="text-[#C0C0C0]">SERVER: "Maw yield rates normalizing to 5.0%."</span>
+              </div>
+              <div className="border-b border-white/5 pb-1">
+                <span className="text-[#F9D423]">[LFG]</span> <span className="text-[#C0C0C0]">Architect_X: "Looking for verified Sower guild. Have Plot in Node_004."</span>
+              </div>
+              <div className="flex gap-2 mt-1">
+                <span className="text-[#00D2FF]/50 select-none">{'>'}</span>
+                <p className="text-[#00D2FF] animate-pulse bg-[#00D2FF] w-2 h-3 mt-1"></p>
+              </div>
+            </div>
           </div>
 
         </div>
