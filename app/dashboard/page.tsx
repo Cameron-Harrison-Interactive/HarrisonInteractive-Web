@@ -9,9 +9,9 @@ import { useSession } from "next-auth/react";
  * =========================================================================
  * HARRISON INTERACTIVE | COMMAND CENTER (SUPER-EXPANDED OVERVIEW - SCALED)
  * =========================================================================
+ * Features an un-blockable HTML anchor link for the Stripe Customer Portal.
  * Uses safe optional chaining (?.) on useSession() to prevent SSR crashes.
- * Typography has been globally scaled up for high-resolution PC monitors.
- * Integrates the verified live production Stripe Customer Portal.
+ * Typography has been globally upscaled for large PC monitors.
  */
 export default function DashboardOverview() {
   // SAFE HYDRATION PROTOCOL: Capture the raw context first to prevent SSR crashes
@@ -42,12 +42,6 @@ export default function DashboardOverview() {
       clearInterval(ping);
     };
   }, []);
-
-  const handleLaunchBillingPortal = () => {
-    // Redirection target locked to your verified production portal
-    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800";
-    window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
-  };
 
   return (
     <div className="w-full h-full flex flex-col relative z-10">
@@ -95,12 +89,16 @@ export default function DashboardOverview() {
       */}
       <div className="w-full grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-8 mb-10">
         
-        {/* Node 1: License Status */}
-        <div className="relative glass-panel clip-angled p-6 border-t-2 border-t-[#00BFFF] shadow-[0_0_15px_rgba(0,191,255,0.1)] hover:shadow-[0_0_25px_rgba(0,191,255,0.2)] transition-all group overflow-hidden">
+        {/* Node 1: License Status (DYNAMIC COLOR SHIFT ACTIVE) */}
+        <div className={`relative glass-panel clip-angled p-6 border-t-2 shadow-[0_0_15px_rgba(0,191,255,0.1)] hover:shadow-[0_0_25px_rgba(0,191,255,0.2)] transition-all group overflow-hidden ${
+          (session?.user as any)?.tier === 'ULTIMATE' ? 'border-t-[#FF00FF]' : (session?.user as any)?.tier === 'ELITE' ? 'border-t-[#50C878]' : 'border-t-[#00BFFF]'
+        }`}>
           <div className="absolute top-0 right-0 w-16 h-16 bg-[#00BFFF]/5 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500"></div>
           <h3 className="font-orbitron text-[#8B949E] text-xs tracking-[0.2em] uppercase mb-1">Active Core License</h3>
           <p className="font-orbitron text-2xl text-[#E6EDF3] font-bold tracking-widest uppercase mb-4 group-hover:text-[#00BFFF] transition-colors">
-            HI HANDY <span className="text-[#00BFFF]">{(session?.user as any)?.tier || "LITE"}</span>
+            HI HANDY <span className={
+              (session?.user as any)?.tier === 'ULTIMATE' ? 'text-[#FF00FF]' : (session?.user as any)?.tier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'
+            }>{(session?.user as any)?.tier || "LITE"}</span>
           </p>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#50C878] shadow-[0_0_5px_#50C878] animate-pulse"></span>
@@ -177,7 +175,7 @@ export default function DashboardOverview() {
             <span className="text-[#DC143C] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
           </a>
 
-          {/* DYNAMIC SUBSCRIPTION PORTAL CARD */}
+          {/* DYNAMIC SUBSCRIPTION PORTAL CARD (UN-BLOCKABLE ANCHOR LINK INJECTED) */}
           <div className="holographic-card border border-[#FFBF00]/30 clip-angled p-6 bg-[#FFBF00]/5 flex flex-col gap-4 relative overflow-hidden group">
             <div className="absolute inset-0 bg-[#FFBF00]/5 group-hover:bg-[#FFBF00]/10 transition-colors pointer-events-none"></div>
             <div className="flex flex-col">
@@ -188,12 +186,16 @@ export default function DashboardOverview() {
                 Update billing methods, download historical invoices, or upgrade/cancel your active subscription securely via the native Stripe Customer Portal.
               </p>
             </div>
-            <button 
-              onClick={handleLaunchBillingPortal}
-              className="clip-angled-button w-full py-3 bg-[#FFBF00]/10 border border-[#FFBF00]/40 text-[#FFBF00] hover:bg-[#FFBF00] hover:text-[#010409] font-orbitron text-xs font-black tracking-widest uppercase transition-all hover:shadow-[0_0_15px_rgba(255,191,0,0.5)] cursor-pointer"
+            
+            {/* 100% UN-BLOCKABLE NATIVE ANCHOR LINK */}
+            <a 
+              href="https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="clip-angled-button w-full py-3 bg-[#FFBF00]/10 border border-[#FFBF00]/40 text-[#FFBF00] hover:bg-[#FFBF00] hover:text-[#010409] font-orbitron text-xs font-black tracking-widest uppercase transition-all hover:shadow-[0_0_15px_rgba(255,191,0,0.5)] text-center block"
             >
               LAUNCH BILLING PORTAL
-            </button>
+            </a>
           </div>
         </div>
 
