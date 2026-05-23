@@ -7,14 +7,14 @@ import { useSession } from "next-auth/react";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | COMMAND CENTER (SUPER-EXPANDED OVERVIEW)
+ * HARRISON INTERACTIVE | COMMAND CENTER (SUPER-EXPANDED OVERVIEW - SCALED)
  * =========================================================================
- * The foundational dashboard view. Globally upscaled typography for large
- * PC monitors. Features an interactive telemetry grid, a CRT server terminal,
- * and a dedicated customer billing portal action block.
+ * Uses safe optional chaining (?.) on useSession() to prevent SSR crashes.
+ * Typography has been globally scaled up for high-resolution PC monitors.
+ * Integrates the verified live production Stripe Customer Portal.
  */
 export default function DashboardOverview() {
-  // Safe optional chaining to prevent SSR hydration crashes
+  // SAFE HYDRATION PROTOCOL: Capture the raw context first to prevent SSR crashes
   const sessionContext = useSession();
   const session = sessionContext?.data;
 
@@ -44,9 +44,8 @@ export default function DashboardOverview() {
   }, []);
 
   const handleLaunchBillingPortal = () => {
-    // Stripe Customer Portal URL (Bypasses local database management entirely)
-    // Replace this with your actual Stripe Customer Portal link from your Stripe Dashboard!
-    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/test_6oE01p4cljeW9gH8yy";
+    // Redirection target locked to your verified production portal
+    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800";
     window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
   };
 
@@ -101,7 +100,7 @@ export default function DashboardOverview() {
           <div className="absolute top-0 right-0 w-16 h-16 bg-[#00BFFF]/5 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500"></div>
           <h3 className="font-orbitron text-[#8B949E] text-xs tracking-[0.2em] uppercase mb-1">Active Core License</h3>
           <p className="font-orbitron text-2xl text-[#E6EDF3] font-bold tracking-widest uppercase mb-4 group-hover:text-[#00BFFF] transition-colors">
-            HI HANDY <span className="text-[#00BFFF]">LITE</span>
+            HI HANDY <span className="text-[#00BFFF]">{(session?.user as any)?.tier || "LITE"}</span>
           </p>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#50C878] shadow-[0_0_5px_#50C878] animate-pulse"></span>
@@ -178,7 +177,7 @@ export default function DashboardOverview() {
             <span className="text-[#DC143C] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
           </a>
 
-          {/* DYNAMIC SUBSCRIPTION MANAGEMENT CARD */}
+          {/* DYNAMIC SUBSCRIPTION PORTAL CARD */}
           <div className="holographic-card border border-[#FFBF00]/30 clip-angled p-6 bg-[#FFBF00]/5 flex flex-col gap-4 relative overflow-hidden group">
             <div className="absolute inset-0 bg-[#FFBF00]/5 group-hover:bg-[#FFBF00]/10 transition-colors pointer-events-none"></div>
             <div className="flex flex-col">
@@ -229,7 +228,7 @@ export default function DashboardOverview() {
               <div className="flex gap-4">
                 <span className="text-[#00BFFF]/50">[{new Date().toLocaleTimeString()}]</span>
                 <span className="text-[#FFBF00]">[WARN]</span>
-                <p className="text-[#FFBF00]">License Key 'LITE' detected. Feature restrictions actively enforced.</p>
+                <p className="text-[#FFBF00]">License Key '{(session?.user as any)?.tier || "LITE"}' detected. Active privilege mapping engaged.</p>
               </div>
               <div className="flex gap-4">
                 <span className="text-[#00BFFF]/50">[{new Date().toLocaleTimeString()}]</span>
