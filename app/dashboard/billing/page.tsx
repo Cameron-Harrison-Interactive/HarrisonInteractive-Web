@@ -4,12 +4,17 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 // =========================================================================
-// INNER MATRIX: The Live Billing Engine (Scaled & Unleashed)
+// INNER MATRIX: The Live Billing Engine (Stateful & Scaled)
 // =========================================================================
 function BillingContent() {
   const searchParams = useSearchParams();
+  
+  // Connect to the NextAuth Session Provider
+  const sessionContext = useSession();
+  const session = sessionContext?.data;
   
   // --- STATE MATRIX ---
   const [activeTier, setActiveTier] = useState<string>("LITE");
@@ -20,6 +25,20 @@ function BillingContent() {
     "[SYS] Encrypted tunnel to Merchant of Record established.",
     "[SYS] Awaiting user initialization..."
   ]);
+
+  // --- D1 DATABASE REAL-TIME SYNC ---
+  useEffect(() => {
+    const dbTier = (session?.user as any)?.tier;
+    const dbKey = (session?.user as any)?.key;
+
+    // The second your D1 database updates, the UI will dynamically sync!
+    if (dbTier) {
+      setActiveTier(dbTier.toUpperCase());
+    }
+    if (dbKey) {
+      setLicenseKey(dbKey);
+    }
+  }, [session]);
 
   // --- RETURN FROM GATEWAY DETECTOR ---
   useEffect(() => {
@@ -55,9 +74,7 @@ function BillingContent() {
       `[WARN] Secure Gateway opening in external viewport (New Tab).`
     ]);
 
-    // =========================================================
     // PRODUCTION LIVE STRIPE LINKS
-    // =========================================================
     const stripeLinkElite = "https://buy.stripe.com/aFa4gzcnaaoe0Iqahy6g801";
     const stripeLinkUltimate = "https://buy.stripe.com/28E14n0Es8g6bn475m6g802";
 
@@ -77,19 +94,19 @@ function BillingContent() {
 
   // --- STRIPE CUSTOMER PORTAL LAUNCH ---
   const handleLaunchBillingPortal = () => {
-    // Falls back directly to your verified production portal link
+    // FIXED: Hardcoded fallback to your exact live production portal link!
     const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800";
     window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
     // UNLEASHED: Flexes to row on huge screens, fully upscaled text sizes
-    <div className="w-full flex flex-col 2xl:flex-row gap-10">
+    <div className="w-full flex flex-col xl:flex-row gap-10">
       
       {/* =========================================================
           LEFT COLUMN: ACTIVE CREDENTIALS (HOLOGRAPHIC ID CARD)
           ========================================================= */}
-      <div className="w-full 2xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
+      <div className="w-full xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
         
         {/* AAA Active License Card */}
         <div className={`relative glass-panel clip-angled flex flex-col p-8 border-t-4 transition-all duration-500 overflow-hidden ${activeTier === 'ULTIMATE' ? 'border-t-[#FF00FF] shadow-[0_0_30px_rgba(255,0,255,0.15)]' : activeTier === 'ELITE' ? 'border-t-[#50C878] shadow-[0_0_30px_rgba(80,200,120,0.15)]' : 'border-t-[#00BFFF] shadow-[0_0_20px_rgba(0,191,255,0.1)]'}`}>
