@@ -58,7 +58,7 @@ function BillingContent() {
     // =========================================================
     // THE STRIPE PAYMENT LINK ROUTER
     // =========================================================
-    const stripeLinkElite = "https://buy.stripe.com/test_00w9ATcljeW6dDgdyN";
+    const stripeLinkElite = "https://buy.stripe.com/test_00w9ATcljeW6dDgdyN00000";
     const stripeLinkUltimate = process.env.NEXT_PUBLIC_STRIPE_LINK_ULTIMATE || "https://buy.stripe.com/test_ultimate_placeholder";
 
     const targetUrl = targetTier === "elite" ? stripeLinkElite : stripeLinkUltimate;
