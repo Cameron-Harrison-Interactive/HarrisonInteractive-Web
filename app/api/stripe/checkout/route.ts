@@ -2,18 +2,15 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-// =========================================================================
-// CRITICAL CLOUDFLARE DIRECTIVE:
-// Forces the V8 Edge Network compilation.
-// =========================================================================
-export const runtime = "edge";
-
 /**
  * =========================================================================
  * HARRISON INTERACTIVE | ZERO-DEPENDENCY STRIPE CHECKOUT
  * =========================================================================
  * Bypasses the bulky Stripe Node.js SDK completely to prevent Cloudflare 
  * Edge crashes. Utilizes native, blazing-fast fetch requests.
+ * 
+ * [ARCHITECT NOTE]: 'export const runtime = "edge"' has been intentionally 
+ * purged to prevent Vercel async_hooks polyfill collisions on Cloudflare.
  */
 
 export async function POST(request: NextRequest) {
