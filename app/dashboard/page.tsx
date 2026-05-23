@@ -7,14 +7,14 @@ import { useSession } from "next-auth/react";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | COMMAND CENTER (SYSTEM OVERVIEW - SCALED)
+ * HARRISON INTERACTIVE | COMMAND CENTER (SUPER-EXPANDED OVERVIEW)
  * =========================================================================
- * Uses safe optional chaining (?.) on useSession() to prevent fatal 
- * TypeError crashes during the server-side pre-rendering/hydration phase.
- * Typography has been globally scaled up for high-resolution PC monitors.
+ * The foundational dashboard view. Globally upscaled typography for large
+ * PC monitors. Features an interactive telemetry grid, a CRT server terminal,
+ * and a dedicated customer billing portal action block.
  */
 export default function DashboardOverview() {
-  // SAFE HYDRATION PROTOCOL: Capture the raw context first to prevent SSR crashes
+  // Safe optional chaining to prevent SSR hydration crashes
   const sessionContext = useSession();
   const session = sessionContext?.data;
 
@@ -34,7 +34,7 @@ export default function DashboardOverview() {
     }, 1000);
 
     const ping = setInterval(() => {
-      setLatency(Math.floor(Math.random() * (18 - 8 + 1) + 8)); // Random ping between 8ms and 18ms
+      setLatency(Math.floor(Math.random() * (18 - 8 + 1) + 8)); 
     }, 2000);
 
     return () => {
@@ -42,6 +42,13 @@ export default function DashboardOverview() {
       clearInterval(ping);
     };
   }, []);
+
+  const handleLaunchBillingPortal = () => {
+    // Stripe Customer Portal URL (Bypasses local database management entirely)
+    // Replace this with your actual Stripe Customer Portal link from your Stripe Dashboard!
+    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/test_6oE01p4cljeW9gH8yy";
+    window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div className="w-full h-full flex flex-col relative z-10">
@@ -144,12 +151,12 @@ export default function DashboardOverview() {
 
       {/* 
         =========================================================
-        MAIN ACTIVITY TERMINAL
+        MAIN ACTIVITY TERMINAL (SCALED & EXPANDED)
         =========================================================
       */}
       <div className="w-full flex-1 flex flex-col xl:flex-row gap-10">
         
-        {/* Left: Quick Actions Matrix */}
+        {/* Left: Quick Actions & Billing Portal */}
         <div className="w-full xl:w-1/3 flex flex-col gap-6">
           <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-widest uppercase border-b border-[#E6EDF3]/10 pb-3">
             Quick Directives
@@ -163,14 +170,6 @@ export default function DashboardOverview() {
             <span className="text-[#00BFFF] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
           </a>
 
-          <a href="/dashboard/billing" className="group holographic-card clip-angled p-6 border-l-2 border-l-[#FFBF00] hover:bg-[#FFBF00]/10 transition-all flex justify-between items-center cursor-pointer">
-            <div className="flex flex-col">
-              <span className="font-orbitron text-[#FFBF00] text-base tracking-widest uppercase font-bold group-hover:translate-x-1 transition-transform">Upgrade Core Matrix</span>
-              <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest mt-1.5">Manage License Tiers</span>
-            </div>
-            <span className="text-[#FFBF00] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
-          </a>
-
           <a href="/dashboard/blood-yield" className="group holographic-card clip-angled p-6 border-l-2 border-l-[#DC143C] hover:bg-[#DC143C]/10 transition-all flex justify-between items-center cursor-pointer">
             <div className="flex flex-col">
               <span className="font-orbitron text-[#DC143C] text-base tracking-widest uppercase font-bold group-hover:translate-x-1 transition-transform">Blood-Yield Dev Hub</span>
@@ -178,6 +177,25 @@ export default function DashboardOverview() {
             </div>
             <span className="text-[#DC143C] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
           </a>
+
+          {/* DYNAMIC SUBSCRIPTION MANAGEMENT CARD */}
+          <div className="holographic-card border border-[#FFBF00]/30 clip-angled p-6 bg-[#FFBF00]/5 flex flex-col gap-4 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-[#FFBF00]/5 group-hover:bg-[#FFBF00]/10 transition-colors pointer-events-none"></div>
+            <div className="flex flex-col">
+              <h3 className="font-orbitron text-base text-[#FFBF00] font-bold tracking-widest uppercase mb-1">
+                Subscription Control
+              </h3>
+              <p className="font-sans text-xs text-[#8B949E] leading-relaxed mb-4">
+                Update billing methods, download historical invoices, or upgrade/cancel your active subscription securely via the native Stripe Customer Portal.
+              </p>
+            </div>
+            <button 
+              onClick={handleLaunchBillingPortal}
+              className="clip-angled-button w-full py-3 bg-[#FFBF00]/10 border border-[#FFBF00]/40 text-[#FFBF00] hover:bg-[#FFBF00] hover:text-[#010409] font-orbitron text-xs font-black tracking-widest uppercase transition-all hover:shadow-[0_0_15px_rgba(255,191,0,0.5)] cursor-pointer"
+            >
+              LAUNCH BILLING PORTAL
+            </button>
+          </div>
         </div>
 
         {/* Right: CRT Server Log Terminal */}
