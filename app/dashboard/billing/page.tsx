@@ -52,21 +52,27 @@ function BillingContent() {
       ...prev, 
       `[SYS] Initializing secure teleport for ${targetTier.toUpperCase()} tier...`,
       `[NET] Bypassing Edge Router. Handing off to Stripe Servers...`,
-      `[WARN] Prepare for visual translation to External Gateway.`
+      `[WARN] Secure Gateway opening in external viewport (New Tab).`
     ]);
 
     // =========================================================
-    // DIRECTOR: YOUR LIVE STRIPE PAYMENT LINKS
+    // THE STRIPE PAYMENT LINK ROUTER
     // =========================================================
-    // Elite uses the link you provided. Ultimate uses the env variable or a placeholder.
     const stripeLinkElite = "https://buy.stripe.com/test_00w9ATcljeW6dDgdyN";
     const stripeLinkUltimate = process.env.NEXT_PUBLIC_STRIPE_LINK_ULTIMATE || "https://buy.stripe.com/test_ultimate_placeholder";
 
     const targetUrl = targetTier === "elite" ? stripeLinkElite : stripeLinkUltimate;
 
-    // PHYSICAL BROWSER REDIRECT (Delayed for AAA visual feedback)
+    // PHYSICAL BROWSER REDIRECT (NEW TAB OVERRIDE)
     setTimeout(() => {
-      window.location.href = targetUrl;
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+      
+      // Reset the button state so they can click it again if they close the tab
+      setIsLoading(null);
+      setTerminalLogs(prev => [
+        ...prev,
+        `[SYS] External Gateway established. Awaiting return signal...`
+      ]);
     }, 1200); 
   };
 
@@ -232,8 +238,8 @@ function BillingContent() {
               </ul>
             </div>
             
-            <div className="flex flex-col items-start md:items-end w-full md:w-56 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-6">
-              <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
+            <div className="flex flex-col items-start md:items-end w-full md:w-auto">
+              <span className="font-orbitron text-3xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
               
               <button 
                 onClick={() => handleCheckout("ultimate")}

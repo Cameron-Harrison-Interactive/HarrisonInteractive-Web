@@ -13,6 +13,7 @@ export default function DashboardLayout({
       {/* 
         THE OMNI-LINK SIDEBAR 
         Hidden on very small mobile screens (hidden md:flex), fully locked on desktop.
+        Utilizes the glass-panel class for the deep blur effect.
       */}
       <aside className="w-72 glass-panel border-r border-[#00BFFF]/20 flex flex-col justify-between hidden md:flex shadow-[5px_0_15px_rgba(0,0,0,0.5)] z-20 overflow-y-auto">
         
@@ -35,6 +36,7 @@ export default function DashboardLayout({
               System Overview
             </a>
 
+            {/* HI HANDY PRODUCT SUITE */}
             <div className="mt-4 mb-1 px-3 border-b border-[#00BFFF]/20 pb-2">
               <p className="text-[10px] text-[#00FFFF]/70 uppercase tracking-[0.2em] font-orbitron">Hi Handy Suite</p>
             </div>
@@ -49,6 +51,7 @@ export default function DashboardLayout({
               License & Billing
             </a>
 
+            {/* HARRISON INTERACTIVE GAMES */}
             <div className="mt-4 mb-1 px-3 border-b border-[#DC143C]/40 pb-2">
               <p className="text-[10px] text-[#DC143C]/80 uppercase tracking-[0.2em] font-orbitron">Internal Studios</p>
             </div>
@@ -58,6 +61,7 @@ export default function DashboardLayout({
               Blood-Yield Game
             </a>
 
+            {/* INFORMATION & SUPPORT */}
             <div className="mt-4 mb-1 px-3 border-b border-[#00BFFF]/20 pb-2">
               <p className="text-[10px] text-[#00FFFF]/70 uppercase tracking-[0.2em] font-orbitron">Info & Support</p>
             </div>
@@ -88,9 +92,26 @@ export default function DashboardLayout({
         </div>
       </aside>
 
-      {/* MAIN CONTENT VIEWPORT */}
+      {/* 
+        MAIN CONTENT VIEWPORT
+        CEF-Safe flexbox structure to prevent collapse.
+      */}
       <main className="flex-1 w-full h-full min-h-full flex flex-col overflow-y-auto p-6 lg:p-12 relative z-10">
-        {children}
+        
+        {/* Page Content Injection */}
+        <div className="flex-1 flex flex-col">
+          {children}
+        </div>
+
+        {/* GLOBAL LEGAL FOOTER */}
+        <footer className="w-full mt-12 pt-6 border-t border-[#00BFFF]/20 flex flex-col md:flex-row justify-between items-center gap-4 text-[#8B949E] font-mono text-[10px] uppercase tracking-[0.2em]">
+          <p>© 2026 Harrison Interactive LLC. All Rights Reserved.</p>
+          <div className="flex gap-6">
+            <a href="/dashboard/legal" className="hover:text-[#00BFFF] transition-colors drop-shadow-[0_0_5px_rgba(0,191,255,0)] hover:drop-shadow-[0_0_8px_rgba(0,191,255,0.5)]">Privacy Policy</a>
+            <a href="/dashboard/legal" className="hover:text-[#00BFFF] transition-colors drop-shadow-[0_0_5px_rgba(0,191,255,0)] hover:drop-shadow-[0_0_8px_rgba(0,191,255,0.5)]">EULA</a>
+          </div>
+        </footer>
+
       </main>
 
     </div>
