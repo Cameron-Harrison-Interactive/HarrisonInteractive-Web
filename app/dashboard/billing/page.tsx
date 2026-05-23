@@ -6,7 +6,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 // =========================================================================
-// INNER MATRIX: The Live Billing Engine (Unleashed & Scaled)
+// INNER MATRIX: The Live Billing Engine (Scaled & Unleashed)
 // =========================================================================
 function BillingContent() {
   const searchParams = useSearchParams();
@@ -55,8 +55,10 @@ function BillingContent() {
       `[WARN] Secure Gateway opening in external viewport (New Tab).`
     ]);
 
-    // PRODUCTION STRIPE LINKS
-    const stripeLinkElite = "https://buy.stripe.com/aFa4gzcnaaoe0Iqahy6g8";
+    // =========================================================
+    // PRODUCTION LIVE STRIPE LINKS
+    // =========================================================
+    const stripeLinkElite = "https://buy.stripe.com/aFa4gzcnaaoe0Iqahy6g801";
     const stripeLinkUltimate = "https://buy.stripe.com/28E14n0Es8g6bn475m6g802";
 
     const targetUrl = targetTier === "elite" ? stripeLinkElite : stripeLinkUltimate;
@@ -75,18 +77,19 @@ function BillingContent() {
 
   // --- STRIPE CUSTOMER PORTAL LAUNCH ---
   const handleLaunchBillingPortal = () => {
-    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/test_6oE01p4cljeW9gH8yy";
+    // Falls back directly to your verified production portal link
+    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800";
     window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
     // UNLEASHED: Flexes to row on huge screens, fully upscaled text sizes
-    <div className="w-full flex flex-col xl:flex-row gap-10">
+    <div className="w-full flex flex-col 2xl:flex-row gap-10">
       
       {/* =========================================================
           LEFT COLUMN: ACTIVE CREDENTIALS (HOLOGRAPHIC ID CARD)
           ========================================================= */}
-      <div className="w-full xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
+      <div className="w-full 2xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
         
         {/* AAA Active License Card */}
         <div className={`relative glass-panel clip-angled flex flex-col p-8 border-t-4 transition-all duration-500 overflow-hidden ${activeTier === 'ULTIMATE' ? 'border-t-[#FF00FF] shadow-[0_0_30px_rgba(255,0,255,0.15)]' : activeTier === 'ELITE' ? 'border-t-[#50C878] shadow-[0_0_30px_rgba(80,200,120,0.15)]' : 'border-t-[#00BFFF] shadow-[0_0_20px_rgba(0,191,255,0.1)]'}`}>
@@ -150,7 +153,7 @@ function BillingContent() {
           ========================================================= */}
       <div className="w-full flex-1 flex flex-col gap-8">
         
-        {/* ENHANCED HEADER WITH INTEGRATED STRIPE CUSTOMER PORTAL */}
+        {/* ENHANCED HEADER WITH INTEGRATED PRODUCTION STRIPE CUSTOMER PORTAL */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-[#E6EDF3]/10 pb-4 gap-4">
           <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-[0.2em] uppercase">
             Expansion Modules
@@ -163,7 +166,7 @@ function BillingContent() {
           </button>
         </div>
 
-        {/* --- ELITE TIER UPGRADE (LIVE) --- */}
+        {/* --- ELITE TIER UPGRADE (PRODUCTION LIVE LINK) --- */}
         <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#50C878] hover:bg-[#50C878]/5 transition-colors duration-300">
           
           <div className="absolute top-0 right-8 bg-[#50C878] text-[#010409] font-orbitron text-[10px] font-bold tracking-[0.2em] px-3 py-1.5 uppercase rounded-b-md shadow-[0_0_10px_rgba(80,200,120,0.5)]">
