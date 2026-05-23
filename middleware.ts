@@ -3,18 +3,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// =========================================================================
-// CRITICAL CLOUDFLARE DIRECTIVE:
-// This single line fixes the "_middleware not configured for Edge" crash!
-// =========================================================================
-export const runtime = "edge";
-
 /**
  * =========================================================================
  * HARRISON INTERACTIVE | ULTRA-LIGHTWEIGHT SHIELD
  * =========================================================================
- * Bypasses the 3 MiB Cloudflare limit by manually checking for the 
- * encrypted NextAuth session cookie instead of importing the massive Auth engine.
+ * Notice: We DO NOT explicitly declare `runtime = "edge"` here. 
+ * Next.js Middleware is natively Edge-first. Adding the directive causes 
+ * Next.js 16 to crash during the build phase.
  */
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
