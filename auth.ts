@@ -5,20 +5,38 @@ import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
 import { D1Adapter } from "@auth/d1-adapter";
+import { getRequestContext } from "@cloudflare/next-on-pages";
 
 /**
  * =========================================================================
  * HARRISON INTERACTIVE | NEXTAUTH V5 (STATEFUL D1 + HANDSHAKE CORE)
  * =========================================================================
  * The central brain of the Auth Matrix. Permanently bound to the D1 SQL Ledger.
- * Dynamically queries the database on session checks to ensure the client-side
- * always possesses the real-time license_tier and neural_key for the Unreal Engine.
+ * Dynamically queries the database on session checks using Cloudflare getRequestContext
+ * to ensure the client-side always possesses the real-time license_tier and neural_key.
  */
+
+// Safe helper to grab the D1 Database binding on the Cloudflare Edge
+const getD1Database = (): any => {
+  try {
+    const context = getRequestContext();
+    if (context?.env?.DB) {
+      return context.env.DB;
+    }
+  } catch (error) {
+    // Silent fallback for local dev environments
+  }
+  return (process.env as any)?.DB;
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   
   // THE CLOUDFLARE D1 ADAPTER
-  adapter: process.env.DB ? D1Adapter(process.env.DB as any) : undefined,
+  // Automatically resolves the database at runtime using our helper
+  get adapter() {
+    const db = getD1Database();
+    return db ? D1Adapter(db) : undefined;
+  },
 
   // OAUTH & MAGIC LINK PROVIDERS
   providers: [
@@ -36,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 
-  // SESSION STRATEGY (JWT for Speed + DB for Permanence)
+  // SESSION STRATEGY
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 Days
@@ -58,22 +76,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.key = (user as any).neural_key || "";
       } 
       // 2. Real-Time Database Sync (Subsequent Session Checks)
-      // If the user's browser already has a JWT cookie, run a high-speed SQL
-      // query directly against D1 to pull any updated keys or Stripe tiers!
-      else if (token.email && process.env.DB) {
-        try {
-          const db = process.env.DB as any;
-          const { results } = await db
-            .prepare("SELECT license_tier, neural_key FROM users WHERE email = ?")
-            .bind(token.email)
-            .all();
-          
-          if (results && results[0]) {
-            token.tier = results[0].license_tier;
-            token.key = results[0].neural_key;
+      // We resolve the active D1 instance via our helper and query the
+      // live database to grab any newly granted ranks or keys!
+      else if (token.email) {
+        const db = getD1Database();
+        if (db) {
+          try {
+            const { results } = await db
+              .prepare("SELECT license_tier, neural_key FROM users WHERE email = ?")
+              .bind(token.email)
+              .all();
+            
+            if (results && results[0]) {
+              token.tier = results[0].license_tier;
+              token.key = results[0].neural_key;
+            }
+          } catch (error: any) {
+            console.error("[SYS ERR] D1 Session Sync Failed: ", error.message);
           }
-        } catch (error: any) {
-          console.error("[SYS ERR] D1 Session Sync Failed: ", error.message);
         }
       }
       return token;
