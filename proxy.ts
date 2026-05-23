@@ -1,14 +1,20 @@
-/* --- START OF FILE middleware.ts --- */
+/* --- START OF FILE proxy.ts --- */
 
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 
+// =========================================================================
+// CRITICAL CLOUDFLARE DIRECTIVE:
+// Cloudflare's next-on-pages compiler strictly requires this explicit 
+// declaration so it knows the proxy is safely compiled for the V8 Engine.
+// =========================================================================
+export const runtime = "edge";
+
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | SECURE EDGE MIDDLEWARE
+ * HARRISON INTERACTIVE | SECURE EDGE PROXY (SHIELD GENERATOR)
  * =========================================================================
- * This acts as the global shield generator for the Matrix.
- * It intercepts every incoming request BEFORE it hits the server.
+ * This intercepts every incoming request BEFORE it hits the server.
  * If an unauthenticated entity attempts to breach the /dashboard,
  * they are forcefully redirected to the Auth Gateway (/login).
  */
@@ -37,7 +43,7 @@ export default auth((req) => {
 
 // =========================================================================
 // MATCHER CONFIGURATION
-// Defines exactly which routes trigger this middleware shield.
+// Defines exactly which routes trigger this shield.
 // =========================================================================
 export const config = {
   matcher: [
@@ -52,4 +58,4 @@ export const config = {
   ],
 };
 
-/* --- END OF FILE middleware.ts --- */
+/* --- END OF FILE proxy.ts --- */
