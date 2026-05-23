@@ -92,13 +92,6 @@ function BillingContent() {
     }, 1200); 
   };
 
-  // --- STRIPE CUSTOMER PORTAL LAUNCH ---
-  const handleLaunchBillingPortal = () => {
-    // FIXED: Hardcoded fallback to your exact live production portal link!
-    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800";
-    window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
-  };
-
   return (
     // UNLEASHED: Flexes to row on huge screens, fully upscaled text sizes
     <div className="w-full flex flex-col xl:flex-row gap-10">
@@ -151,16 +144,25 @@ function BillingContent() {
           </div>
         </div>
 
-        {/* AAA Payment Method Stub */}
+        {/* DYNAMIC FINANCIAL NODE (No longer static, reacts to active tier!) */}
         <div className="glass-panel relative flex flex-col p-6 border-l-4 border-l-[#FFBF00] opacity-90 overflow-hidden">
           <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,191,0,0.03)_10px,rgba(255,191,0,0.03)_20px)] pointer-events-none"></div>
           
-          <h3 className="font-orbitron text-[#FFBF00] text-sm font-bold tracking-widest uppercase mb-2 relative z-10 flex items-center gap-2">
-            <span className="text-lg">⚠</span> Financial Node
+          <h3 className="font-orbitron text-[#FFBF00] text-sm font-bold tracking-widest uppercase mb-3 relative z-10 flex items-center gap-2">
+            <span className="text-lg">💳</span> Financial Node
           </h3>
-          <p className="font-mono text-xs text-[#8B949E] tracking-widest uppercase relative z-10 leading-relaxed">
-            No active payment profiles linked to this core. Teleport required for upgrades.
-          </p>
+          
+          {activeTier !== 'LITE' ? (
+            <div className="relative z-10 font-mono text-xs text-[#E6EDF3] leading-relaxed flex flex-col gap-2">
+              <p className="text-[#50C878] font-bold uppercase tracking-widest">GATEWAY LINKED & SECURE</p>
+              <p className="text-[#8B949E]">Your Stripe financial profile is fully integrated with Harrison Interactive. Manage credit cards and billing cycles via the Portal.</p>
+            </div>
+          ) : (
+            <div className="relative z-10 font-mono text-xs text-[#C0C0C0] leading-relaxed flex flex-col gap-2">
+              <p className="text-[#FFBF00] font-bold uppercase tracking-widest animate-pulse">NO PAYMENT PROFILES FOUND</p>
+              <p className="text-[#8B949E]">No active billing cards or commercial subscriptions are currently bound to this user matrix. Upgrade to activate your profile.</p>
+            </div>
+          )}
         </div>
 
       </div>
@@ -170,17 +172,21 @@ function BillingContent() {
           ========================================================= */}
       <div className="w-full flex-1 flex flex-col gap-8">
         
-        {/* ENHANCED HEADER WITH INTEGRATED PRODUCTION STRIPE CUSTOMER PORTAL */}
+        {/* ENHANCED HEADER WITH UN-BLOCKABLE ANCHOR LINK */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-[#E6EDF3]/10 pb-4 gap-4">
           <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-[0.2em] uppercase">
             Expansion Modules
           </h2>
-          <button 
-            onClick={handleLaunchBillingPortal}
-            className="clip-angled-button px-5 py-2 border border-[#FFBF00] hover:bg-[#FFBF00] hover:text-[#010409] font-orbitron text-xs font-black tracking-widest uppercase transition-all hover:shadow-[0_0_10px_rgba(255,191,0,0.4)] cursor-pointer"
+          
+          {/* 100% UN-BLOCKABLE ANCHOR LINK */}
+          <a 
+            href="https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="clip-angled-button px-5 py-2 border border-[#FFBF00] text-[#FFBF00] hover:bg-[#FFBF00] hover:text-[#010409] font-orbitron text-xs font-black tracking-widest uppercase transition-all hover:shadow-[0_0_10px_rgba(255,191,0,0.4)] text-center block"
           >
             MANAGE ACTIVE SUBSCRIPTION
-          </button>
+          </a>
         </div>
 
         {/* --- ELITE TIER UPGRADE (PRODUCTION LIVE LINK) --- */}
@@ -202,15 +208,15 @@ function BillingContent() {
               <ul className="font-mono text-xs text-[#E6EDF3] flex flex-col gap-3">
                 <li className="flex items-center gap-3">
                   <span className="text-[#50C878] drop-shadow-[0_0_5px_#50C878]">▰</span> 
-                  Local 'Bring Your Own Brain' (BYOB) LLM Routing
+                  <strong>Local 'BYOB' LLM Routing:</strong> Unlimited offline mentoring via 'handy_mentor_lite' local server.
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="text-[#50C878] drop-shadow-[0_0_5px_#50C878]">▰</span> 
-                  Advanced Blueprint Graph Cleaning Scripts
+                  <strong>Automated C++ AST Graph Clean:</strong> Rapid horizontal coordinate aligning & orphan node pruning.
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="text-[#50C878] drop-shadow-[0_0_5px_#50C878]">▰</span> 
-                  Priority Render Thread Allocation
+                  <strong>Atmospheric Preset Matrix:</strong> Access to 15+ cinematic environmental lighting overrides.
                 </li>
               </ul>
             </div>
@@ -248,15 +254,15 @@ function BillingContent() {
               <ul className="font-mono text-xs text-[#E6EDF3] flex flex-col gap-3">
                 <li className="flex items-center gap-3">
                   <span className="text-[#FF00FF] drop-shadow-[0_0_5px_#FF00FF]">▰</span> 
-                  Harrison Interactive Cloudflare Backend Integration
+                  <strong>Automated C++ Code Generation:</strong> Full-bleed node synthesis and deep graph restructuring.
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="text-[#FF00FF] drop-shadow-[0_0_5px_#FF00FF]">▰</span> 
-                  Verified Studio Badge (RMT Marketplace Authority)
+                  <strong>PlayFab & Xsolla Economy Forge:</strong> Built-in database, RMT, and inventory blueprints.
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="text-[#FF00FF] drop-shadow-[0_0_5px_#FF00FF]">▰</span> 
-                  Direct C++ Omni-Link API Access
+                  <strong>Text-to-3D Spatial Studio (FLUX/Hunyuan3D):</strong> Generates absolute meshes and material layers.
                 </li>
               </ul>
             </div>
