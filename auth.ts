@@ -3,25 +3,32 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import Resend from "next-auth/providers/resend";
 import { D1Adapter } from "@auth/d1-adapter";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | NEXTAUTH V5 (STATEFUL D1 EDGE MATRIX)
+ * HARRISON INTERACTIVE | NEXTAUTH V5 (STATEFUL D1 + RESEND)
  * =========================================================================
  * The central brain of the Auth Matrix. Now permanently bound to the 
- * Cloudflare D1 SQL Ledger for persistent user account tracking.
+ * D1 SQL Ledger and capable of dispatching secure Magic Links via Resend.
  */
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   
-  // 1. THE CLOUDFLARE D1 ADAPTER
-  // We conditionally load it so your local Docker (which doesn't have the live DB) 
-  // doesn't crash during development, but the Edge Network binds it seamlessly!
+  // THE CLOUDFLARE D1 ADAPTER
   adapter: process.env.DB ? D1Adapter(process.env.DB as any) : undefined,
 
-  // 2. OAUTH PROVIDERS
+  // OAUTH & MAGIC LINK PROVIDERS
   providers: [
+    // --- MAGIC LINK PROVIDER (RESEND) ---
+    // NOTE: This 'from' email MUST be from a domain you have verified in your Resend account!
+    Resend({
+      apiKey: process.env.AUTH_RESEND_KEY,
+      from: "no-reply@harrisoninteractive.dev",
+    }),
+
+    // --- OAUTH PROVIDERS ---
     GitHub({
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
@@ -32,39 +39,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 
-  // 3. SESSION STRATEGY
-  // We explicitly override the database default to keep using JWTs.
-  // This gives us the speed of Stateless tokens, with the permanence of a Stateful Database!
+  // SESSION STRATEGY (JWT for Speed + DB for Permanence)
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 Days
   },
 
-  // 4. CUSTOM UI ROUTES
+  // CUSTOM UI ROUTES
   pages: {
     signIn: "/login",
     error: "/login", 
   },
 
-  // 5. EDGE CALLBACKS
+  // EDGE CALLBACKS
   callbacks: {
     async jwt({ token, user }) {
-      // Upon successful login/registration, bind the new Database ID to the token
-      if (user) {
-        token.id = user.id;
-      }
+      if (user) token.id = user.id;
       return token;
     },
     async session({ session, token }) {
-      // Pass the Database ID from the encrypted token into the active frontend session
-      if (session.user && token.id) {
-        session.user.id = token.id as string;
-      }
+      if (session.user && token.id) session.user.id = token.id as string;
       return session;
     },
   },
   
-  // 6. DEBUG MODE
+  // DEBUG MODE
   debug: process.env.NODE_ENV === "development",
 });
 

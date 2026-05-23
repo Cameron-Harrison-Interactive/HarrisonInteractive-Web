@@ -17,7 +17,8 @@
     "postcss": "^8.4.31",
     "next-auth": "beta",
     "@auth/core": "latest",
-    "@auth/d1-adapter": "latest"
+    "@auth/d1-adapter": "latest",
+    "resend": "latest"
   },
   "devDependencies": {
     "@types/node": "^20",
