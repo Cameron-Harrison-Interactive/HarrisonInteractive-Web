@@ -1,26 +1,45 @@
 /* --- START OF FILE app/dashboard/layout.tsx --- */
 
 import React from "react";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-/**
- * =========================================================================
- * HARRISON INTERACTIVE | STATIC DASHBOARD LAYOUT
- * =========================================================================
- * ALL dynamic edge directives and auth checks have been purged from this file.
- * This guarantees the Next.js compiler will pre-render all dashboard routes 
- * as static HTML, completely evading Cloudflare's 3 MiB size limit.
- * (Auth logic is now safely handled exclusively by middleware.ts)
- */
+// =========================================================================
+// CRITICAL CLOUDFLARE DIRECTIVE:
+// Forces the V8 Edge Network compilation for the entire Dashboard Matrix.
+// =========================================================================
+export const runtime = "edge";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // =========================================================================
+  // THE ULTRA-LIGHTWEIGHT SHIELD GENERATOR
+  // Bypasses the 3 MiB Cloudflare limit by manually checking for the 
+  // encrypted Auth.js session cookie instead of importing the massive Auth engine.
+  // Bypasses the async_hooks crash by running in the standard Edge layout environment.
+  // =========================================================================
+  const cookieStore = await cookies();
+  
+  // Production NextAuth cookies are often prefixed with __Secure- 
+  // We use .some() to reliably catch the token signature anywhere.
+  const isAuthenticated = cookieStore.getAll().some(cookie => 
+    cookie.name.includes("authjs.session-token")
+  );
+  
+  if (!isAuthenticated) {
+    console.log("[SEC] Unauthenticated breach detected. Rerouting to gateway.");
+    redirect("/login");
+  }
+
   return (
     <div className="w-full h-full min-h-full flex flex-row relative z-10 overflow-hidden bg-transparent">
       
-      {/* THE OMNI-LINK SIDEBAR */}
+      {/* 
+        THE OMNI-LINK SIDEBAR 
+      */}
       <aside className="w-72 glass-panel border-r border-[#00BFFF]/20 flex flex-col justify-between hidden md:flex shadow-[5px_0_15px_rgba(0,0,0,0.5)] z-20 overflow-y-auto">
         <div className="flex flex-col">
           <div className="p-6 border-b border-[#00BFFF]/20 bg-[#010409]/60">
