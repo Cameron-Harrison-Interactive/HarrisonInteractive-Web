@@ -6,7 +6,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 // =========================================================================
-// INNER MATRIX: The actual billing logic that requires client-side URL parsing
+// INNER MATRIX: The AAA Billing Engine & Visually Expanded UI
 // =========================================================================
 function BillingContent() {
   const searchParams = useSearchParams();
@@ -16,8 +16,9 @@ function BillingContent() {
   const [licenseKey, setLicenseKey] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<"elite" | "ultimate" | null>(null);
   const [terminalLogs, setTerminalLogs] = useState<string[]>([
-    "[SYS] Awaiting secure handshake with Payment Gateway...",
-    "[SYS] No recent transactions detected in local cache."
+    "[SYS] Payment Gateway Matrix Online.",
+    "[SYS] Encrypted tunnel to Merchant of Record established.",
+    "[SYS] Awaiting user initialization..."
   ]);
 
   // --- RETURN FROM GATEWAY DETECTOR ---
@@ -43,185 +44,233 @@ function BillingContent() {
     }
   }, [searchParams]);
 
-  // --- API PAYLOAD INJECTOR ---
-  const handleCheckout = async (targetTier: "elite" | "ultimate") => {
+  // --- NATIVE TELEPORT INJECTOR ---
+  const handleCheckout = (targetTier: "elite" | "ultimate") => {
     setIsLoading(targetTier);
     
     setTerminalLogs(prev => [
       ...prev, 
-      `[SYS] Initializing secure payload for ${targetTier.toUpperCase()} tier...`,
-      `[NET] Dispatching encrypted POST request to billing router...`
+      `[SYS] Initializing secure teleport for ${targetTier.toUpperCase()} tier...`,
+      `[NET] Bypassing Edge Router. Handing off to Stripe Servers...`,
+      `[WARN] Prepare for visual translation to External Gateway.`
     ]);
 
-    try {
-      const response = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tier: targetTier }),
-      });
+    // =========================================================
+    // DIRECTOR: YOUR LIVE STRIPE PAYMENT LINKS
+    // =========================================================
+    // Elite uses the link you provided. Ultimate uses the env variable or a placeholder.
+    const stripeLinkElite = "https://buy.stripe.com/test_00w9ATcljeW6dDgdyN";
+    const stripeLinkUltimate = process.env.NEXT_PUBLIC_STRIPE_LINK_ULTIMATE || "https://buy.stripe.com/test_ultimate_placeholder";
 
-      // --- DIAGNOSTIC OVERRIDE: Read raw text first to catch Cloudflare 500 HTML crashes ---
-      const rawText = await response.text();
-      let data;
-      
-      try {
-        data = JSON.parse(rawText);
-      } catch (parseError) {
-        // If parsing fails, Cloudflare threw a hard HTML error (like missing nodejs_compat)
-        console.error("Raw Edge Response:", rawText);
-        setTerminalLogs(prev => [
-          ...prev, 
-          `[FATAL] Edge Server Crashed. Received non-JSON response.`,
-          `[RAW] ${rawText.substring(0, 60)}...`
-        ]);
-        setIsLoading(null);
-        return; // Abort execution
-      }
+    const targetUrl = targetTier === "elite" ? stripeLinkElite : stripeLinkUltimate;
 
-      if (response.ok && data.checkoutUrl) {
-        setTerminalLogs(prev => [
-          ...prev, 
-          `[SUCCESS] Gateway resolved. Teleporting to secure payment portal...`
-        ]);
-        // PHYSICAL BROWSER REDIRECT
-        window.location.href = data.checkoutUrl;
-      } else {
-        setTerminalLogs(prev => [
-          ...prev, 
-          `[ERR] ${response.status} - ${data.error || "Matrix Collision"}`
-        ]);
-        setIsLoading(null);
-      }
-    } catch (error: any) {
-      setTerminalLogs(prev => [
-        ...prev, 
-        `[FATAL] Network payload failed to dispatch: ${error.message}`
-      ]);
-      setIsLoading(null);
-    }
+    // PHYSICAL BROWSER REDIRECT (Delayed for AAA visual feedback)
+    setTimeout(() => {
+      window.location.href = targetUrl;
+    }, 1200); 
   };
 
   return (
     <div className="w-full flex flex-col lg:flex-row gap-8">
       
       {/* =========================================================
-          LEFT COLUMN: ACTIVE CREDENTIALS
+          LEFT COLUMN: ACTIVE CREDENTIALS (HOLOGRAPHIC ID CARD)
           ========================================================= */}
       <div className="w-full lg:w-1/3 flex flex-col gap-8">
         
-        {/* Active License Card */}
-        <div className={`glass-panel clip-angled flex flex-col p-8 border-t-2 transition-all duration-500 ${activeTier === 'ULTIMATE' ? 'border-t-[#FF00FF] shadow-[0_0_20px_rgba(255,0,255,0.2)]' : activeTier === 'ELITE' ? 'border-t-[#50C878] shadow-[0_0_20px_rgba(80,200,120,0.2)]' : 'border-t-[#00BFFF] shadow-[0_0_15px_rgba(0,191,255,0.1)]'}`}>
-          <h2 className={`font-orbitron text-sm font-bold tracking-widest uppercase mb-6 ${activeTier === 'ULTIMATE' ? 'text-[#FF00FF]' : activeTier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'}`}>
-            Current Access Tier
-          </h2>
+        {/* AAA Active License Card */}
+        <div className={`relative glass-panel clip-angled flex flex-col p-8 border-t-4 transition-all duration-500 overflow-hidden ${activeTier === 'ULTIMATE' ? 'border-t-[#FF00FF] shadow-[0_0_30px_rgba(255,0,255,0.15)]' : activeTier === 'ELITE' ? 'border-t-[#50C878] shadow-[0_0_30px_rgba(80,200,120,0.15)]' : 'border-t-[#00BFFF] shadow-[0_0_20px_rgba(0,191,255,0.1)]'}`}>
           
-          <p className="font-orbitron text-4xl text-[#E6EDF3] font-light tracking-wider mb-1">
-            {activeTier}
-          </p>
-          <p className="font-inter text-xs text-[#50C878] uppercase tracking-widest mb-8">
-            Status: Active & Verified
-          </p>
+          {/* Tech Decals (Corners & Barcodes) */}
+          <div className={`absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 ${activeTier === 'ULTIMATE' ? 'border-[#FF00FF]' : activeTier === 'ELITE' ? 'border-[#50C878]' : 'border-[#00BFFF]'}`}></div>
+          <div className={`absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 ${activeTier === 'ULTIMATE' ? 'border-[#FF00FF]' : activeTier === 'ELITE' ? 'border-[#50C878]' : 'border-[#00BFFF]'}`}></div>
+          <div className="absolute bottom-4 right-4 opacity-20 transform rotate-90 origin-bottom-right">
+            <p className="font-mono text-[8px] tracking-[0.4em]">||||||| | ||| | || ||</p>
+          </div>
 
-          <h3 className="font-orbitron text-[#8B949E] text-[10px] tracking-widest uppercase mb-2">
-            Assigned Neural Key
-          </h3>
-          <div className={`bg-[#010409] border p-3 rounded flex flex-row justify-between items-center relative overflow-hidden group cursor-pointer ${licenseKey ? 'border-[#50C878]/50' : 'border-[#00BFFF]/30'}`}>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00BFFF]/5 to-transparent w-full h-[200%] animate-[slide-in_2s_linear_infinite] pointer-events-none"></div>
-            
-            <span className={`font-mono text-sm tracking-[0.2em] relative z-10 ${licenseKey ? 'text-[#50C878] drop-shadow-[0_0_5px_rgba(80,200,120,0.8)]' : 'text-[#E6EDF3]'}`}>
-              {licenseKey ? licenseKey : "XXXX-XXXX-XXXX"}
-            </span>
-            <span className="font-inter text-[10px] text-[#00BFFF] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity relative z-10">
-              [ Copy ]
-            </span>
+          <div className="flex flex-row justify-between items-start mb-8 relative z-10">
+            <h2 className={`font-orbitron text-sm font-bold tracking-widest uppercase ${activeTier === 'ULTIMATE' ? 'text-[#FF00FF]' : activeTier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'}`}>
+              Current Access Tier
+            </h2>
+            <span className={`w-3 h-3 rounded-full animate-ping ${activeTier === 'ULTIMATE' ? 'bg-[#FF00FF] shadow-[0_0_10px_#FF00FF]' : activeTier === 'ELITE' ? 'bg-[#50C878] shadow-[0_0_10px_#50C878]' : 'bg-[#00BFFF] shadow-[0_0_10px_#00BFFF]'}`}></span>
+          </div>
+          
+          <div className="flex flex-col items-center justify-center my-6 relative z-10">
+            <p className="font-orbitron text-6xl text-[#E6EDF3] font-black tracking-widest drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              {activeTier}
+            </p>
+            <p className={`font-inter text-[10px] uppercase tracking-[0.3em] mt-2 ${activeTier === 'ULTIMATE' ? 'text-[#FF00FF]' : activeTier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'}`}>
+              Status: Biometrically Verified
+            </p>
+          </div>
+
+          <div className="mt-auto pt-6 border-t border-white/10 relative z-10">
+            <h3 className="font-orbitron text-[#8B949E] text-[10px] tracking-[0.2em] uppercase mb-3">
+              Assigned Neural Key
+            </h3>
+            <div className={`bg-[#010409]/80 backdrop-blur-md border p-4 rounded flex flex-row justify-between items-center relative overflow-hidden group cursor-pointer transition-all ${licenseKey ? 'border-[#50C878]/50 hover:border-[#50C878]' : 'border-[#00BFFF]/30 hover:border-[#00BFFF]'}`}>
+              
+              {/* Scanning Laser Animation inside the key box */}
+              <div className={`absolute top-0 left-0 w-full h-[2px] opacity-50 animate-[slide-in_2s_linear_infinite] ${activeTier === 'ULTIMATE' ? 'bg-[#FF00FF] shadow-[0_0_8px_#FF00FF]' : activeTier === 'ELITE' ? 'bg-[#50C878] shadow-[0_0_8px_#50C878]' : 'bg-[#00BFFF] shadow-[0_0_8px_#00BFFF]'}`}></div>
+              
+              <span className={`font-mono text-sm tracking-[0.3em] relative z-10 ${licenseKey ? 'text-[#50C878] drop-shadow-[0_0_5px_rgba(80,200,120,0.8)]' : 'text-[#E6EDF3]'}`}>
+                {licenseKey ? licenseKey : "XXXX-XXXX-XXXX-XXXX"}
+              </span>
+              <span className="font-orbitron text-[10px] text-[#00BFFF] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity relative z-10 bg-[#00BFFF]/20 px-2 py-1 rounded">
+                Copy
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Payment Method Stub */}
-        <div className="glass-panel flex flex-col p-6 border-l-2 border-l-[#FFBF00] opacity-80">
-          <h3 className="font-orbitron text-[#FFBF00] text-xs font-bold tracking-widest uppercase mb-4">
-            Payment Method
+        {/* AAA Payment Method Stub */}
+        <div className="glass-panel relative flex flex-col p-6 border-l-4 border-l-[#FFBF00] opacity-90 overflow-hidden">
+          {/* Subtle Warning Background Stripes */}
+          <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,191,0,0.03)_10px,rgba(255,191,0,0.03)_20px)] pointer-events-none"></div>
+          
+          <h3 className="font-orbitron text-[#FFBF00] text-xs font-bold tracking-widest uppercase mb-2 relative z-10 flex items-center gap-2">
+            <span className="text-lg">⚠</span> Financial Node
           </h3>
-          <p className="font-inter text-sm text-[#8B949E]">
-            No active payment profiles linked to this core.
+          <p className="font-mono text-[10px] text-[#8B949E] tracking-widest uppercase relative z-10">
+            No active payment profiles linked to this core. Teleport required for upgrades.
           </p>
         </div>
 
       </div>
 
       {/* =========================================================
-          RIGHT COLUMN: UPGRADE MATRIX
+          RIGHT COLUMN: OVERCLOCKED UPGRADE MATRIX
           ========================================================= */}
-      <div className="w-full lg:w-2/3 flex flex-col gap-6">
+      <div className="w-full lg:w-2/3 flex flex-col gap-8">
         
-        <h2 className="font-orbitron text-[#E6EDF3] text-lg font-bold tracking-widest uppercase border-b border-[#E6EDF3]/10 pb-2">
-          Available Upgrades
-        </h2>
-
-        {/* ELITE TIER UPGRADE */}
-        <div className="holographic-card clip-angled flex flex-col md:flex-row justify-between items-start md:items-center p-8 border-l-4 border-l-[#50C878]">
-          <div className="flex flex-col mb-6 md:mb-0">
-            <h3 className="font-orbitron text-2xl text-[#50C878] font-bold tracking-widest uppercase mb-2 drop-shadow-[0_0_5px_rgba(80,200,120,0.8)]">
-              Hi Handy Elite
-            </h3>
-            <ul className="font-inter text-xs text-[#8B949E] flex flex-col gap-2">
-              <li className="flex items-center gap-2"><span className="text-[#50C878] text-[10px]">■</span> Advanced Neural Pathing</li>
-              <li className="flex items-center gap-2"><span className="text-[#50C878] text-[10px]">■</span> Multi-Agent Network Access</li>
-              <li className="flex items-center gap-2"><span className="text-[#50C878] text-[10px]">■</span> Priority Server Rendering</li>
-            </ul>
-          </div>
-          
-          <div className="flex flex-col items-start md:items-end w-full md:w-auto">
-            <span className="font-orbitron text-3xl text-[#E6EDF3] font-light mb-1">$49<span className="text-sm text-[#8B949E]">/mo</span></span>
-            
-            <button 
-              onClick={() => handleCheckout("elite")}
-              disabled={isLoading !== null}
-              className="w-full md:w-48 font-orbitron text-[10px] py-3 mt-4 border border-[#50C878] text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_10px_rgba(80,200,120,0.2)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20"
-            >
-              {isLoading === "elite" ? "NEGOTIATING..." : "Initialize Purchase"}
-            </button>
-          </div>
+        <div className="flex flex-row justify-between items-end border-b border-[#E6EDF3]/10 pb-2">
+          <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-[0.2em] uppercase">
+            Expansion Modules
+          </h2>
+          <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest">
+            Select Tier to Initiate Handshake
+          </span>
         </div>
 
-        {/* ULTIMATE TIER UPGRADE */}
-        <div className="holographic-card clip-angled flex flex-col md:flex-row justify-between items-start md:items-center p-8 border-l-4 border-l-[#FF00FF]">
-          <div className="flex flex-col mb-6 md:mb-0">
-            <h3 className="font-orbitron text-2xl text-[#FF00FF] font-bold tracking-widest uppercase mb-2 drop-shadow-[0_0_5px_rgba(255,0,255,0.8)]">
-              Hi Handy Ultimate
-            </h3>
-            <ul className="font-inter text-xs text-[#8B949E] flex flex-col gap-2">
-              <li className="flex items-center gap-2"><span className="text-[#FF00FF] text-[10px]">■</span> Unrestricted API Limits</li>
-              <li className="flex items-center gap-2"><span className="text-[#FF00FF] text-[10px]">■</span> Dedicated Hardware Instance</li>
-              <li className="flex items-center gap-2"><span className="text-[#FF00FF] text-[10px]">■</span> Direct C++ Omni-Link Integration</li>
-            </ul>
-          </div>
+        {/* --- ELITE TIER UPGRADE (Emerald Intent) --- */}
+        <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#50C878] hover:bg-[#50C878]/5 transition-colors duration-300">
           
-          <div className="flex flex-col items-start md:items-end w-full md:w-auto">
-            <span className="font-orbitron text-3xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
-            
-            <button 
-              onClick={() => handleCheckout("ultimate")}
-              disabled={isLoading !== null}
-              className="w-full md:w-48 font-orbitron text-[10px] py-3 mt-4 border border-[#FF00FF] text-[#FF00FF] hover:bg-[#FF00FF] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_10px_rgba(255,0,255,0.2)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20"
-            >
-              {isLoading === "ultimate" ? "NEGOTIATING..." : "Initialize Purchase"}
-            </button>
+          {/* "RECOMMENDED" Badge */}
+          <div className="absolute top-0 right-8 bg-[#50C878] text-[#010409] font-orbitron text-[9px] font-bold tracking-[0.2em] px-3 py-1 uppercase rounded-b-md shadow-[0_0_10px_rgba(80,200,120,0.5)]">
+            Studio Standard
           </div>
-        </div>
 
-        {/* Transaction Terminal */}
-        <div className="glass-panel flex flex-col p-6 mt-4 relative overflow-hidden min-h-[150px]">
-          <h3 className="font-orbitron text-[#E6EDF3] text-xs font-bold tracking-widest uppercase mb-4">
-            Terminal Logs: Transaction Events
-          </h3>
-          <div className="font-mono text-[10px] text-[#8B949E] flex flex-col gap-1 overflow-y-auto max-h-48">
-            {terminalLogs.map((log, index) => (
-              <p key={index} className={`${log.includes('[SUCCESS]') ? 'text-[#50C878]' : log.includes('[FATAL]') || log.includes('[ERR]') ? 'text-[#DC143C]' : ''}`}>
-                {log}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="flex flex-col flex-1">
+              <h3 className="font-orbitron text-3xl text-[#50C878] font-bold tracking-widest uppercase mb-1 drop-shadow-[0_0_8px_rgba(80,200,120,0.6)] group-hover:scale-[1.02] transition-transform origin-left">
+                Hi Handy Elite
+              </h3>
+              <p className="font-inter text-xs text-[#8B949E] mb-4 uppercase tracking-widest">
+                The Architect's Baseline Framework
               </p>
+              
+              <ul className="font-mono text-[11px] text-[#E6EDF3] flex flex-col gap-3">
+                <li className="flex items-center gap-3">
+                  <span className="text-[#50C878] drop-shadow-[0_0_5px_#50C878]">▰</span> 
+                  Local 'Bring Your Own Brain' (BYOB) LLM Routing
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="text-[#50C878] drop-shadow-[0_0_5px_#50C878]">▰</span> 
+                  Advanced Blueprint Graph Cleaning Scripts
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="text-[#50C878] drop-shadow-[0_0_5px_#50C878]">▰</span> 
+                  Priority Render Thread Allocation
+                </li>
+              </ul>
+            </div>
+            
+            <div className="flex flex-col items-start md:items-end w-full md:w-56 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-6">
+              <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$49<span className="text-sm text-[#8B949E]">/mo</span></span>
+              
+              <button 
+                onClick={() => handleCheckout("elite")}
+                disabled={isLoading !== null}
+                className="w-full font-orbitron text-[10px] py-4 mt-4 bg-[#50C878]/10 border border-[#50C878] text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_15px_rgba(80,200,120,0.3)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20 group-hover:shadow-[0_0_25px_rgba(80,200,120,0.6)]"
+              >
+                {isLoading === "elite" ? "[ TELEPORTING ]" : "Initialize Gateway"}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* --- ULTIMATE TIER UPGRADE (Fuchsia Intent for heavy processing) --- */}
+        <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#FF00FF] hover:bg-[#FF00FF]/5 transition-colors duration-300">
+          
+          {/* "OVERCLOCKED" Badge */}
+          <div className="absolute top-0 right-8 bg-[#FF00FF] text-[#010409] font-orbitron text-[9px] font-bold tracking-[0.2em] px-3 py-1 uppercase rounded-b-md shadow-[0_0_10px_rgba(255,0,255,0.5)]">
+            Overclocked Matrix
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="flex flex-col flex-1">
+              <h3 className="font-orbitron text-3xl text-[#FF00FF] font-bold tracking-widest uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,0,255,0.6)] group-hover:scale-[1.02] transition-transform origin-left">
+                Hi Handy Ultimate
+              </h3>
+              <p className="font-inter text-xs text-[#8B949E] mb-4 uppercase tracking-widest">
+                Enterprise Cloud Synchronization
+              </p>
+              
+              <ul className="font-mono text-[11px] text-[#E6EDF3] flex flex-col gap-3">
+                <li className="flex items-center gap-3">
+                  <span className="text-[#FF00FF] drop-shadow-[0_0_5px_#FF00FF]">▰</span> 
+                  Harrison Interactive Cloudflare Backend Integration
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="text-[#FF00FF] drop-shadow-[0_0_5px_#FF00FF]">▰</span> 
+                  Verified Studio Badge (RMT Marketplace Authority)
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="text-[#FF00FF] drop-shadow-[0_0_5px_#FF00FF]">▰</span> 
+                  Direct C++ Omni-Link API Access
+                </li>
+              </ul>
+            </div>
+            
+            <div className="flex flex-col items-start md:items-end w-full md:w-56 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-6">
+              <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
+              
+              <button 
+                onClick={() => handleCheckout("ultimate")}
+                disabled={isLoading !== null}
+                className="w-full font-orbitron text-[10px] py-4 mt-4 bg-[#FF00FF]/10 border border-[#FF00FF] text-[#FF00FF] hover:bg-[#FF00FF] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_15px_rgba(255,0,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20 group-hover:shadow-[0_0_25px_rgba(255,0,255,0.6)]"
+              >
+                {isLoading === "ultimate" ? "[ TELEPORTING ]" : "Initialize Gateway"}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* --- AAA CRT TRANSACTION TERMINAL --- */}
+        <div className="mt-4 relative overflow-hidden bg-[#000] border border-[#FFBF00]/30 rounded-md p-6 shadow-[inset_0_0_20px_rgba(0,0,0,1)]">
+          {/* CRT Scanline Overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_3px] pointer-events-none z-10"></div>
+          
+          <div className="flex justify-between items-center mb-4 border-b border-[#FFBF00]/20 pb-2 relative z-20">
+            <h3 className="font-orbitron text-[#FFBF00] text-xs font-bold tracking-[0.2em] uppercase">
+              Terminal.exe // Stripe_Logs
+            </h3>
+            <span className="font-mono text-[9px] text-[#FFBF00] animate-pulse">LIVE UPLINK</span>
+          </div>
+
+          <div className="font-mono text-[11px] text-[#8B949E] flex flex-col gap-2 overflow-y-auto max-h-48 relative z-20 pl-2 border-l border-[#FFBF00]/20">
+            {terminalLogs.map((log, index) => (
+              <div key={index} className="flex gap-2">
+                <span className="text-[#FFBF00]/50 select-none">{'>'}</span>
+                <p className={`${log.includes('[SUCCESS]') ? 'text-[#50C878] drop-shadow-[0_0_3px_#50C878]' : log.includes('[FATAL]') || log.includes('[ERR]') || log.includes('[WARN]') ? 'text-[#DC143C] drop-shadow-[0_0_3px_#DC143C]' : 'text-[#E6EDF3]'}`}>
+                  {log}
+                </p>
+              </div>
             ))}
-            <p className="text-[#FFBF00] animate-pulse mt-2">_</p>
+            <div className="flex gap-2 mt-1">
+              <span className="text-[#FFBF00]/50 select-none">{'>'}</span>
+              <p className="text-[#FFBF00] animate-pulse bg-[#FFBF00] w-2 h-3 mt-1"></p>
+            </div>
           </div>
         </div>
 
@@ -254,8 +303,9 @@ export default function BillingPage() {
 
       {/* Safe Suspense Boundary */}
       <Suspense fallback={
-        <div className="w-full flex justify-center items-center p-20 font-orbitron text-[#FFBF00] animate-pulse tracking-widest">
-          [ DECRYPTING SECURE MATRIX... ]
+        <div className="w-full h-64 flex flex-col justify-center items-center gap-4">
+          <div className="w-12 h-12 border-4 border-[#FFBF00]/20 border-t-[#FFBF00] rounded-full animate-spin"></div>
+          <span className="font-orbitron text-[#FFBF00] text-xs tracking-widest uppercase animate-pulse">Decrypting Secure Matrix...</span>
         </div>
       }>
         <BillingContent />
