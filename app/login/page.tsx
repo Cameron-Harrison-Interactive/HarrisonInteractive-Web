@@ -7,17 +7,18 @@ import { signIn } from "next-auth/react";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | AAA AUTH GATEWAY (CLIENT-SIDE)
+ * HARRISON INTERACTIVE | AAA AUTH GATEWAY (CSRF-SECURED)
  * =========================================================================
- * By using "use client" and next-auth/react, the browser handles the CSRF 
- * tokens and handshakes. Cloudflare's Edge Worker doesn't have to compile 
- * the massive NextAuth server logic for this page, keeping us under the 3 MiB limit!
+ * Uses NextAuth's native client-side signIn() method. This automatically
+ * fetches required CSRF tokens in the background, preventing the infinite
+ * redirect loop caused by raw HTML forms, while remaining 0-bytes on the Edge server.
  */
 export default function LoginMatrix() {
   const [isConnecting, setIsConnecting] = useState<string | null>(null);
 
   const handleLogin = (provider: string) => {
     setIsConnecting(provider);
+    // Native NextAuth client trigger - handles CSRF automatically
     signIn(provider, { callbackUrl: "/dashboard" });
   };
 
