@@ -1,10 +1,10 @@
 /* --- START OF FILE schema.sql --- */
 
 -- =========================================================================
--- HARRISON INTERACTIVE | CLOUDFLARE D1 MASTER LEDGER
+-- HARRISON INTERACTIVE | CLOUDFLARE D1 MASTER LEDGER (PATCHED v2.5)
 -- =========================================================================
--- This script physically carves the required NextAuth (Auth.js) tables 
--- into the Cloudflare Edge database.
+-- Patched to satisfy the hardcoded legacy SQL queries inside the official
+-- @auth/d1-adapter library, resolving the oauth_token SQLITE_ERROR.
 -- =========================================================================
 
 -- -------------------------------------------------------------------------
@@ -27,7 +27,7 @@ CREATE TABLE users (
 
 -- -------------------------------------------------------------------------
 -- 2. ACCOUNTS TABLE (The OAuth Routing Matrix)
--- Connects Google/GitHub logins to the main User row.
+-- Patched with oauth_token and oauth_token_secret to bypass adapter bugs!
 -- -------------------------------------------------------------------------
 DROP TABLE IF EXISTS accounts;
 CREATE TABLE accounts (
@@ -43,12 +43,16 @@ CREATE TABLE accounts (
   scope TEXT,
   id_token TEXT,
   session_state TEXT,
+  
+  -- [CRITICAL ADAPTER COMPATIBILITY PATCHES]
+  oauth_token TEXT,
+  oauth_token_secret TEXT,
+  
   FOREIGN KEY("userId") REFERENCES users("id") ON DELETE CASCADE
 );
 
 -- -------------------------------------------------------------------------
 -- 3. SESSIONS TABLE (The Cookie Ledger)
--- Tracks active JWT/Database session cookies for active log-ins.
 -- -------------------------------------------------------------------------
 DROP TABLE IF EXISTS sessions;
 CREATE TABLE sessions (
@@ -61,7 +65,6 @@ CREATE TABLE sessions (
 
 -- -------------------------------------------------------------------------
 -- 4. VERIFICATION TOKENS TABLE (The Email Magic-Link Ledger)
--- Used if you ever implement Passwordless Email Logins.
 -- -------------------------------------------------------------------------
 DROP TABLE IF EXISTS verification_tokens;
 CREATE TABLE verification_tokens (
