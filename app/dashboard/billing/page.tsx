@@ -22,7 +22,6 @@ function BillingContent() {
 
   // --- RETURN FROM GATEWAY DETECTOR ---
   useEffect(() => {
-    // Safely reads the URL using the Next.js App Router Hook
     const status = searchParams.get("status");
     const tier = searchParams.get("tier");
     const key = searchParams.get("key");
@@ -61,7 +60,23 @@ function BillingContent() {
         body: JSON.stringify({ tier: targetTier }),
       });
 
-      const data = await response.json();
+      // --- DIAGNOSTIC OVERRIDE: Read raw text first to catch Cloudflare 500 HTML crashes ---
+      const rawText = await response.text();
+      let data;
+      
+      try {
+        data = JSON.parse(rawText);
+      } catch (parseError) {
+        // If parsing fails, Cloudflare threw a hard HTML error (like missing nodejs_compat)
+        console.error("Raw Edge Response:", rawText);
+        setTerminalLogs(prev => [
+          ...prev, 
+          `[FATAL] Edge Server Crashed. Received non-JSON response.`,
+          `[RAW] ${rawText.substring(0, 60)}...`
+        ]);
+        setIsLoading(null);
+        return; // Abort execution
+      }
 
       if (response.ok && data.checkoutUrl) {
         setTerminalLogs(prev => [
@@ -77,10 +92,10 @@ function BillingContent() {
         ]);
         setIsLoading(null);
       }
-    } catch (error) {
+    } catch (error: any) {
       setTerminalLogs(prev => [
         ...prev, 
-        `[FATAL] Network payload failed to dispatch. Check Edge internal routing.`
+        `[FATAL] Network payload failed to dispatch: ${error.message}`
       ]);
       setIsLoading(null);
     }
