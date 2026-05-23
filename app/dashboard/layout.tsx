@@ -84,4 +84,36 @@ export default function DashboardLayout({
           </div>
           
           <div className="p-4 border-t border-[#00BFFF]/20 bg-[#010409]/60 flex flex-col mt-auto">
-            <a href="/api/auth/signout" className="font-orbitron text-xs text-[#8B949E] hover:text-[
+            <a href="/api/auth/signout" className="font-orbitron text-xs text-[#8B949E] hover:text-[#00BFFF] flex flex-row items-center justify-center p-3 transition-all uppercase tracking-[0.2em] border border-transparent hover:border-[#00BFFF]/50 hover:shadow-[0_0_10px_rgba(0,191,255,0.2)] rounded">
+              [ Disconnect ]
+            </a>
+          </div>
+        </aside>
+
+        {/* MAIN CONTENT VIEWPORT */}
+        <main className="flex-1 w-full h-full min-h-full flex flex-col overflow-y-auto relative z-10">
+          
+          <div className="flex-1 p-6 lg:p-12">
+            {children}
+          </div>
+
+          {/* GLOBAL LEGAL FOOTER */}
+          <footer className="w-full border-t border-[#00BFFF]/20 bg-[#010409]/90 backdrop-blur-md p-6 mt-auto relative z-20">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="font-mono text-[10px] text-[#8B949E] tracking-widest uppercase text-center md:text-left">
+                &copy; {new Date().getFullYear()} Harrison Interactive. All Systems Nominal.
+              </p>
+              <p className="font-orbitron text-[9px] text-[#00BFFF]/60 tracking-[0.2em] uppercase drop-shadow-[0_0_5px_rgba(0,191,255,0.3)]">
+                Encrypted Neural Matrix v2.5
+              </p>
+            </div>
+          </footer>
+
+        </main>
+
+      </div>
+    </AuthGuard>
+  );
+}
+
+/* --- END OF FILE app/dashboard/layout.tsx --- */
