@@ -20,19 +20,20 @@ compatibility_flags = ["nodejs_compat"]
 # CLOUDFLARE KV DATABASE (LICENSE KEY MATRIX)
 # =========================================================================
 # This binds our edge server to a highly secure Key-Value datastore.
-# When Cloudflare recovers from its 503, you will create a KV namespace 
-# in the dashboard and paste its generated ID into the "id" field below.
 [[kv_namespaces]]
 binding = "LICENSE_MATRIX"
 id = "ae7cd7bd892b4754801ba66de4766a87"
 
 # =========================================================================
-# RUNTIME ENVIRONMENT VARIABLES (THE SECURE VAULT)
+# RUNTIME ENVIRONMENT VARIABLES (THE PUBLIC CONFIG MATRIX)
 # =========================================================================
 [vars]
-# We will inject your Stripe keys and database endpoints here later.
-# NEXT_PUBLIC_STRIPE_KEY = "pk_live_xxxxxxxxx"
-# STRIPE_SECRET_KEY = "sk_live_xxxxxxxxx"
-# STRIPE_WEBHOOK_SECRET = "whsec_xxxxxxxxx"
+# We inject public-facing routing variables here.
+# NOTE: DO NOT PUT SECRETS HERE. SECRETS GO IN THE CLOUDFLARE DASHBOARD.
+
+# --- OAUTH PUBLIC ROUTING ---
+AUTH_URL = "https://harrisoninteractive.dev"
+AUTH_GITHUB_ID = "PASTE_YOUR_GITHUB_CLIENT_ID_HERE"
+AUTH_GOOGLE_ID = "PASTE_YOUR_GOOGLE_CLIENT_ID_HERE"
 
 # --- END OF FILE wrangler.toml ---
