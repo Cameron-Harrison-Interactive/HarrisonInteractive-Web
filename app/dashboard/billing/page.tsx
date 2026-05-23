@@ -6,7 +6,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 // =========================================================================
-// INNER MATRIX: The Live Billing Engine (Scaled & Unleashed)
+// INNER MATRIX: The Live Billing Engine (Unleashed & Scaled)
 // =========================================================================
 function BillingContent() {
   const searchParams = useSearchParams();
@@ -55,9 +55,7 @@ function BillingContent() {
       `[WARN] Secure Gateway opening in external viewport (New Tab).`
     ]);
 
-    // =========================================================
-    // PRODUCTION BRAND RESEND/STRIPE LINKS
-    // =========================================================
+    // PRODUCTION STRIPE LINKS
     const stripeLinkElite = "https://buy.stripe.com/aFa4gzcnaaoe0Iqahy6g8";
     const stripeLinkUltimate = "https://buy.stripe.com/28E14n0Es8g6bn475m6g802";
 
@@ -73,6 +71,12 @@ function BillingContent() {
         `[SYS] External Gateway established. Awaiting return signal...`
       ]);
     }, 1200); 
+  };
+
+  // --- STRIPE CUSTOMER PORTAL LAUNCH ---
+  const handleLaunchBillingPortal = () => {
+    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/test_6oE01p4cljeW9gH8yy";
+    window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -146,13 +150,17 @@ function BillingContent() {
           ========================================================= */}
       <div className="w-full flex-1 flex flex-col gap-8">
         
-        <div className="flex flex-row justify-between items-end border-b border-[#E6EDF3]/10 pb-2">
+        {/* ENHANCED HEADER WITH INTEGRATED STRIPE CUSTOMER PORTAL */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-[#E6EDF3]/10 pb-4 gap-4">
           <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-[0.2em] uppercase">
             Expansion Modules
           </h2>
-          <span className="font-mono text-xs text-[#8B949E] uppercase tracking-widest hidden sm:block">
-            Select Tier to Initiate Handshake
-          </span>
+          <button 
+            onClick={handleLaunchBillingPortal}
+            className="clip-angled-button px-5 py-2 border border-[#FFBF00] hover:bg-[#FFBF00] hover:text-[#010409] font-orbitron text-xs font-black tracking-widest uppercase transition-all hover:shadow-[0_0_10px_rgba(255,191,0,0.4)] cursor-pointer"
+          >
+            MANAGE ACTIVE SUBSCRIPTION
+          </button>
         </div>
 
         {/* --- ELITE TIER UPGRADE (LIVE) --- */}
@@ -201,7 +209,7 @@ function BillingContent() {
           </div>
         </div>
 
-        {/* --- ULTIMATE TIER UPGRADE (COMING SOON OVERRIDE) --- */}
+        {/* --- ULTIMATE TIER UPGRADE (COMING SOON) --- */}
         <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#FF00FF] bg-[#FF00FF]/5 transition-colors duration-300">
           
           <div className="absolute top-0 right-8 bg-[#FF00FF] text-[#010409] font-orbitron text-[10px] font-bold tracking-[0.2em] px-3 py-1.5 uppercase rounded-b-md shadow-[0_0_10px_rgba(255,0,255,0.5)]">
@@ -213,7 +221,7 @@ function BillingContent() {
               <h3 className="font-orbitron text-3xl text-[#FF00FF] font-black tracking-widest uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,0,255,0.6)] group-hover:scale-[1.02] transition-transform origin-left">
                 Hi Handy Ultimate
               </h3>
-              <p className="font-inter text-xs text-[#FF00FF] mb-4 uppercase tracking-[0.2em] font-bold">
+              <p className="font-inter text-xs text-[#FF00FF] mb-4 uppercase tracking-[0.25em] font-bold">
                 MODULE LOCKED // COMING SOON
               </p>
               
