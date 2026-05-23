@@ -6,7 +6,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 // =========================================================================
-// INNER MATRIX: The AAA Billing Engine & Visually Expanded UI
+// INNER MATRIX: The AAA Billing Engine (Unleashed PC Layout)
 // =========================================================================
 function BillingContent() {
   const searchParams = useSearchParams();
@@ -77,17 +77,17 @@ function BillingContent() {
   };
 
   return (
-    <div className="w-full flex flex-col lg:flex-row gap-8">
+    // UNLEASHED: Flexes to row on huge screens (2xl), drops gap constraints
+    <div className="w-full flex flex-col 2xl:flex-row gap-10">
       
       {/* =========================================================
           LEFT COLUMN: ACTIVE CREDENTIALS (HOLOGRAPHIC ID CARD)
           ========================================================= */}
-      <div className="w-full lg:w-1/3 flex flex-col gap-8">
+      <div className="w-full 2xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
         
         {/* AAA Active License Card */}
         <div className={`relative glass-panel clip-angled flex flex-col p-8 border-t-4 transition-all duration-500 overflow-hidden ${activeTier === 'ULTIMATE' ? 'border-t-[#FF00FF] shadow-[0_0_30px_rgba(255,0,255,0.15)]' : activeTier === 'ELITE' ? 'border-t-[#50C878] shadow-[0_0_30px_rgba(80,200,120,0.15)]' : 'border-t-[#00BFFF] shadow-[0_0_20px_rgba(0,191,255,0.1)]'}`}>
           
-          {/* Tech Decals (Corners & Barcodes) */}
           <div className={`absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 ${activeTier === 'ULTIMATE' ? 'border-[#FF00FF]' : activeTier === 'ELITE' ? 'border-[#50C878]' : 'border-[#00BFFF]'}`}></div>
           <div className={`absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 ${activeTier === 'ULTIMATE' ? 'border-[#FF00FF]' : activeTier === 'ELITE' ? 'border-[#50C878]' : 'border-[#00BFFF]'}`}></div>
           <div className="absolute bottom-4 right-4 opacity-20 transform rotate-90 origin-bottom-right">
@@ -116,7 +116,6 @@ function BillingContent() {
             </h3>
             <div className={`bg-[#010409]/80 backdrop-blur-md border p-4 rounded flex flex-row justify-between items-center relative overflow-hidden group cursor-pointer transition-all ${licenseKey ? 'border-[#50C878]/50 hover:border-[#50C878]' : 'border-[#00BFFF]/30 hover:border-[#00BFFF]'}`}>
               
-              {/* Scanning Laser Animation inside the key box */}
               <div className={`absolute top-0 left-0 w-full h-[2px] opacity-50 animate-[slide-in_2s_linear_infinite] ${activeTier === 'ULTIMATE' ? 'bg-[#FF00FF] shadow-[0_0_8px_#FF00FF]' : activeTier === 'ELITE' ? 'bg-[#50C878] shadow-[0_0_8px_#50C878]' : 'bg-[#00BFFF] shadow-[0_0_8px_#00BFFF]'}`}></div>
               
               <span className={`font-mono text-sm tracking-[0.3em] relative z-10 ${licenseKey ? 'text-[#50C878] drop-shadow-[0_0_5px_rgba(80,200,120,0.8)]' : 'text-[#E6EDF3]'}`}>
@@ -131,7 +130,6 @@ function BillingContent() {
 
         {/* AAA Payment Method Stub */}
         <div className="glass-panel relative flex flex-col p-6 border-l-4 border-l-[#FFBF00] opacity-90 overflow-hidden">
-          {/* Subtle Warning Background Stripes */}
           <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,191,0,0.03)_10px,rgba(255,191,0,0.03)_20px)] pointer-events-none"></div>
           
           <h3 className="font-orbitron text-[#FFBF00] text-xs font-bold tracking-widest uppercase mb-2 relative z-10 flex items-center gap-2">
@@ -147,26 +145,25 @@ function BillingContent() {
       {/* =========================================================
           RIGHT COLUMN: OVERCLOCKED UPGRADE MATRIX
           ========================================================= */}
-      <div className="w-full lg:w-2/3 flex flex-col gap-8">
+      <div className="w-full flex-1 flex flex-col gap-8">
         
         <div className="flex flex-row justify-between items-end border-b border-[#E6EDF3]/10 pb-2">
           <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-[0.2em] uppercase">
             Expansion Modules
           </h2>
-          <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest">
+          <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest hidden sm:block">
             Select Tier to Initiate Handshake
           </span>
         </div>
 
-        {/* --- ELITE TIER UPGRADE (Emerald Intent) --- */}
+        {/* --- ELITE TIER UPGRADE --- */}
         <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#50C878] hover:bg-[#50C878]/5 transition-colors duration-300">
           
-          {/* "RECOMMENDED" Badge */}
           <div className="absolute top-0 right-8 bg-[#50C878] text-[#010409] font-orbitron text-[9px] font-bold tracking-[0.2em] px-3 py-1 uppercase rounded-b-md shadow-[0_0_10px_rgba(80,200,120,0.5)]">
             Studio Standard
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
             <div className="flex flex-col flex-1">
               <h3 className="font-orbitron text-3xl text-[#50C878] font-bold tracking-widest uppercase mb-1 drop-shadow-[0_0_8px_rgba(80,200,120,0.6)] group-hover:scale-[1.02] transition-transform origin-left">
                 Hi Handy Elite
@@ -191,7 +188,7 @@ function BillingContent() {
               </ul>
             </div>
             
-            <div className="flex flex-col items-start md:items-end w-full md:w-56 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-6">
+            <div className="flex flex-col items-start xl:items-end w-full xl:w-56 border-t xl:border-t-0 xl:border-l border-white/10 pt-6 xl:pt-0 xl:pl-6">
               <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$49<span className="text-sm text-[#8B949E]">/mo</span></span>
               
               <button 
@@ -205,15 +202,14 @@ function BillingContent() {
           </div>
         </div>
 
-        {/* --- ULTIMATE TIER UPGRADE (Fuchsia Intent for heavy processing) --- */}
+        {/* --- ULTIMATE TIER UPGRADE --- */}
         <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#FF00FF] hover:bg-[#FF00FF]/5 transition-colors duration-300">
           
-          {/* "OVERCLOCKED" Badge */}
           <div className="absolute top-0 right-8 bg-[#FF00FF] text-[#010409] font-orbitron text-[9px] font-bold tracking-[0.2em] px-3 py-1 uppercase rounded-b-md shadow-[0_0_10px_rgba(255,0,255,0.5)]">
             Overclocked Matrix
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
             <div className="flex flex-col flex-1">
               <h3 className="font-orbitron text-3xl text-[#FF00FF] font-bold tracking-widest uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,0,255,0.6)] group-hover:scale-[1.02] transition-transform origin-left">
                 Hi Handy Ultimate
@@ -238,8 +234,8 @@ function BillingContent() {
               </ul>
             </div>
             
-            <div className="flex flex-col items-start md:items-end w-full md:w-auto">
-              <span className="font-orbitron text-3xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
+            <div className="flex flex-col items-start xl:items-end w-full xl:w-56 border-t xl:border-t-0 xl:border-l border-white/10 pt-6 xl:pt-0 xl:pl-6">
+              <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
               
               <button 
                 onClick={() => handleCheckout("ultimate")}
@@ -254,7 +250,6 @@ function BillingContent() {
 
         {/* --- AAA CRT TRANSACTION TERMINAL --- */}
         <div className="mt-4 relative overflow-hidden bg-[#000] border border-[#FFBF00]/30 rounded-md p-6 shadow-[inset_0_0_20px_rgba(0,0,0,1)]">
-          {/* CRT Scanline Overlay */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_3px] pointer-events-none z-10"></div>
           
           <div className="flex justify-between items-center mb-4 border-b border-[#FFBF00]/20 pb-2 relative z-20">
@@ -287,18 +282,18 @@ function BillingContent() {
 }
 
 // =========================================================================
-// OUTER SHELL: The required Suspense Boundary to prevent Edge Hydration Crashes
+// OUTER SHELL: 
+// REMOVED 'max-w-6xl mx-auto'. The matrix now fully embraces wide monitors.
 // =========================================================================
 export default function BillingPage() {
   return (
-    <div className="w-full h-full flex flex-col relative z-10 max-w-6xl mx-auto">
-      {/* Page Header */}
+    <div className="w-full h-full flex flex-col relative z-10">
       <div className="w-full flex flex-col mb-10 border-b border-[#FFBF00]/30 pb-4">
         <div className="flex flex-row items-center gap-4">
           <h1 className="font-orbitron text-2xl md:text-3xl text-[#FFBF00] font-bold uppercase tracking-[0.15em] drop-shadow-[0_0_8px_rgba(255,191,0,0.6)]">
             Billing & License Management
           </h1>
-          <span className="px-3 py-1 bg-[#FFBF00]/20 border border-[#FFBF00]/50 text-[#FFBF00] text-[10px] font-orbitron uppercase tracking-widest rounded animate-pulse">
+          <span className="px-3 py-1 bg-[#FFBF00]/20 border border-[#FFBF00]/50 text-[#FFBF00] text-[10px] font-orbitron uppercase tracking-widest rounded animate-pulse hidden sm:block">
             256-bit Encrypted Gateway
           </span>
         </div>
@@ -307,7 +302,6 @@ export default function BillingPage() {
         </p>
       </div>
 
-      {/* Safe Suspense Boundary */}
       <Suspense fallback={
         <div className="w-full h-64 flex flex-col justify-center items-center gap-4">
           <div className="w-12 h-12 border-4 border-[#FFBF00]/20 border-t-[#FFBF00] rounded-full animate-spin"></div>
