@@ -6,7 +6,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 // =========================================================================
-// INNER MATRIX: The AAA Billing Engine (Unleashed PC Layout)
+// INNER MATRIX: The Live Billing Engine (Scaled & Unleashed)
 // =========================================================================
 function BillingContent() {
   const searchParams = useSearchParams();
@@ -44,7 +44,7 @@ function BillingContent() {
     }
   }, [searchParams]);
 
-  // --- NATIVE TELEPORT INJECTOR ---
+  // --- NATIVE TELEPORT INJECTOR (LIVE GATEWAY) ---
   const handleCheckout = (targetTier: "elite" | "ultimate") => {
     setIsLoading(targetTier);
     
@@ -56,10 +56,10 @@ function BillingContent() {
     ]);
 
     // =========================================================
-    // THE STRIPE PAYMENT LINK ROUTER
+    // PRODUCTION BRAND RESEND/STRIPE LINKS
     // =========================================================
-    const stripeLinkElite = "https://buy.stripe.com/test_00w9ATcljeW6dDgdyN00000";
-    const stripeLinkUltimate = process.env.NEXT_PUBLIC_STRIPE_LINK_ULTIMATE || "https://buy.stripe.com/test_ultimate_placeholder";
+    const stripeLinkElite = "https://buy.stripe.com/aFa4gzcnaaoe0Iqahy6g8";
+    const stripeLinkUltimate = "https://buy.stripe.com/28E14n0Es8g6bn475m6g802";
 
     const targetUrl = targetTier === "elite" ? stripeLinkElite : stripeLinkUltimate;
 
@@ -67,7 +67,6 @@ function BillingContent() {
     setTimeout(() => {
       window.open(targetUrl, "_blank", "noopener,noreferrer");
       
-      // Reset the button state so they can click it again if they close the tab
       setIsLoading(null);
       setTerminalLogs(prev => [
         ...prev,
@@ -77,13 +76,13 @@ function BillingContent() {
   };
 
   return (
-    // UNLEASHED: Flexes to row on huge screens (2xl), drops gap constraints
-    <div className="w-full flex flex-col 2xl:flex-row gap-10">
+    // UNLEASHED: Flexes to row on huge screens, fully upscaled text sizes
+    <div className="w-full flex flex-col xl:flex-row gap-10">
       
       {/* =========================================================
           LEFT COLUMN: ACTIVE CREDENTIALS (HOLOGRAPHIC ID CARD)
           ========================================================= */}
-      <div className="w-full 2xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
+      <div className="w-full xl:w-[450px] flex-shrink-0 flex flex-col gap-8">
         
         {/* AAA Active License Card */}
         <div className={`relative glass-panel clip-angled flex flex-col p-8 border-t-4 transition-all duration-500 overflow-hidden ${activeTier === 'ULTIMATE' ? 'border-t-[#FF00FF] shadow-[0_0_30px_rgba(255,0,255,0.15)]' : activeTier === 'ELITE' ? 'border-t-[#50C878] shadow-[0_0_30px_rgba(80,200,120,0.15)]' : 'border-t-[#00BFFF] shadow-[0_0_20px_rgba(0,191,255,0.1)]'}`}>
@@ -95,33 +94,33 @@ function BillingContent() {
           </div>
 
           <div className="flex flex-row justify-between items-start mb-8 relative z-10">
-            <h2 className={`font-orbitron text-sm font-bold tracking-widest uppercase ${activeTier === 'ULTIMATE' ? 'text-[#FF00FF]' : activeTier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'}`}>
+            <h2 className={`font-orbitron text-base font-bold tracking-widest uppercase ${activeTier === 'ULTIMATE' ? 'text-[#FF00FF]' : activeTier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'}`}>
               Current Access Tier
             </h2>
-            <span className={`w-3 h-3 rounded-full animate-ping ${activeTier === 'ULTIMATE' ? 'bg-[#FF00FF] shadow-[0_0_10px_#FF00FF]' : activeTier === 'ELITE' ? 'bg-[#50C878] shadow-[0_0_10px_#50C878]' : 'bg-[#00BFFF] shadow-[0_0_10px_#00BFFF]'}`}></span>
+            <span className={`w-3.5 h-3.5 rounded-full animate-ping ${activeTier === 'ULTIMATE' ? 'bg-[#FF00FF] shadow-[0_0_10px_#FF00FF]' : activeTier === 'ELITE' ? 'bg-[#50C878] shadow-[0_0_10px_#50C878]' : 'bg-[#00BFFF] shadow-[0_0_10px_#00BFFF]'}`}></span>
           </div>
           
           <div className="flex flex-col items-center justify-center my-6 relative z-10">
             <p className="font-orbitron text-6xl text-[#E6EDF3] font-black tracking-widest drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
               {activeTier}
             </p>
-            <p className={`font-inter text-[10px] uppercase tracking-[0.3em] mt-2 ${activeTier === 'ULTIMATE' ? 'text-[#FF00FF]' : activeTier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'}`}>
+            <p className={`font-inter text-xs uppercase tracking-[0.3em] mt-3 ${activeTier === 'ULTIMATE' ? 'text-[#FF00FF]' : activeTier === 'ELITE' ? 'text-[#50C878]' : 'text-[#00BFFF]'}`}>
               Status: Biometrically Verified
             </p>
           </div>
 
           <div className="mt-auto pt-6 border-t border-white/10 relative z-10">
-            <h3 className="font-orbitron text-[#8B949E] text-[10px] tracking-[0.2em] uppercase mb-3">
+            <h3 className="font-orbitron text-[#8B949E] text-xs tracking-[0.2em] uppercase mb-3">
               Assigned Neural Key
             </h3>
             <div className={`bg-[#010409]/80 backdrop-blur-md border p-4 rounded flex flex-row justify-between items-center relative overflow-hidden group cursor-pointer transition-all ${licenseKey ? 'border-[#50C878]/50 hover:border-[#50C878]' : 'border-[#00BFFF]/30 hover:border-[#00BFFF]'}`}>
               
               <div className={`absolute top-0 left-0 w-full h-[2px] opacity-50 animate-[slide-in_2s_linear_infinite] ${activeTier === 'ULTIMATE' ? 'bg-[#FF00FF] shadow-[0_0_8px_#FF00FF]' : activeTier === 'ELITE' ? 'bg-[#50C878] shadow-[0_0_8px_#50C878]' : 'bg-[#00BFFF] shadow-[0_0_8px_#00BFFF]'}`}></div>
               
-              <span className={`font-mono text-sm tracking-[0.3em] relative z-10 ${licenseKey ? 'text-[#50C878] drop-shadow-[0_0_5px_rgba(80,200,120,0.8)]' : 'text-[#E6EDF3]'}`}>
+              <span className={`font-mono text-base tracking-[0.3em] relative z-10 ${licenseKey ? 'text-[#50C878] drop-shadow-[0_0_5px_rgba(80,200,120,0.8)]' : 'text-[#E6EDF3]'}`}>
                 {licenseKey ? licenseKey : "XXXX-XXXX-XXXX-XXXX"}
               </span>
-              <span className="font-orbitron text-[10px] text-[#00BFFF] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity relative z-10 bg-[#00BFFF]/20 px-2 py-1 rounded">
+              <span className="font-orbitron text-xs text-[#00BFFF] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity relative z-10 bg-[#00BFFF]/20 px-3 py-1.5 rounded">
                 Copy
               </span>
             </div>
@@ -132,10 +131,10 @@ function BillingContent() {
         <div className="glass-panel relative flex flex-col p-6 border-l-4 border-l-[#FFBF00] opacity-90 overflow-hidden">
           <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,191,0,0.03)_10px,rgba(255,191,0,0.03)_20px)] pointer-events-none"></div>
           
-          <h3 className="font-orbitron text-[#FFBF00] text-xs font-bold tracking-widest uppercase mb-2 relative z-10 flex items-center gap-2">
+          <h3 className="font-orbitron text-[#FFBF00] text-sm font-bold tracking-widest uppercase mb-2 relative z-10 flex items-center gap-2">
             <span className="text-lg">⚠</span> Financial Node
           </h3>
-          <p className="font-mono text-[10px] text-[#8B949E] tracking-widest uppercase relative z-10">
+          <p className="font-mono text-xs text-[#8B949E] tracking-widest uppercase relative z-10 leading-relaxed">
             No active payment profiles linked to this core. Teleport required for upgrades.
           </p>
         </div>
@@ -151,15 +150,15 @@ function BillingContent() {
           <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-[0.2em] uppercase">
             Expansion Modules
           </h2>
-          <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest hidden sm:block">
+          <span className="font-mono text-xs text-[#8B949E] uppercase tracking-widest hidden sm:block">
             Select Tier to Initiate Handshake
           </span>
         </div>
 
-        {/* --- ELITE TIER UPGRADE --- */}
+        {/* --- ELITE TIER UPGRADE (LIVE) --- */}
         <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#50C878] hover:bg-[#50C878]/5 transition-colors duration-300">
           
-          <div className="absolute top-0 right-8 bg-[#50C878] text-[#010409] font-orbitron text-[9px] font-bold tracking-[0.2em] px-3 py-1 uppercase rounded-b-md shadow-[0_0_10px_rgba(80,200,120,0.5)]">
+          <div className="absolute top-0 right-8 bg-[#50C878] text-[#010409] font-orbitron text-[10px] font-bold tracking-[0.2em] px-3 py-1.5 uppercase rounded-b-md shadow-[0_0_10px_rgba(80,200,120,0.5)]">
             Studio Standard
           </div>
 
@@ -172,7 +171,7 @@ function BillingContent() {
                 The Architect's Baseline Framework
               </p>
               
-              <ul className="font-mono text-[11px] text-[#E6EDF3] flex flex-col gap-3">
+              <ul className="font-mono text-xs text-[#E6EDF3] flex flex-col gap-3">
                 <li className="flex items-center gap-3">
                   <span className="text-[#50C878] drop-shadow-[0_0_5px_#50C878]">▰</span> 
                   Local 'Bring Your Own Brain' (BYOB) LLM Routing
@@ -194,7 +193,7 @@ function BillingContent() {
               <button 
                 onClick={() => handleCheckout("elite")}
                 disabled={isLoading !== null}
-                className="w-full font-orbitron text-[10px] py-4 mt-4 bg-[#50C878]/10 border border-[#50C878] text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_15px_rgba(80,200,120,0.3)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20 group-hover:shadow-[0_0_25px_rgba(80,200,120,0.6)]"
+                className="w-full font-orbitron text-xs py-4 mt-4 bg-[#50C878]/10 border border-[#50C878] text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_15px_rgba(80,200,120,0.3)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20 group-hover:shadow-[0_0_25px_rgba(80,200,120,0.6)]"
               >
                 {isLoading === "elite" ? "[ TELEPORTING ]" : "Initialize Gateway"}
               </button>
@@ -202,23 +201,23 @@ function BillingContent() {
           </div>
         </div>
 
-        {/* --- ULTIMATE TIER UPGRADE --- */}
-        <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#FF00FF] hover:bg-[#FF00FF]/5 transition-colors duration-300">
+        {/* --- ULTIMATE TIER UPGRADE (COMING SOON OVERRIDE) --- */}
+        <div className="group holographic-card clip-angled flex flex-col relative p-8 border-l-4 border-l-[#FF00FF] bg-[#FF00FF]/5 transition-colors duration-300">
           
-          <div className="absolute top-0 right-8 bg-[#FF00FF] text-[#010409] font-orbitron text-[9px] font-bold tracking-[0.2em] px-3 py-1 uppercase rounded-b-md shadow-[0_0_10px_rgba(255,0,255,0.5)]">
-            Overclocked Matrix
+          <div className="absolute top-0 right-8 bg-[#FF00FF] text-[#010409] font-orbitron text-[10px] font-bold tracking-[0.2em] px-3 py-1.5 uppercase rounded-b-md shadow-[0_0_10px_rgba(255,0,255,0.5)]">
+            Coming Soon
           </div>
 
           <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
             <div className="flex flex-col flex-1">
-              <h3 className="font-orbitron text-3xl text-[#FF00FF] font-bold tracking-widest uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,0,255,0.6)] group-hover:scale-[1.02] transition-transform origin-left">
+              <h3 className="font-orbitron text-3xl text-[#FF00FF] font-black tracking-widest uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,0,255,0.6)] group-hover:scale-[1.02] transition-transform origin-left">
                 Hi Handy Ultimate
               </h3>
-              <p className="font-inter text-xs text-[#8B949E] mb-4 uppercase tracking-widest">
-                Enterprise Cloud Synchronization
+              <p className="font-inter text-xs text-[#FF00FF] mb-4 uppercase tracking-[0.2em] font-bold">
+                MODULE LOCKED // COMING SOON
               </p>
               
-              <ul className="font-mono text-[11px] text-[#E6EDF3] flex flex-col gap-3">
+              <ul className="font-mono text-xs text-[#E6EDF3] flex flex-col gap-3">
                 <li className="flex items-center gap-3">
                   <span className="text-[#FF00FF] drop-shadow-[0_0_5px_#FF00FF]">▰</span> 
                   Harrison Interactive Cloudflare Backend Integration
@@ -234,15 +233,14 @@ function BillingContent() {
               </ul>
             </div>
             
-            <div className="flex flex-col items-start xl:items-end w-full xl:w-56 border-t xl:border-t-0 xl:border-l border-white/10 pt-6 xl:pt-0 xl:pl-6">
+            <div className="flex flex-col items-start xl:items-end w-full xl:w-56 border-t xl:border-t-0 xl:border-l border-white/10 pt-6 xl:pt-0 xl:pl-6 opacity-60">
               <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$99<span className="text-sm text-[#8B949E]">/mo</span></span>
               
               <button 
-                onClick={() => handleCheckout("ultimate")}
-                disabled={isLoading !== null}
-                className="w-full font-orbitron text-[10px] py-4 mt-4 bg-[#FF00FF]/10 border border-[#FF00FF] text-[#FF00FF] hover:bg-[#FF00FF] hover:text-[#010409] transition-all uppercase tracking-[0.2em] font-bold shadow-[0_0_15px_rgba(255,0,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer relative z-20 group-hover:shadow-[0_0_25px_rgba(255,0,255,0.6)]"
+                disabled={true}
+                className="w-full font-orbitron text-xs py-4 mt-4 bg-[#FF00FF]/10 border border-[#FF00FF]/40 text-[#FF00FF]/50 uppercase tracking-[0.2em] font-bold cursor-not-allowed relative z-20"
               >
-                {isLoading === "ultimate" ? "[ TELEPORTING ]" : "Initialize Gateway"}
+                COMING SOON
               </button>
             </div>
           </div>
@@ -253,13 +251,13 @@ function BillingContent() {
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_3px] pointer-events-none z-10"></div>
           
           <div className="flex justify-between items-center mb-4 border-b border-[#FFBF00]/20 pb-2 relative z-20">
-            <h3 className="font-orbitron text-[#FFBF00] text-xs font-bold tracking-[0.2em] uppercase">
+            <h3 className="font-orbitron text-[#FFBF00] text-sm font-bold tracking-[0.2em] uppercase">
               Terminal.exe // Stripe_Logs
             </h3>
-            <span className="font-mono text-[9px] text-[#FFBF00] animate-pulse">LIVE UPLINK</span>
+            <span className="font-mono text-[10px] text-[#FFBF00] animate-pulse">LIVE UPLINK</span>
           </div>
 
-          <div className="font-mono text-[11px] text-[#8B949E] flex flex-col gap-2 overflow-y-auto max-h-48 relative z-20 pl-2 border-l border-[#FFBF00]/20">
+          <div className="font-mono text-xs text-[#8B949E] flex flex-col gap-2 overflow-y-auto max-h-48 relative z-20 pl-2 border-l border-[#FFBF00]/20">
             {terminalLogs.map((log, index) => (
               <div key={index} className="flex gap-2">
                 <span className="text-[#FFBF00]/50 select-none">{'>'}</span>
@@ -270,7 +268,7 @@ function BillingContent() {
             ))}
             <div className="flex gap-2 mt-1">
               <span className="text-[#FFBF00]/50 select-none">{'>'}</span>
-              <p className="text-[#FFBF00] animate-pulse bg-[#FFBF00] w-2 h-3 mt-1"></p>
+              <p className="text-[#FFBF00] animate-pulse bg-[#FFBF00] w-2 h-3.5 mt-1"></p>
             </div>
           </div>
         </div>
@@ -282,8 +280,7 @@ function BillingContent() {
 }
 
 // =========================================================================
-// OUTER SHELL: 
-// REMOVED 'max-w-6xl mx-auto'. The matrix now fully embraces wide monitors.
+// OUTER SHELL: The required Suspense Boundary
 // =========================================================================
 export default function BillingPage() {
   return (
@@ -293,7 +290,7 @@ export default function BillingPage() {
           <h1 className="font-orbitron text-2xl md:text-3xl text-[#FFBF00] font-bold uppercase tracking-[0.15em] drop-shadow-[0_0_8px_rgba(255,191,0,0.6)]">
             Billing & License Management
           </h1>
-          <span className="px-3 py-1 bg-[#FFBF00]/20 border border-[#FFBF00]/50 text-[#FFBF00] text-[10px] font-orbitron uppercase tracking-widest rounded animate-pulse hidden sm:block">
+          <span className="px-3 py-1 bg-[#FFBF00]/20 border border-[#FFBF00]/50 text-[#FFBF00] text-[10px] font-orbitron uppercase tracking-widest rounded animate-pulse">
             256-bit Encrypted Gateway
           </span>
         </div>
