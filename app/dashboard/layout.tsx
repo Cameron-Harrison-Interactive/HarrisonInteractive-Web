@@ -2,21 +2,39 @@
 
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import AuthGuard from "../components/AuthGuard";
 import { SessionProvider, useSession, signOut } from "next-auth/react";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | OMNI-LINK SIDEBAR COMPONENT (SAFE HYDRATED)
+ * HARRISON INTERACTIVE | OMNI-LINK SIDEBAR COMPONENT (AUTO-WIRED)
  * =========================================================================
- * Uses safe optional chaining (?.) on useSession() to prevent fatal 
- * TypeError crashes during the server-side pre-rendering/hydration phase.
+ * Detects if rendering inside the Unreal Engine 5 CEF WebBrowser widget,
+ * and automatically pings the C++ plugin with the active license key.
  */
 function OmniLinkSidebar() {
-  // SAFE HYDRATION PROTOCOL: Capture the raw context first
   const sessionContext = useSession();
   const session = sessionContext?.data;
+
+  // =========================================================================
+  // THE AUTOMATED UNREAL ENGINE 5 HANDSHAKE (AUTO-WIRE)
+  // =========================================================================
+  useEffect(() => {
+    // Safely extract the decrypted key and tier from the session
+    const userKey = (session?.user as any)?.key;
+    const userTier = (session?.user as any)?.tier;
+
+    if (userKey && typeof window !== "undefined" && (window as any).ue?.handy) {
+      console.log(`[SYS] Native UE5 environment detected. Transmitting License: [${userKey}]`);
+      
+      // Physically pings your C++ bouncer to activate Elite/Ultimate features instantly!
+      (window as any).ue.handy.sendToUnreal(JSON.stringify({
+        intent: "VALIDATE_LICENSE",
+        key: userKey
+      }));
+    }
+  }, [session]);
 
   return (
     <aside className="w-80 glass-panel border-r border-[#00BFFF]/20 flex flex-col justify-between hidden md:flex shadow-[5px_0_20px_rgba(0,0,0,0.8)] z-20 overflow-y-auto">
@@ -75,7 +93,7 @@ function OmniLinkSidebar() {
               <div className="flex items-center gap-1 mt-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#50C878] shadow-[0_0_5px_#50C878] animate-pulse"></span>
                 <span className="font-mono text-[8px] text-[#50C878] tracking-[0.2em] uppercase">
-                  TIER: LITE
+                  TIER: {(session?.user as any)?.tier || "LITE"}
                 </span>
               </div>
             </div>
@@ -161,7 +179,7 @@ export default function DashboardLayout({
       <AuthGuard>
         <div className="w-full h-full min-h-screen flex flex-row relative z-10 overflow-hidden bg-transparent">
           
-          {/* THE NEW BIOMETRIC SIDEBAR */}
+          {/* THE AUTO-WIRED SIDEBAR */}
           <OmniLinkSidebar />
 
           {/* MAIN CONTENT VIEWPORT */}

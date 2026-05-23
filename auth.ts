@@ -8,10 +8,11 @@ import { D1Adapter } from "@auth/d1-adapter";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | NEXTAUTH V5 (STATEFUL D1 + RESEND)
+ * HARRISON INTERACTIVE | NEXTAUTH V5 (STATEFUL D1 + HANDSHAKE CORE)
  * =========================================================================
- * The central brain of the Auth Matrix. Now permanently bound to the 
- * D1 SQL Ledger and capable of dispatching secure Magic Links via Resend.
+ * The central brain of the Auth Matrix. Permanently bound to the D1 SQL Ledger.
+ * Dynamically queries the database on session checks to ensure the client-side
+ * always possesses the real-time license_tier and neural_key for the Unreal Engine.
  */
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -21,14 +22,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   // OAUTH & MAGIC LINK PROVIDERS
   providers: [
-    // --- MAGIC LINK PROVIDER (RESEND) ---
-    // NOTE: This 'from' email MUST be from a domain you have verified in your Resend account!
     Resend({
       apiKey: process.env.AUTH_RESEND_KEY,
       from: "no-reply@harrisoninteractive.dev",
     }),
-
-    // --- OAUTH PROVIDERS ---
     GitHub({
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
@@ -51,14 +48,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: "/login", 
   },
 
-  // EDGE CALLBACKS
+  // EDGE CALLBACKS (THE HANDSHAKE BINDINGS)
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.id = user.id;
+      // 1. Initial Login/Registration Pass
+      if (user) {
+        token.id = user.id;
+        token.tier = (user as any).license_tier || "LITE";
+        token.key = (user as any).neural_key || "";
+      } 
+      // 2. Real-Time Database Sync (Subsequent Session Checks)
+      // If the user's browser already has a JWT cookie, run a high-speed SQL
+      // query directly against D1 to pull any updated keys or Stripe tiers!
+      else if (token.email && process.env.DB) {
+        try {
+          const db = process.env.DB as any;
+          const { results } = await db
+            .prepare("SELECT license_tier, neural_key FROM users WHERE email = ?")
+            .bind(token.email)
+            .all();
+          
+          if (results && results[0]) {
+            token.tier = results[0].license_tier;
+            token.key = results[0].neural_key;
+          }
+        } catch (error: any) {
+          console.error("[SYS ERR] D1 Session Sync Failed: ", error.message);
+        }
+      }
       return token;
     },
+
     async session({ session, token }) {
-      if (session.user && token.id) session.user.id = token.id as string;
+      // Inject the database parameters safely into the frontend session
+      if (session.user) {
+        (session.user as any).id = token.id as string;
+        (session.user as any).tier = (token.tier as string) || "LITE";
+        (session.user as any).key = (token.key as string) || "";
+      }
       return session;
     },
   },
