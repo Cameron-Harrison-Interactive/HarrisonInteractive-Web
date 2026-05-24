@@ -11,50 +11,59 @@ export default function VotePage() {
   ];
 
   return (
-    <main className="min-h-screen relative flex flex-col items-center justify-center p-6 text-white overflow-hidden">
-      {/* Background Image */}
+    <main className="min-h-screen relative flex flex-col items-center justify-center p-6 text-white overflow-hidden bg-[#0A192F]">
+      {/* Background Layer */}
       <div className="absolute inset-0 -z-10">
         <Image
           src="/background3.jpg"
-          alt="Background"
+          alt="Twin Flames Background"
           fill
-          className="object-cover opacity-30"
+          priority
+          className="object-cover opacity-20"
         />
       </div>
 
-      {/* Main Content Card */}
-      <div className="bg-[#0A192F]/80 border-2 border-[#00D2FF] p-8 md:p-12 rounded-lg max-w-2xl w-full backdrop-blur-sm shadow-[0_0_20px_rgba(0,210,255,0.3)]">
+      {/* Main Container */}
+      <div className="max-w-xl w-full flex flex-col items-center z-10">
         
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#00D2FF] mb-4 uppercase tracking-widest">
-            Support Twin Flames
-          </h1>
-          <p className="text-gray-300 text-lg">
-            Vote daily to keep the fire burning and earn exclusive in-game keys!
-          </p>
+        {/* Header/Logo Section (Using your Glow Pattern) */}
+        <div className="relative w-48 h-48 mb-8 flex items-center justify-center group cursor-default">
+           <div className="absolute inset-0 bg-[#00D2FF]/20 rounded-full blur-[40px] animate-pulse"></div>
+           <Image 
+             src="/bgpicture1.jpg" 
+             alt="Twin Flames Logo" 
+             width={150}
+             height={150}
+             className="relative z-10 drop-shadow-[0_0_20px_rgba(0,210,255,0.8)]"
+           />
         </div>
 
-        <div className="grid gap-4">
+        <h1 className="text-4xl font-bold text-white mb-8 tracking-tighter uppercase drop-shadow-md">
+          Ignite the <span className="text-[#00D2FF]">Flame</span>
+        </h1>
+
+        {/* Voting Buttons */}
+        <div className="w-full space-y-4">
           {voteSites.map((site) => (
             <Link 
               key={site.name} 
               href={site.url} 
               target="_blank"
-              className="group relative flex items-center justify-between p-4 bg-[#0A192F] border border-[#00D2FF] hover:bg-[#00D2FF] transition-all duration-300 rounded shadow-md hover:shadow-[0_0_15px_#00D2FF]"
+              className="group relative flex items-center justify-center p-4 bg-[#0A192F]/60 border border-[#00D2FF]/50 rounded-lg backdrop-blur-md hover:bg-[#00D2FF]/10 transition-all duration-300 hover:border-[#00D2FF] shadow-lg"
             >
-              <span className="text-xl font-semibold text-white group-hover:text-[#0A192F]">
-                {site.name}
-              </span>
-              <span className="text-sm px-3 py-1 bg-[#00D2FF] text-[#0A192F] font-bold rounded group-hover:bg-white">
-                VOTE
+              {/* Button Glow Effect */}
+              <div className="absolute inset-0 bg-[#00D2FF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <span className="text-lg font-bold text-white group-hover:text-[#00D2FF] transition-colors duration-300">
+                Vote on {site.name}
               </span>
             </Link>
           ))}
         </div>
 
-        <div className="mt-10 text-center text-sm text-gray-400">
-          <p>Links open in a new tab. Thank you for being part of the Twin Flames community!</p>
-        </div>
+        <p className="mt-8 text-sm text-gray-500 font-mono">
+          Twin Flames Network // Secured Node
+        </p>
       </div>
     </main>
   );
