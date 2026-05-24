@@ -15,7 +15,7 @@ export default function VotePage() {
       {/* Background Layer */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/background3.png"
+          src="/bgpicture1.png"
           alt="Twin Flames Background"
           fill
           priority
@@ -30,7 +30,7 @@ export default function VotePage() {
         <div className="relative w-48 h-48 mb-8 flex items-center justify-center group cursor-default">
            <div className="absolute inset-0 bg-[#00D2FF]/20 rounded-full blur-[40px] animate-pulse"></div>
            <Image 
-             src="/bgpicture1.png" 
+             src="/background3.png" 
              alt="Twin Flames Logo" 
              width={150}
              height={150}
