@@ -62,7 +62,7 @@ export default function VotePage() {
         </div>
 
         <p className="mt-8 text-sm text-gray-500 font-mono">
-          Twin Flames Network // Secured Node
+          Twin Flames Network // Secured Node.
         </p>
       </div>
     </main>
