@@ -14,7 +14,7 @@ import React from "react";
  */
 export default function VotePage() {
   const voteSites = [
-    { name: 'Minecraft Buzz', url: 'https://minecraft.buzz/server/21170' },
+    { name: 'Minecraft Buzz', url: 'https://minecraft.buzz/vote/21170' },
     { name: 'Minecraft-MP', url: 'https://minecraft-mp.com/server-s358424' },
     { name: 'Minecraft-Server-List', url: 'https://minecraft-server-list.com/server/520409/' },
     { name: 'MinecraftServers.org', url: 'https://minecraftservers.org/server/687860' },
