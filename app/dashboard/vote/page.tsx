@@ -1,6 +1,17 @@
-import Image from 'next/image';
-import Link from 'next/link';
+/* --- START OF FILE app/dashboard/vote/page.tsx --- */
 
+"use client";
+
+import React from "react";
+
+/**
+ * =========================================================================
+ * HARRISON INTERACTIVE | TWIN FLAMES VOTING MATRIX (SCALED & CLOUDFLARE-SAFE)
+ * =========================================================================
+ * Pure, native <img> tags are used to bypass Vercel's proprietary image 
+ * optimization engine, guaranteeing 100% image loading success on Cloudflare Pages.
+ * Typography has been globally upscaled for large PC monitors.
+ */
 export default function VotePage() {
   const voteSites = [
     { name: 'Minecraft Buzz', url: 'https://minecraft.buzz/server/21170' },
@@ -11,60 +22,62 @@ export default function VotePage() {
   ];
 
   return (
-    <main className="min-h-screen relative flex flex-col items-center justify-center p-6 text-white overflow-hidden bg-[#0A192F]">
-      {/* Background Layer */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/bgpicture1.png"
-          alt="Twin Flames Background"
-          fill
-          priority
-          className="object-cover opacity-20"
-        />
-      </div>
+    <main className="min-h-screen relative flex flex-col items-center justify-center p-8 text-white overflow-hidden bg-[#0A192F]">
+      
+      {/* 
+        =========================================================
+        CLOUDFLARE-SAFE BACKGROUND (NATIVE <img> TAG)
+        ========================================================= 
+      */}
+      <img
+        src="/bgpicture1.png"
+        alt="Twin Flames Background"
+        className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none -z-10"
+      />
 
       {/* Main Container */}
-      <div className="max-w-xl w-full flex flex-col items-center z-10">
+      <div className="max-w-2xl w-full flex flex-col items-center z-10">
         
-        {/* Header/Logo Section (Using your Glow Pattern) */}
-        <div className="relative w-48 h-48 mb-8 flex items-center justify-center group cursor-default">
-           <div className="absolute inset-0 bg-[#00D2FF]/20 rounded-full blur-[40px] animate-pulse"></div>
-           <Image 
+        {/* Header/Logo Section (UPSCALED BY 35% FOR PC READABILITY) */}
+        <div className="relative w-64 h-64 mb-10 flex items-center justify-center group cursor-default">
+           <div className="absolute inset-0 bg-[#00D2FF]/20 rounded-full blur-[50px] animate-pulse"></div>
+           <img 
              src="/flame.png" 
              alt="Twin Flames Logo" 
-             width={150}
-             height={150}
-             className="relative z-10 drop-shadow-[0_0_20px_rgba(0,210,255,0.8)]"
+             className="relative z-10 w-52 h-52 drop-shadow-[0_0_25px_rgba(0,210,255,0.8)] object-contain transition-transform duration-700 group-hover:scale-105"
            />
         </div>
 
-        <h1 className="text-4xl font-bold text-white mb-8 tracking-tighter uppercase drop-shadow-md">
-          Ignite the <span className="text-[#00D2FF]">Flame</span>
+        <h1 className="text-4xl md:text-5xl font-black text-white mb-10 tracking-wider uppercase drop-shadow-md text-center">
+          Ignite the <span className="text-[#00D2FF] drop-shadow-[0_0_8px_rgba(0,210,255,0.5)]">Flame</span>
         </h1>
 
-        {/* Voting Buttons */}
-        <div className="w-full space-y-4">
+        {/* Voting Buttons (UPSCALED CARD SIZE) */}
+        <div className="w-full space-y-5">
           {voteSites.map((site) => (
-            <Link 
+            <a 
               key={site.name} 
               href={site.url} 
               target="_blank"
-              className="group relative flex items-center justify-center p-4 bg-[#0A192F]/60 border border-[#00D2FF]/50 rounded-lg backdrop-blur-md hover:bg-[#00D2FF]/10 transition-all duration-300 hover:border-[#00D2FF] shadow-lg"
+              rel="noopener noreferrer"
+              className="group relative flex items-center justify-center p-5 bg-[#0A192F]/60 border border-[#00D2FF]/40 rounded-lg backdrop-blur-md hover:bg-[#00D2FF]/15 transition-all duration-300 hover:border-[#00D2FF] shadow-xl text-center block"
             >
               {/* Button Glow Effect */}
               <div className="absolute inset-0 bg-[#00D2FF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
-              <span className="text-lg font-bold text-white group-hover:text-[#00D2FF] transition-colors duration-300">
+              <span className="text-xl font-bold text-white group-hover:text-[#00D2FF] transition-colors duration-300 tracking-wide">
                 Vote on {site.name}
               </span>
-            </Link>
+            </a>
           ))}
         </div>
 
-        <p className="mt-8 text-sm text-gray-500 font-mono">
+        <p className="mt-10 text-xs text-gray-500 font-mono tracking-widest uppercase">
           Twin Flames Network // Secured Node.
         </p>
       </div>
     </main>
   );
 }
+
+/* --- END OF FILE app/dashboard/vote/page.tsx --- */
