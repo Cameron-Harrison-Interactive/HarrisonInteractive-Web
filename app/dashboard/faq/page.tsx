@@ -704,6 +704,193 @@ const CODEX_DATABASE: CodexEntry[] = [
     description: "A massive optimization tool for open worlds. It takes an entire detailed city block and bakes it down into a single, low-quality mesh when the player is very far away, saving immense GPU power.",
     proTip: "HLODs are essentially mandatory for World Partition games to ensure distant mountains and skylines are visible without crashing the engine.",
     color: "#FFD700"
+  },
+  
+  // =========================================================================
+  // EDITOR INTERFACE & DETAILS PANEL (UI EXPANSION)
+  // =========================================================================
+  {
+    id: "mode_select",
+    title: "Select Mode (Shift+1)",
+    category: "Editor Interface",
+    keywords: ["select mode", "selection", "shift 1", "default mode"],
+    description: "The default Unreal Engine mode used for clicking, moving, rotating, and scaling objects in the world.",
+    proTip: "If you ever get stuck painting grass or sculpting mountains and can't click on your actors anymore, press 'Shift+1' to instantly snap back to Select Mode.",
+    color: "#50C878"
+  },
+  {
+    id: "mode_landscape",
+    title: "Landscape Mode (Shift+2)",
+    category: "Editor Interface",
+    keywords: ["landscape mode", "terrain", "mountains", "sculpt", "shift 2"],
+    description: "The toolset used to sculpt massive terrains, mountains, and valleys, and paint them with dirt, rock, and grass textures.",
+    proTip: "Always use a 'Landscape Material' with 'Layer Blends'. It allows you to paint 5 or 6 different textures smoothly over the same mountain.",
+    color: "#50C878"
+  },
+  {
+    id: "mode_foliage",
+    title: "Foliage Mode (Shift+3)",
+    category: "Editor Interface",
+    keywords: ["foliage mode", "paint trees", "grass", "scatter", "shift 3"],
+    description: "A brush tool that lets you paint thousands of trees, grass blades, and rocks across your level in massive batches instantly.",
+    proTip: "Hold the 'Shift' key while clicking to erase foliage you accidentally painted on the road!",
+    color: "#50C878"
+  },
+  {
+    id: "mode_modeling",
+    title: "Modeling Mode (Shift+5)",
+    category: "Editor Interface",
+    keywords: ["modeling mode", "model", "edit mesh", "extrude", "shift 5"],
+    description: "A complete 3D modeling software built directly inside Unreal Engine 5. It allows you to edit vertices, extrude walls, and fix broken 3D models without opening Blender.",
+    proTip: "Use the 'PolyGroup Edit' tool to quickly select the flat face of a wall and extrude it outward to make a hallway.",
+    color: "#50C878"
+  },
+  {
+    id: "add_quixel",
+    title: "Add Quixel / Megascans",
+    category: "Editor Interface",
+    keywords: ["quixel", "megascans", "add content", "bridge", "assets"],
+    description: "The Quick Add button (a cube with a plus sign) opens the Quixel Bridge, giving you access to thousands of photorealistic 3D scans of the real world.",
+    proTip: "Quixel Megascans are 100% free for anyone using Unreal Engine. You can drag and drop AAA-quality cliffs and brick walls directly into your map.",
+    color: "#50C878"
+  },
+  {
+    id: "world_settings",
+    title: "World Settings",
+    category: "Editor Interface",
+    keywords: ["world settings", "level settings", "override gamemode"],
+    description: "A secret panel that defines the specific rules for the map you are currently looking at.",
+    proTip: "Use World Settings to override your GameMode! You can set it so Level 1 uses the 'Shooter' GameMode, but the Main Menu map uses the 'Menu' GameMode.",
+    color: "#50C878"
+  },
+  {
+    id: "output_log",
+    title: "Output Log",
+    category: "Editor Interface",
+    keywords: ["output log", "console", "errors", "red text", "warnings"],
+    description: "The scrolling text matrix at the bottom of the screen where the engine reports errors, print strings, and warnings.",
+    proTip: "If your game crashes or freezes, the Output Log will almost always tell you exactly which Blueprint and which Node caused the error in bright red text.",
+    color: "#50C878"
+  },
+  {
+    id: "content_filters",
+    title: "Content Drawer Filters",
+    category: "Editor Interface",
+    keywords: ["filter", "content filter", "funnel icon", "search assets"],
+    description: "The little funnel icon in the Content Drawer. It allows you to instantly hide thousands of files and only show specific types of assets.",
+    proTip: "Click the filter icon and select 'Blueprint Class'. This instantly hides all the messy textures, 3D models, and sounds, showing ONLY your programmable code files!",
+    color: "#50C878"
+  },
+  
+  // =========================================================================
+  // VIEWPORT & LIGHTING (EXPANSION)
+  // =========================================================================
+  {
+    id: "viewport_orthographic",
+    title: "Orthographic Views",
+    category: "Viewport & Lighting",
+    keywords: ["orthographic", "perspective", "top view", "side view", "front view", "2d"],
+    description: "Changes the camera from a 3D perspective to perfectly flat 2D blueprints. This removes depth, making it incredibly easy to line up walls and floors precisely.",
+    proTip: "Press 'Alt+G' for 3D Perspective, 'Alt+J' for Top View, and 'Alt+H' for Front View. Use Middle-Mouse click + drag in 2D views to measure exact distances in centimeters!",
+    color: "#FFBF00"
+  },
+
+  // =========================================================================
+  // PHYSICS, AUDIO & INPUTS (DETAILS PANEL EXPANSION)
+  // =========================================================================
+  {
+    id: "mobility_static",
+    title: "Mobility: Static",
+    category: "Physics, Audio & Inputs",
+    keywords: ["static", "mobility static", "immovable", "baked lighting"],
+    description: "Tells the engine this object will NEVER move, rotate, or scale during the game.",
+    proTip: "Set your walls, floors, and heavy buildings to Static. The engine will pre-calculate (bake) lighting for them, saving massive amounts of GPU performance.",
+    color: "#00FA9A"
+  },
+  {
+    id: "mobility_stationary",
+    title: "Mobility: Stationary",
+    category: "Physics, Audio & Inputs",
+    keywords: ["stationary", "mobility stationary", "light mobility"],
+    description: "Usually used for Lights. It means the object cannot move its location, but it CAN change its color or brightness during the game.",
+    proTip: "You can only have 4 overlapping Stationary lights casting shadows at the same time. If a light turns into a Red X, you have too many overlapping!",
+    color: "#00FA9A"
+  },
+  {
+    id: "mobility_movable",
+    title: "Mobility: Movable",
+    category: "Physics, Audio & Inputs",
+    keywords: ["movable", "mobility movable", "dynamic"],
+    description: "Tells the engine this object can move, fall, be destroyed, or be picked up by the player.",
+    proTip: "Movable objects cast dynamic, real-time shadows, which are very heavy on performance. Do not make a coffee cup 'Movable' unless the player actually needs to kick it.",
+    color: "#00FA9A"
+  },
+  {
+    id: "simulate_physics",
+    title: "Simulate Physics",
+    category: "Physics, Audio & Inputs",
+    keywords: ["simulate physics", "gravity", "ragdoll", "falling", "physics"],
+    description: "Checking this box enables real-world gravity and collision for the object, allowing it to fall, roll, and bounce off walls.",
+    proTip: "If you check this box and your object falls straight through the floor, open its Static Mesh window and ensure it actually has a green Collision Box generated around it!",
+    color: "#00FA9A"
+  },
+  {
+    id: "generate_overlap_events",
+    title: "Generate Overlap Events",
+    category: "Physics, Audio & Inputs",
+    keywords: ["generate overlap events", "overlap", "trigger", "sensor"],
+    description: "Allows the object to act like a sensor, triggering an event when the player or a bullet passes completely through it.",
+    proTip: "Turn this OFF in the Details Panel for background props like rocks, mountains, and trees. Disabling unnecessary overlaps massively boosts your CPU performance.",
+    color: "#00FA9A"
+  },
+  {
+    id: "hidden_in_game",
+    title: "Hidden In Game",
+    category: "Physics, Audio & Inputs",
+    keywords: ["hidden in game", "invisible", "hide"],
+    description: "Checking this box keeps the object visible while you are working in the editor, but makes it completely invisible the moment you hit Play.",
+    proTip: "Perfect for hiding ugly red trigger boxes, invisible walls, or spawn markers from the player.",
+    color: "#00FA9A"
+  },
+  {
+    id: "cast_shadow",
+    title: "Cast Shadow",
+    category: "Physics, Audio & Inputs",
+    keywords: ["cast shadow", "shadows", "lighting optimization"],
+    description: "Determines if this 3D model blocks light and creates a shadow on the ground.",
+    proTip: "Turn this OFF for invisible trigger boxes, the sky sphere, and tiny ground debris. Calculating shadows for tiny pebbles wastes tons of frames per second!",
+    color: "#00FA9A"
+  },
+  {
+    id: "actor_tags",
+    title: "Actor Tags",
+    category: "Physics, Audio & Inputs",
+    keywords: ["actor tags", "tags", "component tags", "labels"],
+    description: "Hidden text labels you can attach to an object in the Details Panel (e.g., typing 'Enemy' or 'Fire').",
+    proTip: "Instead of Casting to see if a laser hit an enemy, just check if the Hit Actor 'Actor Has Tag: Enemy'. It is incredibly fast and works on anything!",
+    color: "#00FA9A"
+  },
+
+  // =========================================================================
+  // BLUEPRINT LOGIC (EXPANSION)
+  // =========================================================================
+  {
+    id: "bp_components_panel",
+    title: "Components Panel",
+    category: "Blueprint Logic",
+    keywords: ["components panel", "components", "add component", "hierarchy"],
+    description: "The top-left box when you open a Blueprint. This is where you physically assemble your actor by adding 3D meshes, lights, audio speakers, and collision boxes.",
+    proTip: "The hierarchy matters! If you drag a Light Component *onto* a Mesh Component, the light will become a child, meaning if the mesh rotates, the light rotates with it!",
+    color: "#DC143C"
+  },
+  {
+    id: "bp_construction_script",
+    title: "Construction Script",
+    category: "Blueprint Logic",
+    keywords: ["construction script", "constructor", "before play", "editor script"],
+    description: "A special Blueprint graph that runs its code instantly in the editor window *before* you even hit Play.",
+    proTip: "Use this to change the color of a car mesh based on a variable. As you change the variable in the Details Panel, the car will change color live in the viewport!",
+    color: "#DC143C"
   }
 ];
 
