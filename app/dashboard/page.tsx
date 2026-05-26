@@ -7,50 +7,100 @@ import { useSession } from "next-auth/react";
 
 /**
  * =========================================================================
- * HARRISON INTERACTIVE | COMMAND CENTER (SUPER-EXPANDED OVERVIEW - SCALED)
+ * HARRISON INTERACTIVE | COMMAND CENTER & UE5 CAPTIVE PORTAL
  * =========================================================================
- * Features an un-blockable HTML anchor link for the Stripe Customer Portal.
- * Uses safe optional chaining (?.) on useSession() to prevent SSR crashes.
- * Typography has been globally upscaled for large PC monitors.
+ * Dual-Render Engine:
+ * 1. If loaded in Chrome/Safari -> Renders the standard web Command Center.
+ * 2. If loaded inside Unreal Engine -> Fires a hidden sync payload to Python
+ *    and renders a 1.5s Cinematic Transition before the BP loads local files!
  */
 export default function DashboardOverview() {
-  // SAFE HYDRATION PROTOCOL: Capture the raw context first to prevent SSR crashes
   const sessionContext = useSession();
   const session = sessionContext?.data;
 
   const [time, setTime] = useState<string>("00:00:00");
   const [latency, setLatency] = useState<number>(12);
+  const [isUE5, setIsUE5] = useState<boolean>(false);
 
-  // Simulated live telemetry
+  // 1. DETECT UNREAL ENGINE CEF BROWSER
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (navigator.userAgent.includes("UnrealEngine")) {
+        setIsUE5(true);
+      }
+    }
+  }, []);
+
+  // 2. EMIT THE HIDDEN SYNCHRONIZATION PAYLOAD TO C++
+  useEffect(() => {
+    if (session?.user && isUE5) {
+      const tier = (session.user as any).tier || "LITE";
+      const key = (session.user as any).key || "NO_KEY";
+      
+      // This string is instantly caught by WBP_Handy_Main's OnConsoleMessage!
+      console.log(`HANDY_PROMPT|{"intent": "SYNC_ACCOUNT", "tier": "${tier}", "key": "${key}"}`);
+    }
+  }, [session, isUE5]);
+
+  // Simulated live telemetry for Web View
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      setTime(now.toLocaleTimeString('en-US', { 
-        hour12: false, 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit'
-      }));
+      setTime(now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }));
     }, 1000);
-
-    const ping = setInterval(() => {
-      setLatency(Math.floor(Math.random() * (18 - 8 + 1) + 8)); 
-    }, 2000);
-
-    return () => {
-      clearInterval(timer);
-      clearInterval(ping);
-    };
+    const ping = setInterval(() => { setLatency(Math.floor(Math.random() * (18 - 8 + 1) + 8)); }, 2000);
+    return () => { clearInterval(timer); clearInterval(ping); };
   }, []);
 
+  const handleLaunchBillingPortal = () => {
+    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800";
+    window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
+  };
+
+  // =========================================================================
+  // RENDER A: THE UNREAL ENGINE CINEMATIC TRANSITION (1.5 SECONDS)
+  // =========================================================================
+  if (isUE5) {
+    return (
+      <div className="fixed inset-0 w-full h-full flex items-center justify-center bg-[#010409] z-[9999] overflow-hidden">
+        {/* Holographic Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,191,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,191,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#50C878]/10 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
+
+        <div className="relative z-10 flex flex-col items-center text-center p-12 glass-panel clip-angled border-t-4 border-[#50C878] shadow-[0_0_50px_rgba(80,200,120,0.2)]">
+          <div className="w-24 h-24 border-2 border-[#50C878] rounded-full flex items-center justify-center mb-6 relative group overflow-hidden shadow-[0_0_20px_rgba(80,200,120,0.3)] bg-[#50C878]/5">
+            <div className="absolute inset-0 bg-[#50C878]/20 blur-[10px] animate-pulse"></div>
+            <span className="text-4xl text-[#50C878] drop-shadow-[0_0_10px_rgba(80,200,120,0.8)] relative z-10">✓</span>
+          </div>
+
+          <h1 className="font-orbitron text-3xl text-[#50C878] font-black tracking-[0.2em] uppercase mb-3 drop-shadow-[0_0_8px_rgba(80,200,120,0.5)]">
+            Matrix Unlocked
+          </h1>
+          
+          <p className="font-mono text-sm text-[#E6EDF3] leading-relaxed mb-8">
+            Cryptographic handshake successful. Tier mapped: <strong className="text-[#50C878]">{(session?.user as any)?.tier || "LITE"}</strong>
+          </p>
+
+          <div className="w-full flex flex-col items-center gap-3 border-t border-white/10 pt-6">
+            <div className="w-full h-1.5 bg-[#010409] rounded-full overflow-hidden border border-[#50C878]/30">
+              <div className="h-full bg-[#50C878] shadow-[0_0_10px_#50C878] animate-[pulse_1s_ease-in-out_infinite] w-full"></div>
+            </div>
+            <p className="font-orbitron text-[10px] text-[#50C878] tracking-[0.3em] uppercase animate-pulse">
+              Transferring to Local Air-Gapped Kernel...
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // =========================================================================
+  // RENDER B: THE STANDARD WEB DASHBOARD
+  // =========================================================================
   return (
     <div className="w-full h-full flex flex-col relative z-10">
       
-      {/* 
-        =========================================================
-        DYNAMIC HEADER MATRIX (SCALED)
-        =========================================================
-      */}
+      {/* DYNAMIC HEADER */}
       <div className="w-full flex flex-col xl:flex-row justify-between items-start xl:items-end mb-10 border-b border-[#00BFFF]/30 pb-6 gap-6">
         <div className="flex flex-col">
           <div className="flex flex-row items-center gap-4 mb-3">
@@ -82,14 +132,10 @@ export default function DashboardOverview() {
         </div>
       </div>
 
-      {/* 
-        =========================================================
-        TELEMETRY GRID (SCALED & UNCONSTRAINED)
-        =========================================================
-      */}
+      {/* TELEMETRY GRID */}
       <div className="w-full grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-8 mb-10">
         
-        {/* Node 1: License Status (DYNAMIC COLOR SHIFT ACTIVE) */}
+        {/* Node 1: License Status */}
         <div className={`relative glass-panel clip-angled p-6 border-t-2 shadow-[0_0_15px_rgba(0,191,255,0.1)] hover:shadow-[0_0_25px_rgba(0,191,255,0.2)] transition-all group overflow-hidden ${
           (session?.user as any)?.tier === 'ULTIMATE' ? 'border-t-[#FF00FF]' : (session?.user as any)?.tier === 'ELITE' ? 'border-t-[#50C878]' : 'border-t-[#00BFFF]'
         }`}>
@@ -146,11 +192,7 @@ export default function DashboardOverview() {
 
       </div>
 
-      {/* 
-        =========================================================
-        MAIN ACTIVITY TERMINAL (SCALED & EXPANDED)
-        =========================================================
-      */}
+      {/* MAIN ACTIVITY TERMINAL */}
       <div className="w-full flex-1 flex flex-col xl:flex-row gap-10">
         
         {/* Left: Quick Actions & Billing Portal */}
@@ -175,7 +217,7 @@ export default function DashboardOverview() {
             <span className="text-[#DC143C] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
           </a>
 
-          {/* DYNAMIC SUBSCRIPTION PORTAL CARD (UN-BLOCKABLE ANCHOR LINK INJECTED) */}
+          {/* DYNAMIC SUBSCRIPTION PORTAL CARD */}
           <div className="holographic-card border border-[#FFBF00]/30 clip-angled p-6 bg-[#FFBF00]/5 flex flex-col gap-4 relative overflow-hidden group">
             <div className="absolute inset-0 bg-[#FFBF00]/5 group-hover:bg-[#FFBF00]/10 transition-colors pointer-events-none"></div>
             <div className="flex flex-col">
@@ -187,7 +229,6 @@ export default function DashboardOverview() {
               </p>
             </div>
             
-            {/* 100% UN-BLOCKABLE NATIVE ANCHOR LINK */}
             <a 
               href="https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800"
               target="_blank"
@@ -206,7 +247,6 @@ export default function DashboardOverview() {
           </h2>
           
           <div className="flex-1 min-h-[350px] relative overflow-hidden bg-[#010409] border border-[#00BFFF]/30 rounded-md p-6 shadow-[inset_0_0_30px_rgba(0,0,0,1)]">
-            {/* CRT Scanlines */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_3px] pointer-events-none z-10"></div>
             
             <div className="flex justify-between items-center mb-6 border-b border-[#00BFFF]/20 pb-3 relative z-20">
