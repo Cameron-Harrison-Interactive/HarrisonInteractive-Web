@@ -16,9 +16,13 @@ type CodexCategory =
   | "Hi Handy Matrix"
   | "Unreal Engine Core"
   | "Editor Interface"
-  | "Viewport Controls"
+  | "Viewport & Lighting"
   | "Blueprint Logic"
-  | "Material Pipeline";
+  | "Material & UI Pipeline"
+  | "Multiplayer & Network"
+  | "AI & Animation"
+  | "Physics, Audio & Inputs"
+  | "Optimization & Profiling";
 
 interface CodexEntry {
   id: string;
@@ -32,7 +36,9 @@ interface CodexEntry {
 
 // THE SUPER-EXPANDED MASTER DATABASE
 const CODEX_DATABASE: CodexEntry[] = [
-  // --- HI HANDY MATRIX ---
+  // =========================================================================
+  // HI HANDY MATRIX
+  // =========================================================================
   {
     id: "hi_handy_jarvis",
     title: "JARVIS (Neural AI)",
@@ -40,7 +46,7 @@ const CODEX_DATABASE: CodexEntry[] = [
     keywords: ["jarvis", "ai", "hi handy", "handy", "harrison interactive"],
     description: "Your personal AI Architect created by Harrison Interactive. JARVIS lives inside your Unreal Engine and can write code, build 3D worlds, and fix errors for you automatically!",
     proTip: "Hold Alt + Right-Click on any node, button, or setting in the Unreal Editor to summon JARVIS for an instant, contextual explanation.",
-    color: "#00BFFF" // Cyan
+    color: "#00BFFF" 
   },
   {
     id: "hi_handy_omnilink",
@@ -64,7 +70,7 @@ const CODEX_DATABASE: CodexEntry[] = [
     id: "hi_handy_lite_llm",
     title: "Handy-Lite-LLM (Local AI)",
     category: "Hi Handy Matrix",
-    keywords: ["lite-llm", "handy-lite", "local ai", "offline ai", "ollama", "gpu"],
+    keywords: ["lite-llm", "handy-lite", "local ai", "offline ai", "ollama", "gpu", "vram"],
     description: "A lightweight, offline AI brain that runs directly on your computer's graphics card. It allows the Hi Handy Mentor to teach you Unreal Engine even when your Wi-Fi is disconnected!",
     proTip: "Because this runs locally, your proprietary game code never leaves your computer, ensuring 100% Air-Gapped security.",
     color: "#00BFFF"
@@ -88,7 +94,9 @@ const CODEX_DATABASE: CodexEntry[] = [
     color: "#00BFFF"
   },
 
-  // --- UNREAL ENGINE CORE ---
+  // =========================================================================
+  // UNREAL ENGINE CORE
+  // =========================================================================
   {
     id: "ue5_nanite",
     title: "Nanite Virtualized Geometry",
@@ -96,7 +104,7 @@ const CODEX_DATABASE: CodexEntry[] = [
     keywords: ["nanite", "millions of polygons", "high poly", "virtualized geometry", "performance"],
     description: "Unreal Engine 5's magical 3D superpower. Nanite lets you drag-and-drop movie-quality 3D models with millions of triangles into your game without slowing down your computer!",
     proTip: "Enable Nanite on all your static meshes (like rocks and buildings), but keep it disabled for translucent objects like glass or water.",
-    color: "#FF00FF" // Fuchsia
+    color: "#FF00FF" 
   },
   {
     id: "ue5_lumen",
@@ -113,7 +121,7 @@ const CODEX_DATABASE: CodexEntry[] = [
     category: "Unreal Engine Core",
     keywords: ["world partition", "open world", "large maps", "grid", "streaming"],
     description: "A tool for making massive open-world games. Instead of loading the entire universe at once and melting your computer, it automatically only loads the parts of the map your character is standing near.",
-    proTip: "You must build your level specifically as a World Partition map from the start. You cannot easily convert a standard level into a partitioned one later.",
+    proTip: "You must build your level specifically as a World Partition map from the start. You cannot easily convert a standard legacy level into a partitioned one later.",
     color: "#FF00FF"
   },
   {
@@ -126,25 +134,18 @@ const CODEX_DATABASE: CodexEntry[] = [
     color: "#FF00FF"
   },
   {
-    id: "ue5_chaos_physics",
-    title: "Chaos Physics System",
+    id: "ue5_pcg",
+    title: "Procedural Content Generation (PCG)",
     category: "Unreal Engine Core",
-    keywords: ["chaos", "physics", "destruction", "ragdoll", "gravity", "fracture"],
-    description: "The high-performance physics engine that drives gravity, collisions, vehicles, and incredible building destruction in Unreal Engine 5.",
-    proTip: "Use the 'Fracture Mode' in the editor to slice a solid wall into hundreds of pieces, allowing players to smash through it realistically.",
-    color: "#FF00FF"
-  },
-  {
-    id: "ue5_niagara",
-    title: "Niagara VFX System",
-    category: "Unreal Engine Core",
-    keywords: ["niagara", "vfx", "particles", "fire", "smoke", "magic", "explosions"],
-    description: "The visual effects engine used to create fire, smoke, rain, magic spells, and explosions. It uses a node-based interface similar to Blueprints.",
-    proTip: "Use 'handy_world_forge' to spawn Niagara weather systems globally without having to manually place emitters.",
+    keywords: ["pcg", "procedural generation", "procedural content generation", "forest", "scatter"],
+    description: "A node-based system that allows you to instantly generate massive forests, cities, or asteroid fields based on math rules, rather than placing everything by hand.",
+    proTip: "Combine PCG with Splines (paths) so you can literally draw a road and have the PCG graph automatically generate trees and rocks along the edges.",
     color: "#FF00FF"
   },
 
-  // --- EDITOR INTERFACE ---
+  // =========================================================================
+  // EDITOR INTERFACE
+  // =========================================================================
   {
     id: "compile",
     title: "Compile Button",
@@ -152,7 +153,7 @@ const CODEX_DATABASE: CodexEntry[] = [
     keywords: ["compile", "compiling", "build button", "save and compile", "sblueprinteditor"],
     description: "Translates your visual Blueprint nodes into computer math that Unreal Engine can understand. A green checkmark means your code is clean; a red X means JARVIS needs to fix an error for you!",
     proTip: "Always hit Compile before hitting Play. If you don't compile, your newest code changes won't exist in the game.",
-    color: "#50C878" // Emerald
+    color: "#50C878" 
   },
   {
     id: "play",
@@ -213,43 +214,45 @@ const CODEX_DATABASE: CodexEntry[] = [
     title: "Project Settings",
     category: "Editor Interface",
     keywords: ["project settings", "game settings", "inputs", "collisions", "maps and modes"],
-    description: "The master brain for your entire video game. You go here to set up player controls (like making Spacebar = Jump) and define which level loads when the game launches.",
+    description: "The master brain for your entire video game. You go here to set up player controls and define which level loads when the game launches.",
     proTip: "Navigate to 'Maps & Modes' here to tell the engine which Player Character to spawn by default.",
     color: "#50C878"
   },
 
-  // --- VIEWPORT CONTROLS ---
+  // =========================================================================
+  // VIEWPORT & LIGHTING
+  // =========================================================================
   {
     id: "viewport",
     title: "3D Viewport",
-    category: "Viewport Controls",
+    category: "Viewport & Lighting",
     keywords: ["viewport", "3d window", "scene", "camera", "perspective"],
     description: "Your magic window into the 3D world. Hold the Right Mouse Button and use the W, A, S, D keys on your keyboard to fly around just like you are playing a video game.",
     proTip: "Press 'F' while an object is selected to instantly fly the camera directly to it.",
-    color: "#FFBF00" // Amber
+    color: "#FFBF00" 
   },
   {
     id: "transform_tools",
     title: "Transform Tools (W, E, R)",
-    category: "Viewport Controls",
+    category: "Viewport & Lighting",
     keywords: ["translate", "move", "rotate", "scale", "transform", "gizmo", "arrows"],
-    description: "These tools let you grab and manipulate items in the world. Press 'W' to Move, 'E' to Rotate, and 'R' to Scale (make bigger or smaller). Grab the colorful arrows to pull the object!",
+    description: "These tools let you grab and manipulate items in the world. Press 'W' to Move, 'E' to Rotate, and 'R' to Scale (make bigger or smaller).",
     proTip: "Tap 'Spacebar' to quickly cycle through Move, Rotate, and Scale modes without reaching across your keyboard.",
     color: "#FFBF00"
   },
   {
     id: "snapping_tools",
     title: "Grid Snapping",
-    category: "Viewport Controls",
+    category: "Viewport & Lighting",
     keywords: ["snap", "snapping", "grid snap", "angle snap", "surface snap", "alignment"],
-    description: "The grid icons at the top right of the screen. Turning these on acts like LEGO blocks, forcing your walls and floors to click perfectly into 10cm intervals instead of being messy.",
+    description: "The grid icons at the top right of the screen. Turning these on acts like LEGO blocks, forcing your walls and floors to click perfectly into intervals instead of being messy.",
     proTip: "Turn on Surface Snapping (the icon that looks like a box with an arrow pointing down) to stick props perfectly flush against walls and tables.",
     color: "#FFBF00"
   },
   {
     id: "camera_speed",
     title: "Camera Speed",
-    category: "Viewport Controls",
+    category: "Viewport & Lighting",
     keywords: ["camera speed", "fly speed", "fast camera", "zoom"],
     description: "The camera icon in the top right. Turn it up to 8 to fly across massive mountains like Superman, or turn it down to 1 to carefully place a tiny apple on a desk.",
     proTip: "Scroll your mouse wheel up or down while flying (holding Right Mouse Button) to change your speed dynamically on the fly!",
@@ -258,14 +261,115 @@ const CODEX_DATABASE: CodexEntry[] = [
   {
     id: "view_modes",
     title: "Viewport Modes (Lit/Unlit)",
-    category: "Viewport Controls",
-    keywords: ["lit", "unlit", "wireframe", "lighting only", "optimization"],
+    category: "Viewport & Lighting",
+    keywords: ["lit", "unlit", "wireframe", "lighting only", "optimization", "view mode"],
     description: "Changes how the 3D world is rendered. 'Lit' is the normal game view. 'Unlit' removes shadows to see base colors. 'Wireframe' shows the underlying 3D math geometry.",
     proTip: "Use 'Optimization Viewmodes > Shader Complexity' to see which materials are causing performance lag (Red/White = Too Heavy, Green = Good).",
     color: "#FFBF00"
   },
+  {
+    id: "light_directional",
+    title: "Directional Light",
+    category: "Viewport & Lighting",
+    keywords: ["directional light", "sun", "sunlight", "outdoor light"],
+    description: "Simulates light coming from infinitely far away. All shadows cast by this light are perfectly parallel. It is literally the Sun.",
+    proTip: "You only ever need ONE Directional Light in your level. Adding more will drastically hurt performance.",
+    color: "#FFBF00"
+  },
+  {
+    id: "light_sky",
+    title: "Sky Light",
+    category: "Viewport & Lighting",
+    keywords: ["sky light", "skylight", "ambient light", "shadow color"],
+    description: "Captures the colors of the sky and clouds, and gently bounces that color into the shadows of your world to prevent them from being pitch black.",
+    proTip: "Always enable 'Real Time Capture' on your Sky Light so it updates automatically when the sun goes down or the weather changes.",
+    color: "#FFBF00"
+  },
+  {
+    id: "post_process_volume",
+    title: "Post Process Volume",
+    category: "Viewport & Lighting",
+    keywords: ["post process volume", "color grading", "bloom", "exposure", "lens flare", "vignette", "ppv"],
+    description: "An invisible box that applies Instagram-style camera filters to the player's screen (like Bloom, Color Grading, Lens Flares, and Exposure).",
+    proTip: "Check the 'Infinite Extent (Unbound)' box at the very bottom of its settings to apply the camera filters to the entire world, regardless of where the box is.",
+    color: "#FFBF00"
+  },
 
-  // --- BLUEPRINT LOGIC ---
+  // =========================================================================
+  // BLUEPRINT LOGIC
+  // =========================================================================
+  {
+    id: "actor",
+    title: "Actor (Base Class)",
+    category: "Blueprint Logic",
+    keywords: ["actor", "object", "thing in world", "spawn actor"],
+    description: "An Actor is the most basic 'thing' you can place in a level. A rock, a light, a weapon, and a player are all Actors.",
+    proTip: "Actors can contain multiple 'Components'. For example, a Car Actor might contain a Mesh Component (the car body) and a Light Component (the headlights).",
+    color: "#DC143C" 
+  },
+  {
+    id: "character",
+    title: "Character",
+    category: "Blueprint Logic",
+    keywords: ["character", "player", "npc", "character movement"],
+    description: "A highly advanced version of a Pawn that comes pre-built with walking, running, jumping, and swimming logic via the CharacterMovementComponent.",
+    proTip: "Unless you are making a flying spaceship game or a puzzle game, you should almost always use the Character class for your players and enemies.",
+    color: "#DC143C"
+  },
+  {
+    id: "game_mode",
+    title: "GameMode",
+    category: "Blueprint Logic",
+    keywords: ["game mode", "gamemode", "rules", "win state"],
+    description: "The referee of your game. It defines the rules: how many players are allowed, how long the match lasts, and what happens when someone scores a point.",
+    proTip: "In a multiplayer game, the GameMode ONLY exists on the Server. Clients (players) cannot access or read the GameMode.",
+    color: "#DC143C"
+  },
+  {
+    id: "game_instance",
+    title: "Game Instance",
+    category: "Blueprint Logic",
+    keywords: ["game instance", "gameinstance", "save data", "between levels", "persist"],
+    description: "The absolute highest level of your game's memory. Unlike the Player or GameMode, the Game Instance is never destroyed when you load a new map. It survives from the moment the game launches until the player quits to desktop.",
+    proTip: "Store player total score, overarching inventory, or selected difficulty settings here so they don't get wiped when moving from Level 1 to Level 2.",
+    color: "#DC143C"
+  },
+  {
+    id: "bpi_interface",
+    title: "Blueprint Interface (BPI)",
+    category: "Blueprint Logic",
+    keywords: ["interface", "bpi", "blueprint interface", "message", "communicate"],
+    description: "A universal contract between different Blueprints. It allows you to send a message (like 'TakeDamage' or 'Interact') to an object without needing to know exactly what that object is.",
+    proTip: "Use Interfaces instead of Casting when making an interaction system. You can send 'Interact' to a Door, a Chest, and an NPC using the exact same node, saving massive amounts of performance!",
+    color: "#DC143C"
+  },
+  {
+    id: "event_dispatcher",
+    title: "Event Dispatcher",
+    category: "Blueprint Logic",
+    keywords: ["event dispatcher", "dispatcher", "bind", "call", "delegate", "listen"],
+    description: "A megaphone for your Blueprint. When a Blueprint 'Calls' an Event Dispatcher, it shouts a message to the whole game. Any other Blueprint that has 'Bound' itself to that dispatcher will instantly hear it and run its own code.",
+    proTip: "This is the best way to update UI. When the Player takes damage, have them shout 'HealthChanged'. The UI listens and updates the health bar automatically without needing an Event Tick!",
+    color: "#DC143C"
+  },
+  {
+    id: "struct",
+    title: "Structure (Struct)",
+    category: "Blueprint Logic",
+    keywords: ["struct", "structure", "data", "group variables", "inventory item"],
+    description: "A custom variable you create that holds a group of other variables bundled together. Instead of having separate variables for 'WeaponName', 'WeaponDamage', and 'WeaponIcon', you pack them all into a single 'WeaponStats' Struct.",
+    proTip: "Structs are the absolute backbone of inventory systems and Data Tables. Always use them to organize complex data!",
+    color: "#DC143C"
+  },
+  {
+    id: "enum",
+    title: "Enumeration (Enum)",
+    category: "Blueprint Logic",
+    keywords: ["enum", "enumeration", "list", "dropdown", "state", "switch on enum"],
+    description: "A custom dropdown list of names you create (e.g., 'Walking', 'Running', 'Crouching'). It replaces using confusing numbers to track what state a player is in.",
+    proTip: "Create an Enum for 'WeaponType' (Pistol, Rifle, Shotgun) and use a 'Switch on Enum' node. It automatically creates a separate output wire for every single weapon type!",
+    color: "#DC143C"
+  },
   {
     id: "blueprint_event_graph",
     title: "Event Graph",
@@ -273,24 +377,6 @@ const CODEX_DATABASE: CodexEntry[] = [
     keywords: ["event graph", "node graph", "wiring", "visual scripting", "code"],
     description: "The giant grid where you connect colorful boxes (nodes) with wires. This is how you visually write C++ code to tell your game exactly how to behave without typing complex text!",
     proTip: "Use JARVIS's 'Format Graph' action to instantly organize a messy, tangled Event Graph into a clean AAA-standard layout.",
-    color: "#DC143C" // Crimson
-  },
-  {
-    id: "blueprint_variables",
-    title: "Variables",
-    category: "Blueprint Logic",
-    keywords: ["variables", "variable", "add variable", "boolean", "integer", "float", "string", "vector"],
-    description: "Variables are digital backpacks that hold information. A 'Boolean' holds True/False. An 'Integer' holds whole numbers (like 5 apples). A 'String' holds text (like a player's name).",
-    proTip: "Click the little 'eye' icon next to a variable to make it 'Public'. This lets you change its value from the main Details Panel without opening the Blueprint!",
-    color: "#DC143C"
-  },
-  {
-    id: "blueprint_pins",
-    title: "Blueprint Pins",
-    category: "Blueprint Logic",
-    keywords: ["pin", "execution pin", "data pin", "input", "output", "wires"],
-    description: "The colored circles on the sides of a node. White 'Execution' pins control the flow of time (what happens next). Colored 'Data' pins pass information (like math numbers) to the next box.",
-    proTip: "Hold the 'Alt' key and click on a pin to instantly disconnect any wires attached to it.",
     color: "#DC143C"
   },
   {
@@ -313,7 +399,7 @@ const CODEX_DATABASE: CodexEntry[] = [
   },
   {
     id: "node_branch",
-    title: "Branch Node",
+    title: "Branch Node (If Statement)",
     category: "Blueprint Logic",
     keywords: ["branch", "if statement", "if else", "condition", "true false"],
     description: "The traffic cop of coding. It checks if a condition (like 'IsPlayerDead') is True or False. If True, the code goes out the top wire. If False, it goes out the bottom.",
@@ -327,15 +413,6 @@ const CODEX_DATABASE: CodexEntry[] = [
     keywords: ["cast to", "casting", "communicate", "identify", "talk to"],
     description: "How two different objects talk to each other. If your Player touches a box, you 'Cast to Treasure Chest' to verify it is actually a chest before telling it to open.",
     proTip: "Casting is heavy on performance. Avoid putting Cast nodes inside an Event Tick if possible.",
-    color: "#DC143C"
-  },
-  {
-    id: "node_print_string",
-    title: "Print String",
-    category: "Blueprint Logic",
-    keywords: ["print string", "debug", "log", "text on screen", "testing"],
-    description: "The ultimate debugging tool. It prints temporary colored text to the top-left of your screen. Use it to check if your code is actually firing or what a variable's value is.",
-    proTip: "Click the dropdown arrow at the bottom of the node to change the color of the text so you can track multiple prints at once.",
     color: "#DC143C"
   },
   {
@@ -356,30 +433,41 @@ const CODEX_DATABASE: CodexEntry[] = [
     proTip: "Hold the 'O' key and left-click to spawn. Perfect for playing a sound effect when a door opens so it doesn't stutter and play 50 times at once.",
     color: "#DC143C"
   },
+  {
+    id: "node_timeline",
+    title: "Timeline Node",
+    category: "Blueprint Logic",
+    keywords: ["timeline", "animate", "smooth", "curve", "lerp", "over time"],
+    description: "The ultimate node for smooth animations. Double-click it to draw a curve over time, which you can use to smoothly move elevators, fade out lights, or change colors.",
+    proTip: "Always plug your logic into the 'Update' pin to make things move. The 'Finished' pin only fires once the timeline ends.",
+    color: "#DC143C"
+  },
 
-  // --- MATERIAL PIPELINE ---
+  // =========================================================================
+  // MATERIAL & UI PIPELINE
+  // =========================================================================
   {
     id: "mat_base_color",
     title: "Base Color (Albedo)",
-    category: "Material Pipeline",
+    category: "Material & UI Pipeline",
     keywords: ["base color", "albedo", "color", "texture", "diffuse"],
     description: "The main paint bucket for your 3D objects. It decides if your object looks like red plastic, green grass, or a picture of a brick wall.",
-    proTip: "For hyper-realism, never use absolute pure black (0,0,0) or absolute pure white (1,1,1) in your base colors.",
-    color: "#E6EDF3" // White/Silver
+    proTip: "For hyper-realism, never use absolute pure black (0,0,0) or absolute pure white (1,1,1) in your base colors. In the real world, materials absorb some light.",
+    color: "#E6EDF3" 
   },
   {
     id: "mat_metallic",
     title: "Metallic",
-    category: "Material Pipeline",
+    category: "Material & UI Pipeline",
     keywords: ["metallic", "metal", "steel", "conductive", "chrome"],
     description: "A simple setting from 0 to 1. Set it to 1, and the object looks like shiny steel or gold. Set it to 0, and it acts like dull plastic, wood, or stone.",
-    proTip: "Metallic should almost always be exactly 0 (Not Metal) or 1 (Metal). Rarely should it be a decimal like 0.5 unless making dirty/rusted metal.",
+    proTip: "Metallic should almost always be exactly 0 (Not Metal) or 1 (Metal). Rarely should it be a decimal like 0.5 unless making dirty, painted, or rusted metal.",
     color: "#E6EDF3"
   },
   {
     id: "mat_roughness",
     title: "Roughness",
-    category: "Material Pipeline",
+    category: "Material & UI Pipeline",
     keywords: ["roughness", "shiny", "specular", "matte", "glossy"],
     description: "Decides how blurry or sharp reflections are. A Roughness of 0 makes a perfectly clear, shiny mirror or wet floor. A Roughness of 1 makes a flat, dusty, dry surface.",
     proTip: "Hold the '1' key and left-click in the material editor to create a Constant node, then type 0.2 into it and plug it into Roughness for a nice glossy plastic.",
@@ -388,29 +476,234 @@ const CODEX_DATABASE: CodexEntry[] = [
   {
     id: "mat_emissive",
     title: "Emissive Color",
-    category: "Material Pipeline",
+    category: "Material & UI Pipeline",
     keywords: ["emissive", "glowing", "emissive color", "neon", "light source"],
     description: "The glow-in-the-dark setting! Plugging a bright color into this makes the object act like a neon sign, a lightsaber, or a TV screen.",
     proTip: "Multiply your color node by a large number (like 50 or 100) using a Multiply node before plugging it into Emissive to make it glow incredibly bright with Lumen.",
     color: "#E6EDF3"
   },
   {
-    id: "mat_normal",
-    title: "Normal Map",
-    category: "Material Pipeline",
-    keywords: ["normal", "normal map", "bump", "fake 3d", "details"],
-    description: "A special purple texture that tricks the lighting engine. It makes completely flat surfaces look like they have deep 3D bumps, cracks, and scratches.",
-    proTip: "If your normal map looks 'inverted' (bumps look like dents), open the texture file and check the 'Flip Green Channel' box.",
+    id: "mat_instances",
+    title: "Material Instances",
+    category: "Material & UI Pipeline",
+    keywords: ["material instance", "instance", "master material", "performance", "cheap"],
+    description: "A lightweight copy of a Master Material. Instead of compiling a brand new heavy shader every time you change a color, an Instance lets you adjust colors and sliders instantly with zero loading times.",
+    proTip: "Right-click any Material and select 'Create Material Instance'. Always apply the Instance to your meshes in the world, not the Master Material!",
     color: "#E6EDF3"
   },
   {
-    id: "mat_instances",
-    title: "Material Instances",
-    category: "Material Pipeline",
-    keywords: ["material instance", "instance", "master material", "performance", "cheap"],
-    description: "A lightweight copy of a Master Material. Instead of compiling a brand new heavy shader every time you change a color, an Instance lets you adjust colors and sliders instantly with zero loading times.",
-    proTip: "Right-click any Material and select 'Create Material Instance'. Apply the Instance to your meshes, not the Master Material!",
+    id: "umg_canvas_panel",
+    title: "UMG: Canvas Panel",
+    category: "Material & UI Pipeline",
+    keywords: ["canvas panel", "canvas", "ui", "umg", "root"],
+    description: "The absolute easiest way to build UI. It acts like a blank artist's canvas where you can drag and drop buttons and text anywhere you want.",
+    proTip: "While great for prototyping, relying entirely on Canvas Panels can cause your UI to break on different screen sizes. Use Horizontal/Vertical boxes for professional scaling.",
     color: "#E6EDF3"
+  },
+  {
+    id: "umg_anchors",
+    title: "UMG: Anchors",
+    category: "Material & UI Pipeline",
+    keywords: ["anchors", "anchor", "ui scaling", "flower", "screen size"],
+    description: "The little flower-shaped icon that appears when you place a UI element. Anchors tell the UI element which side of the screen it should stick to if the screen stretches or shrinks.",
+    proTip: "If you put a minimap in the top-right corner, set its Anchor to Top-Right. Otherwise, it might float to the middle of the screen on ultra-wide monitors!",
+    color: "#E6EDF3"
+  },
+  {
+    id: "umg_vertical_box",
+    title: "UMG: Vertical Box",
+    category: "Material & UI Pipeline",
+    keywords: ["vertical box", "layout", "vbox", "stack", "list"],
+    description: "An invisible container that automatically stacks anything you put inside it neatly on top of each other, from top to bottom.",
+    proTip: "Perfect for creating Main Menus! Put 3 Buttons inside a Vertical Box, and they will automatically align themselves into a perfect list.",
+    color: "#E6EDF3"
+  },
+
+  // =========================================================================
+  // MULTIPLAYER & NETWORK
+  // =========================================================================
+  {
+    id: "replication",
+    title: "Variable Replication",
+    category: "Multiplayer & Network",
+    keywords: ["replication", "replicate", "network", "multiplayer", "server to client"],
+    description: "The core of multiplayer. Setting a variable to 'Replicated' means whenever the Server changes that variable, the exact new value is automatically beamed through the internet to all connected Clients.",
+    proTip: "Clients CANNOT replicate variables to the Server. If a Client tries to change a replicated Health variable, it will only change on their screen (and likely snap back immediately). Only the Server has authority!",
+    color: "#9370DB" // Purple
+  },
+  {
+    id: "rep_notify",
+    title: "RepNotify (Replication)",
+    category: "Multiplayer & Network",
+    keywords: ["repnotify", "rep notify", "replicated", "onrep", "multiplayer visual"],
+    description: "A magical multiplayer setting for variables. When the Server changes a RepNotify variable, it doesn't just sync the value—it automatically fires a specific Function on every connected player's machine the moment the value arrives.",
+    proTip: "Use RepNotify for visual effects! If the Server changes the 'EquippedWeapon' variable, the RepNotify function can automatically attach the correct 3D weapon mesh to the character's hands for everyone to see.",
+    color: "#9370DB"
+  },
+  {
+    id: "rpc_server",
+    title: "Run on Server (RPC)",
+    category: "Multiplayer & Network",
+    keywords: ["run on server", "rpc", "server", "multiplayer event", "client to server"],
+    description: "A Remote Procedure Call. This is how a player (Client) begs the Server to do something. If a player wants to shoot a gun, they fire a 'Run On Server' event, and the Server actually spawns the bullet.",
+    proTip: "Never trust the Client! Always do security checks inside your 'Run On Server' events to make sure hackers aren't giving themselves infinite ammo.",
+    color: "#9370DB"
+  },
+  {
+    id: "rpc_multicast",
+    title: "Multicast (RPC)",
+    category: "Multiplayer & Network",
+    keywords: ["multicast", "rpc", "everyone", "multiplayer event", "broadcast"],
+    description: "An explosion of data. When the Server calls a Multicast event, it executes that exact code on the Server AND every single connected Client's machine simultaneously.",
+    proTip: "Use Multicasts for transient, instant events that don't need to be saved, like playing a loud explosion sound or spawning a particle effect when a grenade goes off.",
+    color: "#9370DB"
+  },
+  {
+    id: "network_authority",
+    title: "Switch Has Authority",
+    category: "Multiplayer & Network",
+    keywords: ["switch has authority", "authority", "server only", "remote"],
+    description: "A node that checks who is currently running the code. The 'Authority' pin only fires if the Server is executing it. The 'Remote' pin fires if a Client is executing it.",
+    proTip: "Put this right after your BeginPlay node. Use the Authority wire to spawn enemies or loot, ensuring they are only spawned by the Server and not duplicated by every connected player!",
+    color: "#9370DB"
+  },
+
+  // =========================================================================
+  // AI & ANIMATION
+  // =========================================================================
+  {
+    id: "ai_controller",
+    title: "AI Controller",
+    category: "AI & Animation",
+    keywords: ["ai controller", "aicontroller", "enemy brain", "bot"],
+    description: "The artificial brain for non-player characters (NPCs). While a PlayerController reads your keyboard, an AI Controller reads Behavior Trees and sight sensors to tell enemy Pawns where to walk and who to shoot.",
+    proTip: "Check the 'Auto Possess AI' setting in your enemy Character's Details panel and set it to 'Placed in World or Spawned' so the brain activates automatically.",
+    color: "#FF1493" // Deep Pink
+  },
+  {
+    id: "nav_mesh",
+    title: "NavMesh Bounds Volume",
+    category: "AI & Animation",
+    keywords: ["navmesh", "nav mesh", "navmeshboundsvolume", "pathfinding", "walking area"],
+    description: "An invisible box you drag over your level to generate pathfinding data. It calculates exactly where the floor is and where obstacles are so AI enemies know how to walk without getting stuck.",
+    proTip: "Press the 'P' key on your keyboard while in the viewport to toggle the NavMesh visualizer. A bright green floor means the AI can walk there!",
+    color: "#FF1493"
+  },
+  {
+    id: "behavior_tree",
+    title: "Behavior Tree",
+    category: "AI & Animation",
+    keywords: ["behavior tree", "bt", "ai logic", "enemy logic", "decision tree"],
+    description: "A visual flow-chart used to build complex AI. It reads from top to bottom, left to right, deciding whether the enemy should patrol, investigate a noise, or attack the player.",
+    proTip: "Do not put heavy math inside Behavior Tree nodes. Do the math in a Blueprint Service, save the answer to the Blackboard, and let the Behavior Tree just read the answer.",
+    color: "#FF1493"
+  },
+  {
+    id: "anim_blueprint",
+    title: "Animation Blueprint (ABP)",
+    category: "AI & Animation",
+    keywords: ["anim blueprint", "animation blueprint", "abp", "anim_bp"],
+    description: "A specialized Blueprint that strictly controls a character's skeleton. It reads variables from your player (like their speed or if they are in the air) and decides which 3D animation to play on the mesh.",
+    proTip: "Keep logic out of the AnimGraph! Do all your math (like calculating speed) inside the EventGraph's 'Blueprint Update Animation' node to keep performance high.",
+    color: "#FF1493"
+  },
+  {
+    id: "blend_space",
+    title: "Blend Space",
+    category: "AI & Animation",
+    keywords: ["blend space", "blendspace", "1d", "2d", "smooth animation", "walk to run"],
+    description: "A graph that smoothly mixes animations based on numbers. Instead of snapping instantly from walking to running, a Blend Space mixes the two animations together dynamically based on your exact movement speed.",
+    proTip: "A 1D Blend Space uses one number (Speed). A 2D Blend Space uses two numbers (Speed and Direction), which is perfect for strafing left and right in shooter games.",
+    color: "#FF1493"
+  },
+  {
+    id: "anim_montage",
+    title: "Animation Montage",
+    category: "AI & Animation",
+    keywords: ["montage", "anim montage", "attack animation", "play slot"],
+    description: "A way to force an animation to play immediately, hijacking the State Machine. Perfect for pressing a button to swing a sword, reload a gun, or take damage.",
+    proTip: "You must add a 'Slot' node (usually 'DefaultSlot') in your AnimGraph before your Output Pose, or your Montages will literally never play!",
+    color: "#FF1493"
+  },
+
+  // =========================================================================
+  // PHYSICS, AUDIO & INPUTS
+  // =========================================================================
+  {
+    id: "collision_presets",
+    title: "Collision Presets",
+    category: "Physics, Audio & Inputs",
+    keywords: ["collision", "block", "overlap", "ignore", "hitbox"],
+    description: "The rules that define how an object interacts with the world. 'Block' acts like a solid wall. 'Overlap' acts like a ghost, letting things pass through but triggering an event. 'Ignore' pretends the object doesn't exist at all.",
+    proTip: "If your player is getting stuck on invisible things, check the collision presets of the lights and particle effects in your level! Make sure they are set to 'NoCollision'.",
+    color: "#00FA9A" // Spring Green
+  },
+  {
+    id: "line_trace",
+    title: "Line Trace (Raycast)",
+    category: "Physics, Audio & Inputs",
+    keywords: ["line trace", "raycast", "hitscan", "laser", "line trace by channel"],
+    description: "Fires an invisible laser beam from a start point to an end point. If it hits anything, it returns a massive 'Hit Result' bundle containing the exact object it hit, the location, and the surface normal.",
+    proTip: "Change the 'Draw Debug Type' pin to 'For Duration' to actually see the laser beam while testing your sniper rifles or interaction logic.",
+    color: "#00FA9A"
+  },
+  {
+    id: "physics_material",
+    title: "Physical Material",
+    category: "Physics, Audio & Inputs",
+    keywords: ["physics material", "physmat", "bouncy", "friction", "ice", "rubber"],
+    description: "An invisible coating you apply to 3D models to give them real-world physical properties. It controls how bouncy an object is, or how much friction it has (like sliding on ice).",
+    proTip: "Physical Materials are also used for footstep logic! You can assign 'Wood' or 'Dirt' to a PhysMat, and use a Line Trace to check what the player is standing on to play the correct sound.",
+    color: "#00FA9A"
+  },
+  {
+    id: "enhanced_input_action",
+    title: "Input Action (Enhanced Input)",
+    category: "Physics, Audio & Inputs",
+    keywords: ["input action", "enhanced input", "keybind", "button press", "ia_"],
+    description: "A digital representation of a command, like 'Jump' or 'Shoot'. You put these directly in your player Blueprint, entirely separated from the actual keys pressed on the keyboard.",
+    proTip: "Enhanced Input Actions can return different types of data! A 'Jump' action returns a Boolean (True/False). A 'Movement' action returns a Vector2D (X and Y axis for a joystick).",
+    color: "#00FA9A"
+  },
+  {
+    id: "metasound",
+    title: "MetaSounds",
+    category: "Physics, Audio & Inputs",
+    keywords: ["metasound", "meta sound", "audio", "music", "synthesizer"],
+    description: "Unreal Engine 5's next-generation audio engine. It works exactly like a material or blueprint graph, allowing you to synthesize sounds, randomize pitches, and build interactive music natively.",
+    proTip: "Use a MetaSound to completely randomize the pitch and volume of a gunshot sound effect so it never sounds repetitive to the player's ears.",
+    color: "#00FA9A"
+  },
+
+  // =========================================================================
+  // OPTIMIZATION & PROFILING
+  // =========================================================================
+  {
+    id: "unreal_insights",
+    title: "Unreal Insights",
+    category: "Optimization & Profiling",
+    keywords: ["unreal insights", "profiler", "lag", "fps drop", "performance"],
+    description: "A standalone software program included with Unreal Engine. It records a microscopic telemetry timeline of your entire game, exposing the exact C++ function or Blueprint node causing your game to lag.",
+    proTip: "If you have a mysterious stutter every 5 seconds, Unreal Insights is the only tool that can surgically prove if it is a Garbage Collection spike or a heavy Tick node.",
+    color: "#FFD700" // Gold
+  },
+  {
+    id: "stat_fps",
+    title: "Stat Unit (Console Command)",
+    category: "Optimization & Profiling",
+    keywords: ["stat fps", "stat unit", "fps", "frames per second", "bottleneck"],
+    description: "A terminal command you type into the editor. While 'stat fps' just shows your framerate, 'stat unit' proves exactly WHICH part of your computer is struggling: the Game (CPU), the Draw (GPU preparation), or the GPU (Graphics).",
+    proTip: "Press the Tilde (~) key in the editor to open the console and type 'stat unit'. If your 'Game' time is much higher than your 'GPU' time, your Blueprint logic is too heavy!",
+    color: "#FFD700"
+  },
+  {
+    id: "hlod",
+    title: "Hierarchical LOD (HLOD)",
+    category: "Optimization & Profiling",
+    keywords: ["hlod", "hierarchical level of detail", "lod", "optimization", "distant meshes"],
+    description: "A massive optimization tool for open worlds. It takes an entire detailed city block and bakes it down into a single, low-quality mesh when the player is very far away, saving immense GPU power.",
+    proTip: "HLODs are essentially mandatory for World Partition games to ensure distant mountains and skylines are visible without crashing the engine.",
+    color: "#FFD700"
   }
 ];
 
@@ -443,8 +736,17 @@ export default function NeuralCodexFAQ() {
   }, [searchQuery, activeCategory]);
 
   const categories: CodexCategory[] = [
-    "All", "Hi Handy Matrix", "Unreal Engine Core", "Editor Interface", 
-    "Viewport Controls", "Blueprint Logic", "Material Pipeline"
+    "All", 
+    "Hi Handy Matrix", 
+    "Unreal Engine Core", 
+    "Editor Interface", 
+    "Viewport & Lighting", 
+    "Blueprint Logic", 
+    "Material & UI Pipeline",
+    "Multiplayer & Network",
+    "AI & Animation",
+    "Physics, Audio & Inputs",
+    "Optimization & Profiling"
   ];
 
   return (
@@ -473,13 +775,13 @@ export default function NeuralCodexFAQ() {
           <span className="text-xl pl-4 drop-shadow-[0_0_8px_rgba(0,191,255,0.8)]">🔎</span>
           <input 
             type="text" 
-            placeholder="Query the Codex (e.g. 'Lighting', 'Blueprint', 'JARVIS')..." 
+            placeholder="Query the Codex (e.g. 'Lighting', 'RPC', 'Network')..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 bg-transparent border-none outline-none text-[#E6EDF3] font-mono text-base placeholder:text-[#8B949E]/50 p-2"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery("")} className="pr-4 text-[#DC143C] font-black hover:text-white transition-colors">
+            <button onClick={() => setSearchQuery("")} className="pr-4 text-[#DC143C] font-black hover:text-white transition-colors cursor-pointer">
               [ X ]
             </button>
           )}
@@ -491,7 +793,7 @@ export default function NeuralCodexFAQ() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`clip-angled-button px-5 py-2.5 font-orbitron text-xs font-bold tracking-widest uppercase transition-all duration-300 border ${
+              className={`clip-angled-button px-5 py-2.5 font-orbitron text-[11px] md:text-xs font-bold tracking-widest uppercase transition-all duration-300 border cursor-pointer ${
                 activeCategory === cat 
                   ? "bg-[#00BFFF] text-[#010409] border-[#00BFFF] shadow-[0_0_15px_rgba(0,191,255,0.6)]" 
                   : "bg-[#010409]/60 text-[#8B949E] border-[#8B949E]/30 hover:border-[#00BFFF] hover:text-[#00BFFF]"
