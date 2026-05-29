@@ -222,7 +222,7 @@ function BillingContent() {
             </div>
             
             <div className="flex flex-col items-start xl:items-end w-full xl:w-56 border-t xl:border-t-0 xl:border-l border-white/10 pt-6 xl:pt-0 xl:pl-6">
-              <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$49<span className="text-sm text-[#8B949E]">/mo</span></span>
+              <span className="font-orbitron text-4xl text-[#E6EDF3] font-light mb-1">$99.99<span className="text-sm text-[#8B949E]">/mo</span></span>
               
               <button 
                 onClick={() => handleCheckout("elite")}
