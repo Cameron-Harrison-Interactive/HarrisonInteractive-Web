@@ -41,11 +41,11 @@ export default function VotePage() {
         {/* Voting Links Grid */}
         <div className="w-full flex flex-col gap-4 relative z-10 max-w-lg">
           
-          <VoteButton href="https://minecraftbuzz.com/" label="Vote on Minecraft Buzz" />
-          <VoteButton href="https://minecraft-mp.com/" label="Vote on Minecraft-MP" />
-          <VoteButton href="https://minecraft-server-list.com/" label="Vote on Minecraft-Server-List" />
-          <VoteButton href="https://minecraftservers.org/" label="Vote on MinecraftServers.org" />
-          <VoteButton href="https://www.planetminecraft.com/" label="Vote on PlanetMinecraft" />
+          <VoteButton href="https://minecraft.buzz/vote/21170" label="Vote on Minecraft Buzz" />
+          <VoteButton href="https://minecraft-mp.com/server-s358424" label="Vote on Minecraft-MP" />
+          <VoteButton href="https://minecraft-server-list.com/server/520409/" label="Vote on Minecraft-Server-List" />
+          <VoteButton href="https://minecraftservers.org/server/687860" label="Vote on MinecraftServers.org" />
+          <VoteButton href="https://www.planetminecraft.com/server/twin-flames-cobblemon/" label="Vote on PlanetMinecraft" />
 
         </div>
 
