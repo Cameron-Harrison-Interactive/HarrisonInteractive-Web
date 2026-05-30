@@ -4,79 +4,79 @@
 
 import React from "react";
 
-/**
- * =========================================================================
- * HARRISON INTERACTIVE | TWIN FLAMES VOTING MATRIX (SCALED & CLOUDFLARE-SAFE)
- * =========================================================================
- * Pure, native <img> tags are used to bypass Vercel's proprietary image 
- * optimization engine, guaranteeing 100% image loading success on Cloudflare Pages.
- * Typography has been globally upscaled for large PC monitors.
- */
 export default function VotePage() {
-  const voteSites = [
-    { name: 'Minecraft Buzz', url: 'https://minecraft.buzz/vote/21170' },
-    { name: 'Minecraft-MP', url: 'https://minecraft-mp.com/server-s358424' },
-    { name: 'Minecraft-Server-List', url: 'https://minecraft-server-list.com/server/520409/' },
-    { name: 'MinecraftServers.org', url: 'https://minecraftservers.org/server/687860' },
-    { name: 'PlanetMinecraft', url: 'https://www.planetminecraft.com/server/twin-flames-cobblemon/' },
-  ];
-
   return (
-    <main className="min-h-screen relative flex flex-col items-center justify-center p-8 text-white overflow-hidden bg-[#0A192F]">
+    <div className="w-full h-full min-h-[80vh] flex flex-col items-center justify-center relative z-10 py-10">
       
-      {/* 
-        =========================================================
-        CLOUDFLARE-SAFE BACKGROUND (NATIVE <img> TAG)
-        ========================================================= 
-      */}
-      <img
-        src="/bgpicture1.png"
-        alt="Twin Flames Background"
-        className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none -z-10"
-      />
-
-      {/* Main Container */}
-      <div className="max-w-2xl w-full flex flex-col items-center z-10">
+      {/* Main Holographic Container */}
+      <div className="glass-panel border-t-4 border-t-[#FF4500] p-10 md:p-14 flex flex-col items-center text-center max-w-3xl w-full relative overflow-hidden bg-[#0a0f1a]/40 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-xl border border-white/5">
         
-        {/* Header/Logo Section (UPSCALED BY 35% FOR PC READABILITY) */}
-        <div className="relative w-64 h-64 mb-10 flex items-center justify-center group cursor-default">
-           <div className="absolute inset-0 bg-[#00D2FF]/20 rounded-full blur-[50px] animate-pulse"></div>
-           <img 
-             src="/flame.png" 
-             alt="Twin Flames Logo" 
-             className="relative z-10 w-52 h-52 drop-shadow-[0_0_25px_rgba(0,210,255,0.8)] object-contain transition-transform duration-700 group-hover:scale-105"
-           />
+        {/* Background Glow inside the panel */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,69,0,0.15)_0%,transparent_70%)] pointer-events-none"></div>
+
+        {/* The Flame Icon */}
+        <div className="relative w-28 h-28 flex items-center justify-center mb-6 group">
+          <div className="absolute inset-0 bg-[#FF4500]/30 blur-[30px] rounded-full animate-[pulse_2s_ease-in-out_infinite] group-hover:bg-[#FF4500]/50 transition-colors duration-500"></div>
+          <img 
+            src="/flame.png" 
+            alt="Flame Logo" 
+            className="w-full h-full object-contain relative z-10 drop-shadow-[0_0_20px_rgba(255,69,0,0.8)] group-hover:scale-110 group-hover:drop-shadow-[0_0_30px_rgba(255,69,0,1)] transition-transform duration-500"
+          />
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-black text-white mb-10 tracking-wider uppercase drop-shadow-md text-center">
-          Ignite the <span className="text-[#00D2FF] drop-shadow-[0_0_8px_rgba(0,210,255,0.5)]">Flame</span>
+        {/* Title */}
+        <h1 className="font-orbitron text-4xl md:text-5xl text-[#E6EDF3] font-black tracking-[0.15em] uppercase mb-2 drop-shadow-[0_4px_15px_rgba(0,0,0,0.8)]">
+          Ignite The <span className="text-[#00BFFF] drop-shadow-[0_0_15px_rgba(0,191,255,0.8)]">Flame</span>
         </h1>
 
-        {/* Voting Buttons (UPSCALED CARD SIZE) */}
-        <div className="w-full space-y-5">
-          {voteSites.map((site) => (
-            <a 
-              key={site.name} 
-              href={site.url} 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative flex items-center justify-center p-5 bg-[#0A192F]/60 border border-[#00D2FF]/40 rounded-lg backdrop-blur-md hover:bg-[#00D2FF]/15 transition-all duration-300 hover:border-[#00D2FF] shadow-xl text-center block"
-            >
-              {/* Button Glow Effect */}
-              <div className="absolute inset-0 bg-[#00D2FF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              <span className="text-xl font-bold text-white group-hover:text-[#00D2FF] transition-colors duration-300 tracking-wide">
-                Vote on {site.name}
-              </span>
-            </a>
-          ))}
+        {/* Voting Reward Notification */}
+        <div className="mt-8 mb-10 border border-[#FFBF00]/40 bg-[#FFBF00]/10 px-6 py-4 rounded-lg inline-flex items-center justify-center gap-4 w-full max-w-lg shadow-[0_0_20px_rgba(255,191,0,0.15)] relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFBF00]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          <span className="w-3 h-3 rounded-full bg-[#FFBF00] shadow-[0_0_15px_#FFBF00] animate-pulse"></span>
+          <p className="font-orbitron text-sm md:text-base text-[#E6EDF3] uppercase tracking-widest font-bold">
+            Vote <span className="text-[#FFBF00] text-lg font-black">10 Times</span> to unlock <span className="text-[#FFBF00] text-lg font-black drop-shadow-[0_0_10px_rgba(255,191,0,0.8)]">+3 Extra Keys</span>!
+          </p>
         </div>
 
-        <p className="mt-10 text-xs text-gray-500 font-mono tracking-widest uppercase">
-          Twin Flames Network // Secured Node.
-        </p>
+        {/* Voting Links Grid */}
+        <div className="w-full flex flex-col gap-4 relative z-10 max-w-lg">
+          
+          <VoteButton href="https://minecraftbuzz.com/" label="Vote on Minecraft Buzz" />
+          <VoteButton href="https://minecraft-mp.com/" label="Vote on Minecraft-MP" />
+          <VoteButton href="https://minecraft-server-list.com/" label="Vote on Minecraft-Server-List" />
+          <VoteButton href="https://minecraftservers.org/" label="Vote on MinecraftServers.org" />
+          <VoteButton href="https://www.planetminecraft.com/" label="Vote on PlanetMinecraft" />
+
+        </div>
+
+        {/* Footer Element */}
+        <div className="mt-14 pt-6 border-t border-[#00BFFF]/20 w-full flex flex-col items-center relative z-10">
+          <p className="font-mono text-[10px] text-[#8B949E] tracking-[0.3em] uppercase animate-pulse">
+            Twin Flames Network // Cobblemon Hub
+          </p>
+        </div>
+
       </div>
-    </main>
+    </div>
+  );
+}
+
+// Sub-component for the glowing voting buttons
+function VoteButton({ href, label }: { href: string, label: string }) {
+  return (
+    <a 
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative w-full overflow-hidden glass-panel border border-white/10 bg-[#050810]/80 hover:bg-[#FF4500]/10 hover:border-[#FF4500]/50 py-4 px-6 flex items-center justify-center transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,69,0,0.3)] rounded-lg"
+    >
+      {/* Button Hover Shine/Glare Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF4500]/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out pointer-events-none"></div>
+      
+      <span className="font-orbitron text-[#E6EDF3] group-hover:text-[#FF4500] text-sm md:text-base font-bold tracking-[0.15em] uppercase relative z-10 transition-colors drop-shadow-[0_2px_5px_rgba(0,0,0,0.8)]">
+        {label}
+      </span>
+    </a>
   );
 }
 
