@@ -10,6 +10,8 @@ import { SessionProvider, useSession, signOut } from "next-auth/react";
  * =========================================================================
  * HARRISON INTERACTIVE | OMNI-LINK SIDEBAR COMPONENT (AUTO-WIRED)
  * =========================================================================
+ * Detects if rendering inside the Unreal Engine 5 CEF WebBrowser widget,
+ * and automatically pings the C++ plugin with the active license key.
  */
 function OmniLinkSidebar() {
   const sessionContext = useSession();
@@ -19,12 +21,14 @@ function OmniLinkSidebar() {
   // THE AUTOMATED UNREAL ENGINE 5 HANDSHAKE (AUTO-WIRE)
   // =========================================================================
   useEffect(() => {
+    // Safely extract the decrypted key and tier from the session
     const userKey = (session?.user as any)?.key;
     const userTier = (session?.user as any)?.tier;
 
     if (userKey && typeof window !== "undefined" && (window as any).ue?.handy) {
       console.log(`[SYS] Native UE5 environment detected. Transmitting License: [${userKey}]`);
       
+      // Physically pings your C++ bouncer to activate Elite/Ultimate features instantly!
       (window as any).ue.handy.sendToUnreal(JSON.stringify({
         intent: "VALIDATE_LICENSE",
         key: userKey
@@ -33,13 +37,14 @@ function OmniLinkSidebar() {
   }, [session]);
 
   return (
-    <aside className="w-80 glass-panel border-r border-[#00BFFF]/20 flex flex-col justify-between hidden md:flex shadow-[5px_0_20px_rgba(0,0,0,0.8)] z-20 overflow-y-auto bg-[#010409]/80 backdrop-blur-md">
+    <aside className="w-80 glass-panel border-r border-[#00BFFF]/20 flex flex-col justify-between hidden md:flex shadow-[5px_0_20px_rgba(0,0,0,0.8)] z-20 overflow-y-auto">
       <div className="flex flex-col">
         
         {/* BRANDING HEADER WITH LOGO INJECTION */}
         <div className="p-8 border-b border-[#00BFFF]/20 bg-[#010409]/80 flex flex-col items-center justify-center text-center gap-4 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-[#00BFFF]/10 to-transparent opacity-50 pointer-events-none"></div>
           
+          {/* The Glowing Hand Logo */}
           <div className="relative w-28 h-28 flex items-center justify-center group cursor-pointer">
             <div className="absolute inset-0 bg-[#00BFFF]/20 rounded-full blur-[25px] animate-pulse group-hover:bg-[#00BFFF]/40 transition-colors duration-500"></div>
             <img 
@@ -64,6 +69,7 @@ function OmniLinkSidebar() {
           <div className="flex items-center gap-4 p-3 bg-[#010409] border border-[#00BFFF]/30 rounded-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent,rgba(0,191,255,0.05),transparent)] group-hover:translate-x-full transition-transform duration-700"></div>
             
+            {/* Avatar Engine */}
             {session?.user?.image ? (
               <img 
                 src={session.user.image} 
@@ -76,6 +82,7 @@ function OmniLinkSidebar() {
               </div>
             )}
 
+            {/* Neural Credentials */}
             <div className="flex flex-col relative z-10 overflow-hidden w-full">
               <span className="font-orbitron text-xs text-[#E6EDF3] font-bold truncate tracking-wider">
                 {session?.user?.name || "GUEST ENTITY"}
@@ -170,12 +177,8 @@ export default function DashboardLayout({
   return (
     <SessionProvider>
       <AuthGuard>
-        <div className="w-full h-full min-h-screen flex flex-row relative z-10 overflow-hidden bg-[#010409]">
+        <div className="w-full h-full min-h-screen flex flex-row relative z-10 overflow-hidden bg-transparent">
           
-          {/* GLOBAL DASHBOARD BACKGROUND IMAGE FIX */}
-          {/* Note: Change the opacity value below (0-100) if you want the image brighter/darker */}
-          <div className="absolute inset-0 z-0 bg-[url('/bgpicture1.png')] bg-cover bg-center bg-fixed bg-no-repeat opacity-30 pointer-events-none"></div>
-
           {/* THE AUTO-WIRED SIDEBAR */}
           <OmniLinkSidebar />
 
@@ -187,7 +190,7 @@ export default function DashboardLayout({
             </div>
 
             {/* GLOBAL LEGAL FOOTER */}
-            <footer className="w-full border-t border-[#00BFFF]/20 bg-[#010409]/80 backdrop-blur-md p-6 mt-auto relative z-20">
+            <footer className="w-full border-t border-[#00BFFF]/20 bg-[#010409]/90 backdrop-blur-md p-6 mt-auto relative z-20">
               <div className="max-w-[1800px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
                 <p className="font-mono text-xs text-[#8B949E] tracking-widest uppercase text-center md:text-left">
                   &copy; {new Date().getFullYear()} Harrison Interactive. All Systems Nominal.
