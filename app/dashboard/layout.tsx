@@ -181,22 +181,59 @@ export default function DashboardLayout({
         {/* NATIVE INLINE CSS FOR BACKGROUND ANIMATIONS */}
         <style dangerouslySetInnerHTML={{
           __html: `
-            @keyframes panGrid {
+            /* Panning Blueprint Node Pattern */
+            @keyframes panNodes {
               0% { background-position: 0 0; }
-              100% { background-position: 0 40px; }
+              100% { background-position: -200px 200px; }
             }
-            @keyframes driftGlow {
-              0% { transform: translate(0px, 0px) scale(1); opacity: 0.3; }
-              33% { transform: translate(-30px, 20px) scale(1.1); opacity: 0.5; }
-              66% { transform: translate(20px, -30px) scale(0.9); opacity: 0.4; }
-              100% { transform: translate(0px, 0px) scale(1); opacity: 0.3; }
+
+            /* Chaotic Rainbow "Jumping" Animations */
+            @keyframes jumpOrb1 {
+              0%   { transform: translate(0, 0) scale(1); }
+              20%  { transform: translate(40vw, -20vh) scale(1.5); }
+              40%  { transform: translate(10vw, 40vh) scale(0.8); }
+              60%  { transform: translate(-30vw, -10vh) scale(1.2); }
+              80%  { transform: translate(20vw, 30vh) scale(0.9); }
+              100% { transform: translate(0, 0) scale(1); }
             }
-            .animated-cyber-grid {
-              background-image: 
-                linear-gradient(to bottom, rgba(0, 191, 255, 0.08) 1px, transparent 1px),
-                linear-gradient(to right, rgba(0, 191, 255, 0.04) 1px, transparent 1px);
-              background-size: 40px 40px;
-              animation: panGrid 3s linear infinite;
+            
+            @keyframes jumpOrb2 {
+              0%   { transform: translate(0, 0) scale(1.2); }
+              25%  { transform: translate(-30vw, 30vh) scale(0.7); }
+              50%  { transform: translate(20vw, -40vh) scale(1.4); }
+              75%  { transform: translate(40vw, 20vh) scale(0.9); }
+              100% { transform: translate(0, 0) scale(1.2); }
+            }
+
+            @keyframes jumpOrb3 {
+              0%   { transform: translate(0, 0) scale(0.9); }
+              30%  { transform: translate(20vw, 40vh) scale(1.3); }
+              60%  { transform: translate(-40vw, 10vh) scale(1.1); }
+              90%  { transform: translate(30vw, -30vh) scale(0.8); }
+              100% { transform: translate(0, 0) scale(0.9); }
+            }
+
+            @keyframes jumpOrb4 {
+              0%   { transform: translate(0, 0) scale(1.1); }
+              15%  { transform: translate(-20vw, -30vh) scale(1.5); }
+              45%  { transform: translate(30vw, 20vh) scale(0.7); }
+              75%  { transform: translate(-10vw, 40vh) scale(1.2); }
+              100% { transform: translate(0, 0) scale(1.1); }
+            }
+
+            @keyframes jumpOrb5 {
+              0%   { transform: translate(0, 0) scale(1); }
+              20%  { transform: translate(30vw, 20vh) scale(0.8); }
+              50%  { transform: translate(-40vw, -20vh) scale(1.4); }
+              80%  { transform: translate(10vw, -40vh) scale(1.1); }
+              100% { transform: translate(0, 0) scale(1); }
+            }
+
+            /* Custom Blueprint Node / Neural Network SVG Pattern */
+            .neural-network-pattern {
+              background-image: url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='3' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='100' cy='80' r='4' fill='rgba(0,191,255,0.4)'/%3E%3Ccircle cx='50' cy='120' r='2' fill='rgba(217,70,239,0.4)'/%3E%3Cpath d='M30 30 L100 80' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M100 80 L180 30' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M100 80 L50 120' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3Cpath d='M50 120 L-20 80' stroke='rgba(255,255,255,0.06)' stroke-width='1.5'/%3E%3C/svg%3E");
+              background-size: 150px 150px;
+              animation: panNodes 30s linear infinite;
             }
           `
         }} />
@@ -204,19 +241,22 @@ export default function DashboardLayout({
         <div className="w-full h-full min-h-screen flex flex-row relative z-10 overflow-hidden bg-[#050A15]">
           
           {/* ========================================================= */}
-          {/* DYNAMIC NEURAL BACKGROUND MATRIX                          */}
+          {/* DYNAMIC NEURAL BACKGROUND MATRIX (RAINBOW JUMP)           */}
           {/* ========================================================= */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            {/* Drifting Ambient Glows */}
-            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#00BFFF]/20 rounded-full blur-[120px]" style={{ animation: 'driftGlow 15s infinite ease-in-out' }}></div>
-            <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#DC143C]/10 rounded-full blur-[150px]" style={{ animation: 'driftGlow 20s infinite ease-in-out reverse' }}></div>
-            <div className="absolute top-[40%] left-[30%] w-[40%] h-[40%] bg-[#50C878]/10 rounded-full blur-[100px]" style={{ animation: 'driftGlow 25s infinite ease-in-out 2s' }}></div>
             
-            {/* Moving Infinite Grid */}
-            <div className="absolute inset-0 animated-cyber-grid opacity-70"></div>
+            {/* Erratic, Jumping Rainbow Light Orbs */}
+            <div className="absolute top-[30%] left-[20%] w-[500px] h-[500px] bg-[#D946EF]/30 rounded-full blur-[100px] mix-blend-screen" style={{ animation: 'jumpOrb1 18s infinite ease-in-out' }}></div>
+            <div className="absolute bottom-[20%] right-[30%] w-[600px] h-[600px] bg-[#00BFFF]/30 rounded-full blur-[120px] mix-blend-screen" style={{ animation: 'jumpOrb2 22s infinite ease-in-out' }}></div>
+            <div className="absolute top-[10%] right-[10%] w-[450px] h-[450px] bg-[#F59E0B]/30 rounded-full blur-[110px] mix-blend-screen" style={{ animation: 'jumpOrb3 15s infinite ease-in-out' }}></div>
+            <div className="absolute bottom-[10%] left-[10%] w-[550px] h-[550px] bg-[#10B981]/20 rounded-full blur-[130px] mix-blend-screen" style={{ animation: 'jumpOrb4 25s infinite ease-in-out' }}></div>
+            <div className="absolute top-[50%] left-[50%] w-[400px] h-[400px] bg-[#F43F5E]/30 rounded-full blur-[90px] mix-blend-screen" style={{ animation: 'jumpOrb5 19s infinite ease-in-out' }}></div>
             
-            {/* Vignette Overlay (Darkens edges to focus on UI) */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,#050A15_100%)]"></div>
+            {/* The Blueprint Node / Neural Network Moving Background */}
+            <div className="absolute inset-0 neural-network-pattern opacity-80"></div>
+            
+            {/* Heavy Vignette to keep text highly readable against the bright jumping lights */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050A15_90%)] opacity-90"></div>
           </div>
 
           {/* THE AUTO-WIRED SIDEBAR */}
