@@ -9,10 +9,6 @@ import { useSession } from "next-auth/react";
  * =========================================================================
  * HARRISON INTERACTIVE | COMMAND CENTER & UE5 CAPTIVE PORTAL
  * =========================================================================
- * Dual-Render Engine:
- * 1. If loaded in Chrome/Safari -> Renders the standard web Command Center.
- * 2. If loaded inside Unreal Engine -> Fires a hidden sync payload to Python
- *    and renders a 1.5s Cinematic Transition before the BP loads local files!
  */
 export default function DashboardOverview() {
   const sessionContext = useSession();
@@ -37,7 +33,6 @@ export default function DashboardOverview() {
       const tier = (session.user as any).tier || "LITE";
       const key = (session.user as any).key || "NO_KEY";
       
-      // This string is instantly caught by WBP_Handy_Main's OnConsoleMessage!
       console.log(`HANDY_PROMPT|{"intent": "SYNC_ACCOUNT", "tier": "${tier}", "key": "${key}"}`);
     }
   }, [session, isUE5]);
@@ -51,11 +46,6 @@ export default function DashboardOverview() {
     const ping = setInterval(() => { setLatency(Math.floor(Math.random() * (18 - 8 + 1) + 8)); }, 2000);
     return () => { clearInterval(timer); clearInterval(ping); };
   }, []);
-
-  const handleLaunchBillingPortal = () => {
-    const stripePortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL || "https://billing.stripe.com/p/login/14A3cv0EsfIycr875m6g800";
-    window.open(stripePortalUrl, "_blank", "noopener,noreferrer");
-  };
 
   // =========================================================================
   // RENDER A: THE UNREAL ENGINE CINEMATIC TRANSITION (1.5 SECONDS)
@@ -111,13 +101,13 @@ export default function DashboardOverview() {
               UPLINK ACTIVE
             </span>
           </div>
-          <p className="font-inter text-base text-[#E6EDF3] uppercase tracking-widest">
+          <p className="font-inter text-base text-[#E6EDF3] uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Welcome back, <span className="text-[#00FFFF] font-bold">{session?.user?.name?.toUpperCase() || "DIRECTOR"}</span>. All systems nominal.
           </p>
         </div>
 
         {/* Global Clock & Telemetry */}
-        <div className="flex flex-row items-center gap-6 glass-panel px-6 py-4 border-[#00BFFF]/30 rounded clip-angled">
+        <div className="flex flex-row items-center gap-6 glass-panel px-6 py-4 border-[#00BFFF]/30 rounded clip-angled backdrop-blur-md bg-[#010409]/60">
           <div className="flex flex-col items-end">
             <span className="font-mono text-[10px] text-[#8B949E] tracking-[0.2em] uppercase">Global Matrix Time</span>
             <span className="font-orbitron text-xl text-[#00BFFF] tracking-widest drop-shadow-[0_0_5px_rgba(0,191,255,0.5)]">{time}</span>
@@ -136,7 +126,7 @@ export default function DashboardOverview() {
       <div className="w-full grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-8 mb-10">
         
         {/* Node 1: License Status */}
-        <div className={`relative glass-panel clip-angled p-6 border-t-2 shadow-[0_0_15px_rgba(0,191,255,0.1)] hover:shadow-[0_0_25px_rgba(0,191,255,0.2)] transition-all group overflow-hidden ${
+        <div className={`relative glass-panel clip-angled p-6 border-t-2 shadow-[0_0_15px_rgba(0,191,255,0.1)] hover:shadow-[0_0_25px_rgba(0,191,255,0.2)] transition-all group overflow-hidden bg-[#010409]/60 backdrop-blur-sm ${
           (session?.user as any)?.tier === 'ULTIMATE' ? 'border-t-[#FF00FF]' : (session?.user as any)?.tier === 'ELITE' ? 'border-t-[#50C878]' : 'border-t-[#00BFFF]'
         }`}>
           <div className="absolute top-0 right-0 w-16 h-16 bg-[#00BFFF]/5 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500"></div>
@@ -153,7 +143,7 @@ export default function DashboardOverview() {
         </div>
 
         {/* Node 2: Database Connection */}
-        <div className="relative glass-panel clip-angled p-6 border-t-2 border-t-[#50C878] shadow-[0_0_15px_rgba(80,200,120,0.1)] hover:shadow-[0_0_25px_rgba(80,200,120,0.2)] transition-all group overflow-hidden">
+        <div className="relative glass-panel clip-angled p-6 border-t-2 border-t-[#50C878] shadow-[0_0_15px_rgba(80,200,120,0.1)] hover:shadow-[0_0_25px_rgba(80,200,120,0.2)] transition-all group overflow-hidden bg-[#010409]/60 backdrop-blur-sm">
           <div className="absolute top-0 right-0 w-16 h-16 bg-[#50C878]/5 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500"></div>
           <h3 className="font-orbitron text-[#8B949E] text-xs tracking-[0.2em] uppercase mb-1">D1 SQL Database</h3>
           <p className="font-orbitron text-2xl text-[#E6EDF3] font-bold tracking-widest uppercase mb-4 group-hover:text-[#50C878] transition-colors">
@@ -166,7 +156,7 @@ export default function DashboardOverview() {
         </div>
 
         {/* Node 3: Current Projects */}
-        <div className="relative glass-panel clip-angled p-6 border-t-2 border-t-[#FF00FF] shadow-[0_0_15px_rgba(255,0,255,0.1)] hover:shadow-[0_0_25px_rgba(255,0,255,0.2)] transition-all group overflow-hidden">
+        <div className="relative glass-panel clip-angled p-6 border-t-2 border-t-[#FF00FF] shadow-[0_0_15px_rgba(255,0,255,0.1)] hover:shadow-[0_0_25px_rgba(255,0,255,0.2)] transition-all group overflow-hidden bg-[#010409]/60 backdrop-blur-sm">
           <div className="absolute top-0 right-0 w-16 h-16 bg-[#FF00FF]/5 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500"></div>
           <h3 className="font-orbitron text-[#8B949E] text-xs tracking-[0.2em] uppercase mb-1">Tracked Endpoints</h3>
           <p className="font-orbitron text-2xl text-[#E6EDF3] font-bold tracking-widest uppercase mb-4 group-hover:text-[#FF00FF] transition-colors">
@@ -178,7 +168,7 @@ export default function DashboardOverview() {
         </div>
 
         {/* Node 4: Security Shield */}
-        <div className="relative glass-panel clip-angled p-6 border-t-2 border-t-[#FFBF00] shadow-[0_0_15px_rgba(255,191,0,0.1)] hover:shadow-[0_0_25px_rgba(255,191,0,0.2)] transition-all group overflow-hidden">
+        <div className="relative glass-panel clip-angled p-6 border-t-2 border-t-[#FFBF00] shadow-[0_0_15px_rgba(255,191,0,0.1)] hover:shadow-[0_0_25px_rgba(255,191,0,0.2)] transition-all group overflow-hidden bg-[#010409]/60 backdrop-blur-sm">
           <div className="absolute top-0 right-0 w-16 h-16 bg-[#FFBF00]/5 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500"></div>
           <h3 className="font-orbitron text-[#8B949E] text-xs tracking-[0.2em] uppercase mb-1">Auth Integrity</h3>
           <p className="font-orbitron text-2xl text-[#E6EDF3] font-bold tracking-widest uppercase mb-4 group-hover:text-[#FFBF00] transition-colors">
@@ -197,34 +187,59 @@ export default function DashboardOverview() {
         
         {/* Left: Quick Actions & Billing Portal */}
         <div className="w-full xl:w-1/3 flex flex-col gap-6">
-          <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-widest uppercase border-b border-[#E6EDF3]/10 pb-3">
+          <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-widest uppercase border-b border-[#E6EDF3]/10 pb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Quick Directives
           </h2>
           
-          <a href="/dashboard/hi-handy" className="group holographic-card clip-angled p-6 border-l-2 border-l-[#00BFFF] hover:bg-[#00BFFF]/10 transition-all flex justify-between items-center cursor-pointer">
+          <a href="/dashboard/hi-handy" className="group holographic-card clip-angled p-6 border-l-2 border-l-[#00BFFF] bg-[#010409]/60 hover:bg-[#00BFFF]/20 backdrop-blur-md transition-all flex justify-between items-center cursor-pointer">
             <div className="flex flex-col">
-              <span className="font-orbitron text-[#00BFFF] text-base tracking-widest uppercase font-bold group-hover:translate-x-1 transition-transform">Initialize Hi Handy</span>
-              <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest mt-1.5">Access Neural Tools</span>
+              <span className="font-orbitron text-[#00BFFF] text-base tracking-widest uppercase font-bold group-hover:translate-x-1 transition-transform drop-shadow-[0_0_5px_rgba(0,191,255,0.4)]">Initialize Hi Handy</span>
+              <span className="font-mono text-[10px] text-[#E6EDF3] uppercase tracking-widest mt-1.5">Access Neural Tools</span>
             </div>
             <span className="text-[#00BFFF] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
           </a>
 
-          <a href="/dashboard/blood-yield" className="group holographic-card clip-angled p-6 border-l-2 border-l-[#DC143C] hover:bg-[#DC143C]/10 transition-all flex justify-between items-center cursor-pointer">
+          <a href="/dashboard/blood-yield" className="group holographic-card clip-angled p-6 border-l-2 border-l-[#DC143C] bg-[#010409]/60 hover:bg-[#DC143C]/20 backdrop-blur-md transition-all flex justify-between items-center cursor-pointer">
             <div className="flex flex-col">
-              <span className="font-orbitron text-[#DC143C] text-base tracking-widest uppercase font-bold group-hover:translate-x-1 transition-transform">Blood-Yield Dev Hub</span>
-              <span className="font-mono text-[10px] text-[#8B949E] uppercase tracking-widest mt-1.5">Access Studio Project</span>
+              <span className="font-orbitron text-[#DC143C] text-base tracking-widest uppercase font-bold group-hover:translate-x-1 transition-transform drop-shadow-[0_0_5px_rgba(220,20,60,0.4)]">Blood-Yield Dev Hub</span>
+              <span className="font-mono text-[10px] text-[#E6EDF3] uppercase tracking-widest mt-1.5">Access Studio Project</span>
             </div>
             <span className="text-[#DC143C] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all">{'>>'}</span>
           </a>
 
+          {/* FLAME & VOTING REWARD CARD */}
+          <div className="group holographic-card border border-[#FF4500]/40 clip-angled p-6 bg-[#FF4500]/10 hover:bg-[#FF4500]/20 backdrop-blur-md transition-all flex justify-between items-center cursor-pointer relative overflow-hidden mt-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FF4500]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            
+            <div className="flex flex-row items-center gap-5 relative z-10">
+              <div className="relative w-12 h-12 flex items-center justify-center">
+                <div className="absolute inset-0 bg-[#FF4500]/30 blur-[15px] rounded-full animate-pulse"></div>
+                {/* Ensure your flame.png is saved in the public/ folder */}
+                <img src="/flame.png" alt="Flame" className="w-full h-full object-contain relative z-10 drop-shadow-[0_0_8px_rgba(255,69,0,0.8)] hover:scale-110 transition-transform" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-orbitron text-[#FF4500] text-base tracking-widest uppercase font-bold drop-shadow-[0_0_5px_rgba(255,69,0,0.5)] group-hover:translate-x-1 transition-transform">
+                  Voting Rewards
+                </span>
+                <span className="font-mono text-[10px] text-[#E6EDF3] uppercase tracking-widest mt-1.5">
+                  Vote 10 times to unlock <strong className="text-[#FFBF00] text-[11px] drop-shadow-[0_0_5px_rgba(255,191,0,0.8)]">+3 Extra Keys</strong>!
+                </span>
+              </div>
+            </div>
+            
+            <span className="text-[#FF4500] font-mono text-xl opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all relative z-10">
+              {'>>'}
+            </span>
+          </div>
+
           {/* DYNAMIC SUBSCRIPTION PORTAL CARD */}
-          <div className="holographic-card border border-[#FFBF00]/30 clip-angled p-6 bg-[#FFBF00]/5 flex flex-col gap-4 relative overflow-hidden group">
+          <div className="holographic-card border border-[#FFBF00]/30 clip-angled p-6 bg-[#FFBF00]/10 backdrop-blur-md flex flex-col gap-4 relative overflow-hidden group mt-2">
             <div className="absolute inset-0 bg-[#FFBF00]/5 group-hover:bg-[#FFBF00]/10 transition-colors pointer-events-none"></div>
             <div className="flex flex-col">
-              <h3 className="font-orbitron text-base text-[#FFBF00] font-bold tracking-widest uppercase mb-1">
+              <h3 className="font-orbitron text-base text-[#FFBF00] font-bold tracking-widest uppercase mb-1 drop-shadow-[0_0_5px_rgba(255,191,0,0.4)]">
                 Subscription Control
               </h3>
-              <p className="font-sans text-xs text-[#8B949E] leading-relaxed mb-4">
+              <p className="font-sans text-xs text-[#E6EDF3] leading-relaxed mb-4">
                 Update billing methods, download historical invoices, or upgrade/cancel your active subscription securely via the native Stripe Customer Portal.
               </p>
             </div>
@@ -242,11 +257,11 @@ export default function DashboardOverview() {
 
         {/* Right: CRT Server Log Terminal */}
         <div className="w-full flex-1 flex flex-col">
-          <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-widest uppercase border-b border-[#E6EDF3]/10 pb-3 mb-6">
+          <h2 className="font-orbitron text-[#E6EDF3] text-xl font-bold tracking-widest uppercase border-b border-[#E6EDF3]/10 pb-3 mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             System Event Log
           </h2>
           
-          <div className="flex-1 min-h-[350px] relative overflow-hidden bg-[#010409] border border-[#00BFFF]/30 rounded-md p-6 shadow-[inset_0_0_30px_rgba(0,0,0,1)]">
+          <div className="flex-1 min-h-[350px] relative overflow-hidden bg-[#010409]/90 backdrop-blur-md border border-[#00BFFF]/30 rounded-md p-6 shadow-[inset_0_0_30px_rgba(0,0,0,1)]">
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_3px] pointer-events-none z-10"></div>
             
             <div className="flex justify-between items-center mb-6 border-b border-[#00BFFF]/20 pb-3 relative z-20">
