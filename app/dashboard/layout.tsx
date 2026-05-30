@@ -37,7 +37,7 @@ function OmniLinkSidebar() {
   }, [session]);
 
   return (
-    <aside className="w-80 glass-panel border-r border-[#00BFFF]/20 flex flex-col justify-between hidden md:flex shadow-[5px_0_20px_rgba(0,0,0,0.8)] z-20 overflow-y-auto">
+    <aside className="w-80 glass-panel border-r border-[#00BFFF]/20 flex flex-col justify-between hidden md:flex shadow-[5px_0_20px_rgba(0,0,0,0.8)] z-20 overflow-y-auto bg-[#010409]/70 backdrop-blur-md">
       <div className="flex flex-col">
         
         {/* BRANDING HEADER WITH LOGO INJECTION */}
@@ -177,8 +177,48 @@ export default function DashboardLayout({
   return (
     <SessionProvider>
       <AuthGuard>
-        <div className="w-full h-full min-h-screen flex flex-row relative z-10 overflow-hidden bg-transparent">
+        
+        {/* NATIVE INLINE CSS FOR BACKGROUND ANIMATIONS */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes panGrid {
+              0% { background-position: 0 0; }
+              100% { background-position: 0 40px; }
+            }
+            @keyframes driftGlow {
+              0% { transform: translate(0px, 0px) scale(1); opacity: 0.3; }
+              33% { transform: translate(-30px, 20px) scale(1.1); opacity: 0.5; }
+              66% { transform: translate(20px, -30px) scale(0.9); opacity: 0.4; }
+              100% { transform: translate(0px, 0px) scale(1); opacity: 0.3; }
+            }
+            .animated-cyber-grid {
+              background-image: 
+                linear-gradient(to bottom, rgba(0, 191, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(to right, rgba(0, 191, 255, 0.04) 1px, transparent 1px);
+              background-size: 40px 40px;
+              animation: panGrid 3s linear infinite;
+            }
+          `
+        }} />
+
+        <div className="w-full h-full min-h-screen flex flex-row relative z-10 overflow-hidden bg-[#050A15]">
           
+          {/* ========================================================= */}
+          {/* DYNAMIC NEURAL BACKGROUND MATRIX                          */}
+          {/* ========================================================= */}
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            {/* Drifting Ambient Glows */}
+            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#00BFFF]/20 rounded-full blur-[120px]" style={{ animation: 'driftGlow 15s infinite ease-in-out' }}></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#DC143C]/10 rounded-full blur-[150px]" style={{ animation: 'driftGlow 20s infinite ease-in-out reverse' }}></div>
+            <div className="absolute top-[40%] left-[30%] w-[40%] h-[40%] bg-[#50C878]/10 rounded-full blur-[100px]" style={{ animation: 'driftGlow 25s infinite ease-in-out 2s' }}></div>
+            
+            {/* Moving Infinite Grid */}
+            <div className="absolute inset-0 animated-cyber-grid opacity-70"></div>
+            
+            {/* Vignette Overlay (Darkens edges to focus on UI) */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,#050A15_100%)]"></div>
+          </div>
+
           {/* THE AUTO-WIRED SIDEBAR */}
           <OmniLinkSidebar />
 
