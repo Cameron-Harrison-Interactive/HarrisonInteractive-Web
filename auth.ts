@@ -97,7 +97,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (db && token.email) {
           try {
             const { results } = await db
+<<<<<<< HEAD
               .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, stripe_customer_id, billing_email, compute_included, compute_used, compute_period_start, compute_period_end, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
+=======
+<<<<<<< HEAD
+              .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, stripe_customer_id, billing_email, compute_included, compute_used, compute_period_start, compute_period_end, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
+=======
+              .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
+>>>>>>> 6fa07224bcb11598080722d460b04254e5e3bbe5
+>>>>>>> 99e06d42b4ef0238b1852574ae5f68b29302bf60
               .bind(token.email)
               .all();
             
