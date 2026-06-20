@@ -10,6 +10,13 @@ function AccountMatrixContent() {
   const session = sessionContext?.data;
   const status = sessionContext?.status || "loading";
 
+<<<<<<< HEAD
+=======
+export default function AccountPage() {
+  const sessionContext = useSession();
+  const session = sessionContext?.data;
+  const status = sessionContext?.status || "loading";
+>>>>>>> 6fa07224bcb11598080722d460b04254e5e3bbe5
   const [time, setTime] = useState("00:00:00");
   const [checkoutLoading, setCheckoutLoading] = useState<"elite" | "ultimate" | null>(null);
   const [accountLog, setAccountLog] = useState<string[]>([
