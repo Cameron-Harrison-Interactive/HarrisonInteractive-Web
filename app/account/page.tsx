@@ -4,28 +4,12 @@
 
 import React, { Suspense, useEffect, useState } from "react";
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
-<<<<<<< HEAD
 
 function AccountMatrixContent() {
   const sessionContext = useSession();
   const session = sessionContext?.data;
   const status = sessionContext?.status || "loading";
 
-=======
-
-function AccountMatrixContent() {
-  const sessionContext = useSession();
-  const session = sessionContext?.data;
-  const status = sessionContext?.status || "loading";
-
-<<<<<<< HEAD
-=======
-export default function AccountPage() {
-  const sessionContext = useSession();
-  const session = sessionContext?.data;
-  const status = sessionContext?.status || "loading";
->>>>>>> 6fa07224bcb11598080722d460b04254e5e3bbe5
->>>>>>> 99e06d42b4ef0238b1852574ae5f68b29302bf60
   const [time, setTime] = useState("00:00:00");
   const [checkoutLoading, setCheckoutLoading] = useState<"elite" | "ultimate" | null>(null);
   const [accountLog, setAccountLog] = useState<string[]>([

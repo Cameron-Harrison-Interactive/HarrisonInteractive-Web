@@ -83,10 +83,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         (session.user as any).billingDate = "";
         (session.user as any).stripeCustomerId = "";
         (session.user as any).billingEmail = "";
-        (session.user as any).computeIncluded = 250000;
-        (session.user as any).computeUsed = 0;
-        (session.user as any).computePeriodStart = "";
-        (session.user as any).computePeriodEnd = "";
         (session.user as any).newsletterSubscribed = 1;
 
         // 2. Real-Time D1 Handshake
@@ -97,15 +93,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (db && token.email) {
           try {
             const { results } = await db
-<<<<<<< HEAD
-              .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, stripe_customer_id, billing_email, compute_included, compute_used, compute_period_start, compute_period_end, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
-=======
-<<<<<<< HEAD
-              .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, stripe_customer_id, billing_email, compute_included, compute_used, compute_period_start, compute_period_end, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
-=======
-              .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
->>>>>>> 6fa07224bcb11598080722d460b04254e5e3bbe5
->>>>>>> 99e06d42b4ef0238b1852574ae5f68b29302bf60
+              .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, stripe_customer_id, billing_email, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
               .bind(token.email)
               .all();
             
@@ -118,10 +106,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               (session.user as any).billingDate = results[0].billing_date || "";
               (session.user as any).stripeCustomerId = results[0].stripe_customer_id || "";
               (session.user as any).billingEmail = results[0].billing_email || "";
-              (session.user as any).computeIncluded = results[0].compute_included ?? 250000;
-              (session.user as any).computeUsed = results[0].compute_used ?? 0;
-              (session.user as any).computePeriodStart = results[0].compute_period_start || "";
-              (session.user as any).computePeriodEnd = results[0].compute_period_end || "";
               (session.user as any).newsletterSubscribed = results[0].newsletter_subscribed !== undefined ? results[0].newsletter_subscribed : 1;
             }
           } catch (error: any) {
