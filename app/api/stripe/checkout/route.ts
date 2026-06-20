@@ -19,7 +19,8 @@ export const runtime = "edge";
 export async function POST(request: Request) {
   try {
     const body = await request.json() as any;
-    const tier = body.tier;
+    const tier = String(body.tier || "").toLowerCase();
+    const email = String(body.email || "").trim();
 
     console.log(`[SYS] Processing Pure Edge Checkout for Tier: [${tier ? tier.toUpperCase() : 'UNKNOWN'}]`);
 
@@ -43,6 +44,10 @@ export async function POST(request: Request) {
       ? process.env.STRIPE_PRICE_ULTIMATE 
       : process.env.STRIPE_PRICE_ELITE;
 
+    const computeMeteredPriceId = tier === "ultimate"
+      ? process.env.STRIPE_PRICE_ULTIMATE_COMPUTE_METERED
+      : "";
+
     if (!priceId) {
       console.error("[FATAL ERR] Stripe Price ID is missing from the Edge Vault.");
       return new Response(
@@ -60,10 +65,21 @@ export async function POST(request: Request) {
     formData.append("payment_method_types[0]", "card");
     formData.append("line_items[0][price]", priceId);
     formData.append("line_items[0][quantity]", "1");
+
+    // Optional metered Compute Box price. Create this as a recurring metered
+    // price in Stripe and set STRIPE_PRICE_ULTIMATE_COMPUTE_METERED.
+    if (computeMeteredPriceId) {
+      formData.append("line_items[1][price]", computeMeteredPriceId);
+    }
+
     formData.append("mode", "subscription"); 
     formData.append("success_url", `${origin}/dashboard/billing?status=success&session_id={CHECKOUT_SESSION_ID}&tier=${tier}`);
     formData.append("cancel_url", `${origin}/dashboard/billing?status=cancelled`);
     formData.append("metadata[tier]", tier);
+    if (email) {
+      formData.append("customer_email", email);
+      formData.append("metadata[email]", email);
+    }
 
     // =========================================================
     // NATIVE EDGE FETCH (ZERO DEPENDENCIES)
