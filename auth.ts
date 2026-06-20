@@ -64,9 +64,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   // EDGE CALLBACKS (THE LIVE SYNC ENGINE)
   callbacks: {
     async jwt({ token, user }) {
-      // Keep track of the internal user ID in the token
+      // Keep stable identity fields in the JWT so client pages can approve
+      // Unreal device-link requests without losing name/email between redirects.
       if (user) {
         token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
       }
       return token;
     },
@@ -88,12 +91,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (db && token.email) {
           try {
             const { results } = await db
-              .prepare("SELECT license_tier, neural_key, billing_date, newsletter_subscribed FROM users WHERE email = ?")
+              .prepare("SELECT id, name, email, license_tier, neural_key, billing_date, newsletter_subscribed FROM users WHERE email = ? LIMIT 1")
               .bind(token.email)
               .all();
             
             if (results && results[0]) {
-              (session.user as any).tier = results[0].license_tier || "LITE";
+              (session.user as any).id = results[0].id || token.id || "";
+              (session.user as any).name = results[0].name || token.name || session.user.name || "";
+              (session.user as any).email = results[0].email || token.email || session.user.email || "";
+              (session.user as any).tier = String(results[0].license_tier || "LITE").toUpperCase();
               (session.user as any).key = results[0].neural_key || "";
               (session.user as any).billingDate = results[0].billing_date || "";
               (session.user as any).newsletterSubscribed = results[0].newsletter_subscribed !== undefined ? results[0].newsletter_subscribed : 1;

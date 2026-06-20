@@ -1,4 +1,4 @@
-﻿services:
+services:
   web-matrix:
     image: node:24-slim
     container_name: harrison-web-dev

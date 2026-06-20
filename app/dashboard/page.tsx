@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 
 /**
@@ -21,6 +21,7 @@ export default function DashboardOverview() {
   const [time, setTime] = useState<string>("00:00:00");
   const [latency, setLatency] = useState<number>(12);
   const [isUE5, setIsUE5] = useState<boolean>(false);
+  const ueSyncSentRef = useRef<string>("");
 
   // 1. DETECT UNREAL ENGINE CEF BROWSER
   useEffect(() => {
@@ -31,14 +32,35 @@ export default function DashboardOverview() {
     }
   }, []);
 
-  // 2. EMIT THE HIDDEN SYNCHRONIZATION PAYLOAD TO C++
+  // 2. EMIT THE HIDDEN SYNCHRONIZATION PAYLOAD TO UNREAL CEF ONCE
   useEffect(() => {
     if (session?.user && isUE5) {
-      const tier = (session.user as any).tier || "LITE";
-      const key = (session.user as any).key || "NO_KEY";
-      
-      // This string is instantly caught by WBP_Handy_Main's OnConsoleMessage!
-      console.log(`HANDY_PROMPT|{"intent": "SYNC_ACCOUNT", "tier": "${tier}", "key": "${key}"}`);
+      const user = session.user as any;
+      const tier = user.tier || "LITE";
+      const key = user.key || "NO_KEY";
+      const email = user.email || "";
+      const username = user.name || (email.includes("@") ? email.split("@")[0] : "");
+      const userId = user.id || "";
+      const signature = `${tier}|${key}|${email}|${userId}`;
+
+      // Prevent CEF/session re-renders from spamming Unreal with tier/key-only
+      // SYNC_ACCOUNT events. Unreal should receive identity fields too.
+      if (ueSyncSentRef.current === signature) return;
+      ueSyncSentRef.current = signature;
+
+      const payload = {
+        intent: "SYNC_ACCOUNT",
+        tier,
+        key,
+        email,
+        username,
+        name: username,
+        user_id: userId,
+        id: userId,
+        source: "dashboard_cef_sync",
+      };
+
+      console.log(`HANDY_PROMPT|${JSON.stringify(payload)}`);
     }
   }, [session, isUE5]);
 
