@@ -42,6 +42,7 @@ export async function POST(req: Request) {
       .prepare(
         `
         SELECT
+          id,
           license_tier,
           email,
           name
@@ -55,6 +56,7 @@ export async function POST(req: Request) {
 
     if (results && results.length > 0) {
       const user = results[0] as {
+        id?: string;
         license_tier?: string;
         email?: string;
         name?: string;
@@ -65,6 +67,7 @@ export async function POST(req: Request) {
       const username =
         String(user.name || "").trim() ||
         (email.includes("@") ? email.split("@")[0] : "");
+      const userId = String(user.id || "").trim();
 
       console.log(
         `>> [LICENSE MATRIX] Key validated successfully. Granting Tier: ${assignedTier} | Email: ${
@@ -73,7 +76,7 @@ export async function POST(req: Request) {
       );
 
       return NextResponse.json(
-        { valid: true, tier: assignedTier, email, username, name: username },
+        { valid: true, tier: assignedTier, email, username, name: username, user_id: userId, id: userId },
         { status: 200 }
       );
     }

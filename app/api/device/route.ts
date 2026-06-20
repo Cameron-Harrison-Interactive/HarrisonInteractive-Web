@@ -104,6 +104,7 @@ export async function POST(req: Request) {
       .prepare(
         `
         SELECT
+          id,
           license_tier,
           neural_key,
           email,
@@ -119,6 +120,7 @@ export async function POST(req: Request) {
     const user =
       results && results.length > 0
         ? (results[0] as {
+            id?: string;
             license_tier?: string;
             neural_key?: string;
             email?: string;
@@ -132,6 +134,7 @@ export async function POST(req: Request) {
     const username =
       String(user?.name || "").trim() ||
       (resolvedEmail.includes("@") ? resolvedEmail.split("@")[0] : "DIRECTOR");
+    const userId = String(user?.id || "").trim();
 
     const authPayload = {
       tier: assignedTier,
@@ -139,6 +142,8 @@ export async function POST(req: Request) {
       email: resolvedEmail,
       username,
       name: username,
+      user_id: userId,
+      id: userId,
     };
 
     const kvKey = `device_${token}`;
@@ -149,7 +154,7 @@ export async function POST(req: Request) {
     );
 
     return NextResponse.json(
-      { success: true, tier: assignedTier, email: resolvedEmail, username },
+      { success: true, tier: assignedTier, email: resolvedEmail, username, user_id: userId, id: userId },
       { status: 200 }
     );
   } catch (error: any) {
