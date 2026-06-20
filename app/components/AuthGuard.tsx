@@ -45,7 +45,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       });
   }, [pathname, router]);
 
-  // JARVIS Loading Matrix (Globally upscaled for 1440p/4K monitors)
+  // H.E.L.E.N.A Loading Matrix (Globally upscaled for 1440p/4K monitors)
   if (isAuthorized === null) {
     return (
       <div className="w-full h-full min-h-screen flex flex-col items-center justify-center bg-[#010409] relative overflow-hidden">

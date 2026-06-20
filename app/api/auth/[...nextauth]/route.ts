@@ -3,14 +3,12 @@
 import { handlers } from "@/auth";
 
 // =========================================================================
-// CRITICAL CLOUDFLARE DIRECTIVE:
-// Forces the V8 Edge Network compilation for the Auth Matrix.
+// CLOUDFLARE EDGE DIRECTIVE
 // =========================================================================
 export const runtime = "edge";
 
 // =========================================================================
-// PROPER TS DESTRUCTURING:
-// Extracts the specific GET and POST functions from the NextAuth engine
+// NEXTAUTH HANDLERS
 // =========================================================================
 export const { GET, POST } = handlers;
 

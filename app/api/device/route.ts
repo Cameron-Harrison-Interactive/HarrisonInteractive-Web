@@ -22,35 +22,49 @@ export const runtime = "edge";
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const token = searchParams.get("token");
+    const token = String(searchParams.get("token") || "").trim();
 
     if (!token) {
       return NextResponse.json({ error: "Missing token." }, { status: 400 });
     }
 
-    // Access the Cloudflare KV Store securely
     const kv = (process.env as any).LICENSE_MATRIX;
-    
-    // Check if the website has approved this specific token yet
-    const kvData = await kv.get(`device_${token}`);
 
-    if (kvData) {
-      // The user authorized it! Parse the data.
-      const parsedData = JSON.parse(kvData);
-      
-      // Delete the token immediately so it can never be intercepted or reused
-      await kv.delete(`device_${token}`);
-      
-      console.log(`>> [DEVICE AUTH] UE5 Client successfully retrieved payload for token: ${token}`);
-      return NextResponse.json({ authorized: true, data: parsedData }, { status: 200 });
+    if (!kv) {
+      console.error("!! [DEVICE AUTH] LICENSE_MATRIX KV binding missing.");
+      return NextResponse.json(
+        { error: "Device authorization KV offline." },
+        { status: 500 }
+      );
     }
 
-    // 202 Accepted: The request is valid, but we are still waiting for the user to click approve in the browser.
-    return NextResponse.json({ authorized: false }, { status: 202 });
+    const kvKey = `device_${token}`;
+    const kvData = await kv.get(kvKey);
 
+    if (kvData) {
+      const parsedData = JSON.parse(kvData);
+      await kv.delete(kvKey);
+
+      console.log(
+        `>> [DEVICE AUTH] UE client successfully retrieved payload for token: ${token.slice(0, 8)}...`
+      );
+
+      return NextResponse.json(
+        {
+          authorized: true,
+          data: parsedData,
+        },
+        { status: 200 }
+      );
+    }
+
+    return NextResponse.json({ authorized: false }, { status: 202 });
   } catch (error: any) {
-    console.error(`!! [DEVICE AUTH GET FAULT] ${error.message}`);
-    return NextResponse.json({ error: "Polling failed natively." }, { status: 500 });
+    console.error(`!! [DEVICE AUTH GET FAULT] ${error?.message || String(error)}`);
+    return NextResponse.json(
+      { error: "Polling failed natively." },
+      { status: 500 }
+    );
   }
 }
 
@@ -60,40 +74,86 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { token, email } = body;
+    const token = String(body?.token || "").trim();
+    const email = String(body?.email || "").trim();
 
     if (!token || !email) {
-      return NextResponse.json({ error: "Missing token or biometric identifier." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing token or biometric identifier." },
+        { status: 400 }
+      );
     }
 
-    // 1. Query the D1 Database for the user's exact permissions
     const db = (process.env as any).DB;
-    const { results } = await db.prepare("SELECT license_tier, neural_key FROM users WHERE email = ?")
-                                .bind(email)
-                                .all();
+    const kv = (process.env as any).LICENSE_MATRIX;
 
-    const assignedTier = (results && results.length > 0) ? (results[0].license_tier || "LITE") : "LITE";
-    const neuralKey = (results && results.length > 0) ? (results[0].neural_key || "UNALLOCATED") : "UNALLOCATED";
+    if (!db) {
+      console.error("!! [DEVICE AUTH] D1 Database 'DB' binding missing.");
+      return NextResponse.json({ error: "Edge Database offline." }, { status: 500 });
+    }
 
-    // 2. Package the payload
+    if (!kv) {
+      console.error("!! [DEVICE AUTH] LICENSE_MATRIX KV binding missing.");
+      return NextResponse.json(
+        { error: "Device authorization KV offline." },
+        { status: 500 }
+      );
+    }
+
+    const { results } = await db
+      .prepare(
+        `
+        SELECT
+          license_tier,
+          neural_key,
+          email,
+          name
+        FROM users
+        WHERE email = ?
+        LIMIT 1
+        `
+      )
+      .bind(email)
+      .all();
+
+    const user =
+      results && results.length > 0
+        ? (results[0] as {
+            license_tier?: string;
+            neural_key?: string;
+            email?: string;
+            name?: string;
+          })
+        : null;
+
+    const assignedTier = String(user?.license_tier || "LITE").toUpperCase();
+    const neuralKey = String(user?.neural_key || "UNALLOCATED");
+    const resolvedEmail = String(user?.email || email).trim();
+    const username =
+      String(user?.name || "").trim() ||
+      (resolvedEmail.includes("@") ? resolvedEmail.split("@")[0] : "DIRECTOR");
+
     const authPayload = {
       tier: assignedTier,
       key: neuralKey,
-      email: email
+      email: resolvedEmail,
+      username,
+      name: username,
     };
 
-    // 3. Drop the payload into the KV Store with a strict 5-minute expiration
-    const kv = (process.env as any).LICENSE_MATRIX;
-    
-    // expirationTtl is measured in seconds (300 = 5 minutes)
-    await kv.put(`device_${token}`, JSON.stringify(authPayload), { expirationTtl: 300 });
+    const kvKey = `device_${token}`;
+    await kv.put(kvKey, JSON.stringify(authPayload), { expirationTtl: 300 });
 
-    console.log(`>> [DEVICE AUTH] User ${email} approved device linkage. Payload secured in KV.`);
-    
-    return NextResponse.json({ success: true, tier: assignedTier }, { status: 200 });
+    console.log(
+      `>> [DEVICE AUTH] User ${resolvedEmail} approved device linkage. Tier: ${assignedTier}. Payload secured in KV.`
+    );
 
+    return NextResponse.json(
+      { success: true, tier: assignedTier, email: resolvedEmail, username },
+      { status: 200 }
+    );
   } catch (error: any) {
-    console.error(`!! [DEVICE AUTH POST FAULT] ${error.message}`);
+    console.error(`!! [DEVICE AUTH POST FAULT] ${error?.message || String(error)}`);
     return NextResponse.json({ error: "Approval failed natively." }, { status: 500 });
   }
 }
