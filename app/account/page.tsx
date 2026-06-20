@@ -6,7 +6,9 @@ import React, { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function AccountPage() {
-  const { data: session, status } = useSession();
+  const sessionContext = useSession();
+  const session = sessionContext?.data;
+  const status = sessionContext?.status || "loading";
   const [time, setTime] = useState("00:00:00");
 
   useEffect(() => {
