@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { SessionProvider, useSession, signIn } from "next-auth/react";
 
@@ -21,6 +21,7 @@ function DeviceLinkContent() {
   const [authStatus, setAuthStatus] = useState<"IDLE" | "AUTHORIZING" | "SUCCESS" | "ERROR">("IDLE");
   const [errorMsg, setErrorMsg] = useState("");
   const linkedUser = (session?.user || {}) as HelenaLinkedUser;
+  const autoOAuthStarted = useRef(false);
 
   const isEmbeddedAuthPanel = () => {
     if (typeof window === "undefined") return false;
@@ -31,15 +32,22 @@ function DeviceLinkContent() {
     }
   };
 
-  const openOAuthProvider = async (provider: "github" | "google") => {
-    const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
+  const startTopLevelOAuth = async (provider: "github" | "google", callbackUrl: string) => {
     const result = await signIn(provider, { callbackUrl, redirect: false });
     const targetUrl = result?.url || `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
-    if (isEmbeddedAuthPanel()) {
-      const popup = window.open(targetUrl, "_blank", "noopener,noreferrer,width=980,height=820");
-      if (popup) return;
-    }
     window.location.assign(targetUrl);
+  };
+
+  const openOAuthProvider = (provider: "github" | "google") => {
+    const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
+    if (isEmbeddedAuthPanel()) {
+      const gatewayUrl = `/link?token=${encodeURIComponent(token || "")}&oauth=${provider}`;
+      const popup = window.open(gatewayUrl, "_blank", "noopener,noreferrer,width=980,height=820");
+      if (popup) return;
+      window.location.assign(gatewayUrl);
+      return;
+    }
+    void startTopLevelOAuth(provider, callbackUrl);
   };
 
   const approveDevice = async (authToken: string, email: string) => {
@@ -74,6 +82,21 @@ function DeviceLinkContent() {
     }
     return undefined;
   }, [token, sessionStatus, authStatus, linkedUser.email]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || autoOAuthStarted.current || !token) return;
+    if (sessionStatus !== "unauthenticated") return;
+    const params = new URLSearchParams(window.location.search);
+    const provider = params.get("oauth") as "github" | "google" | null;
+    if (provider !== "github" && provider !== "google") return;
+    if (isEmbeddedAuthPanel()) return;
+    autoOAuthStarted.current = true;
+    const callbackUrl = `/link?token=${encodeURIComponent(token)}`;
+    const timer = window.setTimeout(() => {
+      void startTopLevelOAuth(provider, callbackUrl);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [token, sessionStatus]);
 
   if (!token) {
     return (

@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 
 /**
@@ -23,6 +23,7 @@ export default function LoginMatrix() {
   const [email, setEmail] = useState("");
   const [isConnecting, setIsConnecting] = useState<string | null>(null);
   const [commsLog, setCommsLog] = useState<string>(initialCommsLog);
+  const autoOAuthStarted = useRef(false);
 
   const getReturnUrl = () => {
     if (typeof window === "undefined") return "/dashboard";
@@ -39,28 +40,8 @@ export default function LoginMatrix() {
     }
   };
 
-  const navigateToOAuth = (url: string, provider: string) => {
-    if (isEmbeddedAuthPanel()) {
-      const popup = window.open(url, "_blank", "noopener,noreferrer,width=980,height=820");
-      if (popup) {
-        setCommsLog(`[NET] ${provider.toUpperCase()} auth opened in secure top-level popup. Complete it, then return to H.E.L.E.N.A.`);
-        return;
-      }
-      setCommsLog(`[WARN] Popup blocked. Opening ${provider.toUpperCase()} auth in this panel...`);
-    }
-    window.location.assign(url);
-  };
-
-  const handleOAuthLogin = async (provider: string) => {
-    if (isConnecting !== null) return;
-    setIsConnecting(provider);
-    setCommsLog(`[NET] Initiating handshake with ${provider.toUpperCase()} nodes...`);
-    const callbackUrl = getReturnUrl();
-
+  const startTopLevelOAuth = async (provider: string, callbackUrl: string) => {
     try {
-      // In embedded Unreal/CEF/iframe panels, Google/GitHub cannot reliably run
-      // inside the iframe. Ask Auth.js for the provider URL, then open that URL
-      // as a top-level popup/window so OAuth is not trapped by the embedded panel.
       const result = await signIn(provider, { callbackUrl, redirect: false });
       if (result?.error) {
         setCommsLog(`!! [ERR] OAuth handshake rejected: ${result.error}`);
@@ -68,13 +49,52 @@ export default function LoginMatrix() {
         return;
       }
       const targetUrl = result?.url || `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
-      navigateToOAuth(targetUrl, provider);
+      window.location.assign(targetUrl);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       setCommsLog(`!! [ERR] OAuth redirect failed: ${message}`);
       setIsConnecting(null);
     }
   };
+
+  const handleOAuthLogin = (provider: string) => {
+    if (isConnecting !== null) return;
+    setIsConnecting(provider);
+    setCommsLog(`[NET] Initiating handshake with ${provider.toUpperCase()} nodes...`);
+    const callbackUrl = getReturnUrl();
+
+    // Do NOT call Auth.js signIn inside an embedded iframe/Unreal CEF panel.
+    // Third-party iframe cookie rules can prevent the CSRF cookie from being
+    // set/read, causing MissingCSRF. Open a top-level login gateway instead.
+    if (isEmbeddedAuthPanel()) {
+      const gatewayUrl = `/login?oauth=${encodeURIComponent(provider)}&callbackUrl=${encodeURIComponent(callbackUrl)}`;
+      const popup = window.open(gatewayUrl, "_blank", "noopener,noreferrer,width=980,height=820");
+      if (popup) {
+        setCommsLog(`[NET] ${provider.toUpperCase()} auth opened in secure top-level popup. Complete it, then return to H.E.L.E.N.A.`);
+        return;
+      }
+      setCommsLog(`[WARN] Popup blocked. Opening ${provider.toUpperCase()} auth in this panel; browser may reject embedded OAuth.`);
+      window.location.assign(gatewayUrl);
+      return;
+    }
+
+    void startTopLevelOAuth(provider, callbackUrl);
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined" || autoOAuthStarted.current) return;
+    const params = new URLSearchParams(window.location.search);
+    const provider = params.get("oauth");
+    if (!provider || isEmbeddedAuthPanel()) return;
+    autoOAuthStarted.current = true;
+    const callbackUrl = getReturnUrl();
+    const timer = window.setTimeout(() => {
+      setIsConnecting(provider);
+      setCommsLog(`[NET] Opening ${provider.toUpperCase()} authentication...`);
+      void startTopLevelOAuth(provider, callbackUrl);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
