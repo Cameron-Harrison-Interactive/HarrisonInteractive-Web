@@ -12,14 +12,43 @@ import { signIn } from "next-auth/react";
  * Native OAuth handshakes plus secure Resend Magic-Link authentication.
  */
 export default function LoginMatrix() {
+  const initialCommsLog = () => {
+    if (typeof window === "undefined") return "Awaiting Biometric Uplink...";
+    const error = new URLSearchParams(window.location.search).get("error");
+    if (!error) return "Awaiting Biometric Uplink...";
+    if (error === "Configuration") return "!! [ERR] OAuth provider configuration missing or invalid. Check AUTH_SECRET and provider secrets.";
+    return `!! [ERR] OAuth handshake rejected: ${error}`;
+  };
+
   const [email, setEmail] = useState("");
   const [isConnecting, setIsConnecting] = useState<string | null>(null);
-  const [commsLog, setCommsLog] = useState<string>("Awaiting Biometric Uplink...");
+  const [commsLog, setCommsLog] = useState<string>(initialCommsLog);
 
   const getReturnUrl = () => {
     if (typeof window === "undefined") return "/dashboard";
     const params = new URLSearchParams(window.location.search);
     return params.get("callbackUrl") || params.get("returnTo") || "/dashboard";
+  };
+
+  const isEmbeddedAuthPanel = () => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.self !== window.top;
+    } catch {
+      return true;
+    }
+  };
+
+  const navigateToOAuth = (url: string, provider: string) => {
+    if (isEmbeddedAuthPanel()) {
+      const popup = window.open(url, "_blank", "noopener,noreferrer,width=980,height=820");
+      if (popup) {
+        setCommsLog(`[NET] ${provider.toUpperCase()} auth opened in secure top-level popup. Complete it, then return to H.E.L.E.N.A.`);
+        return;
+      }
+      setCommsLog(`[WARN] Popup blocked. Opening ${provider.toUpperCase()} auth in this panel...`);
+    }
+    window.location.assign(url);
   };
 
   const handleOAuthLogin = async (provider: string) => {
@@ -29,14 +58,17 @@ export default function LoginMatrix() {
     const callbackUrl = getReturnUrl();
 
     try {
-      // Use an explicit top-level navigation fallback. Some embedded CEF/iframe
-      // surfaces swallow next-auth's client redirect and appear to just refresh.
+      // In embedded Unreal/CEF/iframe panels, Google/GitHub cannot reliably run
+      // inside the iframe. Ask Auth.js for the provider URL, then open that URL
+      // as a top-level popup/window so OAuth is not trapped by the embedded panel.
       const result = await signIn(provider, { callbackUrl, redirect: false });
-      if (result?.url) {
-        window.location.assign(result.url);
+      if (result?.error) {
+        setCommsLog(`!! [ERR] OAuth handshake rejected: ${result.error}`);
+        setIsConnecting(null);
         return;
       }
-      window.location.assign(`/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+      const targetUrl = result?.url || `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+      navigateToOAuth(targetUrl, provider);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       setCommsLog(`!! [ERR] OAuth redirect failed: ${message}`);
@@ -141,6 +173,7 @@ export default function LoginMatrix() {
 
         <div className="w-full flex flex-col gap-4 relative z-10">
           <button
+            type="button"
             onClick={() => handleOAuthLogin("github")}
             disabled={isConnecting !== null}
             className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all duration-300 group relative overflow-hidden cursor-pointer disabled:opacity-50 clip-angled-button"
@@ -155,6 +188,7 @@ export default function LoginMatrix() {
           </button>
 
           <button
+            type="button"
             onClick={() => handleOAuthLogin("google")}
             disabled={isConnecting !== null}
             className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all duration-300 group relative overflow-hidden shadow-[0_0_10px_rgba(0,191,255,0)] hover:shadow-[0_0_15px_rgba(0,191,255,0.3)] cursor-pointer disabled:opacity-50 clip-angled-button"

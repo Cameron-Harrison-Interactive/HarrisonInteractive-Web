@@ -22,6 +22,26 @@ function DeviceLinkContent() {
   const [errorMsg, setErrorMsg] = useState("");
   const linkedUser = (session?.user || {}) as HelenaLinkedUser;
 
+  const isEmbeddedAuthPanel = () => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.self !== window.top;
+    } catch {
+      return true;
+    }
+  };
+
+  const openOAuthProvider = async (provider: "github" | "google") => {
+    const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
+    const result = await signIn(provider, { callbackUrl, redirect: false });
+    const targetUrl = result?.url || `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+    if (isEmbeddedAuthPanel()) {
+      const popup = window.open(targetUrl, "_blank", "noopener,noreferrer,width=980,height=820");
+      if (popup) return;
+    }
+    window.location.assign(targetUrl);
+  };
+
   const approveDevice = async (authToken: string, email: string) => {
     setAuthStatus("AUTHORIZING");
     try {
@@ -84,19 +104,11 @@ function DeviceLinkContent() {
           Unreal Engine is requesting an uplink. Please authenticate to approve the connection.
         </p>
         <div className="w-full flex flex-col gap-4">
-          <button onClick={async () => {
-            const callbackUrl = `/link?token=${encodeURIComponent(token)}`;
-            const result = await signIn("github", { callbackUrl, redirect: false });
-            window.location.assign(result?.url || `/api/auth/signin/github?callbackUrl=${encodeURIComponent(callbackUrl)}`);
-          }} className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
+          <button type="button" onClick={() => void openOAuthProvider("github")} className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#E6EDF3] tracking-widest uppercase font-bold">GitHub Uplink</span>
             <span className="font-mono text-xs text-[#E6EDF3]/50 group-hover:text-[#E6EDF3] transition-colors">[ INIT ]</span>
           </button>
-          <button onClick={async () => {
-            const callbackUrl = `/link?token=${encodeURIComponent(token)}`;
-            const result = await signIn("google", { callbackUrl, redirect: false });
-            window.location.assign(result?.url || `/api/auth/signin/google?callbackUrl=${encodeURIComponent(callbackUrl)}`);
-          }} className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
+          <button type="button" onClick={() => void openOAuthProvider("google")} className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#00BFFF] tracking-widest uppercase font-bold">Google Uplink</span>
             <span className="font-mono text-xs text-[#00BFFF]/50 group-hover:text-[#00BFFF] transition-colors">[ INIT ]</span>
           </button>
