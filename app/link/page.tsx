@@ -6,6 +6,8 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { SessionProvider, useSession, signIn } from "next-auth/react";
 
+type HelenaLinkedUser = { tier?: string; email?: string; name?: string };
+
 /**
  * =========================================================================
  * HARRISON INTERACTIVE | DEVICE UPLINK MATRIX
@@ -18,13 +20,7 @@ function DeviceLinkContent() {
   const { data: session, status: sessionStatus } = useSession();
   const [authStatus, setAuthStatus] = useState<"IDLE" | "AUTHORIZING" | "SUCCESS" | "ERROR">("IDLE");
   const [errorMsg, setErrorMsg] = useState("");
-
-  useEffect(() => {
-    if (token && sessionStatus === "authenticated" && authStatus === "IDLE") {
-      approveDevice(token, session?.user?.email || "");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, sessionStatus, authStatus, session?.user?.email]);
+  const linkedUser = (session?.user || {}) as HelenaLinkedUser;
 
   const approveDevice = async (authToken: string, email: string) => {
     setAuthStatus("AUTHORIZING");
@@ -43,11 +39,21 @@ function DeviceLinkContent() {
         setAuthStatus("ERROR");
         setErrorMsg(data.error || "Handshake rejected by Edge Node.");
       }
-    } catch (_e: any) {
+    } catch {
       setAuthStatus("ERROR");
       setErrorMsg("Network disruption during secure uplink.");
     }
   };
+
+  useEffect(() => {
+    if (token && sessionStatus === "authenticated" && authStatus === "IDLE") {
+      const timer = window.setTimeout(() => {
+        void approveDevice(token, linkedUser.email || "");
+      }, 0);
+      return () => window.clearTimeout(timer);
+    }
+    return undefined;
+  }, [token, sessionStatus, authStatus, linkedUser.email]);
 
   if (!token) {
     return (
@@ -78,11 +84,19 @@ function DeviceLinkContent() {
           Unreal Engine is requesting an uplink. Please authenticate to approve the connection.
         </p>
         <div className="w-full flex flex-col gap-4">
-          <button onClick={() => signIn("github", { callbackUrl: `/link?token=${encodeURIComponent(token)}` })} className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
+          <button onClick={async () => {
+            const callbackUrl = `/link?token=${encodeURIComponent(token)}`;
+            const result = await signIn("github", { callbackUrl, redirect: false });
+            window.location.assign(result?.url || `/api/auth/signin/github?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+          }} className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#E6EDF3] tracking-widest uppercase font-bold">GitHub Uplink</span>
             <span className="font-mono text-xs text-[#E6EDF3]/50 group-hover:text-[#E6EDF3] transition-colors">[ INIT ]</span>
           </button>
-          <button onClick={() => signIn("google", { callbackUrl: `/link?token=${encodeURIComponent(token)}` })} className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
+          <button onClick={async () => {
+            const callbackUrl = `/link?token=${encodeURIComponent(token)}`;
+            const result = await signIn("google", { callbackUrl, redirect: false });
+            window.location.assign(result?.url || `/api/auth/signin/google?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+          }} className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#00BFFF] tracking-widest uppercase font-bold">Google Uplink</span>
             <span className="font-mono text-xs text-[#00BFFF]/50 group-hover:text-[#00BFFF] transition-colors">[ INIT ]</span>
           </button>
@@ -114,7 +128,7 @@ function DeviceLinkContent() {
         Matrix Unlocked
       </h1>
       <p className="font-mono text-xs text-[#E6EDF3] leading-relaxed mb-6">
-        Device authorization successful. Hi Handy has securely mapped your <strong className="text-[#50C878]">{(session?.user as any)?.tier || "LITE"}</strong> tier.
+        Device authorization successful. Hi Handy has securely mapped your <strong className="text-[#50C878]">{linkedUser.tier || "LITE"}</strong> tier.
       </p>
       <div className="w-full bg-[#010409]/80 border border-white/10 p-4 rounded-sm">
         <p className="font-orbitron text-[10px] text-[#8B949E] tracking-widest uppercase animate-pulse">

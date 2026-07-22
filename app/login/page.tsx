@@ -22,10 +22,26 @@ export default function LoginMatrix() {
     return params.get("callbackUrl") || params.get("returnTo") || "/dashboard";
   };
 
-  const handleOAuthLogin = (provider: string) => {
+  const handleOAuthLogin = async (provider: string) => {
+    if (isConnecting !== null) return;
     setIsConnecting(provider);
     setCommsLog(`[NET] Initiating handshake with ${provider.toUpperCase()} nodes...`);
-    signIn(provider, { callbackUrl: getReturnUrl() });
+    const callbackUrl = getReturnUrl();
+
+    try {
+      // Use an explicit top-level navigation fallback. Some embedded CEF/iframe
+      // surfaces swallow next-auth's client redirect and appear to just refresh.
+      const result = await signIn(provider, { callbackUrl, redirect: false });
+      if (result?.url) {
+        window.location.assign(result.url);
+        return;
+      }
+      window.location.assign(`/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setCommsLog(`!! [ERR] OAuth redirect failed: ${message}`);
+      setIsConnecting(null);
+    }
   };
 
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -50,8 +66,9 @@ export default function LoginMatrix() {
         setIsConnecting("COMPLETE");
         setEmail("");
       }
-    } catch (err: any) {
-      setCommsLog(`!! [FATAL] Teleport fractured: ${err?.message || String(err)}`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setCommsLog(`!! [FATAL] Teleport fractured: ${message}`);
       setIsConnecting(null);
     }
   };
@@ -110,6 +127,11 @@ export default function LoginMatrix() {
                 : "Initiate Magic-Link"}
           </button>
         </form>
+
+        <div className="w-full mb-6 flex flex-col gap-2 text-center font-mono text-[10px] text-[#8B949E] tracking-widest uppercase">
+          <p>New user? Enter your email above and use Magic-Link, or select an OAuth node to create/sync an account.</p>
+          <a href="/signup" className="text-[#50C878] hover:text-[#00BFFF] transition-colors">Open Sign-Up Gateway</a>
+        </div>
 
         <div className="w-full flex items-center justify-between gap-4 mb-8 text-[#8B949E]/50 text-xs font-mono">
           <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-[#8B949E]/20" />
