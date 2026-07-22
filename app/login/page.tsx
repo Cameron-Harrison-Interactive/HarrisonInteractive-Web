@@ -42,14 +42,10 @@ export default function LoginMatrix() {
 
   const startTopLevelOAuth = async (provider: string, callbackUrl: string) => {
     try {
-      const result = await signIn(provider, { callbackUrl, redirect: false });
-      if (result?.error) {
-        setCommsLog(`!! [ERR] OAuth handshake rejected: ${result.error}`);
-        setIsConnecting(null);
-        return;
-      }
-      const targetUrl = result?.url || `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
-      window.location.assign(targetUrl);
+      // In a top-level browser context, let Auth.js perform its normal redirect
+      // flow. redirect:false can still require CSRF state in ways that break
+      // embedded/CEF popup handoffs and can bounce back to the link page.
+      await signIn(provider, { callbackUrl });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       setCommsLog(`!! [ERR] OAuth redirect failed: ${message}`);

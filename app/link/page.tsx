@@ -33,9 +33,9 @@ function DeviceLinkContent() {
   };
 
   const startTopLevelOAuth = async (provider: "github" | "google", callbackUrl: string) => {
-    const result = await signIn(provider, { callbackUrl, redirect: false });
-    const targetUrl = result?.url || `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
-    window.location.assign(targetUrl);
+    // In top-level context, use the standard Auth.js redirect flow so CSRF and
+    // provider state cookies are created/read by the browser normally.
+    await signIn(provider, { callbackUrl });
   };
 
   const openOAuthProvider = (provider: "github" | "google") => {
