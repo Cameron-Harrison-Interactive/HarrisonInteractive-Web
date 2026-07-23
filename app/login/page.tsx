@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 
 /**
@@ -23,7 +23,6 @@ export default function LoginMatrix() {
   const [email, setEmail] = useState("");
   const [isConnecting, setIsConnecting] = useState<string | null>(null);
   const [commsLog, setCommsLog] = useState<string>(initialCommsLog);
-  const autoOAuthStarted = useRef(false);
 
   const getReturnUrl = () => {
     if (typeof window === "undefined") return "/dashboard";
@@ -31,61 +30,22 @@ export default function LoginMatrix() {
     return params.get("callbackUrl") || params.get("returnTo") || "/dashboard";
   };
 
-  const isEmbeddedAuthPanel = () => {
-    if (typeof window === "undefined") return false;
-    try {
-      return window.self !== window.top;
-    } catch {
-      return true;
-    }
-  };
-
-  const startTopLevelOAuth = (provider: string, callbackUrl: string) => {
-    // Use a server-side Auth.js launch route to avoid MissingCSRF in embedded
-    // Unreal CEF/iframe contexts. The server route performs signIn(provider)
-    // and redirects the top-level browser directly to Google/GitHub.
-    window.location.assign(`/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`);
-  };
-
   const handleOAuthLogin = (provider: string) => {
     if (isConnecting !== null) return;
     setIsConnecting(provider);
-    setCommsLog(`[NET] Initiating handshake with ${provider.toUpperCase()} nodes...`);
+    setCommsLog(`[NET] Opening ${provider.toUpperCase()} OAuth gateway...`);
     const callbackUrl = getReturnUrl();
+    const authUrl = `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
 
-    // Do NOT call Auth.js signIn inside an embedded iframe/Unreal CEF panel.
-    // Third-party iframe cookie rules can prevent the CSRF cookie from being
-    // set/read, causing MissingCSRF. Open a top-level login gateway instead.
-    if (isEmbeddedAuthPanel()) {
-      const authUrl = `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
-      setCommsLog(`[NET] Promoting ${provider.toUpperCase()} auth to top-level provider route...`);
-      try {
-        // Avoid popup blockers and avoid the intermediate /login?oauth effect.
-        // Navigate directly to the server-side Auth.js launcher from the user's click.
-        window.top?.location.assign(authUrl);
-      } catch {
-        window.location.assign(authUrl);
-      }
-      return;
+    // Use the server-side Auth.js launcher directly. This avoids MissingCSRF and
+    // iframe/popup blocker issues in Unreal CEF because the user's click becomes
+    // a top-level navigation to the provider route.
+    try {
+      window.top?.location.assign(authUrl);
+    } catch {
+      window.location.assign(authUrl);
     }
-
-    startTopLevelOAuth(provider, callbackUrl);
   };
-
-  useEffect(() => {
-    if (typeof window === "undefined" || autoOAuthStarted.current) return;
-    const params = new URLSearchParams(window.location.search);
-    const provider = params.get("oauth");
-    if (!provider || isEmbeddedAuthPanel()) return;
-    autoOAuthStarted.current = true;
-    const callbackUrl = getReturnUrl();
-    const timer = window.setTimeout(() => {
-      setIsConnecting(provider);
-      setCommsLog(`[NET] Opening ${provider.toUpperCase()} authentication...`);
-      startTopLevelOAuth(provider, callbackUrl);
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, []);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();

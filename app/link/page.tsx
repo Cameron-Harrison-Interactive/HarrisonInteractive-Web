@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState, useEffect, Suspense, useRef } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { SessionProvider, useSession } from "next-auth/react";
 
@@ -21,38 +21,10 @@ function DeviceLinkContent() {
   const [authStatus, setAuthStatus] = useState<"IDLE" | "AUTHORIZING" | "SUCCESS" | "ERROR">("IDLE");
   const [errorMsg, setErrorMsg] = useState("");
   const linkedUser = (session?.user || {}) as HelenaLinkedUser;
-  const autoOAuthStarted = useRef(false);
 
-  const isEmbeddedAuthPanel = () => {
-    if (typeof window === "undefined") return false;
-    try {
-      return window.self !== window.top;
-    } catch {
-      return true;
-    }
-  };
-
-  const startTopLevelOAuth = (provider: "github" | "google", callbackUrl: string) => {
-    // Server-side Auth.js launch route avoids MissingCSRF when H.E.L.E.N.A. is
-    // embedded in Unreal CEF/iframe and then opens a top-level auth gateway.
-    window.location.assign(`/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`);
-  };
-
-  const openOAuthProvider = (provider: "github" | "google") => {
+  const oauthUrl = (provider: "github" | "google") => {
     const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
-    if (isEmbeddedAuthPanel()) {
-      const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
-      const authUrl = `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
-      try {
-        // Avoid popup blockers and skip the intermediate /link?oauth effect.
-        // Go directly to the server-side Auth.js launcher from the user's click.
-        window.top?.location.assign(authUrl);
-      } catch {
-        window.location.assign(authUrl);
-      }
-      return;
-    }
-    startTopLevelOAuth(provider, callbackUrl);
+    return `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
   };
 
   const approveDevice = async (authToken: string, email: string) => {
@@ -88,21 +60,6 @@ function DeviceLinkContent() {
     return undefined;
   }, [token, sessionStatus, authStatus, linkedUser.email]);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || autoOAuthStarted.current || !token) return;
-    if (sessionStatus !== "unauthenticated") return;
-    const params = new URLSearchParams(window.location.search);
-    const provider = params.get("oauth") as "github" | "google" | null;
-    if (provider !== "github" && provider !== "google") return;
-    if (isEmbeddedAuthPanel()) return;
-    autoOAuthStarted.current = true;
-    const callbackUrl = `/link?token=${encodeURIComponent(token)}`;
-    const timer = window.setTimeout(() => {
-      startTopLevelOAuth(provider, callbackUrl);
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, [token, sessionStatus]);
-
   if (!token) {
     return (
       <div className="relative z-10 w-full max-w-md glass-panel clip-angled p-10 border-t-4 border-[#DC143C] shadow-[0_0_30px_rgba(220,20,60,0.15)] flex flex-col items-center mx-4 text-center">
@@ -132,14 +89,14 @@ function DeviceLinkContent() {
           Unreal Engine is requesting an uplink. Please authenticate to approve the connection.
         </p>
         <div className="w-full flex flex-col gap-4">
-          <button type="button" onClick={() => openOAuthProvider("github")} className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
+          <a href={oauthUrl("github")} target="_top" className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#E6EDF3] tracking-widest uppercase font-bold">GitHub Uplink</span>
             <span className="font-mono text-xs text-[#E6EDF3]/50 group-hover:text-[#E6EDF3] transition-colors">[ INIT ]</span>
-          </button>
-          <button type="button" onClick={() => openOAuthProvider("google")} className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
+          </a>
+          <a href={oauthUrl("google")} target="_top" className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#00BFFF] tracking-widest uppercase font-bold">Google Uplink</span>
             <span className="font-mono text-xs text-[#00BFFF]/50 group-hover:text-[#00BFFF] transition-colors">[ INIT ]</span>
-          </button>
+          </a>
         </div>
       </div>
     );
