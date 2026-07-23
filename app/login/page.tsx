@@ -115,6 +115,7 @@ export default function LoginMatrix() {
               required
               placeholder="Email@Network.Node..."
               className="w-full bg-[#00BFFF]/5 border border-[#00BFFF]/30 text-[#E6EDF3] p-4 pt-5 font-mono text-sm outline-none focus:border-[#00BFFF] focus:bg-[#00BFFF]/10 transition-all placeholder:text-[#8B949E]/30 clip-angled disabled:opacity-50"
+              style={{ caretColor: "#00BFFF" }}
             />
           </div>
 

@@ -16,14 +16,33 @@ type HelenaLinkedUser = { tier?: string; email?: string; name?: string };
 function DeviceLinkContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+  const returnTo = searchParams.get("returnTo") || "";
 
   const { data: session, status: sessionStatus } = useSession();
   const [authStatus, setAuthStatus] = useState<"IDLE" | "AUTHORIZING" | "SUCCESS" | "ERROR">("IDLE");
   const [errorMsg, setErrorMsg] = useState("");
   const linkedUser = (session?.user || {}) as HelenaLinkedUser;
 
+  const safeReturnTo = () => {
+    if (!returnTo) return "";
+    try {
+      const url = new URL(returnTo);
+      // Only return to local H.E.L.E.N.A. companion origins or file URLs.
+      if (["127.0.0.1", "localhost"].includes(url.hostname) || url.protocol === "file:") return returnTo;
+    } catch (_err) {
+      if (returnTo.startsWith("file://")) return returnTo;
+    }
+    return "";
+  };
+
+  const notifyHelenaHost = () => {
+    const payload = { type: "HELENA_DEVICE_AUTH_SUCCESS", token, tier: linkedUser.tier || "LITE", email: linkedUser.email || "" };
+    try { window.parent?.postMessage(payload, "*"); } catch (_err) {}
+    try { window.opener?.postMessage(payload, "*"); } catch (_err) {}
+  };
+
   const oauthUrl = (provider: "github" | "google") => {
-    const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
+    const callbackUrl = `/link?token=${encodeURIComponent(token || "")}${returnTo ? `&returnTo=${encodeURIComponent(returnTo)}` : ""}`;
     return `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
   };
 
@@ -59,6 +78,20 @@ function DeviceLinkContent() {
     }
     return undefined;
   }, [token, sessionStatus, authStatus, linkedUser.email]);
+
+  useEffect(() => {
+    if (authStatus !== "SUCCESS") return undefined;
+    notifyHelenaHost();
+    const target = safeReturnTo();
+    const timer = window.setTimeout(() => {
+      if (target) {
+        window.location.assign(target);
+        return;
+      }
+      try { window.close(); } catch (_err) {}
+    }, 1800);
+    return () => window.clearTimeout(timer);
+  }, [authStatus]);
 
   if (!token) {
     return (
@@ -127,10 +160,21 @@ function DeviceLinkContent() {
       <p className="font-mono text-xs text-[#E6EDF3] leading-relaxed mb-6">
         Device authorization successful. Hi Handy has securely mapped your <strong className="text-[#50C878]">{linkedUser.tier || "LITE"}</strong> tier.
       </p>
-      <div className="w-full bg-[#010409]/80 border border-white/10 p-4 rounded-sm">
+      <div className="w-full bg-[#010409]/80 border border-white/10 p-4 rounded-sm flex flex-col gap-3">
         <p className="font-orbitron text-[10px] text-[#8B949E] tracking-widest uppercase animate-pulse">
-          You may now close this tab and return to Unreal Engine.
+          H.E.L.E.N.A. has been notified. Returning to the local panel automatically...
         </p>
+        <div className="grid grid-cols-1 gap-2">
+          {safeReturnTo() ? (
+            <a href={safeReturnTo()} className="clip-angled-button px-4 py-2 border border-[#50C878]/50 text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] font-orbitron text-[10px] font-black tracking-widest uppercase transition-all">
+              Return to H.E.L.E.N.A.
+            </a>
+          ) : (
+            <button type="button" onClick={() => window.close()} className="clip-angled-button px-4 py-2 border border-[#50C878]/50 text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] font-orbitron text-[10px] font-black tracking-widest uppercase transition-all">
+              Close Auth Window
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

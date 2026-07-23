@@ -45,6 +45,31 @@ body {
   background-position: center center;
 }
 
+
+/* =========================================================
+   GLOBAL CARET VISIBILITY
+   The site uses dark panels and embedded H.E.L.E.N.A./CEF surfaces; force a
+   visible local caret on every text-editable control.
+   ========================================================= */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+textarea,
+[contenteditable="true"],
+[contenteditable="plaintext-only"] {
+  caret-color: var(--color-intent-cyan, #00FFFF) !important;
+}
+input:focus,
+textarea:focus,
+[contenteditable="true"]:focus,
+[contenteditable="plaintext-only"]:focus {
+  caret-color: #FFFFFF !important;
+  outline: 1px solid rgba(0, 255, 255, 0.42);
+  outline-offset: 1px;
+}
+::selection {
+  background: rgba(0, 191, 255, 0.35);
+  color: #FFFFFF;
+}
+
 /* =========================================================
    PROPRIETARY UI COMPONENTS
    ========================================================= */
