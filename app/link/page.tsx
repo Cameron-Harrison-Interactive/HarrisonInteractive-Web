@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { SessionProvider, useSession } from "next-auth/react";
 
@@ -23,23 +23,23 @@ function DeviceLinkContent() {
   const [errorMsg, setErrorMsg] = useState("");
   const linkedUser = (session?.user || {}) as HelenaLinkedUser;
 
-  const safeReturnTo = () => {
+  const safeReturnTo = useCallback(() => {
     if (!returnTo) return "";
     try {
       const url = new URL(returnTo);
       // Only return to local H.E.L.E.N.A. companion origins or file URLs.
       if (["127.0.0.1", "localhost"].includes(url.hostname) || url.protocol === "file:") return returnTo;
-    } catch (_err) {
+    } catch {
       if (returnTo.startsWith("file://")) return returnTo;
     }
     return "";
-  };
+  }, [returnTo]);
 
-  const notifyHelenaHost = () => {
+  const notifyHelenaHost = useCallback(() => {
     const payload = { type: "HELENA_DEVICE_AUTH_SUCCESS", token, tier: linkedUser.tier || "LITE", email: linkedUser.email || "" };
-    try { window.parent?.postMessage(payload, "*"); } catch (_err) {}
-    try { window.opener?.postMessage(payload, "*"); } catch (_err) {}
-  };
+    try { window.parent?.postMessage(payload, "*"); } catch {}
+    try { window.opener?.postMessage(payload, "*"); } catch {}
+  }, [token, linkedUser.tier, linkedUser.email]);
 
   const oauthUrl = (provider: "github" | "google") => {
     const callbackUrl = `/link?token=${encodeURIComponent(token || "")}${returnTo ? `&returnTo=${encodeURIComponent(returnTo)}` : ""}`;
@@ -88,10 +88,10 @@ function DeviceLinkContent() {
         window.location.assign(target);
         return;
       }
-      try { window.close(); } catch (_err) {}
+      try { window.close(); } catch {}
     }, 1800);
     return () => window.clearTimeout(timer);
-  }, [authStatus]);
+  }, [authStatus, notifyHelenaHost, safeReturnTo]);
 
   if (!token) {
     return (
