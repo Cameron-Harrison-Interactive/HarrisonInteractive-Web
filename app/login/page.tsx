@@ -57,15 +57,14 @@ export default function LoginMatrix() {
     // Third-party iframe cookie rules can prevent the CSRF cookie from being
     // set/read, causing MissingCSRF. Open a top-level login gateway instead.
     if (isEmbeddedAuthPanel()) {
-      const gatewayUrl = `/login?oauth=${encodeURIComponent(provider)}&callbackUrl=${encodeURIComponent(callbackUrl)}`;
-      setCommsLog(`[NET] Promoting ${provider.toUpperCase()} auth to top-level gateway...`);
+      const authUrl = `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
+      setCommsLog(`[NET] Promoting ${provider.toUpperCase()} auth to top-level provider route...`);
       try {
-        // Avoid popup blockers inside Unreal/CEF iframes. The iframe sandbox allows
-        // top-level navigation by user activation, so use the user's click to lift
-        // OAuth out of the embedded panel instead of window.open().
-        window.top?.location.assign(gatewayUrl);
+        // Avoid popup blockers and avoid the intermediate /login?oauth effect.
+        // Navigate directly to the server-side Auth.js launcher from the user's click.
+        window.top?.location.assign(authUrl);
       } catch {
-        window.location.assign(gatewayUrl);
+        window.location.assign(authUrl);
       }
       return;
     }

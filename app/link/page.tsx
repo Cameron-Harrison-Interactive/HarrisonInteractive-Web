@@ -41,13 +41,14 @@ function DeviceLinkContent() {
   const openOAuthProvider = (provider: "github" | "google") => {
     const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
     if (isEmbeddedAuthPanel()) {
-      const gatewayUrl = `/link?token=${encodeURIComponent(token || "")}&oauth=${provider}`;
+      const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
+      const authUrl = `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
       try {
-        // Avoid popup blockers inside Unreal/CEF iframes. Promote the device-link
-        // OAuth gateway to the top-level WebUI window using the user's click.
-        window.top?.location.assign(gatewayUrl);
+        // Avoid popup blockers and skip the intermediate /link?oauth effect.
+        // Go directly to the server-side Auth.js launcher from the user's click.
+        window.top?.location.assign(authUrl);
       } catch {
-        window.location.assign(gatewayUrl);
+        window.location.assign(authUrl);
       }
       return;
     }
