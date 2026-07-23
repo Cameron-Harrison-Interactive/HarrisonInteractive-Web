@@ -82,16 +82,8 @@ function DeviceLinkContent() {
   useEffect(() => {
     if (authStatus !== "SUCCESS") return undefined;
     notifyHelenaHost();
-    const target = safeReturnTo();
-    const timer = window.setTimeout(() => {
-      if (target) {
-        window.location.assign(target);
-        return;
-      }
-      try { window.close(); } catch {}
-    }, 1800);
-    return () => window.clearTimeout(timer);
-  }, [authStatus, notifyHelenaHost, safeReturnTo]);
+    return undefined;
+  }, [authStatus, notifyHelenaHost]);
 
   if (!token) {
     return (
@@ -162,7 +154,7 @@ function DeviceLinkContent() {
       </p>
       <div className="w-full bg-[#010409]/80 border border-white/10 p-4 rounded-sm flex flex-col gap-3">
         <p className="font-orbitron text-[10px] text-[#8B949E] tracking-widest uppercase animate-pulse">
-          H.E.L.E.N.A. has been notified. Returning to the local panel automatically...
+          H.E.L.E.N.A. has been notified. Wait for Unreal to sync, then return or close this auth window.
         </p>
         <div className="grid grid-cols-1 gap-2">
           {safeReturnTo() ? (
