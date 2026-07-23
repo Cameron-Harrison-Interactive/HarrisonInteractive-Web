@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { SessionProvider, useSession, signIn } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 
 type HelenaLinkedUser = { tier?: string; email?: string; name?: string };
 
@@ -32,10 +32,10 @@ function DeviceLinkContent() {
     }
   };
 
-  const startTopLevelOAuth = async (provider: "github" | "google", callbackUrl: string) => {
-    // In top-level context, use the standard Auth.js redirect flow so CSRF and
-    // provider state cookies are created/read by the browser normally.
-    await signIn(provider, { callbackUrl });
+  const startTopLevelOAuth = (provider: "github" | "google", callbackUrl: string) => {
+    // Server-side Auth.js launch route avoids MissingCSRF when H.E.L.E.N.A. is
+    // embedded in Unreal CEF/iframe and then opens a top-level auth gateway.
+    window.location.assign(`/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`);
   };
 
   const openOAuthProvider = (provider: "github" | "google") => {
@@ -47,7 +47,7 @@ function DeviceLinkContent() {
       window.location.assign(gatewayUrl);
       return;
     }
-    void startTopLevelOAuth(provider, callbackUrl);
+    startTopLevelOAuth(provider, callbackUrl);
   };
 
   const approveDevice = async (authToken: string, email: string) => {
@@ -93,7 +93,7 @@ function DeviceLinkContent() {
     autoOAuthStarted.current = true;
     const callbackUrl = `/link?token=${encodeURIComponent(token)}`;
     const timer = window.setTimeout(() => {
-      void startTopLevelOAuth(provider, callbackUrl);
+      startTopLevelOAuth(provider, callbackUrl);
     }, 0);
     return () => window.clearTimeout(timer);
   }, [token, sessionStatus]);
@@ -127,11 +127,11 @@ function DeviceLinkContent() {
           Unreal Engine is requesting an uplink. Please authenticate to approve the connection.
         </p>
         <div className="w-full flex flex-col gap-4">
-          <button type="button" onClick={() => void openOAuthProvider("github")} className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
+          <button type="button" onClick={() => openOAuthProvider("github")} className="w-full flex items-center justify-between p-4 border border-[#E6EDF3]/20 hover:border-[#E6EDF3]/80 bg-[#E6EDF3]/5 hover:bg-[#E6EDF3]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#E6EDF3] tracking-widest uppercase font-bold">GitHub Uplink</span>
             <span className="font-mono text-xs text-[#E6EDF3]/50 group-hover:text-[#E6EDF3] transition-colors">[ INIT ]</span>
           </button>
-          <button type="button" onClick={() => void openOAuthProvider("google")} className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
+          <button type="button" onClick={() => openOAuthProvider("google")} className="w-full flex items-center justify-between p-4 border border-[#00BFFF]/30 hover:border-[#00BFFF] bg-[#00BFFF]/5 hover:bg-[#00BFFF]/10 transition-all group clip-angled-button cursor-pointer">
             <span className="font-orbitron text-sm text-[#00BFFF] tracking-widest uppercase font-bold">Google Uplink</span>
             <span className="font-mono text-xs text-[#00BFFF]/50 group-hover:text-[#00BFFF] transition-colors">[ INIT ]</span>
           </button>

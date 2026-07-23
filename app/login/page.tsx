@@ -40,17 +40,11 @@ export default function LoginMatrix() {
     }
   };
 
-  const startTopLevelOAuth = async (provider: string, callbackUrl: string) => {
-    try {
-      // In a top-level browser context, let Auth.js perform its normal redirect
-      // flow. redirect:false can still require CSRF state in ways that break
-      // embedded/CEF popup handoffs and can bounce back to the link page.
-      await signIn(provider, { callbackUrl });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err);
-      setCommsLog(`!! [ERR] OAuth redirect failed: ${message}`);
-      setIsConnecting(null);
-    }
+  const startTopLevelOAuth = (provider: string, callbackUrl: string) => {
+    // Use a server-side Auth.js launch route to avoid MissingCSRF in embedded
+    // Unreal CEF/iframe contexts. The server route performs signIn(provider)
+    // and redirects the top-level browser directly to Google/GitHub.
+    window.location.assign(`/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`);
   };
 
   const handleOAuthLogin = (provider: string) => {
@@ -74,7 +68,7 @@ export default function LoginMatrix() {
       return;
     }
 
-    void startTopLevelOAuth(provider, callbackUrl);
+    startTopLevelOAuth(provider, callbackUrl);
   };
 
   useEffect(() => {
@@ -87,7 +81,7 @@ export default function LoginMatrix() {
     const timer = window.setTimeout(() => {
       setIsConnecting(provider);
       setCommsLog(`[NET] Opening ${provider.toUpperCase()} authentication...`);
-      void startTopLevelOAuth(provider, callbackUrl);
+      startTopLevelOAuth(provider, callbackUrl);
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
