@@ -41,6 +41,19 @@ function DeviceLinkContent() {
     try { window.opener?.postMessage(payload, "*"); } catch {}
   }, [token, linkedUser.tier, linkedUser.email]);
 
+  const closeAuthPanel = () => {
+    notifyHelenaHost();
+    const payload = { type: "HELENA_CLOSE_AUTH_PANEL", token };
+    try { window.parent?.postMessage(payload, "*"); } catch {}
+    try { window.opener?.postMessage(payload, "*"); } catch {}
+    const target = safeReturnTo();
+    if (target) {
+      window.location.assign(target);
+      return;
+    }
+    try { window.close(); } catch {}
+  };
+
   const oauthUrl = (provider: "github" | "google") => {
     const callbackUrl = `/link?token=${encodeURIComponent(token || "")}${returnTo ? `&returnTo=${encodeURIComponent(returnTo)}` : ""}`;
     return `/api/oauth/${provider}?redirectTo=${encodeURIComponent(callbackUrl)}`;
@@ -154,18 +167,15 @@ function DeviceLinkContent() {
       </p>
       <div className="w-full bg-[#010409]/80 border border-white/10 p-4 rounded-sm flex flex-col gap-3">
         <p className="font-orbitron text-[10px] text-[#8B949E] tracking-widest uppercase animate-pulse">
-          H.E.L.E.N.A. has been notified. Wait for Unreal to sync, then return or close this auth window.
+          Device approved. Keep this page open for a few seconds while Unreal retrieves the one-time token, then return to H.E.L.E.N.A.
         </p>
         <div className="grid grid-cols-1 gap-2">
-          {safeReturnTo() ? (
-            <a href={safeReturnTo()} className="clip-angled-button px-4 py-2 border border-[#50C878]/50 text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] font-orbitron text-[10px] font-black tracking-widest uppercase transition-all">
-              Return to H.E.L.E.N.A.
-            </a>
-          ) : (
-            <button type="button" onClick={() => window.close()} className="clip-angled-button px-4 py-2 border border-[#50C878]/50 text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] font-orbitron text-[10px] font-black tracking-widest uppercase transition-all">
-              Close Auth Window
-            </button>
-          )}
+          <button type="button" onClick={closeAuthPanel} className="clip-angled-button px-4 py-2 border border-[#50C878]/50 text-[#50C878] hover:bg-[#50C878] hover:text-[#010409] font-orbitron text-[10px] font-black tracking-widest uppercase transition-all">
+            Return / Close Auth Panel
+          </button>
+          <a href="/dashboard" className="clip-angled-button px-4 py-2 border border-[#00BFFF]/40 text-[#00BFFF] hover:bg-[#00BFFF] hover:text-[#010409] font-orbitron text-[10px] font-black tracking-widest uppercase transition-all">
+            Open Account Dashboard
+          </a>
         </div>
       </div>
     </div>
