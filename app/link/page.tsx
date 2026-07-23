@@ -42,9 +42,13 @@ function DeviceLinkContent() {
     const callbackUrl = `/link?token=${encodeURIComponent(token || "")}`;
     if (isEmbeddedAuthPanel()) {
       const gatewayUrl = `/link?token=${encodeURIComponent(token || "")}&oauth=${provider}`;
-      const popup = window.open(gatewayUrl, "_blank", "noopener,noreferrer,width=980,height=820");
-      if (popup) return;
-      window.location.assign(gatewayUrl);
+      try {
+        // Avoid popup blockers inside Unreal/CEF iframes. Promote the device-link
+        // OAuth gateway to the top-level WebUI window using the user's click.
+        window.top?.location.assign(gatewayUrl);
+      } catch {
+        window.location.assign(gatewayUrl);
+      }
       return;
     }
     startTopLevelOAuth(provider, callbackUrl);

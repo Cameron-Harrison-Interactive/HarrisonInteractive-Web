@@ -58,13 +58,15 @@ export default function LoginMatrix() {
     // set/read, causing MissingCSRF. Open a top-level login gateway instead.
     if (isEmbeddedAuthPanel()) {
       const gatewayUrl = `/login?oauth=${encodeURIComponent(provider)}&callbackUrl=${encodeURIComponent(callbackUrl)}`;
-      const popup = window.open(gatewayUrl, "_blank", "noopener,noreferrer,width=980,height=820");
-      if (popup) {
-        setCommsLog(`[NET] ${provider.toUpperCase()} auth opened in secure top-level popup. Complete it, then return to H.E.L.E.N.A.`);
-        return;
+      setCommsLog(`[NET] Promoting ${provider.toUpperCase()} auth to top-level gateway...`);
+      try {
+        // Avoid popup blockers inside Unreal/CEF iframes. The iframe sandbox allows
+        // top-level navigation by user activation, so use the user's click to lift
+        // OAuth out of the embedded panel instead of window.open().
+        window.top?.location.assign(gatewayUrl);
+      } catch {
+        window.location.assign(gatewayUrl);
       }
-      setCommsLog(`[WARN] Popup blocked. Opening ${provider.toUpperCase()} auth in this panel; browser may reject embedded OAuth.`);
-      window.location.assign(gatewayUrl);
       return;
     }
 
